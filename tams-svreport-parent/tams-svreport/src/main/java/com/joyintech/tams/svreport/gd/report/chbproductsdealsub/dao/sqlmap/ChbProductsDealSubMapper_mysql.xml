@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dao.ChbProductsDealSubMapper_mysql" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto" >
+        <id column="REGIST_SEQNO" property="registSeqno" jdbcType="VARCHAR" />
+        <result column="STATUS_BATCH" property="statusBatch" jdbcType="VARCHAR" />
+        <result column="CUST_CONTRACT_NO" property="custContractNo" jdbcType="VARCHAR" />
+        <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="FUND_ACC" property="fundAcc" jdbcType="VARCHAR" />
+        <result column="FIN_ACC" property="finAcc" jdbcType="VARCHAR" />
+        <result column="EQUITY_CONF_DATE" property="equityConfDate" jdbcType="DATE" />
+        <result column="CCY" property="ccy" jdbcType="VARCHAR" />
+        <result column="SHARES" property="shares" jdbcType="DECIMAL" />
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+        <result column="AMOUNT_CNY" property="amountCny" jdbcType="DECIMAL" />
+        <result column="FEE_AMT" property="feeAmt" jdbcType="DECIMAL" />
+        <result column="BUSI_TYPE" property="busiType" jdbcType="VARCHAR" />
+        <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+        <result column="BUSI_SEQNO" property="busiSeqno" jdbcType="VARCHAR" />
+        <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+        <result column="BANK_MARK" property="bankMark" jdbcType="VARCHAR" />
+        <result column="DATE_STATUS" property="dateStatus" jdbcType="DATE" />
+        <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        REGIST_SEQNO REGIST_SEQNO, STATUS_BATCH STATUS_BATCH, CUST_CONTRACT_NO CUST_CONTRACT_NO, 
+        CUST_NAME CUST_NAME, ACCOUNT ACCOUNT, FUND_ACC FUND_ACC, FIN_ACC FIN_ACC, EQUITY_CONF_DATE EQUITY_CONF_DATE, 
+        CCY CCY, SHARES SHARES, AMOUNT AMOUNT, AMOUNT_CNY AMOUNT_CNY, FEE_AMT FEE_AMT, BUSI_TYPE BUSI_TYPE, 
+        CHANNEL CHANNEL, BUSI_SEQNO BUSI_SEQNO, ORG_ID ORG_ID, BANK_MARK BANK_MARK, DATE_STATUS DATE_STATUS, 
+        GROUP_ID GROUP_ID, STATUS STATUS, CREATE_USER CREATE_USER, ORG_CODE ORG_CODE, CREATE_DEPT CREATE_DEPT, 
+        CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dao.ChbProductsDealSubMapper_mysql.Base_Column_List" />
+        from CHB_PRODUCTS_DEAL_SUB
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dao.ChbProductsDealSubMapper_mysql.Base_Column_List" />
+        from CHB_PRODUCTS_DEAL_SUB
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dao.ChbProductsDealSubMapper_mysql.Base_Column_List" />
+        from CHB_PRODUCTS_DEAL_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_PRODUCTS_DEAL_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto" >
+        insert into CHB_PRODUCTS_DEAL_SUB (REGIST_SEQNO, STATUS_BATCH, CUST_CONTRACT_NO, 
+            CUST_NAME, ACCOUNT, FUND_ACC, 
+            FIN_ACC, EQUITY_CONF_DATE, CCY, 
+            SHARES, AMOUNT, AMOUNT_CNY, 
+            FEE_AMT, BUSI_TYPE, CHANNEL, 
+            BUSI_SEQNO, ORG_ID, BANK_MARK, 
+            DATE_STATUS, GROUP_ID, STATUS, 
+            CREATE_USER, ORG_CODE, CREATE_DEPT, 
+            CREATE_TIME, UPDATE_USER, UPDATE_TIME
+            )
+        values (#{registSeqno,jdbcType=VARCHAR}, #{statusBatch,jdbcType=VARCHAR}, #{custContractNo,jdbcType=VARCHAR}, 
+            #{custName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{fundAcc,jdbcType=VARCHAR}, 
+            #{finAcc,jdbcType=VARCHAR}, #{equityConfDate,jdbcType=DATE}, #{ccy,jdbcType=VARCHAR}, 
+            #{shares,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, #{amountCny,jdbcType=DECIMAL}, 
+            #{feeAmt,jdbcType=DECIMAL}, #{busiType,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, 
+            #{busiSeqno,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{bankMark,jdbcType=VARCHAR}, 
+            #{dateStatus,jdbcType=DATE}, #{groupId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+            #{createUser,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, 
+            #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto" >
+        insert into CHB_PRODUCTS_DEAL_SUB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                REGIST_SEQNO,
+            </if>
+            <if test="statusBatch != null" >
+                STATUS_BATCH,
+            </if>
+            <if test="custContractNo != null" >
+                CUST_CONTRACT_NO,
+            </if>
+            <if test="custName != null" >
+                CUST_NAME,
+            </if>
+            <if test="account != null" >
+                ACCOUNT,
+            </if>
+            <if test="fundAcc != null" >
+                FUND_ACC,
+            </if>
+            <if test="finAcc != null" >
+                FIN_ACC,
+            </if>
+            <if test="equityConfDate != null" >
+                EQUITY_CONF_DATE,
+            </if>
+            <if test="ccy != null" >
+                CCY,
+            </if>
+            <if test="shares != null" >
+                SHARES,
+            </if>
+            <if test="amount != null" >
+                AMOUNT,
+            </if>
+            <if test="amountCny != null" >
+                AMOUNT_CNY,
+            </if>
+            <if test="feeAmt != null" >
+                FEE_AMT,
+            </if>
+            <if test="busiType != null" >
+                BUSI_TYPE,
+            </if>
+            <if test="channel != null" >
+                CHANNEL,
+            </if>
+            <if test="busiSeqno != null" >
+                BUSI_SEQNO,
+            </if>
+            <if test="orgId != null" >
+                ORG_ID,
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK,
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS,
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                #{registSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="statusBatch != null" >
+                #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="custContractNo != null" >
+                #{custContractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null" >
+                #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="fundAcc != null" >
+                #{fundAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="finAcc != null" >
+                #{finAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="equityConfDate != null" >
+                #{equityConfDate,jdbcType=DATE},
+            </if>
+            <if test="ccy != null" >
+                #{ccy,jdbcType=VARCHAR},
+            </if>
+            <if test="shares != null" >
+                #{shares,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null" >
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="amountCny != null" >
+                #{amountCny,jdbcType=DECIMAL},
+            </if>
+            <if test="feeAmt != null" >
+                #{feeAmt,jdbcType=DECIMAL},
+            </if>
+            <if test="busiType != null" >
+                #{busiType,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null" >
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="busiSeqno != null" >
+                #{busiSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null" >
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="bankMark != null" >
+                #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto" >
+        insert into CHB_PRODUCTS_DEAL_SUB(REGIST_SEQNO, STATUS_BATCH, CUST_CONTRACT_NO, CUST_NAME, 
+        ACCOUNT, FUND_ACC, FIN_ACC, EQUITY_CONF_DATE, CCY, SHARES, AMOUNT, AMOUNT_CNY, FEE_AMT, 
+        BUSI_TYPE, CHANNEL, BUSI_SEQNO, ORG_ID, BANK_MARK, DATE_STATUS, GROUP_ID, STATUS, 
+        CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+        select REGIST_SEQNO, STATUS_BATCH, CUST_CONTRACT_NO, CUST_NAME, 
+            ACCOUNT, FUND_ACC, FIN_ACC, EQUITY_CONF_DATE, CCY, SHARES, AMOUNT, AMOUNT_CNY, FEE_AMT, 
+            BUSI_TYPE, CHANNEL, BUSI_SEQNO, ORG_ID, BANK_MARK, DATE_STATUS, GROUP_ID, #{status,jdbcType=VARCHAR} STATUS, 
+            CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+             from CHB_PRODUCTS_DEAL_SUB
+             where STATUS = 'E' and REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto" >
+        update CHB_PRODUCTS_DEAL_SUB
+        <set >
+            <if test="statusBatch != null" >
+                STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="custContractNo != null" >
+                CUST_CONTRACT_NO = #{custContractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null" >
+                CUST_NAME = #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                ACCOUNT = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="fundAcc != null" >
+                FUND_ACC = #{fundAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="finAcc != null" >
+                FIN_ACC = #{finAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="equityConfDate != null" >
+                EQUITY_CONF_DATE = #{equityConfDate,jdbcType=DATE},
+            </if>
+            <if test="ccy != null" >
+                CCY = #{ccy,jdbcType=VARCHAR},
+            </if>
+            <if test="shares != null" >
+                SHARES = #{shares,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null" >
+                AMOUNT = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="amountCny != null" >
+                AMOUNT_CNY = #{amountCny,jdbcType=DECIMAL},
+            </if>
+            <if test="feeAmt != null" >
+                FEE_AMT = #{feeAmt,jdbcType=DECIMAL},
+            </if>
+            <if test="busiType != null" >
+                BUSI_TYPE = #{busiType,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null" >
+                CHANNEL = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="busiSeqno != null" >
+                BUSI_SEQNO = #{busiSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null" >
+                ORG_ID = #{orgId,jdbcType=VARCHAR},
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto" >
+        update CHB_PRODUCTS_DEAL_SUB
+        set STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            CUST_CONTRACT_NO = #{custContractNo,jdbcType=VARCHAR},
+            CUST_NAME = #{custName,jdbcType=VARCHAR},
+            ACCOUNT = #{account,jdbcType=VARCHAR},
+            FUND_ACC = #{fundAcc,jdbcType=VARCHAR},
+            FIN_ACC = #{finAcc,jdbcType=VARCHAR},
+            EQUITY_CONF_DATE = #{equityConfDate,jdbcType=DATE},
+            CCY = #{ccy,jdbcType=VARCHAR},
+            SHARES = #{shares,jdbcType=DECIMAL},
+            AMOUNT = #{amount,jdbcType=DECIMAL},
+            AMOUNT_CNY = #{amountCny,jdbcType=DECIMAL},
+            FEE_AMT = #{feeAmt,jdbcType=DECIMAL},
+            BUSI_TYPE = #{busiType,jdbcType=VARCHAR},
+            CHANNEL = #{channel,jdbcType=VARCHAR},
+            BUSI_SEQNO = #{busiSeqno,jdbcType=VARCHAR},
+            ORG_ID = #{orgId,jdbcType=VARCHAR},
+            BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 分页查询   -->
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbproductsdealsub.dto.ChbProductsDealSub001Dto">
+        SELECT
+            T1.REGIST_SEQNO     AS registSeqno,
+            T1.STATUS_BATCH     AS statusBatch,
+            T1.CUST_CONTRACT_NO AS custContractNo,
+            T1.CUST_NAME        AS custName,
+            T1.ACCOUNT          AS account,
+            T1.FUND_ACC         AS fundAcc,
+            T1.FIN_ACC          AS finAcc,
+            T1.EQUITY_CONF_DATE AS equityConfDate,
+            T1.CCY              AS ccy,
+            T1.SHARES           AS shares,
+            T1.AMOUNT           AS amount,
+            T1.AMOUNT_CNY       AS amountCny,
+            T1.FEE_AMT          AS feeAmt,
+            T1.BUSI_TYPE        AS busiType,
+            T1.CHANNEL          AS channel,
+            T1.BUSI_SEQNO       AS busiSeqno,
+            T1.ORG_ID           AS orgId,
+            T1.BANK_MARK        AS bankMark,
+            T1.DATE_STATUS      AS dateStatus,
+            T1.GROUP_ID         AS groupId
+        FROM
+            CHB_PRODUCTS_DEAL_SUB T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.EQUITY_CONF_DATE = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            CHB_PRODUCTS_DEAL_SUB
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and EQUITY_CONF_DATE = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 批导出是否在执行或待执行 -->
+    <select id="getNoendCountByTaskBeanName" parameterType="string" resultType="int">
+		select count(1)
+		from SYS_BATCHGRP_EXEC_INFO info
+				 left join SYS_BATCH_JOB bj
+						   on info.BATCH_SEQ_NO=bj.BATCH_SEQ_NO
+		where
+			bj.TASK_ID=#{taskid,jdbcType=VARCHAR}
+		  and info.STATUS in ('UNR','RUN')
+	</select>
+</mapper>

@@ -1,0 +1,16 @@
+delete from sys_page_element where PAGE_ID='ZG08SpeCounterQuity';
+INSERT INTO sys_page_element
+(PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID)
+VALUES('ZG08SpeCounterQuity', 'ZG08SpeCounterQuity_btn_submit', '01', '01', NULL, '数据检查', 'system', NULL, now(), 'system', now(), 'C', NULL);
+
+INSERT INTO sys_page_element
+(PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID)
+VALUES('ZG08SpeCounterQuity', 'ZG08SpeCounterQuity_btn_manual', '01', '01', NULL, '手工处理', 'system', NULL, now(), 'system', now(), 'C', NULL);
+
+INSERT INTO sys_page_element
+(PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID)
+VALUES('ZG08SpeCounterQuity', 'ZG08SpeCounterQuity_btn_cancelManual', '01', '01', NULL, '取消手工处理', 'system', NULL, now(), 'system', now(), 'C', NULL);
+
+INSERT INTO sys_page_element
+(PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID)
+VALUES('ZG08SpeCounterQuity', 'ZG08SpeCounterQuity_btn_export', '01', '01', NULL, '导出人行excel', 'system', NULL, now(), 'system', now(), 'C', NULL);

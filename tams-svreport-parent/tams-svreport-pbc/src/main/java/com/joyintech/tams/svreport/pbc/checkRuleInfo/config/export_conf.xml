@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="pbc/PbcCheckRuleInfo001.xlsx" name="数据校验规则维护">
+    <Worksheet javaBean="com.joyintech.tams.svreport.pbc.checkRuleInfo.dto.PbcCheckRuleInfo001">
+        <Row>
+            <Cell order="1" name="规则大类">ruleClassifyStr</Cell>
+            <Cell order="2" name="报表名称">tableDataNameStr</Cell>
+            <Cell order="3" name="数据唯一标识">dataId</Cell>
+            <Cell order="4" name="关联报表">relatedTableStr</Cell>
+            <Cell order="5" name="规则编码">ruleId</Cell>
+            <Cell order="6" name="人行要素编码">pbcAssetCode</Cell>
+            <Cell order="7" name="检查字段名称">checkedFieldName</Cell>
+            <Cell order="8" name="规则类型">ruleTypeStr</Cell>
+            <Cell order="9" name="规则标识">ruleIdentifyStr</Cell>
+            <Cell order="10" name="规则详细内容">ruleContent</Cell>
+            <Cell order="11" name="错误信息提示语">rulePrompt</Cell>
+            <Cell order="12" name="是否启用">isstartStr</Cell>
+            <Cell order="13" name="更新时间">updateDataTime</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

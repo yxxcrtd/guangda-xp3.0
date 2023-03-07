@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dao.SvrProductsDealSubInterfMapper">
+    <!-- 检查明细   -->
+    <select id="checkChbEqudet" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+            BUSI_SEQNO
+        FROM
+            CHB_EQUDET
+        WHERE
+            EQUITY_CONF_DATE  =  STR_TO_DATE(#{batchDate},'%Y-%m-%d')
+    </select>
+
+    <!-- 取得数据   -->
+    <select id="getProductsDealSubInterfData" resultType="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dto.SvrProductsDealSubInterfDto">
+        SELECT
+            '1'              AS statusBatch,
+            CUST_CONTRACT_NO AS custContractNo,
+            INDENTIFY_MARK   AS indentifyMark,
+            CUST_NAME        AS custName,
+            ACCOUNT          AS account,
+            FUND_ACC         AS fundAcc,
+            FIN_ACC          AS finAcc,
+            EQUITY_CONF_DATE AS equityConfDate,
+            CCY              AS ccy,
+            SHARES           AS shares,
+            AMOUNT           AS amount,
+            AMOUNT_CNY       AS amountCny,
+            FEE_AMT          AS feeAmt,
+            BUSI_TYPE        AS busiType,
+            CHANNEL          AS channel,
+            BUSI_SEQNO       AS busiSeqno,
+            IS_CONSIGN       AS isConsign,
+            AGENCY_CODE      AS agencyCode,
+            '91110000100011743X' AS bankMark,
+            STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')  AS dateStatus,
+            DATA_SOURCE          AS groupId
+        FROM
+            CHB_EQUDET
+        <where>
+            STATUS != 'D'
+            AND
+            EQUITY_CONF_DATE  =  STR_TO_DATE(#{batchDate},'%Y-%m-%d')
+        </where>
+    </select>
+
+    <!-- 删除 -->
+    <delete id="deleteProductsDealSub" parameterType="java.lang.String">
+        DELETE FROM CHB_PRODUCTS_DEAL_SUB WHERE DATE_FORMAT(ifnull(update_time,create_time), '%Y-%m-%d') = #{batchDate}
+    </delete>
+
+    <insert id="insertProductsDealSub" parameterType="com.joyintech.tams.svreport.gd.report.chbproductsdealsub.dto.SvrProductsDealSubInterfDto">
+        insert into CHB_PRODUCTS_DEAL_SUB (
+            REGIST_SEQNO, STATUS_BATCH, CUST_CONTRACT_NO,
+            CUST_NAME, ACCOUNT, FUND_ACC,
+            FIN_ACC, EQUITY_CONF_DATE, CCY,
+            SHARES, AMOUNT, AMOUNT_CNY,
+            FEE_AMT, BUSI_TYPE, CHANNEL,
+            BUSI_SEQNO, ORG_ID, BANK_MARK,
+            DATE_STATUS, GROUP_ID, STATUS,
+            CREATE_USER, ORG_CODE, CREATE_DEPT,
+            CREATE_TIME, UPDATE_USER, UPDATE_TIME
+            )
+        SELECT
+            A.REGIST_SEQNO,A.STATUS_BATCH,A.CUST_CONTRACT_NO,
+            A.CUST_NAME,A.ACCOUNT,A.FUND_ACC,
+            A.FIN_ACC,A.EQUITY_CONF_DATE,A.CCY,
+            A.SHARES,A.AMOUNT,A.AMOUNT_CNY,
+            A.FEE_AMT,A.BUSI_TYPE,A.CHANNEL,
+            A.BUSI_SEQNO,A.ORG_ID,A.BANK_MARK,
+            A.DATE_STATUS,A.GROUP_ID,A.STATUS,
+            A.CREATE_USER,A.ORG_CODE,A.CREATE_DEPT,
+            A.CREATE_TIME,A.UPDATE_USER,A.UPDATE_TIME
+        FROM (
+        <foreach collection="dataList" index="index" item="item" separator=" UNION ALL ">
+            SELECT
+            #{item.registSeqno,jdbcType=VARCHAR} AS REGIST_SEQNO, #{item.statusBatch,jdbcType=VARCHAR} AS STATUS_BATCH, #{item.custContractNo,jdbcType=VARCHAR} AS CUST_CONTRACT_NO,
+            #{item.custName,jdbcType=VARCHAR} AS CUST_NAME, #{item.account,jdbcType=VARCHAR} AS ACCOUNT, #{item.fundAcc,jdbcType=VARCHAR} AS FUND_ACC,
+            #{item.finAcc,jdbcType=VARCHAR} AS FIN_ACC, #{item.equityConfDate,jdbcType=DATE} AS EQUITY_CONF_DATE, #{item.ccy,jdbcType=VARCHAR} AS CCY,
+            #{item.shares,jdbcType=DECIMAL} AS SHARES, #{item.amount,jdbcType=DECIMAL} AS AMOUNT, #{item.amountCny,jdbcType=DECIMAL} AS AMOUNT_CNY,
+            #{item.feeAmt,jdbcType=DECIMAL} AS FEE_AMT, #{item.busiType,jdbcType=VARCHAR} AS BUSI_TYPE, #{item.channel,jdbcType=VARCHAR} AS CHANNEL,
+            #{item.busiSeqno,jdbcType=VARCHAR} AS BUSI_SEQNO, #{item.orgId,jdbcType=VARCHAR} AS ORG_ID, #{item.bankMark,jdbcType=VARCHAR} AS BANK_MARK,
+            #{item.dateStatus,jdbcType=DATE} AS DATE_STATUS, #{item.groupId,jdbcType=VARCHAR} AS GROUP_ID, #{item.status,jdbcType=VARCHAR} AS STATUS,
+            #{item.createUser,jdbcType=VARCHAR} AS CREATE_USER, #{item.orgCode,jdbcType=VARCHAR} AS ORG_CODE, #{item.createDept,jdbcType=VARCHAR} AS CREATE_DEPT,
+            #{item.createTime,jdbcType=TIMESTAMP} AS CREATE_TIME, #{item.updateUser,jdbcType=VARCHAR} AS UPDATE_USER, #{item.updateTime,jdbcType=TIMESTAMP} AS UPDATE_TIME
+            FROM dual
+        </foreach>
+        ) A
+    </insert>
+</mapper>

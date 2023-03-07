@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodata" >
+        <id column="COUNTER_ID" property="counterId" jdbcType="VARCHAR" />
+        <result column="UUID" property="uuid" jdbcType="VARCHAR" />
+        <result column="COUNTER_TYPE" property="counterType" jdbcType="VARCHAR" />
+        <result column="COUNTER_NAME" property="counterName" jdbcType="VARCHAR" />
+        <result column="COUNTER_TYPE1" property="counterType1" jdbcType="VARCHAR" />
+        <result column="COUNTER_TYPE2" property="counterType2" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs" extends="BaseResultMap" >
+        <result column="ORG_DATA" property="orgData" jdbcType="CLOB" />
+        <result column="ERR_MSG" property="errMsg" jdbcType="CLOB" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        COUNTER_ID COUNTER_ID, UUID UUID, COUNTER_TYPE COUNTER_TYPE, COUNTER_NAME COUNTER_NAME, 
+        COUNTER_TYPE1 COUNTER_TYPE1, COUNTER_TYPE2 COUNTER_TYPE2, STATUS STATUS, CREATE_USER CREATE_USER, 
+        CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME
+    </sql>
+    <sql id="Blob_Column_List" >
+        ORG_DATA, ERR_MSG
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper.Blob_Column_List" />
+        from CHB_MST_COUNTER_PARTY_ERRODATA
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper.Blob_Column_List" />
+        from CHB_MST_COUNTER_PARTY_ERRODATA
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyErrodataMapper.Blob_Column_List" />
+        from CHB_MST_COUNTER_PARTY_ERRODATA
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_MST_COUNTER_PARTY_ERRODATA
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs" >
+        insert into CHB_MST_COUNTER_PARTY_ERRODATA (COUNTER_ID, UUID, COUNTER_TYPE, 
+            COUNTER_NAME, COUNTER_TYPE1, COUNTER_TYPE2, 
+            STATUS, CREATE_USER, CREATE_DEPT, 
+            CREATE_TIME, UPDATE_USER, UPDATE_TIME, 
+            ORG_DATA, ERR_MSG)
+        values (#{counterId,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{counterType,jdbcType=VARCHAR}, 
+            #{counterName,jdbcType=VARCHAR}, #{counterType1,jdbcType=VARCHAR}, #{counterType2,jdbcType=VARCHAR}, 
+            #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, 
+            #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+            #{orgData,jdbcType=CLOB}, #{errMsg,jdbcType=CLOB})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs" >
+        insert into CHB_MST_COUNTER_PARTY_ERRODATA
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="counterId != null" >
+                COUNTER_ID,
+            </if>
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="counterType != null" >
+                COUNTER_TYPE,
+            </if>
+            <if test="counterName != null" >
+                COUNTER_NAME,
+            </if>
+            <if test="counterType1 != null" >
+                COUNTER_TYPE1,
+            </if>
+            <if test="counterType2 != null" >
+                COUNTER_TYPE2,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA,
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="counterId != null" >
+                #{counterId,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType != null" >
+                #{counterType,jdbcType=VARCHAR},
+            </if>
+            <if test="counterName != null" >
+                #{counterName,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType1 != null" >
+                #{counterType1,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType2 != null" >
+                #{counterType2,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orgData != null" >
+                #{orgData,jdbcType=CLOB},
+            </if>
+            <if test="errMsg != null" >
+                #{errMsg,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs" >
+        insert into CHB_MST_COUNTER_PARTY_ERRODATA(COUNTER_ID, UUID, COUNTER_TYPE, COUNTER_NAME, 
+        COUNTER_TYPE1, COUNTER_TYPE2, STATUS, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, 
+        UPDATE_TIME, ORG_DATA, ERR_MSG)
+        select COUNTER_ID, UUID, COUNTER_TYPE, COUNTER_NAME, 
+            COUNTER_TYPE1, COUNTER_TYPE2, #{status,jdbcType=VARCHAR} STATUS, CREATE_USER, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, 
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, ORG_DATA, ERR_MSG
+             from CHB_MST_COUNTER_PARTY_ERRODATA
+             where STATUS = 'E' and COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs" >
+        update CHB_MST_COUNTER_PARTY_ERRODATA
+        <set >
+            <if test="uuid != null" >
+                UUID = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType != null" >
+                COUNTER_TYPE = #{counterType,jdbcType=VARCHAR},
+            </if>
+            <if test="counterName != null" >
+                COUNTER_NAME = #{counterName,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType1 != null" >
+                COUNTER_TYPE1 = #{counterType1,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType2 != null" >
+                COUNTER_TYPE2 = #{counterType2,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA = #{orgData,jdbcType=CLOB},
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG = #{errMsg,jdbcType=CLOB},
+            </if>
+        </set>
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs" >
+        update CHB_MST_COUNTER_PARTY_ERRODATA
+        set UUID = #{uuid,jdbcType=VARCHAR},
+            COUNTER_TYPE = #{counterType,jdbcType=VARCHAR},
+            COUNTER_NAME = #{counterName,jdbcType=VARCHAR},
+            COUNTER_TYPE1 = #{counterType1,jdbcType=VARCHAR},
+            COUNTER_TYPE2 = #{counterType2,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            ORG_DATA = #{orgData,jdbcType=CLOB},
+            ERR_MSG = #{errMsg,jdbcType=CLOB}
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodata" >
+        update CHB_MST_COUNTER_PARTY_ERRODATA
+        set UUID = #{uuid,jdbcType=VARCHAR},
+            COUNTER_TYPE = #{counterType,jdbcType=VARCHAR},
+            COUNTER_NAME = #{counterName,jdbcType=VARCHAR},
+            COUNTER_TYPE1 = #{counterType1,jdbcType=VARCHAR},
+            COUNTER_TYPE2 = #{counterType2,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </update>
+</mapper>

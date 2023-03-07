@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG08DatReportMapper">
+
+	<delete id="deleteBySub">
+		delete from pbc_col_spe_counter_party_sub
+		where SEND_STATUS != '03'
+		<foreach collection="list" item="item" index="index" open="and TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<delete id="deleteByDat">
+		delete from pbc_col_spe_counter_party_DAT
+		where
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into pbc_col_spe_counter_party_sub (
+			DETAILUUID,
+			PBC_PROD_ID,
+			TERMID,
+			ASSET_TYPE,
+			PRRTY_PROD_TYPE,
+			PRRTY_ORG_CODE,
+			PRRTY_PROD_ID,
+			CCY,
+			AMT,
+			AMT_CNY,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PROD_ID,
+			datuuid
+		)
+		<foreach collection="list" item="item" separator="union all">
+			select f_guid(), #{item.pbcProdId,jdbcType=VARCHAR}, #{item.termId,jdbcType=VARCHAR}, #{item.assetType,jdbcType=VARCHAR},#{item.prrtyProdType,jdbcType=VARCHAR},
+			#{item.prrtyOrgCode,jdbcType=VARCHAR},#{item.prrtyProdId,jdbcType=VARCHAR}, #{item.ccy,jdbcType=VARCHAR},#{item.amt,jdbcType=DECIMAL},
+			#{item.amtCny,jdbcType=DECIMAL}, #{item.submitTime,jdbcType=TIMESTAMP}, #{item.pbcSubmitDeadline,jdbcType=TIMESTAMP}, #{item.submitDeadline,jdbcType=TIMESTAMP},
+			#{item.status,jdbcType=VARCHAR}, #{item.sendStatus,jdbcType=VARCHAR}, sysdate,#{item.createUser,jdbcType=VARCHAR},
+			sysdate,#{item.updateUser,jdbcType=VARCHAR}, sysdate, #{item.orgCode,jdbcType=VARCHAR},
+			#{item.deptCode,jdbcType=VARCHAR}, #{item.createDept,jdbcType=VARCHAR}, #{item.prodId,jdbcType=VARCHAR},#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into pbc_col_spe_counter_party_DAT (
+			DETAILUUID,
+			PBC_PROD_ID,
+			TERMID,
+			ASSET_TYPE,
+			PRRTY_PROD_TYPE,
+			PRRTY_ORG_CODE,
+			PRRTY_PROD_ID,
+			CCY,
+			AMT,
+			AMT_CNY,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PROD_ID,
+			datuuid
+		)SELECT
+			DETAILUUID,
+			PBC_PROD_ID,
+			TERMID,
+			ASSET_TYPE,
+			PRRTY_PROD_TYPE,
+			PRRTY_ORG_CODE,
+			PRRTY_PROD_ID,
+			CCY,
+			AMT,
+			AMT_CNY,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PROD_ID,#{uuid,jdbcType=VARCHAR}
+		from pbc_col_spe_counter_party_sub
+		WHERE
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select PBC_PROD_ID,ASSET_TYPE,PRRTY_PROD_TYPE,PRRTY_PROD_ID,TERMID
+		from pbc_col_spe_counter_party_sub
+		where (STATUS = '03' or SEND_STATUS = '03')
+		<foreach collection="keys" item="item" index="index" open="and ( TERMID in(" separator="," close=") )">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+
+	<update id="updatePDatDataStatus" parameterType="java.lang.String">
+		update pbc_col_spe_counter_party_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update pbc_col_spe_counter_party_sub
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<select id="getPListByUUid"  resultType="java.util.Map">
+	 select DETAILUUID,
+		PBC_PROD_ID,
+		TERMID,
+		ASSET_TYPE,
+		PRRTY_PROD_TYPE,
+		PRRTY_ORG_CODE,
+		PRRTY_PROD_ID,
+		CCY,
+		AMT,
+		AMT_CNY,
+		STATUS,
+		SEND_STATUS,
+		CREATE_USER,
+		UPDATE_USER,
+		ORG_CODE,
+		DEPT_CODE,
+		CREATE_DEPT,
+		PROD_ID,
+		CONCAT('产品代码:',PBC_PROD_ID,';资产负债项目:',NVL(ASSET_TYPE,''),';交易对手产品种类:',NVL(PRRTY_PROD_TYPE,''),';交易对手产品代码:',NVL(PRRTY_PROD_ID,''),';统计年月:',TERMID) dataKey
+
+		from pbc_col_spe_counter_party_sub
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY TERMID,PBC_SUBMIT_DEADLINE ASC, UPDATE_TIME DESC,PBC_PROD_ID,ASSET_TYPE,PRRTY_PROD_TYPE,PRRTY_PROD_ID
+	</select>
+
+	<update id="updateUuidSub">
+        update pbc_col_spe_counter_party_sub
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.ChbXbrlbackErrordataMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        <id column="SEQNO" property="seqno" jdbcType="VARCHAR" />
+        <result column="REP_MES_NO" property="repMesNo" jdbcType="VARCHAR" />
+        <result column="SUBMIT_TYPE" property="submitType" jdbcType="VARCHAR" />
+        <result column="SUBMIT_FEEDBACK_STATUS" property="submitFeedbackStatus" jdbcType="VARCHAR" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+        <result column="SUBMIT_FEEDBACK_MSG" property="submitFeedbackMsg" jdbcType="VARCHAR" />
+        <result column="UNIQUE_IDENTI_1" property="uniqueIdenti1" jdbcType="VARCHAR" />
+        <result column="UNIQUE_IDENTI_2" property="uniqueIdenti2" jdbcType="VARCHAR" />
+        <result column="UNIQUE_IDENTI_3" property="uniqueIdenti3" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        SEQNO SEQNO, REP_MES_NO REP_MES_NO, SUBMIT_TYPE SUBMIT_TYPE, SUBMIT_FEEDBACK_STATUS SUBMIT_FEEDBACK_STATUS, 
+        UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME, CREATE_USER CREATE_USER, CREATE_TIME CREATE_TIME, 
+        REPORT_NO REPORT_NO, SUBMIT_FEEDBACK_MSG SUBMIT_FEEDBACK_MSG, UNIQUE_IDENTI_1 UNIQUE_IDENTI_1, 
+        UNIQUE_IDENTI_2 UNIQUE_IDENTI_2, UNIQUE_IDENTI_3 UNIQUE_IDENTI_3
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbXbrlbackErrordataMapper.Base_Column_List" />
+        from CHB_XBRLBACK_ERRORDATA
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbXbrlbackErrordataMapper.Base_Column_List" />
+        from CHB_XBRLBACK_ERRORDATA
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbXbrlbackErrordataMapper.Base_Column_List" />
+        from CHB_XBRLBACK_ERRORDATA
+        where SEQNO = #{seqno,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_XBRLBACK_ERRORDATA
+        where SEQNO = #{seqno,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        insert into CHB_XBRLBACK_ERRORDATA (SEQNO, REP_MES_NO, SUBMIT_TYPE, 
+            SUBMIT_FEEDBACK_STATUS, UPDATE_USER, UPDATE_TIME, 
+            CREATE_USER, CREATE_TIME, REPORT_NO, 
+            SUBMIT_FEEDBACK_MSG, UNIQUE_IDENTI_1, UNIQUE_IDENTI_2, 
+            UNIQUE_IDENTI_3)
+        values (#{seqno,jdbcType=VARCHAR}, #{repMesNo,jdbcType=VARCHAR}, #{submitType,jdbcType=VARCHAR}, 
+            #{submitFeedbackStatus,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+            #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{reportNo,jdbcType=VARCHAR}, 
+            #{submitFeedbackMsg,jdbcType=VARCHAR}, #{uniqueIdenti1,jdbcType=VARCHAR}, #{uniqueIdenti2,jdbcType=VARCHAR}, 
+            #{uniqueIdenti3,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        insert into CHB_XBRLBACK_ERRORDATA
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="seqno != null" >
+                SEQNO,
+            </if>
+            <if test="repMesNo != null" >
+                REP_MES_NO,
+            </if>
+            <if test="submitType != null" >
+                SUBMIT_TYPE,
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                SUBMIT_FEEDBACK_STATUS,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="reportNo != null" >
+                REPORT_NO,
+            </if>
+            <if test="submitFeedbackMsg != null" >
+                SUBMIT_FEEDBACK_MSG,
+            </if>
+            <if test="uniqueIdenti1 != null" >
+                UNIQUE_IDENTI_1,
+            </if>
+            <if test="uniqueIdenti2 != null" >
+                UNIQUE_IDENTI_2,
+            </if>
+            <if test="uniqueIdenti3 != null" >
+                UNIQUE_IDENTI_3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="seqno != null" >
+                #{seqno,jdbcType=VARCHAR},
+            </if>
+            <if test="repMesNo != null" >
+                #{repMesNo,jdbcType=VARCHAR},
+            </if>
+            <if test="submitType != null" >
+                #{submitType,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                #{submitFeedbackStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reportNo != null" >
+                #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackMsg != null" >
+                #{submitFeedbackMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueIdenti1 != null" >
+                #{uniqueIdenti1,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueIdenti2 != null" >
+                #{uniqueIdenti2,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueIdenti3 != null" >
+                #{uniqueIdenti3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        insert into CHB_XBRLBACK_ERRORDATA(SEQNO, REP_MES_NO, SUBMIT_TYPE, SUBMIT_FEEDBACK_STATUS, 
+        UPDATE_USER, UPDATE_TIME, CREATE_USER, CREATE_TIME, REPORT_NO, SUBMIT_FEEDBACK_MSG, 
+        UNIQUE_IDENTI_1, UNIQUE_IDENTI_2, UNIQUE_IDENTI_3)
+        select SEQNO, REP_MES_NO, SUBMIT_TYPE, SUBMIT_FEEDBACK_STATUS, 
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, CREATE_USER, CREATE_TIME, REPORT_NO, SUBMIT_FEEDBACK_MSG, 
+            UNIQUE_IDENTI_1, UNIQUE_IDENTI_2, UNIQUE_IDENTI_3
+             from CHB_XBRLBACK_ERRORDATA
+             where 1 = 1 and SEQNO = #{seqno,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        update CHB_XBRLBACK_ERRORDATA
+        <set >
+            <if test="repMesNo != null" >
+                REP_MES_NO = #{repMesNo,jdbcType=VARCHAR},
+            </if>
+            <if test="submitType != null" >
+                SUBMIT_TYPE = #{submitType,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                SUBMIT_FEEDBACK_STATUS = #{submitFeedbackStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reportNo != null" >
+                REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackMsg != null" >
+                SUBMIT_FEEDBACK_MSG = #{submitFeedbackMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueIdenti1 != null" >
+                UNIQUE_IDENTI_1 = #{uniqueIdenti1,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueIdenti2 != null" >
+                UNIQUE_IDENTI_2 = #{uniqueIdenti2,jdbcType=VARCHAR},
+            </if>
+            <if test="uniqueIdenti3 != null" >
+                UNIQUE_IDENTI_3 = #{uniqueIdenti3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where SEQNO = #{seqno,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        update CHB_XBRLBACK_ERRORDATA
+        set REP_MES_NO = #{repMesNo,jdbcType=VARCHAR},
+            SUBMIT_TYPE = #{submitType,jdbcType=VARCHAR},
+            SUBMIT_FEEDBACK_STATUS = #{submitFeedbackStatus,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            REPORT_NO = #{reportNo,jdbcType=VARCHAR},
+            SUBMIT_FEEDBACK_MSG = #{submitFeedbackMsg,jdbcType=VARCHAR},
+            UNIQUE_IDENTI_1 = #{uniqueIdenti1,jdbcType=VARCHAR},
+            UNIQUE_IDENTI_2 = #{uniqueIdenti2,jdbcType=VARCHAR},
+            UNIQUE_IDENTI_3 = #{uniqueIdenti3,jdbcType=VARCHAR}
+        where SEQNO = #{seqno,jdbcType=VARCHAR}
+    </update>
+</mapper>

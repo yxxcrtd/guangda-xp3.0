@@ -1,0 +1,1678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dao.ZG05PbcColPrdAssetDebtMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dto.ZG05PbcColPrdAssetDebtDto" >
+        <result column="REPORTUUID" property="reportuuid" jdbcType="CHAR" />
+        <result column="TERMID" property="termid" jdbcType="VARCHAR" />
+        <result column="REPORTTYPE" property="reporttype" jdbcType="VARCHAR" />
+        <result column="STARTDATE" property="startdate" jdbcType="DATE" />
+        <result column="ENDDATE" property="enddate" jdbcType="DATE" />
+        <result column="ISSUE_PARTY_ID" property="issuePartyId" jdbcType="VARCHAR" />
+        <result column="ISSUE_PARTY_NAME" property="issuePartyName" jdbcType="VARCHAR" />
+        <result column="REPORT_DATE" property="reportDate" jdbcType="DATE" />
+        <result column="SUBMIT_TIME" property="submitTime" jdbcType="DATE" />
+        <result column="PBC_SUBMIT_DEADLINE" property="pbcSubmitDeadline" jdbcType="DATE" />
+        <result column="SUBMIT_DEADLINE" property="submitDeadline" jdbcType="DATE" />
+        <result column="SUBMIT_FEEDBACK_STATUS" property="submitFeedbackStatus" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="SEND_STATUS" property="sendStatus" jdbcType="VARCHAR" />
+        <result column="STATUS_DATE" property="statusDate" jdbcType="DATE" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="PBC_PROD_ID" property="pbcProdId" jdbcType="VARCHAR" />
+        <result column="PROD_ID" property="prodId" jdbcType="VARCHAR" />
+        <result column="A0000" property="a0000" jdbcType="DECIMAL" />
+        <result column="A1000" property="a1000" jdbcType="DECIMAL" />
+        <result column="A2000" property="a2000" jdbcType="DECIMAL" />
+        <result column="A2100" property="a2100" jdbcType="DECIMAL" />
+        <result column="A2110" property="a2110" jdbcType="DECIMAL" />
+        <result column="A2120" property="a2120" jdbcType="DECIMAL" />
+        <result column="A2200" property="a2200" jdbcType="DECIMAL" />
+        <result column="A2210" property="a2210" jdbcType="DECIMAL" />
+        <result column="A2220" property="a2220" jdbcType="DECIMAL" />
+        <result column="A3000" property="a3000" jdbcType="DECIMAL" />
+        <result column="A3100" property="a3100" jdbcType="DECIMAL" />
+        <result column="A3200" property="a3200" jdbcType="DECIMAL" />
+        <result column="A4000" property="a4000" jdbcType="DECIMAL" />
+        <result column="A4100" property="a4100" jdbcType="DECIMAL" />
+        <result column="A4200" property="a4200" jdbcType="DECIMAL" />
+        <result column="A4300" property="a4300" jdbcType="DECIMAL" />
+        <result column="A4400" property="a4400" jdbcType="DECIMAL" />
+        <result column="A4500" property="a4500" jdbcType="DECIMAL" />
+        <result column="A4600" property="a4600" jdbcType="DECIMAL" />
+        <result column="A4700" property="a4700" jdbcType="DECIMAL" />
+        <result column="A4800" property="a4800" jdbcType="DECIMAL" />
+        <result column="A5000" property="a5000" jdbcType="DECIMAL" />
+        <result column="A5100" property="a5100" jdbcType="DECIMAL" />
+        <result column="A5200" property="a5200" jdbcType="DECIMAL" />
+        <result column="A5210" property="a5210" jdbcType="DECIMAL" />
+        <result column="A5220" property="a5220" jdbcType="DECIMAL" />
+        <result column="A5230" property="a5230" jdbcType="DECIMAL" />
+        <result column="A5240" property="a5240" jdbcType="DECIMAL" />
+        <result column="A5250" property="a5250" jdbcType="DECIMAL" />
+        <result column="A5260" property="a5260" jdbcType="DECIMAL" />
+        <result column="A5261" property="a5261" jdbcType="DECIMAL" />
+        <result column="A5270" property="a5270" jdbcType="DECIMAL" />
+        <result column="A5271" property="a5271" jdbcType="DECIMAL" />
+        <result column="A5272" property="a5272" jdbcType="DECIMAL" />
+        <result column="A5273" property="a5273" jdbcType="DECIMAL" />
+        <result column="A5274" property="a5274" jdbcType="DECIMAL" />
+        <result column="A5275" property="a5275" jdbcType="DECIMAL" />
+        <result column="A5276" property="a5276" jdbcType="DECIMAL" />
+        <result column="A5277" property="a5277" jdbcType="DECIMAL" />
+        <result column="A5278" property="a5278" jdbcType="DECIMAL" />
+        <result column="A5279" property="a5279" jdbcType="DECIMAL" />
+        <result column="A527A" property="a527a" jdbcType="DECIMAL" />
+        <result column="A5280" property="a5280" jdbcType="DECIMAL" />
+        <result column="A6000" property="a6000" jdbcType="DECIMAL" />
+        <result column="A6100" property="a6100" jdbcType="DECIMAL" />
+        <result column="A6200" property="a6200" jdbcType="DECIMAL" />
+        <result column="A6300" property="a6300" jdbcType="DECIMAL" />
+        <result column="A6400" property="a6400" jdbcType="DECIMAL" />
+        <result column="A6500" property="a6500" jdbcType="DECIMAL" />
+        <result column="A6600" property="a6600" jdbcType="DECIMAL" />
+        <result column="A6700" property="a6700" jdbcType="DECIMAL" />
+        <result column="A7000" property="a7000" jdbcType="DECIMAL" />
+        <result column="A7100" property="a7100" jdbcType="DECIMAL" />
+        <result column="A7110" property="a7110" jdbcType="DECIMAL" />
+        <result column="A7120" property="a7120" jdbcType="DECIMAL" />
+        <result column="A7200" property="a7200" jdbcType="DECIMAL" />
+        <result column="A7210" property="a7210" jdbcType="DECIMAL" />
+        <result column="A7220" property="a7220" jdbcType="DECIMAL" />
+        <result column="A7230" property="a7230" jdbcType="DECIMAL" />
+        <result column="A7240" property="a7240" jdbcType="DECIMAL" />
+        <result column="A7250" property="a7250" jdbcType="DECIMAL" />
+        <result column="A7260" property="a7260" jdbcType="DECIMAL" />
+        <result column="A7270" property="a7270" jdbcType="DECIMAL" />
+        <result column="A7280" property="a7280" jdbcType="DECIMAL" />
+        <result column="A7290" property="a7290" jdbcType="DECIMAL" />
+        <result column="A72A0" property="a72a0" jdbcType="DECIMAL" />
+        <result column="A7300" property="a7300" jdbcType="DECIMAL" />
+        <result column="A7310" property="a7310" jdbcType="DECIMAL" />
+        <result column="A7320" property="a7320" jdbcType="DECIMAL" />
+        <result column="A7400" property="a7400" jdbcType="DECIMAL" />
+        <result column="A8000" property="a8000" jdbcType="DECIMAL" />
+        <result column="A8100" property="a8100" jdbcType="DECIMAL" />
+        <result column="A8200" property="a8200" jdbcType="DECIMAL" />
+        <result column="A9000" property="a9000" jdbcType="DECIMAL" />
+        <result column="AA000" property="aa000" jdbcType="DECIMAL" />
+        <result column="AB000" property="ab000" jdbcType="DECIMAL" />
+        <result column="AC000" property="ac000" jdbcType="DECIMAL" />
+        <result column="D0000" property="d0000" jdbcType="DECIMAL" />
+        <result column="B0000" property="b0000" jdbcType="DECIMAL" />
+        <result column="B1000" property="b1000" jdbcType="DECIMAL" />
+        <result column="B1100" property="b1100" jdbcType="DECIMAL" />
+        <result column="B1200" property="b1200" jdbcType="DECIMAL" />
+        <result column="B1210" property="b1210" jdbcType="DECIMAL" />
+        <result column="B1220" property="b1220" jdbcType="DECIMAL" />
+        <result column="B1230" property="b1230" jdbcType="DECIMAL" />
+        <result column="B1240" property="b1240" jdbcType="DECIMAL" />
+        <result column="B1250" property="b1250" jdbcType="DECIMAL" />
+        <result column="B1260" property="b1260" jdbcType="DECIMAL" />
+        <result column="B1261" property="b1261" jdbcType="DECIMAL" />
+        <result column="B1270" property="b1270" jdbcType="DECIMAL" />
+        <result column="B1271" property="b1271" jdbcType="DECIMAL" />
+        <result column="B1272" property="b1272" jdbcType="DECIMAL" />
+        <result column="B1273" property="b1273" jdbcType="DECIMAL" />
+        <result column="B1274" property="b1274" jdbcType="DECIMAL" />
+        <result column="B1275" property="b1275" jdbcType="DECIMAL" />
+        <result column="B1276" property="b1276" jdbcType="DECIMAL" />
+        <result column="B1277" property="b1277" jdbcType="DECIMAL" />
+        <result column="B1278" property="b1278" jdbcType="DECIMAL" />
+        <result column="B1279" property="b1279" jdbcType="DECIMAL" />
+        <result column="B127A" property="b127a" jdbcType="DECIMAL" />
+        <result column="B1280" property="b1280" jdbcType="DECIMAL" />
+        <result column="B2000" property="b2000" jdbcType="DECIMAL" />
+        <result column="B3000" property="b3000" jdbcType="DECIMAL" />
+        <result column="B3100" property="b3100" jdbcType="DECIMAL" />
+        <result column="B3200" property="b3200" jdbcType="DECIMAL" />
+        <result column="B4000" property="b4000" jdbcType="DECIMAL" />
+        <result column="B5000" property="b5000" jdbcType="DECIMAL" />
+        <result column="C0000" property="c0000" jdbcType="DECIMAL" />
+        <result column="C1000" property="c1000" jdbcType="DECIMAL" />
+        <result column="C1100" property="c1100" jdbcType="DECIMAL" />
+        <result column="C1110" property="c1110" jdbcType="DECIMAL" />
+        <result column="C1120" property="c1120" jdbcType="DECIMAL" />
+        <result column="C1130" property="c1130" jdbcType="DECIMAL" />
+        <result column="C1140" property="c1140" jdbcType="DECIMAL" />
+        <result column="C1150" property="c1150" jdbcType="DECIMAL" />
+        <result column="C1160" property="c1160" jdbcType="DECIMAL" />
+        <result column="C1170" property="c1170" jdbcType="DECIMAL" />
+        <result column="C1171" property="c1171" jdbcType="DECIMAL" />
+        <result column="C1172" property="c1172" jdbcType="DECIMAL" />
+        <result column="C1173" property="c1173" jdbcType="DECIMAL" />
+        <result column="C1174" property="c1174" jdbcType="DECIMAL" />
+        <result column="C1175" property="c1175" jdbcType="DECIMAL" />
+        <result column="C1176" property="c1176" jdbcType="DECIMAL" />
+        <result column="C1177" property="c1177" jdbcType="DECIMAL" />
+        <result column="C1178" property="c1178" jdbcType="DECIMAL" />
+        <result column="C1179" property="c1179" jdbcType="DECIMAL" />
+        <result column="C117A" property="c117a" jdbcType="DECIMAL" />
+        <result column="C1180" property="c1180" jdbcType="DECIMAL" />
+        <result column="C1200" property="c1200" jdbcType="DECIMAL" />
+        <result column="C1210" property="c1210" jdbcType="DECIMAL" />
+        <result column="C1220" property="c1220" jdbcType="DECIMAL" />
+        <result column="C1230" property="c1230" jdbcType="DECIMAL" />
+        <result column="C1240" property="c1240" jdbcType="DECIMAL" />
+        <result column="C1250" property="c1250" jdbcType="DECIMAL" />
+        <result column="C1260" property="c1260" jdbcType="DECIMAL" />
+        <result column="C1270" property="c1270" jdbcType="DECIMAL" />
+        <result column="C1271" property="c1271" jdbcType="DECIMAL" />
+        <result column="C1272" property="c1272" jdbcType="DECIMAL" />
+        <result column="C1273" property="c1273" jdbcType="DECIMAL" />
+        <result column="C1274" property="c1274" jdbcType="DECIMAL" />
+        <result column="C1275" property="c1275" jdbcType="DECIMAL" />
+        <result column="C1276" property="c1276" jdbcType="DECIMAL" />
+        <result column="C1277" property="c1277" jdbcType="DECIMAL" />
+        <result column="C1278" property="c1278" jdbcType="DECIMAL" />
+        <result column="C1279" property="c1279" jdbcType="DECIMAL" />
+        <result column="C127A" property="c127a" jdbcType="DECIMAL" />
+        <result column="C1280" property="c1280" jdbcType="DECIMAL" />
+        <result column="C3000" property="c3000" jdbcType="DECIMAL" />
+        <result column="C4000" property="c4000" jdbcType="DECIMAL" />
+        <result column="DATUUID" property="datuuid" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    REPORTUUID, TERMID, REPORTTYPE,
+            STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+            ISSUE_PARTY_NAME, REPORT_DATE, SUBMIT_TIME,
+            PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, SUBMIT_FEEDBACK_STATUS,
+            STATUS, SEND_STATUS, STATUS_DATE,
+            CREATE_USER, CREATE_TIME, UPDATE_USER,
+            UPDATE_TIME, ORG_CODE, DEPT_CODE,
+            CREATE_DEPT, nvl(PBC_CODE,PBC_PROD_ID)  PBC_PROD_ID, PROD_ID,CCY,STATUS_TYPE,
+            A0000, A1000, A2000,
+            A2100, A2110, A2120,
+            A2200, A2210, A2220,
+            A3000, A3100, A3200,
+            A4000, A4100, A4200,
+            A4300, A4400, A4500,
+            A4600, A4700, A4800,
+            A5000, A5100, A5200,
+            A5210, A5220, A5230,
+            A5240, A5250, A5260,
+            A5261, A5270, A5271,
+            A5272, A5273, A5274,
+            A5275, A5276, A5277,
+            A5278, A5279, A527A,
+            A5280, A6000, A6100,
+            A6200, A6300, A6400,
+            A6500, A6600, A6700,
+            A7000, A7100, A7110, A7120,
+            A7200, A7210, A7220,
+            A7230, A7240, A7250,
+            A7260, A7270, A7280,
+            A7290, A72A0, A7300,
+            A7310, A7320, A7400,
+            A8000, A8100, A8200,
+            A9000, AA000, AB000,
+            AC000, D0000, B0000,
+            B1000, B1100, B1200,
+            B1210, B1220, B1230,
+            B1240, B1250, B1260,
+            B1261, B1270, B1271,
+            B1272, B1273, B1274,
+            B1275, B1276, B1277,
+            B1278, B1279, B127A,
+            B1280, B2000, B3000,
+            B3100, B3200, B4000,
+            B5000, C0000, C1000,
+            C1100, C1110, C1120,
+            C1130, C1140, C1150,
+            C1160, C1170, C1171,
+            C1172, C1173, C1174,
+            C1175, C1176, C1177,
+            C1178, C1179, C117A,
+            C1180, C1200, C1210,
+            C1220, C1230, C1240,
+            C1250, C1260, C1270,
+            C1271, C1272, C1273,
+            C1274, C1275, C1276,
+            C1277, C1278, C1279,
+            C127A, C1280, C3000,
+            C4000
+  </sql>
+    <select id="searchPage" parameterType="map"  resultType="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dto.ZG05PbcColPrdAssetDebtDto">
+        SELECT
+        REPORTUUID reportuuid, TERMID termid, REPORTTYPE reporttype,
+        STARTDATE startdate, ENDDATE enddate, ISSUE_PARTY_ID issuePartyId,
+        ISSUE_PARTY_NAME issuePartyName, REPORT_DATE reportDate, SUBMIT_TIME submitTime,
+        PBC_SUBMIT_DEADLINE pbcSubmitDeadline, SUBMIT_DEADLINE submitDeadline, SUBMIT_FEEDBACK_STATUS submitFeedbackStatus,
+        STATUS status, SEND_STATUS sendStatus, STATUS_DATE statusDate,
+        CREATE_USER createUser, CREATE_TIME createTime, UPDATE_USER updateUser,
+        UPDATE_TIME updateTime, ORG_CODE orgCode, DEPT_CODE deptCode,
+        CREATE_DEPT createDept, nvl(PBC_CODE,PBC_PROD_ID) pbcProdId,
+        NVL(pbc_code,replace(PBC_PROD_ID,'INS','')) pbcPordIdOut,
+        PROD_ID prodId,CCY ccy,STATUS_TYPE statusType,
+        A0000 a0000, A1000 a1000, A2000 a2000,
+        A2100 a2100, A2110 a2110, A2120 a2120,
+        A2200 a2200, A2210 a2210, A2220 a2220,
+        A3000 a3000, A3100 a3100, A3200 a3200,
+        A4000 a4000, A4100 a4100, A4200 a4200,
+        A4300 a4300, A4400 a4400, A4500 a4500,
+        A4600 a4600, A4700 a4700, A4800 a4800,
+        A5000 a5000, A5100 a5100, A5200 a5200,
+        A5210 a5210, A5220 a5220, A5230 a5230,
+        A5240 a5240, A5250 a5250, A5260 a5260,
+        A5261 a5261, A5270 a5270, A5271 a5271,
+        A5272 a5272, A5273 a5273, A5274 a5274,
+        A5275 a5275, A5276 a5276, A5277 a5277,
+        A5278 a5278, A5279 a5279, A527A a527a,
+        A5280 a5280, A6000 a6000, A6100 a6100,
+        A6200 a6200, A6300 a6300, A6400 a6400,
+        A6500 a6500, A6600 a6600, A6700 a6700,
+        A7000 a7000, A7100 a7100, A7110 a7110, A7120 a7120,
+        A7200 a7200, A7210 a7210, A7220 a7220,
+        A7230 a7230, A7240 a7240, A7250 a7250,
+        A7260 a7260, A7270 a7270, A7280 a7280,
+        A7290 a7290, A72A0 a72a0, A7300 a7300,
+        A7310 a7310, A7320 a7320, A7400 a7400,
+        A8000 a8000, A8100 a8100, A8200 a8200,
+        A9000 a9000, AA000 aa000, AB000 ab000,
+        AC000 ac000, D0000 d0000, B0000 b0000,
+        B1000 b1000, B1100 b1100, B1200 b1200,
+        B1210 b1210, B1220 b1220, B1230 b1230,
+        B1240 b1240, B1250 b1250, B1260 b1260,
+        B1261 b1261, B1270 b1270, B1271 b1271,
+        B1272 b1272, B1273 b1273, B1274 b1274,
+        B1275 b1275, B1276 b1276, B1277 b1277,
+        B1278 b1278, B1279 b1279, B127A b127a,
+        B1280 b1280, B2000 b2000, B3000 b3000,
+        B3100 b3100, B3200 b3200, B4000 b4000,
+        B5000 b5000, C0000 c0000, C1000 c1000,
+        C1100 c1100, C1110 c1110, C1120 c1120,
+        C1130 c1130, C1140 c1140, C1150 c1150,
+        C1160 c1160, C1170 c1170, C1171 c1171,
+        C1172 c1172, C1173 c1173, C1174 c1174,
+        C1175 c1175, C1176 c1176, C1177 c1177,
+        C1178 c1178, C1179 c1179, C117A c117a,
+        C1180 c1180, C1200 c1200, C1210 c1210,
+        C1220 c1220, C1230 c1230, C1240 c1240,
+        C1250 c1250, C1260 c1260, C1270 c1270,
+        C1271 c1271, C1272 c1272, C1273 c1273,
+        C1274 c1274, C1275 c1275, C1276 c1276,
+        C1277 c1277, C1278 c1278, C1279 c1279,
+        C127A c127a, C1280 c1280, C3000 c3000,
+        C4000 c4000, DATUUID datuuid
+        FROM ZG05_PBC_COL_REPORT  report
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=report.PROD_ID
+        <where>
+            <if test="pbcProdIdList != null and pbcProdIdList.size > 0">
+                <foreach collection="pbcProdIdList" item="items" open="and nvl(PBC_CODE,replace(PBC_PROD_ID,'INS','')) in (" separator=","
+                         close=")">
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="registList != null and registList.size > 0">
+                <foreach collection="registList" item="items" open="and REPORTUUID in (" separator="," close =")">
+                    <if test="(index % 999) == 998">
+                        null) OR REPORTUUID in (
+                    </if>
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="prodIdList != null and prodIdList.size > 0">
+                <foreach collection="prodIdList" item="items" open="and  report.PROD_ID in (" separator="," close=")">
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusTypeList != null and statusTypeList.size()&gt;0">
+                <foreach close=")" collection="statusTypeList" item="item" open="and report.STATUS_TYPE in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size()&gt;0">
+                <foreach close=")" collection="sendStatusList" item="item" open="and report.SEND_STATUS in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="ccyList != null and ccyList.size()&gt;0">
+                <foreach close=")" collection="ccyList" item="item" open="and report.CCY in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &gt;= #{statusDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &lt;= #{statusDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &gt;= #{submitTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &lt;= #{submitTimeEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineStart != null and submitDeadLineStart != ''">
+                AND to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &gt;= #{submitDeadLineStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineEnd != null and submitDeadLineEnd != ''">
+                and to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &lt;= #{submitDeadLineEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="termId != null and termId != ''">
+                and report.TERMID = #{termId}
+            </if>
+        </where>
+        ORDER BY   TERMID,PROD_ID,STATUS_TYPE
+    </select>
+    <select id="searchExport" parameterType="map"  resultType="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dto.ZG05PbcColPrdAssetDebtDto">
+        SELECT
+        REPORTUUID reportuuid, TERMID termid, REPORTTYPE reporttype,
+        STARTDATE startdate, ENDDATE enddate, ISSUE_PARTY_ID issuePartyId,
+        ISSUE_PARTY_NAME issuePartyName, REPORT_DATE reportDate, SUBMIT_TIME submitTime,
+        PBC_SUBMIT_DEADLINE pbcSubmitDeadline, SUBMIT_DEADLINE submitDeadline, SUBMIT_FEEDBACK_STATUS submitFeedbackStatus,
+        STATUS status, SEND_STATUS sendStatus, STATUS_DATE statusDate,
+        CREATE_USER createUser, CREATE_TIME createTime, UPDATE_USER updateUser,
+        UPDATE_TIME updateTime, ORG_CODE orgCode, DEPT_CODE deptCode,
+        CREATE_DEPT createDept, nvl(PBC_CODE,PBC_PROD_ID) pbcProdId, PROD_ID prodId,CCY ccy,STATUS_TYPE statusType,
+        A0000 a0000, A1000 a1000, A2000 a2000,
+        A2100 a2100, A2110 a2110, A2120 a2120,
+        A2200 a2200, A2210 a2210, A2220 a2220,
+        A3000 a3000, A3100 a3100, A3200 a3200,
+        A4000 a4000, A4100 a4100, A4200 a4200,
+        A4300 a4300, A4400 a4400, A4500 a4500,
+        A4600 a4600, A4700 a4700, A4800 a4800,
+        A5000 a5000, A5100 a5100, A5200 a5200,
+        A5210 a5210, A5220 a5220, A5230 a5230,
+        A5240 a5240, A5250 a5250, A5260 a5260,
+        A5261 a5261, A5270 a5270, A5271 a5271,
+        A5272 a5272, A5273 a5273, A5274 a5274,
+        A5275 a5275, A5276 a5276, A5277 a5277,
+        A5278 a5278, A5279 a5279, A527A a527a,
+        A5280 a5280, A6000 a6000, A6100 a6100,
+        A6200 a6200, A6300 a6300, A6400 a6400,
+        A6500 a6500, A6600 a6600, A6700 a6700,
+        A7000 a7000, A7100 a7100, A7110 a7110, A7120 a7120,
+        A7200 a7200, A7210 a7210, A7220 a7220,
+        A7230 a7230, A7240 a7240, A7250 a7250,
+        A7260 a7260, A7270 a7270, A7280 a7280,
+        A7290 a7290, A72A0 a72a0, A7300 a7300,
+        A7310 a7310, A7320 a7320, A7400 a7400,
+        A8000 a8000, A8100 a8100, A8200 a8200,
+        A9000 a9000, AA000 aa000, AB000 ab000,
+        AC000 ac000, D0000 d0000, B0000 b0000,
+        B1000 b1000, B1100 b1100, B1200 b1200,
+        B1210 b1210, B1220 b1220, B1230 b1230,
+        B1240 b1240, B1250 b1250, B1260 b1260,
+        B1261 b1261, B1270 b1270, B1271 b1271,
+        B1272 b1272, B1273 b1273, B1274 b1274,
+        B1275 b1275, B1276 b1276, B1277 b1277,
+        B1278 b1278, B1279 b1279, B127A b127a,
+        B1280 b1280, B2000 b2000, B3000 b3000,
+        B3100 b3100, B3200 b3200, B4000 b4000,
+        B5000 b5000, C0000 c0000, C1000 c1000,
+        C1100 c1100, C1110 c1110, C1120 c1120,
+        C1130 c1130, C1140 c1140, C1150 c1150,
+        C1160 c1160, C1170 c1170, C1171 c1171,
+        C1172 c1172, C1173 c1173, C1174 c1174,
+        C1175 c1175, C1176 c1176, C1177 c1177,
+        C1178 c1178, C1179 c1179, C117A c117a,
+        C1180 c1180, C1200 c1200, C1210 c1210,
+        C1220 c1220, C1230 c1230, C1240 c1240,
+        C1250 c1250, C1260 c1260, C1270 c1270,
+        C1271 c1271, C1272 c1272, C1273 c1273,
+        C1274 c1274, C1275 c1275, C1276 c1276,
+        C1277 c1277, C1278 c1278, C1279 c1279,
+        C127A c127a, C1280 c1280, C3000 c3000,
+        C4000 c4000, DATUUID datuuid
+        FROM ZG05_PBC_COL_REPORT  report
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=report.PROD_ID
+        <where>
+            report.SEND_STATUS='01'
+            <if test="pbcProdIdList != null and pbcProdIdList.size > 0">
+                <foreach collection="pbcProdIdList" item="items" open="and nvl(PBC_CODE,replace(PBC_PROD_ID,'INS','')) in (" separator=","
+                         close=")">
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="prodIdList != null and prodIdList.size > 0">
+                <foreach collection="prodIdList" item="items" open="and  report.PROD_ID in (" separator="," close=")">
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusTypeList != null and statusTypeList.size()&gt;0">
+                <foreach close=")" collection="statusTypeList" item="item" open="and report.STATUS_TYPE in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size()&gt;0">
+                <foreach close=")" collection="sendStatusList" item="item" open="and report.SEND_STATUS in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="ccyList != null and ccyList.size()&gt;0">
+                <foreach close=")" collection="ccyList" item="item" open="and report.CCY in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &gt;= #{statusDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &lt;= #{statusDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &gt;= #{submitTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &lt;= #{submitTimeEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineStart != null and submitDeadLineStart != ''">
+                AND to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &gt;= #{submitDeadLineStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineEnd != null and submitDeadLineEnd != ''">
+                and to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &lt;= #{submitDeadLineEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="termId != null and termId != ''">
+                and report.TERMID = #{termId}
+            </if>
+        </where>
+        ORDER BY   TERMID,PROD_ID,STATUS_TYPE
+    </select>
+
+
+
+    <delete id="deleteByTermId" parameterType="java.lang.String">
+        delete from ZG05_PBC_COL_REPORT where send_status='01' and TERMID=#{termId}
+    </delete>
+
+    <select id="selectCountByTermId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from ZG05_PBC_COL_REPORT where send_status !='01' and TERMID=#{termId}
+    </select>
+
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dto.PbcColReport">
+        insert into PBC_REPORT (REPORTUUID, TERMID, REPORTTYPE,
+                                STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+                                ISSUE_PARTY_NAME, REPORTFREQU, REPORT_ORG_NAME,
+                                SOCIAL_CREDIT_CODE, FIN_INSTITUTION_CODE, PROD_VARIETY,
+                                PERSON_LIABLE, CONTACT, REPORT_DATE,
+                                SUBMIT_TIME, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+                                SUBMIT_FEEDBACK_STATUS, STATUS, SEND_STATUS,
+                                STATUS_DATE, CREATE_USER, CREATE_TIME,
+                                UPDATE_USER, UPDATE_TIME, ORG_CODE,
+                                DEPT_CODE, CREATE_DEPT,PBC_PROD_ID,PROD_ID)
+        values (#{reportuuid,jdbcType=CHAR}, #{termid,jdbcType=VARCHAR}, #{reporttype,jdbcType=VARCHAR},
+                #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, #{issuePartyId,jdbcType=VARCHAR},
+                #{issuePartyName,jdbcType=VARCHAR}, #{reportfrequ,jdbcType=VARCHAR}, #{reportOrgName,jdbcType=VARCHAR},
+                #{socialCreditCode,jdbcType=VARCHAR}, #{finInstitutionCode,jdbcType=VARCHAR},
+                #{prodVariety,jdbcType=VARCHAR},
+                #{personLiable,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{reportDate,jdbcType=TIMESTAMP},
+                #{submitTime,jdbcType=TIMESTAMP}, #{pbcSubmitDeadline,jdbcType=TIMESTAMP},
+                #{submitDeadline,jdbcType=TIMESTAMP},
+                #{submitFeedbackStatus,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{sendStatus,jdbcType=VARCHAR},
+                #{statusDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, sysdate,
+                #{updateUser,jdbcType=VARCHAR}, sysdate, #{orgCode,jdbcType=VARCHAR},
+                #{deptCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR},#{pbcProdId,jdbcType=VARCHAR},
+                #{prodid,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertColBalance" parameterType="com.joyintech.tams.svreport.pbc.assetdebt.dto.PbcReportAssetDebtDetailDto" >
+    insert into PBC_COL_REPORT_BALANCE (DETAILUUID,
+      PROPERTYCODE, CNY, USD_TO_CNY,
+      EUR_TO_CNY, GBP_TO_CNY, JPY_TO_CNY,
+      OTH_TO_CNY, TOTAL, REPORTUUID
+      )
+    values (#{detailuuid,jdbcType=CHAR},
+      #{propertycode,jdbcType=VARCHAR}, #{cny,jdbcType=DECIMAL}, #{usdToCny,jdbcType=DECIMAL},
+      #{eurToCny,jdbcType=DECIMAL}, #{gbpToCny,jdbcType=DECIMAL}, #{jpyToCny,jdbcType=DECIMAL},
+      #{othToCny,jdbcType=DECIMAL}, #{total,jdbcType=DECIMAL}, #{reportuuid,jdbcType=CHAR}
+      )
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dto.ZG05PbcColPrdAssetDebtDto" >
+        insert into ZG05_PBC_COL_REPORT
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="reportuuid != null" >
+                REPORTUUID,
+            </if>
+            <if test="termid != null" >
+                TERMID,
+            </if>
+            <if test="reporttype != null" >
+                REPORTTYPE,
+            </if>
+            <if test="startdate != null" >
+                STARTDATE,
+            </if>
+            <if test="enddate != null" >
+                ENDDATE,
+            </if>
+            <if test="issuePartyId != null" >
+                ISSUE_PARTY_ID,
+            </if>
+            <if test="issuePartyName != null" >
+                ISSUE_PARTY_NAME,
+            </if>
+            <if test="reportDate != null" >
+                REPORT_DATE,
+            </if>
+            <if test="submitTime != null" >
+                SUBMIT_TIME,
+            </if>
+            <if test="pbcSubmitDeadline != null" >
+                PBC_SUBMIT_DEADLINE,
+            </if>
+            <if test="submitDeadline != null" >
+                SUBMIT_DEADLINE,
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                SUBMIT_FEEDBACK_STATUS,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="sendStatus != null" >
+                SEND_STATUS,
+            </if>
+            <if test="statusDate != null" >
+                STATUS_DATE,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="deptCode != null" >
+                DEPT_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="pbcProdId != null" >
+                PBC_PROD_ID,
+            </if>
+            <if test="prodId != null" >
+                PROD_ID,
+            </if>
+            <if test="ccy != null" >
+                CCY,
+            </if>
+            <if test="statusType != null" >
+                STATUS_TYPE,
+            </if>
+            <if test="a0000 != null" >
+                A0000,
+            </if>
+            <if test="a1000 != null" >
+                A1000,
+            </if>
+            <if test="a2000 != null" >
+                A2000,
+            </if>
+            <if test="a2100 != null" >
+                A2100,
+            </if>
+            <if test="a2110 != null" >
+                A2110,
+            </if>
+            <if test="a2120 != null" >
+                A2120,
+            </if>
+            <if test="a2200 != null" >
+                A2200,
+            </if>
+            <if test="a2210 != null" >
+                A2210,
+            </if>
+            <if test="a2220 != null" >
+                A2220,
+            </if>
+            <if test="a3000 != null" >
+                A3000,
+            </if>
+            <if test="a3100 != null" >
+                A3100,
+            </if>
+            <if test="a3200 != null" >
+                A3200,
+            </if>
+            <if test="a4000 != null" >
+                A4000,
+            </if>
+            <if test="a4100 != null" >
+                A4100,
+            </if>
+            <if test="a4200 != null" >
+                A4200,
+            </if>
+            <if test="a4300 != null" >
+                A4300,
+            </if>
+            <if test="a4400 != null" >
+                A4400,
+            </if>
+            <if test="a4500 != null" >
+                A4500,
+            </if>
+            <if test="a4600 != null" >
+                A4600,
+            </if>
+            <if test="a4700 != null" >
+                A4700,
+            </if>
+            <if test="a4800 != null" >
+                A4800,
+            </if>
+            <if test="a5000 != null" >
+                A5000,
+            </if>
+            <if test="a5100 != null" >
+                A5100,
+            </if>
+            <if test="a5200 != null" >
+                A5200,
+            </if>
+            <if test="a5210 != null" >
+                A5210,
+            </if>
+            <if test="a5220 != null" >
+                A5220,
+            </if>
+            <if test="a5230 != null" >
+                A5230,
+            </if>
+            <if test="a5240 != null" >
+                A5240,
+            </if>
+            <if test="a5250 != null" >
+                A5250,
+            </if>
+            <if test="a5260 != null" >
+                A5260,
+            </if>
+            <if test="a5261 != null" >
+                A5261,
+            </if>
+            <if test="a5270 != null" >
+                A5270,
+            </if>
+            <if test="a5271 != null" >
+                A5271,
+            </if>
+            <if test="a5272 != null" >
+                A5272,
+            </if>
+            <if test="a5273 != null" >
+                A5273,
+            </if>
+            <if test="a5274 != null" >
+                A5274,
+            </if>
+            <if test="a5275 != null" >
+                A5275,
+            </if>
+            <if test="a5276 != null" >
+                A5276,
+            </if>
+            <if test="a5277 != null" >
+                A5277,
+            </if>
+            <if test="a5278 != null" >
+                A5278,
+            </if>
+            <if test="a5279 != null" >
+                A5279,
+            </if>
+            <if test="a527a != null" >
+                A527A,
+            </if>
+            <if test="a5280 != null" >
+                A5280,
+            </if>
+            <if test="a6000 != null" >
+                A6000,
+            </if>
+            <if test="a6100 != null" >
+                A6100,
+            </if>
+            <if test="a6200 != null" >
+                A6200,
+            </if>
+            <if test="a6300 != null" >
+                A6300,
+            </if>
+            <if test="a6400 != null" >
+                A6400,
+            </if>
+            <if test="a6500 != null" >
+                A6500,
+            </if>
+            <if test="a6600 != null" >
+                A6600,
+            </if>
+            <if test="a6700 != null" >
+                A6700,
+            </if>
+            <if test="a7000 != null" >
+                A7000,
+            </if>
+            <if test="a7100 != null" >
+                A7100,
+            </if>
+            <if test="a7110 != null" >
+                A7110,
+            </if>
+            <if test="a7120 != null" >
+                A7120,
+            </if>
+            <if test="a7200 != null" >
+                A7200,
+            </if>
+            <if test="a7210 != null" >
+                A7210,
+            </if>
+            <if test="a7220 != null" >
+                A7220,
+            </if>
+            <if test="a7230 != null" >
+                A7230,
+            </if>
+            <if test="a7240 != null" >
+                A7240,
+            </if>
+            <if test="a7250 != null" >
+                A7250,
+            </if>
+            <if test="a7260 != null" >
+                A7260,
+            </if>
+            <if test="a7270 != null" >
+                A7270,
+            </if>
+            <if test="a7280 != null" >
+                A7280,
+            </if>
+            <if test="a7290 != null" >
+                A7290,
+            </if>
+            <if test="a72a0 != null" >
+                A72A0,
+            </if>
+            <if test="a7300 != null" >
+                A7300,
+            </if>
+            <if test="a7310 != null" >
+                A7310,
+            </if>
+            <if test="a7320 != null" >
+                A7320,
+            </if>
+            <if test="a7400 != null" >
+                A7400,
+            </if>
+            <if test="a8000 != null" >
+                A8000,
+            </if>
+            <if test="a8100 != null" >
+                A8100,
+            </if>
+            <if test="a8200 != null" >
+                A8200,
+            </if>
+            <if test="a9000 != null" >
+                A9000,
+            </if>
+            <if test="aa000 != null" >
+                AA000,
+            </if>
+            <if test="ab000 != null" >
+                AB000,
+            </if>
+            <if test="ac000 != null" >
+                AC000,
+            </if>
+            <if test="d0000 != null" >
+                D0000,
+            </if>
+            <if test="b0000 != null" >
+                B0000,
+            </if>
+            <if test="b1000 != null" >
+                B1000,
+            </if>
+            <if test="b1100 != null" >
+                B1100,
+            </if>
+            <if test="b1200 != null" >
+                B1200,
+            </if>
+            <if test="b1210 != null" >
+                B1210,
+            </if>
+            <if test="b1220 != null" >
+                B1220,
+            </if>
+            <if test="b1230 != null" >
+                B1230,
+            </if>
+            <if test="b1240 != null" >
+                B1240,
+            </if>
+            <if test="b1250 != null" >
+                B1250,
+            </if>
+            <if test="b1260 != null" >
+                B1260,
+            </if>
+            <if test="b1261 != null" >
+                B1261,
+            </if>
+            <if test="b1270 != null" >
+                B1270,
+            </if>
+            <if test="b1271 != null" >
+                B1271,
+            </if>
+            <if test="b1272 != null" >
+                B1272,
+            </if>
+            <if test="b1273 != null" >
+                B1273,
+            </if>
+            <if test="b1274 != null" >
+                B1274,
+            </if>
+            <if test="b1275 != null" >
+                B1275,
+            </if>
+            <if test="b1276 != null" >
+                B1276,
+            </if>
+            <if test="b1277 != null" >
+                B1277,
+            </if>
+            <if test="b1278 != null" >
+                B1278,
+            </if>
+            <if test="b1279 != null" >
+                B1279,
+            </if>
+            <if test="b127a != null" >
+                B127A,
+            </if>
+            <if test="b1280 != null" >
+                B1280,
+            </if>
+            <if test="b2000 != null" >
+                B2000,
+            </if>
+            <if test="b3000 != null" >
+                B3000,
+            </if>
+            <if test="b3100 != null" >
+                B3100,
+            </if>
+            <if test="b3200 != null" >
+                B3200,
+            </if>
+            <if test="b4000 != null" >
+                B4000,
+            </if>
+            <if test="b5000 != null" >
+                B5000,
+            </if>
+            <if test="c0000 != null" >
+                C0000,
+            </if>
+            <if test="c1000 != null" >
+                C1000,
+            </if>
+            <if test="c1100 != null" >
+                C1100,
+            </if>
+            <if test="c1110 != null" >
+                C1110,
+            </if>
+            <if test="c1120 != null" >
+                C1120,
+            </if>
+            <if test="c1130 != null" >
+                C1130,
+            </if>
+            <if test="c1140 != null" >
+                C1140,
+            </if>
+            <if test="c1150 != null" >
+                C1150,
+            </if>
+            <if test="c1160 != null" >
+                C1160,
+            </if>
+            <if test="c1170 != null" >
+                C1170,
+            </if>
+            <if test="c1171 != null" >
+                C1171,
+            </if>
+            <if test="c1172 != null" >
+                C1172,
+            </if>
+            <if test="c1173 != null" >
+                C1173,
+            </if>
+            <if test="c1174 != null" >
+                C1174,
+            </if>
+            <if test="c1175 != null" >
+                C1175,
+            </if>
+            <if test="c1176 != null" >
+                C1176,
+            </if>
+            <if test="c1177 != null" >
+                C1177,
+            </if>
+            <if test="c1178 != null" >
+                C1178,
+            </if>
+            <if test="c1179 != null" >
+                C1179,
+            </if>
+            <if test="c117a != null" >
+                C117A,
+            </if>
+            <if test="c1180 != null" >
+                C1180,
+            </if>
+            <if test="c1200 != null" >
+                C1200,
+            </if>
+            <if test="c1210 != null" >
+                C1210,
+            </if>
+            <if test="c1220 != null" >
+                C1220,
+            </if>
+            <if test="c1230 != null" >
+                C1230,
+            </if>
+            <if test="c1240 != null" >
+                C1240,
+            </if>
+            <if test="c1250 != null" >
+                C1250,
+            </if>
+            <if test="c1260 != null" >
+                C1260,
+            </if>
+            <if test="c1270 != null" >
+                C1270,
+            </if>
+            <if test="c1271 != null" >
+                C1271,
+            </if>
+            <if test="c1272 != null" >
+                C1272,
+            </if>
+            <if test="c1273 != null" >
+                C1273,
+            </if>
+            <if test="c1274 != null" >
+                C1274,
+            </if>
+            <if test="c1275 != null" >
+                C1275,
+            </if>
+            <if test="c1276 != null" >
+                C1276,
+            </if>
+            <if test="c1277 != null" >
+                C1277,
+            </if>
+            <if test="c1278 != null" >
+                C1278,
+            </if>
+            <if test="c1279 != null" >
+                C1279,
+            </if>
+            <if test="c127a != null" >
+                C127A,
+            </if>
+            <if test="c1280 != null" >
+                C1280,
+            </if>
+            <if test="c3000 != null" >
+                C3000,
+            </if>
+            <if test="c4000 != null" >
+                C4000,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="reportuuid != null" >
+                #{reportuuid,jdbcType=CHAR},
+            </if>
+            <if test="termid != null" >
+                #{termid,jdbcType=VARCHAR},
+            </if>
+            <if test="reporttype != null" >
+                #{reporttype,jdbcType=VARCHAR},
+            </if>
+            <if test="startdate != null" >
+                #{startdate,jdbcType=DATE},
+            </if>
+            <if test="enddate != null" >
+                #{enddate,jdbcType=DATE},
+            </if>
+            <if test="issuePartyId != null" >
+                #{issuePartyId,jdbcType=VARCHAR},
+            </if>
+            <if test="issuePartyName != null" >
+                #{issuePartyName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDate != null" >
+                #{reportDate,jdbcType=DATE},
+            </if>
+            <if test="submitTime != null" >
+                #{submitTime,jdbcType=DATE},
+            </if>
+            <if test="pbcSubmitDeadline != null" >
+                #{pbcSubmitDeadline,jdbcType=DATE},
+            </if>
+            <if test="submitDeadline != null" >
+                #{submitDeadline,jdbcType=DATE},
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                #{submitFeedbackStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="sendStatus != null" >
+                #{sendStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="statusDate != null" >
+                #{statusDate,jdbcType=DATE},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="deptCode != null" >
+                #{deptCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcProdId != null" >
+                #{pbcProdId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null" >
+                #{prodId,jdbcType=VARCHAR},
+            </if>
+            <if test="ccy != null" >
+                #{ccy,jdbcType=VARCHAR},
+            </if>
+            <if test="statusType != null" >
+                #{statusType,jdbcType=VARCHAR},
+            </if>
+            <if test="a0000 != null" >
+                #{a0000,jdbcType=DECIMAL},
+            </if>
+            <if test="a1000 != null" >
+                #{a1000,jdbcType=DECIMAL},
+            </if>
+            <if test="a2000 != null" >
+                #{a2000,jdbcType=DECIMAL},
+            </if>
+            <if test="a2100 != null" >
+                #{a2100,jdbcType=DECIMAL},
+            </if>
+            <if test="a2110 != null" >
+                #{a2110,jdbcType=DECIMAL},
+            </if>
+            <if test="a2120 != null" >
+                #{a2120,jdbcType=DECIMAL},
+            </if>
+            <if test="a2200 != null" >
+                #{a2200,jdbcType=DECIMAL},
+            </if>
+            <if test="a2210 != null" >
+                #{a2210,jdbcType=DECIMAL},
+            </if>
+            <if test="a2220 != null" >
+                #{a2220,jdbcType=DECIMAL},
+            </if>
+            <if test="a3000 != null" >
+                #{a3000,jdbcType=DECIMAL},
+            </if>
+            <if test="a3100 != null" >
+                #{a3100,jdbcType=DECIMAL},
+            </if>
+            <if test="a3200 != null" >
+                #{a3200,jdbcType=DECIMAL},
+            </if>
+            <if test="a4000 != null" >
+                #{a4000,jdbcType=DECIMAL},
+            </if>
+            <if test="a4100 != null" >
+                #{a4100,jdbcType=DECIMAL},
+            </if>
+            <if test="a4200 != null" >
+                #{a4200,jdbcType=DECIMAL},
+            </if>
+            <if test="a4300 != null" >
+                #{a4300,jdbcType=DECIMAL},
+            </if>
+            <if test="a4400 != null" >
+                #{a4400,jdbcType=DECIMAL},
+            </if>
+            <if test="a4500 != null" >
+                #{a4500,jdbcType=DECIMAL},
+            </if>
+            <if test="a4600 != null" >
+                #{a4600,jdbcType=DECIMAL},
+            </if>
+            <if test="a4700 != null" >
+                #{a4700,jdbcType=DECIMAL},
+            </if>
+            <if test="a4800 != null" >
+                #{a4800,jdbcType=DECIMAL},
+            </if>
+            <if test="a5000 != null" >
+                #{a5000,jdbcType=DECIMAL},
+            </if>
+            <if test="a5100 != null" >
+                #{a5100,jdbcType=DECIMAL},
+            </if>
+            <if test="a5200 != null" >
+                #{a5200,jdbcType=DECIMAL},
+            </if>
+            <if test="a5210 != null" >
+                #{a5210,jdbcType=DECIMAL},
+            </if>
+            <if test="a5220 != null" >
+                #{a5220,jdbcType=DECIMAL},
+            </if>
+            <if test="a5230 != null" >
+                #{a5230,jdbcType=DECIMAL},
+            </if>
+            <if test="a5240 != null" >
+                #{a5240,jdbcType=DECIMAL},
+            </if>
+            <if test="a5250 != null" >
+                #{a5250,jdbcType=DECIMAL},
+            </if>
+            <if test="a5260 != null" >
+                #{a5260,jdbcType=DECIMAL},
+            </if>
+            <if test="a5261 != null" >
+                #{a5261,jdbcType=DECIMAL},
+            </if>
+            <if test="a5270 != null" >
+                #{a5270,jdbcType=DECIMAL},
+            </if>
+            <if test="a5271 != null" >
+                #{a5271,jdbcType=DECIMAL},
+            </if>
+            <if test="a5272 != null" >
+                #{a5272,jdbcType=DECIMAL},
+            </if>
+            <if test="a5273 != null" >
+                #{a5273,jdbcType=DECIMAL},
+            </if>
+            <if test="a5274 != null" >
+                #{a5274,jdbcType=DECIMAL},
+            </if>
+            <if test="a5275 != null" >
+                #{a5275,jdbcType=DECIMAL},
+            </if>
+            <if test="a5276 != null" >
+                #{a5276,jdbcType=DECIMAL},
+            </if>
+            <if test="a5277 != null" >
+                #{a5277,jdbcType=DECIMAL},
+            </if>
+            <if test="a5278 != null" >
+                #{a5278,jdbcType=DECIMAL},
+            </if>
+            <if test="a5279 != null" >
+                #{a5279,jdbcType=DECIMAL},
+            </if>
+            <if test="a527a != null" >
+                #{a527a,jdbcType=DECIMAL},
+            </if>
+            <if test="a5280 != null" >
+                #{a5280,jdbcType=DECIMAL},
+            </if>
+            <if test="a6000 != null" >
+                #{a6000,jdbcType=DECIMAL},
+            </if>
+            <if test="a6100 != null" >
+                #{a6100,jdbcType=DECIMAL},
+            </if>
+            <if test="a6200 != null" >
+                #{a6200,jdbcType=DECIMAL},
+            </if>
+            <if test="a6300 != null" >
+                #{a6300,jdbcType=DECIMAL},
+            </if>
+            <if test="a6400 != null" >
+                #{a6400,jdbcType=DECIMAL},
+            </if>
+            <if test="a6500 != null" >
+                #{a6500,jdbcType=DECIMAL},
+            </if>
+            <if test="a6600 != null" >
+                #{a6600,jdbcType=DECIMAL},
+            </if>
+            <if test="a6700 != null" >
+                #{a6700,jdbcType=DECIMAL},
+            </if>
+            <if test="a7000 != null" >
+                #{a7000,jdbcType=DECIMAL},
+            </if>
+            <if test="a7100 != null" >
+                #{a7100,jdbcType=DECIMAL},
+            </if>
+            <if test="a7110 != null" >
+                #{a7110,jdbcType=DECIMAL},
+            </if>
+            <if test="a7120 != null" >
+                #{a7120,jdbcType=DECIMAL},
+            </if>
+            <if test="a7200 != null" >
+                #{a7200,jdbcType=DECIMAL},
+            </if>
+            <if test="a7210 != null" >
+                #{a7210,jdbcType=DECIMAL},
+            </if>
+            <if test="a7220 != null" >
+                #{a7220,jdbcType=DECIMAL},
+            </if>
+            <if test="a7230 != null" >
+                #{a7230,jdbcType=DECIMAL},
+            </if>
+            <if test="a7240 != null" >
+                #{a7240,jdbcType=DECIMAL},
+            </if>
+            <if test="a7250 != null" >
+                #{a7250,jdbcType=DECIMAL},
+            </if>
+            <if test="a7260 != null" >
+                #{a7260,jdbcType=DECIMAL},
+            </if>
+            <if test="a7270 != null" >
+                #{a7270,jdbcType=DECIMAL},
+            </if>
+            <if test="a7280 != null" >
+                #{a7280,jdbcType=DECIMAL},
+            </if>
+            <if test="a7290 != null" >
+                #{a7290,jdbcType=DECIMAL},
+            </if>
+            <if test="a72a0 != null" >
+                #{a72a0,jdbcType=DECIMAL},
+            </if>
+            <if test="a7300 != null" >
+                #{a7300,jdbcType=DECIMAL},
+            </if>
+            <if test="a7310 != null" >
+                #{a7310,jdbcType=DECIMAL},
+            </if>
+            <if test="a7320 != null" >
+                #{a7320,jdbcType=DECIMAL},
+            </if>
+            <if test="a7400 != null" >
+                #{a7400,jdbcType=DECIMAL},
+            </if>
+            <if test="a8000 != null" >
+                #{a8000,jdbcType=DECIMAL},
+            </if>
+            <if test="a8100 != null" >
+                #{a8100,jdbcType=DECIMAL},
+            </if>
+            <if test="a8200 != null" >
+                #{a8200,jdbcType=DECIMAL},
+            </if>
+            <if test="a9000 != null" >
+                #{a9000,jdbcType=DECIMAL},
+            </if>
+            <if test="aa000 != null" >
+                #{aa000,jdbcType=DECIMAL},
+            </if>
+            <if test="ab000 != null" >
+                #{ab000,jdbcType=DECIMAL},
+            </if>
+            <if test="ac000 != null" >
+                #{ac000,jdbcType=DECIMAL},
+            </if>
+            <if test="d0000 != null" >
+                #{d0000,jdbcType=DECIMAL},
+            </if>
+            <if test="b0000 != null" >
+                #{b0000,jdbcType=DECIMAL},
+            </if>
+            <if test="b1000 != null" >
+                #{b1000,jdbcType=DECIMAL},
+            </if>
+            <if test="b1100 != null" >
+                #{b1100,jdbcType=DECIMAL},
+            </if>
+            <if test="b1200 != null" >
+                #{b1200,jdbcType=DECIMAL},
+            </if>
+            <if test="b1210 != null" >
+                #{b1210,jdbcType=DECIMAL},
+            </if>
+            <if test="b1220 != null" >
+                #{b1220,jdbcType=DECIMAL},
+            </if>
+            <if test="b1230 != null" >
+                #{b1230,jdbcType=DECIMAL},
+            </if>
+            <if test="b1240 != null" >
+                #{b1240,jdbcType=DECIMAL},
+            </if>
+            <if test="b1250 != null" >
+                #{b1250,jdbcType=DECIMAL},
+            </if>
+            <if test="b1260 != null" >
+                #{b1260,jdbcType=DECIMAL},
+            </if>
+            <if test="b1261 != null" >
+                #{b1261,jdbcType=DECIMAL},
+            </if>
+            <if test="b1270 != null" >
+                #{b1270,jdbcType=DECIMAL},
+            </if>
+            <if test="b1271 != null" >
+                #{b1271,jdbcType=DECIMAL},
+            </if>
+            <if test="b1272 != null" >
+                #{b1272,jdbcType=DECIMAL},
+            </if>
+            <if test="b1273 != null" >
+                #{b1273,jdbcType=DECIMAL},
+            </if>
+            <if test="b1274 != null" >
+                #{b1274,jdbcType=DECIMAL},
+            </if>
+            <if test="b1275 != null" >
+                #{b1275,jdbcType=DECIMAL},
+            </if>
+            <if test="b1276 != null" >
+                #{b1276,jdbcType=DECIMAL},
+            </if>
+            <if test="b1277 != null" >
+                #{b1277,jdbcType=DECIMAL},
+            </if>
+            <if test="b1278 != null" >
+                #{b1278,jdbcType=DECIMAL},
+            </if>
+            <if test="b1279 != null" >
+                #{b1279,jdbcType=DECIMAL},
+            </if>
+            <if test="b127a != null" >
+                #{b127a,jdbcType=DECIMAL},
+            </if>
+            <if test="b1280 != null" >
+                #{b1280,jdbcType=DECIMAL},
+            </if>
+            <if test="b2000 != null" >
+                #{b2000,jdbcType=DECIMAL},
+            </if>
+            <if test="b3000 != null" >
+                #{b3000,jdbcType=DECIMAL},
+            </if>
+            <if test="b3100 != null" >
+                #{b3100,jdbcType=DECIMAL},
+            </if>
+            <if test="b3200 != null" >
+                #{b3200,jdbcType=DECIMAL},
+            </if>
+            <if test="b4000 != null" >
+                #{b4000,jdbcType=DECIMAL},
+            </if>
+            <if test="b5000 != null" >
+                #{b5000,jdbcType=DECIMAL},
+            </if>
+            <if test="c0000 != null" >
+                #{c0000,jdbcType=DECIMAL},
+            </if>
+            <if test="c1000 != null" >
+                #{c1000,jdbcType=DECIMAL},
+            </if>
+            <if test="c1100 != null" >
+                #{c1100,jdbcType=DECIMAL},
+            </if>
+            <if test="c1110 != null" >
+                #{c1110,jdbcType=DECIMAL},
+            </if>
+            <if test="c1120 != null" >
+                #{c1120,jdbcType=DECIMAL},
+            </if>
+            <if test="c1130 != null" >
+                #{c1130,jdbcType=DECIMAL},
+            </if>
+            <if test="c1140 != null" >
+                #{c1140,jdbcType=DECIMAL},
+            </if>
+            <if test="c1150 != null" >
+                #{c1150,jdbcType=DECIMAL},
+            </if>
+            <if test="c1160 != null" >
+                #{c1160,jdbcType=DECIMAL},
+            </if>
+            <if test="c1170 != null" >
+                #{c1170,jdbcType=DECIMAL},
+            </if>
+            <if test="c1171 != null" >
+                #{c1171,jdbcType=DECIMAL},
+            </if>
+            <if test="c1172 != null" >
+                #{c1172,jdbcType=DECIMAL},
+            </if>
+            <if test="c1173 != null" >
+                #{c1173,jdbcType=DECIMAL},
+            </if>
+            <if test="c1174 != null" >
+                #{c1174,jdbcType=DECIMAL},
+            </if>
+            <if test="c1175 != null" >
+                #{c1175,jdbcType=DECIMAL},
+            </if>
+            <if test="c1176 != null" >
+                #{c1176,jdbcType=DECIMAL},
+            </if>
+            <if test="c1177 != null" >
+                #{c1177,jdbcType=DECIMAL},
+            </if>
+            <if test="c1178 != null" >
+                #{c1178,jdbcType=DECIMAL},
+            </if>
+            <if test="c1179 != null" >
+                #{c1179,jdbcType=DECIMAL},
+            </if>
+            <if test="c117a != null" >
+                #{c117a,jdbcType=DECIMAL},
+            </if>
+            <if test="c1180 != null" >
+                #{c1180,jdbcType=DECIMAL},
+            </if>
+            <if test="c1200 != null" >
+                #{c1200,jdbcType=DECIMAL},
+            </if>
+            <if test="c1210 != null" >
+                #{c1210,jdbcType=DECIMAL},
+            </if>
+            <if test="c1220 != null" >
+                #{c1220,jdbcType=DECIMAL},
+            </if>
+            <if test="c1230 != null" >
+                #{c1230,jdbcType=DECIMAL},
+            </if>
+            <if test="c1240 != null" >
+                #{c1240,jdbcType=DECIMAL},
+            </if>
+            <if test="c1250 != null" >
+                #{c1250,jdbcType=DECIMAL},
+            </if>
+            <if test="c1260 != null" >
+                #{c1260,jdbcType=DECIMAL},
+            </if>
+            <if test="c1270 != null" >
+                #{c1270,jdbcType=DECIMAL},
+            </if>
+            <if test="c1271 != null" >
+                #{c1271,jdbcType=DECIMAL},
+            </if>
+            <if test="c1272 != null" >
+                #{c1272,jdbcType=DECIMAL},
+            </if>
+            <if test="c1273 != null" >
+                #{c1273,jdbcType=DECIMAL},
+            </if>
+            <if test="c1274 != null" >
+                #{c1274,jdbcType=DECIMAL},
+            </if>
+            <if test="c1275 != null" >
+                #{c1275,jdbcType=DECIMAL},
+            </if>
+            <if test="c1276 != null" >
+                #{c1276,jdbcType=DECIMAL},
+            </if>
+            <if test="c1277 != null" >
+                #{c1277,jdbcType=DECIMAL},
+            </if>
+            <if test="c1278 != null" >
+                #{c1278,jdbcType=DECIMAL},
+            </if>
+            <if test="c1279 != null" >
+                #{c1279,jdbcType=DECIMAL},
+            </if>
+            <if test="c127a != null" >
+                #{c127a,jdbcType=DECIMAL},
+            </if>
+            <if test="c1280 != null" >
+                #{c1280,jdbcType=DECIMAL},
+            </if>
+            <if test="c3000 != null" >
+                #{c3000,jdbcType=DECIMAL},
+            </if>
+            <if test="c4000 != null" >
+                #{c4000,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="doManul" parameterType="java.util.List">
+        update ZG05_PBC_COL_REPORT sub
+        set
+        sub.SEND_STATUS = '03',
+        sub.submit_time = NOW(),
+        sub.UPDATE_TIME = NOW()
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            sub.TERMID=#{item.termid,jdbcType=VARCHAR}
+        </foreach>
+        and sub.SEND_STATUS ='01'
+    </update>
+
+    <update id="cancelManul" parameterType="java.util.List">
+        update ZG05_PBC_COL_REPORT sub
+        set
+        sub.SEND_STATUS = '01',
+        sub.submit_time = NOW(),
+        sub.UPDATE_TIME = NOW()
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            sub.TERMID=#{item.termid,jdbcType=VARCHAR}
+        </foreach>
+        and sub.SEND_STATUS ='03'
+    </update>
+
+    <select id="searchByUuid" parameterType="java.lang.String" resultMap="BaseResultMap" flushCache="true" useCache="false">
+        SELECT
+        <include refid="Base_Column_List" />
+        from ZG05_PBC_COL_REPORT  a
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        ) t2 ON t2.inside_prod_id=a.PROD_ID
+        where a.TERMID =(select TERMID from ZG05_PBC_COL_REPORT b where b.REPORTUUID=#{uuid,jdbcType=VARCHAR})
+        ORDER BY   a.TERMID,a.PROD_ID,a.STATUS_TYPE
+
+    </select>
+
+    <!-- 手工处理 -->
+    <update id="doDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '03',
+        file.SUBMIT_TIME = sysdate,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 取消手工处理 -->
+    <update id="cancelDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '01',
+        file.SUBMIT_TIME = null,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

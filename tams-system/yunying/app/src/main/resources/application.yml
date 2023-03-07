@@ -1,0 +1,623 @@
+prod:
+  bussRep: 1
+server:
+  port: 8081
+  address: 0.0.0.0
+  maxHttpHeaderSize: 102400
+  context-path: /tamsyy
+listener:
+  port: 8888
+  length: 8
+  encode: UTF-8
+spring:
+  jmx:
+    enabled: false
+  thymeleaf:
+    cache: false
+  profiles:
+    active: cvr_30_dev_P
+  application:
+    name: tamsyy-serverREPORT#0426
+    dfstype: 2
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    validationQuery: SELECT 1
+    testOnBorrow: true   #从连接池获取一个连接时，验证有效性
+    testOnReturn: true   #连接被归还到连接池时，验证有效性
+    testOnCreate: true   #连接创建后，马上验证有效性
+    testWhileIdle: true  #连接空闲时，验证有效性
+    minEvictableIdleTimeMillis: 1800000   #空闲的连接最低要待N毫秒后，才会被释放
+    removeAbandonedTimeout: 300  #一个被抛弃连接可以被移除的超时时间
+    initialSize: 10   #连接池被启动时初始化的创建的连接个数
+    maxTotal: 50     #最大活动连接数
+    maxIdle: 50      #最大空闲连接数
+    minIdle: 20       #最小空闲连接数
+    timeBetweenEvictionRunsMillis: 60000   #空闲对象驱逐线程运行时的休眠毫秒数
+    numTestsPerEvictionRun: 10  #在每个空闲对象驱逐线程运行过程中中进行检查的对象个数
+    removeAbandonedOnBorrow: true   #是否删除超过removeAbandonedTimout所指定时间的被遗弃的连接
+    removeAbandonedOnMaintenance: true  #是否删除超过removeAbandonedTimout所指定时间的被遗弃的连接
+    logAbandoned: true  #程序在回收连接的同时是否打印日志
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+  http:
+    multipart:
+      maxFileSize: 200Mb
+      maxRequestSize: 100Mb
+  #静态资源配置:js和css变更时无需手工清缓存
+  resources:
+    chain:
+      strategy:
+        fixed:
+          enabled: true
+base:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    testOnBorrow: true
+    testOnReturn: true
+    testOnCreate: true
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 1800000
+    removeAbandonedTimeout: 30000
+    initialSize: 10
+    maxTotal: 50
+    maxIdle: 50
+    minIdle: 20
+    timeBetweenEvictionRunsMillis: 60000
+    numTestsPerEvictionRun: 10
+    removeAbandonedOnBorrow: true
+    removeAbandonedOnMaintenance: true
+    logAbandoned: true
+interf:
+  hostname: localhost
+  port: 28080   #接口id
+  contextPath: /interf   #估值接口程序文根
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    validationQuery: SELECT 1
+    testOnBorrow: true
+    testOnReturn: true
+    testOnCreate: true
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 1800000
+    removeAbandonedTimeout: 30000
+    initialSize: 5
+    maxTotal: 10
+    maxIdle: 10
+    minIdle: 5
+    timeBetweenEvictionRunsMillis: 60000
+    numTestsPerEvictionRun: 10
+    removeAbandonedOnBorrow: true
+    removeAbandonedOnMaintenance: true
+    logAbandoned: true
+stresstest:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    validationQuery: select 1
+    testOnBorrow: true
+    testOnReturn: true
+    testOnCreate: true
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 1800000
+    removeAbandonedTimeout: 30000
+    initialSize: 5
+    maxTotal: 10
+    maxIdle: 10
+    minIdle: 5
+    timeBetweenEvictionRunsMillis: 60000
+    numTestsPerEvictionRun: 10
+    removeAbandonedOnBorrow: true
+    removeAbandonedOnMaintenance: true
+    logAbandoned: true
+#wind数据库配置
+wind:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    validationQuery: SELECT 1
+    testOnBorrow: true
+    testOnReturn: true
+    testOnCreate: true
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 1800000
+    removeAbandonedTimeout: 30000
+    initialSize: 10
+    maxTotal: 50
+    maxIdle: 50
+    minIdle: 20
+    timeBetweenEvictionRunsMillis: 60000  # 默认是-1
+    numTestsPerEvictionRun: 10
+    removeAbandonedOnBorrow: true
+    removeAbandonedOnMaintenance: true
+    logAbandoned: true
+    connectionProperties: oracle.net.CONNECT_TIMEOUT=50000;oracle.jdbc.ReadTimeout=50000
+chbsend:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    validationQuery: SELECT 1
+    testOnBorrow: true
+    testOnReturn: true
+    testOnCreate: true
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 1800000
+    removeAbandonedTimeout: 30000
+    initialSize: 10
+    maxTotal: 50
+    maxIdle: 50
+    minIdle: 20
+    timeBetweenEvictionRunsMillis: 600000  # 默认是-1
+    numTestsPerEvictionRun: 10
+    removeAbandonedOnBorrow: true
+    removeAbandonedOnMaintenance: true
+    logAbandoned: true
+tx-lcn:
+  springcloud:
+    loadbalance:
+      enabled: true
+  logger:
+    enabled: true
+    onlyError: true
+jixu:
+  user:
+    type: 2
+shiro:
+  sessionId: JSESSIONID
+  casClientName: tams
+  allowUrl: /core/selectRule,/common/ptlposition/insertPosition,/BussSettleOrderComm/generateSettleOrder,
+    /common/trdcommonbase/insertTradeInfo,/TrdFxswapInvestTrade001/doComplete,/TrdBondInvestTrade/**,/BussRepoSec/**,/common/trdcommonbase/selectParam/COM/is_auto_generate_negate_deal,/CstpAutoSelect/**,
+    /TrdBondDuration/findAllData,/TrdDepoDuration/selectAllData,/TrdRepoDuration/selectAllData,/TrdProjectDuration/selectAllData,
+    /TrdRepoDuration/findEffectiveData,/TrdProjectDuration/findEffectiveData,/TrdPlanInterestDuration/findEffectiveData,
+    /TrdDepoDuration/findEffectiveData,/TrdPlanInterestDuration/selectAllData,/TrdLendDuration/getEntityByMap,
+    /TrdLendDuration/selectAllDataList,/TrdBondDuration/findEffectiveData,/TrdExchangeDuration/findAllData,
+    /TrdRepoDuration/findFinCashInfo,/TrdRepoDuration/findRepoInfo,/service/**, /api/sys/refreshPlatDate,/invest/trade/forwex/TrdForwexInvestTrade002/autosave, /mobileApproval/AssetMobileApproval/getAuditDetailConfig,
+    /InterfSysTrdConfig/**,/interf/risk/**,/EtrTradeSysInterf/**,/MstCaptialAccount/**,/MstSaleDepartment/**,/TrdBondInvestTrade/**,/AssetDeclarationCodeMaintenance/**,/ptlmanagementinfo/**,/InterfSysPara/**,/MstMarketCalendarInfo/**,
+    /TrdExchangeWorkflow/**,/invest/trade/api/**,/webService/**,/eiam/**
+
+specialsyspara:
+  parakey: AUTHORIZE_LIMIT||PRICE_CAL_TYPE||portfolio_handle_userid||settle_acct_name||settle_acct_no||prod_tru_acct_no||prod_tru_acct_name||lending_acct_no||lending_acct_name
+#页面特殊参数取值
+specialsyspage:
+  pagekey: SysInstitution001||SysDepartment001||SysUser001||SysActorRole001||SysActorAssign001||SysBatchProcess001||SysBatchStart001||ValBatchStart001||SystemBatchQuartzConfig001||Workflow001||SysDate001||SysDataDict001||SysParaSet001
+application:
+  chb:
+    #由于一二期直连调用组件包，组件包不能访问缓存，故在此配置同三期一致的路径
+    filepath: /home/tams/svr_nb_prod/sharedata/chb/send/CB/
+    #由于一二期直连调用组件包，组件包不能访问缓存，故在此配置同三期一致的路径
+    download-file-path: /home/tams/svr_nb_prod/sharedata/chb/recive/CB/
+    maxSqlNum: 1000    #单次入库处理最大数据条数
+    msg-start-time: 0600    #中债开始接收报文时间，早上6点
+    msg-end-time: 2200     #中债结束接收报文时间，晚上10点
+    reportCbFeedBackHandleCountOneTime: 10000    #中债反馈文件，单次解析最大行数
+    isExceptionWhenSendTimeout: 01  #中债报送文件发送超时的时候，是否抛出异常
+  cache:
+    file: classpath:ehcache_app.xml
+  remindPage: report/system/remindMain
+  menuType: hover
+  sysCode: TAMS
+  menuPosition: top
+  pageStep: 100
+  logo: /image/logos/left-logo.png #系统图标，框架中会根据分辨率自动适配
+  minLogo: /image/logos/min-logo.png #系统图标，框架中会根据分辨率自动适配
+  leftMenuLogo: /image/logos/left-logo.png #系统图标，框架中会根据分辨率自动适配
+  topMenuLogo: /image/logos/top-logo.png #系统图标，框架中会根据分辨率自动适配
+  sessionTimeout: -1
+  joyinsso: false
+  interfMaxCorePoolSize: 20  #上游接口解析读取文件处理最大线程数
+  maxDataCountOneTimeForInvestholdInfo: 50  #上游接口解析读取文件处理中持有信息批量查询单次最大查询主键数（江苏银行50）
+  reportInterfIsNeedOkFile: 1  #上游接口解析读取文件处理中，是否需要.ok传输完成标志文件（1：需要 0：不需要）
+  reportInterfOkFileExtension: ok  #上游接口解析读取文件处理中，传输完成标志文件的扩展名（默认为ok）
+  reportInsertCount: 15  #数据批量一次性insert条数
+  reportSelectOrDeleteCount: 50  #数据批量一次查询或者删除条数
+  reportSelectOrDeleteCountForShenFen: 100  #数据批量一次查询或者删除条数(身份信息用)
+  reportUpdateCountForShenFen: 20 #身份信息check表(身份信息用)
+  reportInsertLongCount: 10  #数据批量一次性insert条数(单条数据字段较多)
+  reportInterfFileEncoding: UTF-8  #上游接口文件编码格式
+  reportInterfOneTimeDataCount: 1000  #上游接口解析读取文件处理,单线程处理数据条数
+  reportInterfOneTimeSqlLdrDataCount: 200000  #上游接口解析读取文件处理,单次sqlldr处理最大数据条数
+  reportInterfOneTimeSqlLdrCommitCount: 10000  #上游接口解析读取文件处理,单次sqlldr处理单次提交数
+  reportInterfSplitCharacter: '|'   #上游txt文件解析分割符
+  reportCbFeedBackHandleCountOneTime: 10000  #中债反馈文件内容单次处理数据条数
+  riskTestMaxCorePoolSize: 20
+  riskTestmaxSubmitProductSize: 50
+  versionInfo:    #版本信息
+    systemVersion: V3.0.2
+    lastChromeVersion: 73
+    customerName: 某某银行
+  runOptimize: Y   #启动优化开关
+  #  不使用服务注册中心,tams和tams-service-container分开部署的方式
+  #  loadbalance: false
+  #  micorservice:
+  #    contextPath:
+  #      single: true
+  #      commonService: http://127.0.0.1:8114
+  #      basicDataService: http://127.0.0.1:8114
+  #      documentService: http://127.0.0.1:8114
+  #      entrustService: http://127.0.0.1:8114
+  #      periodService: http://127.0.0.1:8114
+  #      assetService: http://127.0.0.1:8114
+  #      portfolioService: http://127.0.0.1:8114
+  #      productService: http://127.0.0.1:8114
+  #      quotaService: http://127.0.0.1:8114
+  #      reportService: http://127.0.0.1:8114
+  #      riskService: http://127.0.0.1:8114
+  #      riskRdsService: http://127.0.0.1:8114
+  #      riskInfService: http://127.0.0.1:8114
+  #      settleService: http://127.0.0.1:8114
+  #      tradeService: http://127.0.0.1:8114
+  #      disclosureService: http://127.0.0.1:8114
+  #      valuationService: http://127.0.0.1:8114
+  #      chbService: http://127.0.0.1:8114
+  #      chb3Service: http://127.0.0.1:8114
+  #      svrcomService: http://127.0.0.1:8114
+  #      pbcService: http://127.0.0.1:8114
+  #      channelService: http://127.0.0.1:8114
+  #      customerInterfService: http://127.0.0.1:8114
+  #      tamsServer: http://127.0.0.1:8114
+  #      investInterfService: http://127.0.0.1:8114
+  #      adapterService: http://127.0.0.1:8114
+
+  #  不使用服务注册中心,tams和tams-service-container整体部署的方式
+  loadbalance: false
+  micorservice:
+    contextPath:
+      single: true
+      commonService: http://127.0.0.1:${server.port}/tamsyy
+      basicDataService: http://127.0.0.1:${server.port}/tamsyy
+      documentService: http://127.0.0.1:${server.port}/tamsyy
+      entrustService: http://127.0.0.1:${server.port}/tamsyy
+      periodService: http://127.0.0.1:${server.port}/tamsyy
+      assetService: http://127.0.0.1:${server.port}/tamsyy
+      portfolioService: http://127.0.0.1:${server.port}/tamsyy
+      productService: http://127.0.0.1:${server.port}/tamsyy
+      quotaService: http://127.0.0.1:${server.port}/tamsyy
+      reportService: http://127.0.0.1:${server.port}/tamsyy
+      riskService: http://127.0.0.1:${server.port}/tamsyy
+      riskRdsService: http://127.0.0.1:${server.port}/tamsyy
+      riskInfService: http://127.0.0.1:${server.port}/tamsyy
+      settleService: http://127.0.0.1:${server.port}/tamsyy
+      tradeService: http://127.0.0.1:${server.port}/tamsyy
+      disclosureService: http://127.0.0.1:${server.port}/tamsyy
+      valuationService: http://127.0.0.1:${server.port}/tamsyy
+      chbService: http://127.0.0.1:${server.port}/tamsyy
+      chb3Service: http://127.0.0.1:${server.port}/tamsyy
+      svrcomService: http://127.0.0.1:${server.port}/tamsyy
+      pbcService: http://127.0.0.1:${server.port}/tamsyy
+      channelService: http://127.0.0.1:${server.port}/tamsyy
+      customerInterfService: http://127.0.0.1:${server.port}/tamsyy
+      tamsServer: http://127.0.0.1:${server.port}/tamsyy
+      investInterfService: http://127.0.0.1:${server.port}/tamsyy
+      adapterService: http://127.0.0.1:${server.port}/tamsyy
+      commonBasicDataService: http://127.0.0.1:${server.port}/tamsyy
+      exchangeService: http://127.0.0.1:${server.port}/tamsyy
+      quoteService: http://127.0.0.1:${server.port}/tamsyy
+      valuationBasicdataService: http://127.0.0.1:${server.port}/tamsyy
+      lossModelService: http://127.0.0.1:${server.port}/tamsyy
+      valModelService: http://127.0.0.1:${server.port}/tamsyy
+      jixuService: http://127.0.0.1:28080/interf
+
+# 使用服务注册中心的方式
+#  loadbalance: true
+#  micorservice:
+#    contextPath:
+#      single: true
+#      commonService: http://TamsMicroservice
+#      basicDataService: http://TamsMicroservice
+#      documentService: http://TamsMicroservice
+#      entrustService: http://TamsMicroservice
+#      periodService: http://TamsMicroservice
+#      assetService: http://TamsMicroservice
+#      portfolioService: http://TamsMicroservice
+#      productService: http://TamsMicroservice
+#      quotaService: http://TamsMicroservice
+#      reportService: http://TamsMicroservice
+#      riskService: http://TamsMicroservice
+#      riskRdsService: http://TamsMicroservice
+#      riskInfService: http://TamsMicroservice
+#      settleService: http://TamsMicroservice
+#      tradeService: http://TamsMicroservice
+#      disclosureService: http://TamsMicroservice
+#      valuationService: http://TamsMicroservice
+#      chbService: http://TamsMicroservice
+#      chb3Service: http://TamsMicroservice
+#      svrcomService: http://TamsMicroservice
+#      pbcService: http://TamsMicroservice
+#      channelService: http://TamsMicroservice
+#      customerInterfService: http://TamsMicroservice
+#      tamsServer: http://TamsMicroservice
+#      investInterfService: http://TamsMicroservice
+#      adapterService: http://TamsMicroservice
+
+#交易压力测试性能优化开关
+flag: false
+---
+spring:
+  profiles: cvr_306_mysql_test_P
+  thymeleaf:
+    cache: false
+  redis:
+    database: 1
+    password: joyin!234
+    host: 192.168.60.188
+    port: 6388
+    timeout: 20000
+  redislock:
+    redissonEnabled: false
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    username: wzc
+    password: wzc
+    #reportSqlldrDatabaseName: 192.168.60.194:1521/orcl
+application:
+  sqldirurl: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+  driverClassName: com.mysql.jdbc.Driver
+  sqldiruserName: wzc
+  sqldirpassword: wzc
+valinterf:
+  hostname: localhost
+  port: 28080
+  contextPath: /interf
+shiro:
+  ssoEnable: false  #是否开启sso验证，可以和joyinsso 统一登录配套使用。如果没有统一登录，但为true的话，就不校验密码
+  #loginUrl: http://192.168.60.111:1667/joyinsso/login.html#/login    ##统一登录页面，当有统一登录时配置成统一登录的访问地址
+  allowUrl: /core/selectRule,/common/ptlposition/insertPosition,/BussSettleOrderComm/generateSettleOrder,
+    /common/trdcommonbase/insertTradeInfo,/TrdFxswapInvestTrade001/doComplete,/TrdBondInvestTrade/**,/BussRepoSec/**,/common/trdcommonbase/selectParam/COM/is_auto_generate_negate_deal,/CstpAutoSelect/**,
+    /TrdBondDuration/findAllData,/TrdDepoDuration/selectAllData,/TrdRepoDuration/selectAllData,/TrdProjectDuration/selectAllData,
+    /TrdRepoDuration/findEffectiveData,/TrdProjectDuration/findEffectiveData,/TrdPlanInterestDuration/findEffectiveData,
+    /TrdDepoDuration/findEffectiveData,/TrdPlanInterestDuration/selectAllData,/TrdLendDuration/getEntityByMap,
+    /TrdLendDuration/selectAllDataList,/TrdBondDuration/findEffectiveData,/TrdExchangeDuration/findAllData,
+    /TrdRepoDuration/findFinCashInfo,/TrdRepoDuration/findRepoInfo,/service/**,/api/sys/refreshPlatDate,/invest/trade/forwex/TrdForwexInvestTrade002/autosave, /mobileApproval/AssetMobileApproval/getAuditDetailConfig,
+    /InterfSysTrdConfig/**,/interf/risk/**,/EtrTradeSysInterf/**,/MstCaptialAccount/**,/MstSaleDepartment/**,/TrdBondInvestTrade/**,/AssetDeclarationCodeMaintenance/**,/ptlmanagementinfo/**,/InterfSysPara/**,/MstMarketCalendarInfo/**,
+    /TrdExchangeWorkflow/**,/invest/trade/api/**,/webService/**,/eiam/**
+
+base:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+interf:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+  hostname: localhost
+  port: 28080
+  contextPath: /interf
+stresstest:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+wind:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+chbsend:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/cvr_306_mysql_test?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+log:
+  path: /home/tams/logs/tams
+  level: debug
+eureka:
+  client:
+    enabled: false
+jixu:
+  user:
+    type: 2
+xinping:
+  properties:
+    urlIP: 127.0.0.1
+    urlPort: 9191
+tx-lcn:
+  client:
+    managerAddress: 192.168.60.188:8070
+# 场内交易使用配置
+netty:
+  port: 9190
+  buffer:
+    recv: 4194304
+    send: 4194304
+    write:
+      high: 81960
+      low: 10240
+  idle:
+    read: 20
+    write: 10
+    all: 0
+  thread:
+    num:
+      boss: 1
+      worker: 10
+scheduled:
+  token:
+    enable: false
+    fixedRate: 20000
+    node: trade1
+  history:
+    cron: 0 30 20 ? * MON-FRI
+  instrument:
+    cron: 0 0 8 ? * MON-FRI
+    price: 0 15 9 ? * MON-FRI
+    flushData: 0 0 9 ? * MON-FRI
+  cacheData:
+    fixedRate: 60000
+  login:
+    fixedRate: 20000
+  tradeAgent:
+    fixedRate: 3000
+terminal:
+  default: default
+trade:
+  thread:
+    msg:
+      num: 8
+    risk:
+      alive: 5000
+      capacity: 128
+
+position:
+  flag: false #是否控制账户持仓，true控制，false不控制
+
+# 温州 APP 消息推送接口配置，默认 false
+workflow:
+  isSentMessage: false
+  serviceName: messageService
+
+#清除 批处理 缓存的配置，添加此配置后可登录批处理地址http://localhost:8084进行批处理缓存更新
+url:
+  batch: http://localhost:8084/main/about/refreshCache
+---
+spring:
+  profiles: cvr_30_dev_P
+  thymeleaf:
+    cache: false
+  redis:
+    database: 2
+    password: joyin!234
+    host: 192.168.60.188
+    port: 6388
+    timeout: 20000
+
+#  cache:
+#    type: redis
+
+
+  redislock:
+    redissonEnabled: false
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    username: wzc
+    password: wzc
+    #reportSqlldrDatabaseName: 192.168.60.194:1521/orcl
+application:
+  sqldirurl: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+  driverClassName: com.mysql.jdbc.Driver
+  sqldiruserName: wzc
+  sqldirpassword: wzc
+valinterf:
+  hostname: localhost
+  port: 28080
+  contextPath: /interf
+shiro:
+  ssoEnable: false  #是否开启sso验证，可以和joyinsso 统一登录配套使用。如果没有统一登录，但为true的话，就不校验密码
+  #loginUrl: http://192.168.60.111:1667/joyinsso/login.html#/login    ##统一登录页面，当有统一登录时配置成统一登录的访问地址
+  allowUrl: /core/selectRule,/common/ptlposition/insertPosition,/BussSettleOrderComm/generateSettleOrder,
+    /common/trdcommonbase/insertTradeInfo,/TrdFxswapInvestTrade001/doComplete,/TrdBondInvestTrade/**,/BussRepoSec/**,/common/trdcommonbase/selectParam/COM/is_auto_generate_negate_deal,/CstpAutoSelect/**,
+    /TrdBondDuration/findAllData,/TrdDepoDuration/selectAllData,/TrdRepoDuration/selectAllData,/TrdProjectDuration/selectAllData,
+    /TrdRepoDuration/findEffectiveData,/TrdProjectDuration/findEffectiveData,/TrdPlanInterestDuration/findEffectiveData,
+    /TrdDepoDuration/findEffectiveData,/TrdPlanInterestDuration/selectAllData,/TrdLendDuration/getEntityByMap,
+    /TrdLendDuration/selectAllDataList,/TrdBondDuration/findEffectiveData,/TrdExchangeDuration/findAllData,
+    /TrdRepoDuration/findFinCashInfo,/TrdRepoDuration/findRepoInfo,/service/**,/api/sys/refreshPlatDate,/invest/trade/forwex/TrdForwexInvestTrade002/autosave, /mobileApproval/AssetMobileApproval/getAuditDetailConfig,
+    /InterfSysTrdConfig/**,/interf/risk/**,/EtrTradeSysInterf/**,/MstCaptialAccount/**,/MstSaleDepartment/**,/TrdBondInvestTrade/**,/AssetDeclarationCodeMaintenance/**,/ptlmanagementinfo/**,/InterfSysPara/**,/MstMarketCalendarInfo/**,
+    /TrdExchangeWorkflow/**,/invest/trade/api/**,/webService/**,/eiam/**
+
+base:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+interf:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+  hostname: localhost
+  port: 28080
+  contextPath: /interf
+stresstest:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+wind:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+chbsend:
+  datasource:
+    url: jdbc:mysql://192.168.60.43:3306/gd_test_20220517_01_sjjc_ly?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&zeroDateTimeBehavior=convertToNull&allowLoadLocalInfile=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: wzc
+    password: wzc
+log:
+  path: /home/tams/logs/tams
+  level: debug
+eureka:
+  client:
+    enabled: false
+jixu:
+  user:
+    type: 2
+xinping:
+  properties:
+    urlIP: 127.0.0.1
+    urlPort: 9191
+tx-lcn:
+  client:
+    managerAddress: 192.168.60.188:8070
+# 场内交易使用配置
+netty:
+  port: 9190
+  buffer:
+    recv: 4194304
+    send: 4194304
+    write:
+      high: 81960
+      low: 10240
+  idle:
+    read: 20
+    write: 10
+    all: 0
+  thread:
+    num:
+      boss: 1
+      worker: 10
+scheduled:
+  token:
+    enable: false
+    fixedRate: 20000
+    node: trade1
+  history:
+    cron: 0 30 20 ? * MON-FRI
+  instrument:
+    cron: 0 0 8 ? * MON-FRI
+    price: 0 15 9 ? * MON-FRI
+    flushData: 0 0 9 ? * MON-FRI
+  cacheData:
+    fixedRate: 60000
+  login:
+    fixedRate: 20000
+  tradeAgent:
+    fixedRate: 3000
+terminal:
+  default: default
+trade:
+  thread:
+    msg:
+      num: 8
+    risk:
+      alive: 5000
+      capacity: 128
+
+position:
+  flag: false #是否控制账户持仓，true控制，false不控制
+
+# 温州 APP 消息推送接口配置，默认 false
+workflow:
+  isSentMessage: false
+  serviceName: messageService
+
+#清除 批处理 缓存的配置，添加此配置后可登录批处理地址http://localhost:8084进行批处理缓存更新
+url:
+  batch: http://localhost:8084/main/about/refreshCache

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ChbFinanceProductsSub001.xlsx" name="理财产品登记表">
+    <Worksheet javaBean="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto">
+        <Row>
+            <Cell order="1" name="数据批次">statusBatch</Cell>
+            <Cell order="2" name="理财产品编号">prodId</Cell>
+            <Cell order="3" name="理财产品名称">prodName</Cell>
+            <Cell order="4" name="表内表外标识代码信息">surfaceInOut</Cell>
+            <Cell order="5" name="产品品牌">prodBrand</Cell>
+            <Cell order="6" name="产品期次">prodStage</Cell>
+            <Cell order="7" name="募集币种代码">raiseCcy</Cell>
+            <Cell order="8" name="发行规模金额">raiseAmtPlan</Cell>
+            <Cell order="9" name="实际募集金额">totalAmt</Cell>
+            <Cell order="10" name="认购起点金额">saleAmtStr</Cell>
+            <Cell order="11" name="募集起始日期">raiseVdateStr</Cell>
+            <Cell order="12" name="募集结束日期">RaiseEnddateStr</Cell>
+            <Cell order="13" name="兑付本金币种代码">cashPrinCcy</Cell>
+            <Cell order="14" name="兑付收益币种代码">cashProfCcy</Cell>
+            <Cell order="15" name="产品起始日期">vdateStr</Cell>
+            <Cell order="16" name="产品终止日期">mdateStr</Cell>
+            <Cell order="17" name="预期最低收益率">lowYield</Cell>
+            <Cell order="18" name="预期最高收益率">highYield</Cell>
+            <Cell order="19" name="结构化产品标志">isConstracte</Cell>
+            <Cell order="20" name="理财产品风险等级代码信息">riskLevel</Cell>
+            <Cell order="21" name="产品管理模式代码信息">prodManagePattern</Cell>
+            <Cell order="22" name="理财产品合作模式代码信息">contModeStr</Cell>
+            <Cell order="23" name="资产收益类型代码信息">profitTypeStr</Cell>
+            <Cell order="24" name="产品销售分行名称">prodSalebankName</Cell>
+            <Cell order="25" name="运作方式代码信息">operateModeStr</Cell>
+            <Cell order="26" name="投资模式代码信息">cmmodeStr</Cell>
+            <Cell order="27" name="提前终止权标志">termRightFlag</Cell>
+            <Cell order="28" name="产品合作方名称">cooperationName</Cell>
+            <Cell order="29" name="投资类型代码信息">invAssetTypeStr</Cell>
+            <Cell order="30" name="客户风险承受能力代码信息">customerRiskLevel</Cell>
+            <Cell order="31" name="产品专属客户类型代码信息">customerTypeStr</Cell>
+            <Cell order="32" name="投资区域代码信息">investAraeStr</Cell>
+            <Cell order="33" name="备注">remark</Cell>
+            <Cell order="34" name="银行标识号">bankMark</Cell>
+            <Cell order="35" name="数据时点">dateStatusStr</Cell>
+            <Cell order="36" name="组别">groupId</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

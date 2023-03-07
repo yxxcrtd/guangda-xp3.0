@@ -1,0 +1,1 @@
+alter table CHB_PRD_BASEINFO add SALE_TYPE varchar(2) comment "投资类型";

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.PbcReportGenerationCheckDetailMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        <id column="UUID" property="uuid" jdbcType="VARCHAR" />
+        <result column="CHECK_UUID" property="checkUuid" jdbcType="VARCHAR" />
+        <result column="CHECK_RESULT" property="checkResult" jdbcType="VARCHAR" />
+        <result column="CHECK_FLAG" property="checkFlag" jdbcType="VARCHAR" />
+        <result column="CHECK_DATA" property="checkData" jdbcType="VARCHAR" />
+        <result column="RULE_ID" property="ruleId" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        UUID UUID, CHECK_UUID CHECK_UUID, CHECK_RESULT CHECK_RESULT, CHECK_FLAG CHECK_FLAG, 
+        CHECK_DATA CHECK_DATA, CREATE_TIME CREATE_TIME, UPDATE_TIME UPDATE_TIME, CREATE_USER CREATE_USER, 
+        CREATE_DEPT CREATE_DEPT, UPDATE_USER UPDATE_USER, STATUS STATUS, RULE_ID RULE_ID
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.PbcReportGenerationCheckDetailMapper.Base_Column_List" />
+        from PBC_REPORT_GENERAT_CHECKDETAIL
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.PbcReportGenerationCheckDetailMapper.Base_Column_List" />
+        from PBC_REPORT_GENERAT_CHECKDETAIL
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.PbcReportGenerationCheckDetailMapper.Base_Column_List" />
+        from PBC_REPORT_GENERAT_CHECKDETAIL
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from PBC_REPORT_GENERAT_CHECKDETAIL
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        insert into PBC_REPORT_GENERAT_CHECKDETAIL (UUID, CHECK_UUID, CHECK_RESULT,
+            CHECK_FLAG, CHECK_DATA, CREATE_TIME, 
+            UPDATE_TIME, CREATE_USER, CREATE_DEPT, 
+            UPDATE_USER, STATUS, RULE_ID)
+        values (#{uuid,jdbcType=VARCHAR}, #{checkUuid,jdbcType=VARCHAR}, #{checkResult,jdbcType=VARCHAR}, 
+            #{checkFlag,jdbcType=VARCHAR}, #{checkData,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, 
+            #{updateUser,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{ruleId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        insert into PBC_REPORT_GENERAT_CHECKDETAIL
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="checkUuid != null" >
+                CHECK_UUID,
+            </if>
+            <if test="checkResult != null" >
+                CHECK_RESULT,
+            </if>
+            <if test="checkFlag != null" >
+                CHECK_FLAG,
+            </if>
+            <if test="checkData != null" >
+                CHECK_DATA,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="ruleId != null" >
+                RULE_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="checkUuid != null" >
+                #{checkUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="checkResult != null" >
+                #{checkResult,jdbcType=VARCHAR},
+            </if>
+            <if test="checkFlag != null" >
+                #{checkFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="checkData != null" >
+                #{checkData,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleId != null" >
+                #{ruleId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        insert into PBC_REPORT_GENERAT_CHECKDETAIL(UUID, CHECK_UUID, CHECK_RESULT, CHECK_FLAG,
+        CHECK_DATA, CREATE_TIME, UPDATE_TIME, CREATE_USER, CREATE_DEPT, UPDATE_USER, STATUS, RULE_ID
+        )
+        select UUID, CHECK_UUID, CHECK_RESULT, CHECK_FLAG, 
+            CHECK_DATA, CREATE_TIME, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, CREATE_USER, CREATE_DEPT, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{status,jdbcType=VARCHAR} STATUS,
+               RULE_ID
+            
+             from PBC_REPORT_GENERAT_CHECKDETAIL
+             where STATUS = 'E' and UUID = #{uuid,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        update PBC_REPORT_GENERAT_CHECKDETAIL
+        <set >
+            <if test="checkUuid != null" >
+                CHECK_UUID = #{checkUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="checkResult != null" >
+                CHECK_RESULT = #{checkResult,jdbcType=VARCHAR},
+            </if>
+            <if test="checkFlag != null" >
+                CHECK_FLAG = #{checkFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="checkData != null" >
+                CHECK_DATA = #{checkData,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleId != null" >
+                RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        update PBC_REPORT_GENERAT_CHECKDETAIL
+        set CHECK_UUID = #{checkUuid,jdbcType=VARCHAR},
+            CHECK_RESULT = #{checkResult,jdbcType=VARCHAR},
+            CHECK_FLAG = #{checkFlag,jdbcType=VARCHAR},
+            CHECK_DATA = #{checkData,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            RULE_ID = #{ruleId,jdbcType=VARCHAR}
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </update>
+</mapper>

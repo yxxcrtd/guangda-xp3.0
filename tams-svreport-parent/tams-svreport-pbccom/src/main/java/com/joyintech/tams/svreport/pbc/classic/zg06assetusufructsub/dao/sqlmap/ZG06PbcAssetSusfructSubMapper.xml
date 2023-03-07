@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dao.ZG06PbcAssetSusfructSubMapper" >
+  <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dto.ZG06PbcAssetSusfructSub" >
+    <id column="DETAILUUID" property="detailUuid" jdbcType="CHAR" /><result column="PBC_PROD_ID" property="pbcProdId" jdbcType="VARCHAR" />
+    <result column="TERMID" property="termId" jdbcType="VARCHAR" />
+    <result column="ASSET_CODE" property="assetCode" jdbcType="VARCHAR" />
+    <result column="ASSETS_LIABILITIES" property="assetLiabilities" jdbcType="VARCHAR" />
+    <result column="ASSET_USUFRUCT_CODE" property="assetUsufructCode" jdbcType="VARCHAR" />
+    <result column="ASSETS_TRANSFER_NAME" property="assetTransferName" jdbcType="VARCHAR" />
+    <result column="ASSETS_TRANSFER_ID" property="assetTransferId" jdbcType="VARCHAR" />
+    <result column="ASSETS_INVEST" property="assetInvest" jdbcType="VARCHAR" />
+    <result column="ASSETS_TRANSFER_IINDU" property="assetTransferIindu" jdbcType="VARCHAR" />
+    <result column="ASSETS_TRANSFER" property="assetTransfer" jdbcType="VARCHAR" />
+    <result column="ECONOMIC_COMPOSITION" property="economicComposition" jdbcType="VARCHAR" />
+    <result column="ASSETS_TRANSFER_SCALE" property="assetTransferScale" jdbcType="VARCHAR" />
+    <result column="ASSETS_TRANSFER_IINDU" property="assetTransferIindu" jdbcType="VARCHAR" />
+    <result column="TRANSFER_VDATE" property="transferVdate" jdbcType="TIMESTAMP" />
+    <result column="TRANSFER_ESTI_MDATE" property="transferEstiMdate" jdbcType="TIMESTAMP" />
+    <result column="TRANSFER_EXTDUE_MDATE" property="transferExtdueMdate" jdbcType="TIMESTAMP" />
+    <result column="TRANSFER_ACTMDATE" property="transferActMdate" jdbcType="TIMESTAMP" />
+    <result column="BASICASSET_TYPE" property="basicAssetType" jdbcType="VARCHAR" />
+    <result column="ASSETS_ORIGCCY" property="assetsOrigCcy" jdbcType="VARCHAR" />
+    <result column="ASSETS_ORIGAMT" property="assetsOrigAmt" jdbcType="DECIMAL" />
+    <result column="ASSETS_ORIGAMT_CNY" property="assetsOrigAmtCny" jdbcType="DECIMAL" />
+    <result column="CURRENCY_TRANSFERCCY" property="currencyTransferCcy" jdbcType="VARCHAR" />
+    <result column="CURRENCY_TRANSFERAMT" property="currencyTransferAmt" jdbcType="DECIMAL" />
+    <result column="CURRENCY_TRANSFERAMTCNY" property="currencyTransferAmtCny" jdbcType="DECIMAL" />
+    <result column="LABEL_TRANSFEROR_MARK" property="labelTransferorMark" jdbcType="VARCHAR" />
+    <result column="REPURCHASE_MARK" property="repurchaseMark" jdbcType="VARCHAR" />
+    <result column="RATE_FIXED_FLAG" property="rateFixedFlag" jdbcType="VARCHAR" />
+    <result column="ASSET_RATE_LEVEL" property="assetRateLevel" jdbcType="DECIMAL" />
+    <result column="GUARANTEE_METHOD" property="guaranteeMethod" jdbcType="VARCHAR" />
+    <result column="ASSETS_INV_DEPA" property="assetsInvDepa" jdbcType="VARCHAR" />
+    <result column="CURRENCY_EPERIODCCY" property="currencyEperiodCcy" jdbcType="VARCHAR" />
+    <result column="CURRENCY_AMT" property="currencyAmt" jdbcType="DECIMAL" />
+    <result column="CURRENCY_AMT_CNY" property="currencyAmtCny" jdbcType="DECIMAL" />
+    <result column="SUBMIT_TIME" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="PBC_SUBMIT_DEADLINE" property="pbcSubmitDeadline" jdbcType="TIMESTAMP" />
+    <result column="SUBMIT_DEADLINE" property="submitDeadline" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SEND_STATUS" property="sendStatus" jdbcType="VARCHAR" />
+    <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="PROD_ID" property="prodId" jdbcType="VARCHAR" />
+    <result column="pbcProdIdShow" property="pbcProdIdShow" jdbcType="VARCHAR" />
+    <result column="DATUUID" property="datuuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DETAILUUID, PBC_PROD_ID, TERMID, ASSET_CODE , ASSETS_LIABILITIES, ASSET_USUFRUCT_CODE, ASSETS_TRANSFER_NAME,
+    ASSETS_TRANSFER_ID, ASSETS_INVEST, ASSETS_TRANSFER_IINDU, ASSETS_TRANSFER, ECONOMIC_COMPOSITION,
+    ASSETS_TRANSFER_SCALE, TRANSFER_VDATE, TRANSFER_ESTI_MDATE, TRANSFER_EXTDUE_MDATE, TRANSFER_ACTMDATE,
+    BASICASSET_TYPE, ASSETS_ORIGCCY, ASSETS_ORIGAMT, ASSETS_ORIGAMT_CNY, CURRENCY_TRANSFERCCY,
+    CURRENCY_TRANSFERAMT, CURRENCY_TRANSFERAMTCNY, LABEL_TRANSFEROR_MARK, REPURCHASE_MARK,
+    RATE_FIXED_FLAG, ASSET_RATE_LEVEL, GUARANTEE_METHOD, ASSETS_INV_DEPA, CURRENCY_EPERIODCCY,
+    CURRENCY_AMT, CURRENCY_AMT_CNY , DEPT_CODE, PROD_ID, SEND_STATUS, SUBMIT_TIME, STATUS_DATE,
+    PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE, CREATE_DEPT,
+    CREATE_TIME,  UPDATE_USER, UPDATE_TIME
+  </sql>
+   <sql id="Base_Column_List2" >
+    HIS_NO, PBC_PROD_ID, BUY_PLACE, CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM, INIT_RAISING_AMTSUMCNY,
+    INIT_RAISING_QTY, SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ, STATUS_DATE,
+    PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE, CREATE_DEPT,
+    CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  <sql id="Extend_Column_List" >
+  	PROD_ID,OPERATE_MODE,IVSTORIENTATION,VDATE
+  </sql>
+  <sql id="PBC_COL_PRD_BASEINFO_SUB">
+  (select a.* from (SELECT PBC_PROD_ID,PROD_ID,OPERATE_MODE,IVSTORIENTATION,VDATE,status,RAISE_ENDDATE,ORG_CODE,ISSUE_PARTY_ID,
+	row_number() OVER (partition BY PBC_PROD_ID ORDER BY NVL(UPDATE_TIME,CREATE_TIME)
+	DESC) AS myrank
+	FROM PBC_COL_PRD_BASEINFO_SUB) a
+	WHERE a.myrank=1)
+  </sql>
+
+  <!-- 根据条件查询 -->
+  <select id="searchPage" parameterType="map" resultType="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dto.ZG06PbcAssetSusfructSub" flushCache="true" useCache="false">
+      select
+      a.DETAILUUID detailUuid,
+      a.PBC_PROD_ID pbcProdId,
+      NVL(t2.pbc_code,replace(a.PBC_PROD_ID,'INS','')) pbcPordIdOut,
+      NVL(t2.pbc_code,a.PBC_PROD_ID) pbcProdIdShow,
+      a.TERMID termId,
+      a.ASSET_CODE assetCode,
+      a.ASSETS_LIABILITIES assetLiabilities,
+      a.ASSET_USUFRUCT_CODE assetUsufructCode,
+      a.ASSETS_TRANSFER_NAME assetTransferName,
+      a.ASSETS_TRANSFER_ID assetTransferId,
+      a.ASSETS_INVEST assetInvest,
+      a.ASSETS_TRANSFER_IINDU assetTransferIindu,
+      a.ASSETS_TRANSFER assetTransfer,
+      a.ECONOMIC_COMPOSITION economicComposition,
+      a.ASSETS_TRANSFER_SCALE assetTransferScale,
+      a.TRANSFER_VDATE transferVdate,
+      a.TRANSFER_ESTI_MDATE transferEstiMdate,
+      a.TRANSFER_EXTDUE_MDATE transferExtdueMdate,
+      a.TRANSFER_ACTMDATE transferActMdate,
+      a.BASICASSET_TYPE basicAssetType,
+      a.ASSETS_ORIGCCY assetsOrigCcy,
+      a.ASSETS_ORIGAMT assetsOrigAmt,
+      a.ASSETS_ORIGAMT_CNY assetsOrigAmtCny,
+      a.CURRENCY_TRANSFERCCY currencyTransferCcy,
+      a.CURRENCY_TRANSFERAMT currencyTransferAmt,
+      a.CURRENCY_TRANSFERAMTCNY currencyTransferAmtCny,
+      a.LABEL_TRANSFEROR_MARK labelTransferorMark,
+      a.REPURCHASE_MARK repurchaseMark,
+      a.RATE_FIXED_FLAG rateFixedFlag,
+      a.ASSET_RATE_LEVEL assetRateLevel,
+      a.GUARANTEE_METHOD guaranteeMethod,
+      a.ASSETS_INV_DEPA assetsInvDepa,
+      a.CURRENCY_EPERIODCCY currencyEperiodCcy,
+      a.CURRENCY_AMT currencyAmt,
+      a.CURRENCY_AMT_CNY currencyAmtCny,
+      a.SEND_STATUS sendStatus,
+      a.SUBMIT_TIME submitTime,
+      a.STATUS_DATE statusDate,
+      a.PBC_SUBMIT_DEADLINE pbcSubmitDeadline,
+      a.SUBMIT_DEADLINE submitDeadline,
+      a.STATUS status,
+      a.CREATE_USER createUser,
+      a.ORG_CODE orgCode,
+      a.CREATE_DEPT createDept,
+      a.CREATE_TIME createTime,
+      a.UPDATE_USER updateUser,
+      a.UPDATE_TIME updateTime,
+      a.PROD_ID prodId,
+      a.DATUUID datuuid
+      from pbc_col_asset_usufruct_sub a
+      LEFT JOIN(
+      SELECT
+      inside_prod_id,
+      pbc_code
+      FROM
+      pbc_prod_assetpool_code
+      WHERE
+      status='E'
+      AND code_type='01'
+      )t2 ON t2.inside_prod_id=a.PROD_ID
+  	<where>
+        <if test="pbcProdIdList != null and pbcProdIdList.size > 0">
+            <foreach collection="pbcProdIdList" item="items" open="and ifnull(t2.pbc_code,replace(PBC_PROD_ID,'INS','')) in (" separator=","
+                     close=")">
+                #{items,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+
+        <if test="registList != null and registList.size > 0">
+            <foreach collection="registList" item="items" open="and DETAILUUID in (" separator="," close =")">
+                <if test="(index % 999) == 998">
+                    null) OR DETAILUUID in (
+                </if>
+                #{items,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+
+  		<!-- 手工处理传入的产品ID列表 add by gaojian 2019-06-18 begin -->
+  		<if test="prodIdList != null and prodIdList.size > 0">
+            AND a.PROD_ID IN
+            <foreach collection="prodIdList" open="(" close=")" separator="," item="item">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="assetTypeList != null and assetTypeList.size > 0">
+            AND a.ASSETS_LIABILITIES IN
+            <foreach collection="assetTypeList" open="(" close=")" separator="," item="item">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="keyList != null and keyList.size > 0">
+            and trim(a.DETAILUUID) in
+            <foreach collection="keyList" open="(" close=")" separator="," item="item">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="sendStatusList != null and sendStatusList.size > 0">
+            and a.SEND_STATUS in
+            <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="assetCode != null and assetCode != ''">
+            and a.ASSET_CODE = #{assetCode}
+        </if>
+        <if test="termId != null and termId != ''">
+            and a.TERMID = #{termId}
+        </if>
+        <if test="statusDateStart != null and statusDateStart != ''">
+           and to_char(a.STATUS_DATE,'yyyy-MM-dd') &gt;= #{statusDateStart}
+        </if>
+        <if test="statusDateEnd != null and statusDateEnd != ''">
+           and to_char(a.STATUS_DATE,'yyyy-MM-dd') &lt;= #{statusDateEnd}
+        </if>
+         <if test="submitTimeStart != null and submitTimeStart != ''">
+           and to_char(a.SUBMIT_TIME,'yyyy-MM-dd') &gt;= #{submitTimeStart}
+        </if>
+        <if test="submitTimeEnd != null and submitTimeEnd != ''">
+           and to_char(a.SUBMIT_TIME,'yyyy-MM-dd') &lt;= #{submitTimeEnd}
+        </if>
+        <if test="pbcSubmitDeadlineDateStart != null and pbcSubmitDeadlineDateStart != ''">
+           and to_char(a.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &gt;= #{pbcSubmitDeadlineDateStart}
+        </if>
+        <if test="pbcSubmitDeadlineDateEnd != null and pbcSubmitDeadlineDateEnd != ''">
+           and to_char(a.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &lt;= #{pbcSubmitDeadlineDateEnd}
+        </if>
+        <if test="mdateStart != null and mdateStart != ''">
+           and to_char(a.MDATE,'yyyy-MM-dd') &gt;= #{mdateStart}
+        </if>
+        <if test="mdateEnd != null and mdateEnd != ''">
+           and to_char(a.MDATE,'yyyy-MM-dd') &lt;= #{mdateEnd}
+        </if>
+        <if test="termIdList != null and termIdList.size > 0">
+            and a.TERMID in
+            <foreach collection="termIdList" open="(" close=")" separator="," item="item">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+  	</where>
+      ORDER BY a.TERMID,a.PBC_SUBMIT_DEADLINE ASC, a.UPDATE_TIME DESC,NVL(t2.pbc_code,a.PBC_PROD_ID), a.ASSET_CODE,a.ASSETS_LIABILITIES
+  </select>
+
+  <!-- 手工处理 -->
+  <update id="doManul" parameterType="map">
+  	update pbc_col_asset_usufruct_sub
+  	set 
+  		SEND_STATUS = '03',
+        <if test="submitadd != null and submitadd != ''">
+  			SUBMIT_TIME = sysdate + #{submitadd},
+  		</if>
+  		<if test="submitadd == null">
+  			SUBMIT_TIME = sysdate,
+  		</if>
+        UPDATE_TIME = sysdate
+      <where>
+          PBC_PROD_ID in
+          <foreach collection="list" open="(" close=")" separator="," item="item">
+              #{item.pbcProdId,jdbcType=CHAR}
+          </foreach>
+          <if test="termId !=null">
+              and TERMID=#{termId,jdbcType=CHAR}
+          </if>
+      </where>
+  </update>
+
+  <!-- 取消手工处理 -->
+  <update id="cancelManul" parameterType="java.util.List">
+  	update pbc_col_asset_usufruct_sub
+  	set 
+  		SEND_STATUS = '01',
+		UPDATE_TIME = sysdate,
+		SUBMIT_TIME = null
+      <where>
+          PBC_PROD_ID in
+          <foreach collection="updateList" open="(" close=")" separator="," item="item">
+              #{item.pbcProdId,jdbcType=CHAR}
+          </foreach>
+          <if test="termId !=null">
+              and TERMID=#{termId,jdbcType=CHAR}
+          </if>
+      </where>
+  </update>
+
+    <!-- 历史表插入 -->
+   <insert id="insertHisBatchBySendStatus" parameterType="java.util.List">
+  	insert into pbc_col_asset_usufruct_sub_HIS (<include refid="Base_Column_List2"></include>)
+    select
+    DETAILUUID, PBC_PROD_ID, BUY_PLACE, CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM, INIT_RAISING_AMTSUMCNY,
+    INIT_RAISING_QTY, SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ, STATUS_DATE,
+    PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE, CREATE_DEPT,
+    sysdate, UPDATE_USER, sysdate
+    from pbc_col_asset_usufruct_sub
+      where 
+      	PBC_PROD_ID in
+       <foreach collection="list" open="(" close=")" separator="," item="item">
+      		#{item.pbcProdId,jdbcType=CHAR}
+      </foreach>
+      	and SEND_STATUS in ('02','03')
+  </insert>
+
+    <!-- His表数据插入sub表 -->
+  <insert id="insetBatchSubFromHisByUpdateTime" parameterType="java.util.List" >
+	insert into pbc_col_asset_usufruct_sub
+	 (<include refid="Base_Column_List"></include>)
+    select  HIS_NO, PBC_PROD_ID, BUY_PLACE, CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM, INIT_RAISING_AMTSUMCNY,
+    INIT_RAISING_QTY, SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ, STATUS_DATE,
+    PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE, CREATE_DEPT,
+    sysdate, UPDATE_USER, sysdate
+      from (
+      	select <include refid="Base_Column_List2"></include>,
+      	rank() over (partition by PBC_PROD_ID order by nvl(update_time,create_time) desc) ranknum
+      	from pbc_col_asset_usufruct_sub_HIS
+      	where 
+      	PBC_PROD_ID in
+       <foreach collection="list" open="(" close=")" separator="," item="item">
+      		#{item.pbcProdId,jdbcType=CHAR}
+      </foreach>
+      )
+      where ranknum = 1
+</insert>
+
+    <!-- 删除his表中移走的数据 -->
+<delete id="deleteBatchSubFromHisByUpdateTime" parameterType="java.util.List" >
+	delete from pbc_col_asset_usufruct_sub_HIS
+	where PBC_PROD_ID in (
+	    select  PBC_PROD_ID
+	      from (
+	      	select PBC_PROD_ID ,
+	      	rank() over (partition by PBC_PROD_ID order by nvl(update_time,create_time) desc) ranknum
+	      	from pbc_col_asset_usufruct_sub_HIS
+	      	where 
+	      	PBC_PROD_ID in
+	       <foreach collection="list" open="(" close=")" separator="," item="item">
+	      		#{item.pbcProdId,jdbcType=CHAR}
+	      </foreach>
+	      )
+	      where ranknum = 1
+    )
+</delete>
+
+    <!-- 原始表删除 -->
+<delete id="deleteBatchBySendStatus" parameterType="java.util.List">
+  	delete from pbc_col_asset_usufruct_sub
+  	where 
+  		PBC_PROD_ID in <foreach collection="list" item="item" open="(" close=")" separator=",">
+  			#{item.pbcProdId,jdbcType=CHAR}
+  		</foreach>
+  		and SEND_STATUS in ('02','03')
+ </delete>
+
+    <!-- 找sub表有没有未报送的数据 -->
+ <select id="selectRegistSeqnoList" resultType="java.lang.String" parameterType="com.joyintech.tams.svreport.pbc.classic.prdinfoendsub.dto.PbcPrdBaseinfoEndSub">
+   	select DETAILUUID
+      from pbc_col_asset_usufruct_sub
+      where 
+      <if test="flag == '02'">
+      SEND_STATUS in ('02','03')
+      </if>
+      <if test="flag == '01'">
+      SEND_STATUS = '01'
+      </if>
+     <if test="termId !=null">
+         and TERMID=#{termId,jdbcType=CHAR}
+     </if>
+      <foreach collection="list" item="item" open="and ( (" separator=") or (" close=") )">
+      PBC_PROD_ID = #{item.pbcProdId,jdbcType=VARCHAR}
+      </foreach>
+ </select>
+
+    <!-- 手工处理 -->
+    <update id="doDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '03',
+        file.SUBMIT_TIME = sysdate,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 取消手工处理 -->
+    <update id="cancelDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '01',
+        file.SUBMIT_TIME = null,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 人行产品代码下拉框 -->
+    <select id="getPbcProdId" resultType="com.joyintech.framework.select.SelectOptionDto">
+        select id,text
+        from
+        (SELECT
+        nvl(t2.pbc_code,pbcend.PBC_PROD_ID) id,
+        nvl(b.PROD_NAME,pbcend.PBC_PROD_ID) text text
+        from pbc_col_asset_usufruct_sub pbcend
+        left join (select a.* from (SELECT PBC_PROD_ID,PROD_ID,OPERATE_MODE,IVSTORIENTATION,VDATE,status,RAISE_ENDDATE,ORG_CODE,ISSUE_PARTY_ID,PROD_NAME,
+        row_number() OVER (partition BY PBC_PROD_ID ORDER BY nvl(UPDATE_TIME,CREATE_TIME)
+        DESC) AS myrank
+        FROM PBC_COL_PRD_BASEINFO_SUB) a
+        WHERE a.myrank=1) b on pbcend.PBC_PROD_ID = b.PBC_PROD_ID
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=b.PROD_ID
+        <where>
+            1=1
+            <if test="search != null and search != ''">
+                and (pbcend.PBC_PROD_ID like concat(concat('%', #{search}),'%')
+                or b.PROD_NAME like concat(concat('%', #{search}),'%')
+                or t2.pbc_code like concat(concat('%', #{search}),'%'))
+            </if>
+        </where>) a
+        group by id
+    </select>
+
+</mapper>

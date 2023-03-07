@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dao.ChbProductsAssetCompare001Mapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        <id column="REGIST_SEQNO" property="registSeqno" jdbcType="VARCHAR" />
+        <result column="STATUS_BATCH" property="statusBatch" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="ASSET_ID" property="assetId" jdbcType="VARCHAR" />
+        <result column="HOLD_QTY_AMOUNT" property="holdQtyAmount" jdbcType="DECIMAL" />
+        <result column="HOLD_SHARES" property="holdShares" jdbcType="DECIMAL" />
+        <result column="BANK_MARK" property="bankMark" jdbcType="VARCHAR" />
+        <result column="DATE_STATUS" property="dateStatus" jdbcType="DATE" />
+        <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        REGIST_SEQNO REGIST_SEQNO, STATUS_BATCH STATUS_BATCH, ACCOUNT ACCOUNT, ASSET_ID ASSET_ID, 
+        HOLD_QTY_AMOUNT HOLD_QTY_AMOUNT, HOLD_SHARES HOLD_SHARES, BANK_MARK BANK_MARK, DATE_STATUS DATE_STATUS, 
+        GROUP_ID GROUP_ID, STATUS STATUS, CREATE_USER CREATE_USER, ORG_CODE ORG_CODE, CREATE_DEPT CREATE_DEPT, 
+        CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dao.ChbProductsAssetCompare001Mapper.Base_Column_List" />
+        from CHB_PRODUCTS_ASSET_COMPARE
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dao.ChbProductsAssetCompare001Mapper.Base_Column_List" />
+        from CHB_PRODUCTS_ASSET_COMPARE
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dao.ChbProductsAssetCompare001Mapper.Base_Column_List" />
+        from CHB_PRODUCTS_ASSET_COMPARE
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_PRODUCTS_ASSET_COMPARE
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        insert into CHB_PRODUCTS_ASSET_COMPARE (REGIST_SEQNO, STATUS_BATCH, ACCOUNT, 
+            ASSET_ID, HOLD_QTY_AMOUNT, HOLD_SHARES, 
+            BANK_MARK, DATE_STATUS, GROUP_ID, 
+            STATUS, CREATE_USER, ORG_CODE, 
+            CREATE_DEPT, CREATE_TIME, UPDATE_USER, 
+            UPDATE_TIME)
+        values (#{registSeqno,jdbcType=VARCHAR}, #{statusBatch,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+            #{assetId,jdbcType=VARCHAR}, #{holdQtyAmount,jdbcType=DECIMAL}, #{holdShares,jdbcType=DECIMAL}, 
+            #{bankMark,jdbcType=VARCHAR}, #{dateStatus,jdbcType=DATE}, #{groupId,jdbcType=VARCHAR}, 
+            #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+            #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+            #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        insert into CHB_PRODUCTS_ASSET_COMPARE
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                REGIST_SEQNO,
+            </if>
+            <if test="statusBatch != null" >
+                STATUS_BATCH,
+            </if>
+            <if test="account != null" >
+                ACCOUNT,
+            </if>
+            <if test="assetId != null" >
+                ASSET_ID,
+            </if>
+            <if test="holdQtyAmount != null" >
+                HOLD_QTY_AMOUNT,
+            </if>
+            <if test="holdShares != null" >
+                HOLD_SHARES,
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK,
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS,
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                #{registSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="statusBatch != null" >
+                #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="assetId != null" >
+                #{assetId,jdbcType=VARCHAR},
+            </if>
+            <if test="holdQtyAmount != null" >
+                #{holdQtyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="holdShares != null" >
+                #{holdShares,jdbcType=DECIMAL},
+            </if>
+            <if test="bankMark != null" >
+                #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        insert into CHB_PRODUCTS_ASSET_COMPARE(REGIST_SEQNO, STATUS_BATCH, ACCOUNT, ASSET_ID, 
+        HOLD_QTY_AMOUNT, HOLD_SHARES, BANK_MARK, DATE_STATUS, GROUP_ID, STATUS, CREATE_USER, 
+        ORG_CODE, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+        select REGIST_SEQNO, STATUS_BATCH, ACCOUNT, ASSET_ID, 
+            HOLD_QTY_AMOUNT, HOLD_SHARES, BANK_MARK, DATE_STATUS, GROUP_ID, #{status,jdbcType=VARCHAR} STATUS, CREATE_USER, 
+            ORG_CODE, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+             from CHB_PRODUCTS_ASSET_COMPARE
+             where STATUS = 'E' and REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </insert>
+
+    <!-- 分页查询   -->
+    <select id="findPage" resultType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        SELECT
+        T1.STATUS_BATCH         AS statusBatch,
+        T1.ACCOUNT              AS account,
+        T1.ASSET_ID             AS assetId,
+        T1.HOLD_QTY_AMOUNT      AS holdQtyAmount,
+        T1.HOLD_SHARES          AS holdShares,
+        T1.BANK_MARK            AS bankMark,
+        T1.DATE_STATUS          AS dateStatus,
+        T1.GROUP_ID             AS groupId
+        FROM
+        CHB_PRODUCTS_ASSET_COMPARE T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        update CHB_PRODUCTS_ASSET_COMPARE
+        <set >
+            <if test="statusBatch != null" >
+                STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                ACCOUNT = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="assetId != null" >
+                ASSET_ID = #{assetId,jdbcType=VARCHAR},
+            </if>
+            <if test="holdQtyAmount != null" >
+                HOLD_QTY_AMOUNT = #{holdQtyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="holdShares != null" >
+                HOLD_SHARES = #{holdShares,jdbcType=DECIMAL},
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        update CHB_PRODUCTS_ASSET_COMPARE
+        set STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            ACCOUNT = #{account,jdbcType=VARCHAR},
+            ASSET_ID = #{assetId,jdbcType=VARCHAR},
+            HOLD_QTY_AMOUNT = #{holdQtyAmount,jdbcType=DECIMAL},
+            HOLD_SHARES = #{holdShares,jdbcType=DECIMAL},
+            BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="queryAllList1" resultType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        select
+            T1.ACCOUNT AS account,
+            T1.TOTALSHARES AS totalShares,
+            T2.TOTAL_AMT AS totalAmt
+        FROM
+            (select
+                ACCOUNT,
+                sum(HOLD_QTY_AMOUNT) TOTALSHARES
+            from
+                CHB_PRODUCTS_ASSET_COMPARE
+            where
+                1=1
+                <if test="dateStatus != null and dateStatus != ''">
+                    and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+                </if>
+            group by ACCOUNT)T1
+        left join
+            CHB_FINANCE_PRODUCTS_SUB T2
+        on
+            T1.ACCOUNT=T2.PROD_ID
+        where
+        1=1
+         <if test="dateStatus != null and dateStatus != ''">
+            and T2.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+        </if>
+    </select>
+
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        CHB_PRODUCTS_ASSET_COMPARE
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 批导出是否在执行或待执行 -->
+    <select id="getNoendCountByTaskBeanName" parameterType="string" resultType="int">
+        select count(1)
+        from SYS_BATCHGRP_EXEC_INFO info
+        left join SYS_BATCH_JOB bj
+        on info.BATCH_SEQ_NO=bj.BATCH_SEQ_NO
+        where
+        bj.TASK_ID=#{taskid,jdbcType=VARCHAR}
+        and info.STATUS in ('UNR','RUN')
+    </select>
+</mapper>

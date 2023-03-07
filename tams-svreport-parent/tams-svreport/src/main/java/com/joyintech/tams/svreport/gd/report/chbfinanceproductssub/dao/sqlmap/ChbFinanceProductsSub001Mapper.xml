@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dao.ChbFinanceProductsSub001Mapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        <id column="REGIST_SEQNO" property="registSeqno" jdbcType="VARCHAR" />
+        <result column="STATUS_BATCH" property="statusBatch" jdbcType="VARCHAR" />
+        <result column="PROD_ID" property="prodId" jdbcType="VARCHAR" />
+        <result column="PROD_NAME" property="prodName" jdbcType="VARCHAR" />
+        <result column="SURFACE_IN_OUT" property="surfaceInOut" jdbcType="VARCHAR" />
+        <result column="PROD_BRAND" property="prodBrand" jdbcType="VARCHAR" />
+        <result column="PROD_STAGE" property="prodStage" jdbcType="DECIMAL" />
+        <result column="RAISE_CCY" property="raiseCcy" jdbcType="VARCHAR" />
+        <result column="RAISE_AMT_PLAN" property="raiseAmtPlan" jdbcType="DECIMAL" />
+        <result column="TOTAL_AMT" property="totalAmt" jdbcType="DECIMAL" />
+        <result column="SALE_AMT_STR" property="saleAmtStr" jdbcType="DECIMAL" />
+        <result column="RAISE_VDATE" property="raiseVdate" jdbcType="DATE" />
+        <result column="RAISE_ENDDATE" property="raiseEnddate" jdbcType="DATE" />
+        <result column="CASH_PRIN_CCY" property="cashPrinCcy" jdbcType="VARCHAR" />
+        <result column="CASH_PROF_CCY" property="cashProfCcy" jdbcType="VARCHAR" />
+        <result column="VDATE" property="vdate" jdbcType="DATE" />
+        <result column="MDATE" property="mdate" jdbcType="DATE" />
+        <result column="LOW_YIELD" property="lowYield" jdbcType="DECIMAL" />
+        <result column="HIGH_YIELD" property="highYield" jdbcType="DECIMAL" />
+        <result column="IS_CONSTRACTE" property="isConstracte" jdbcType="VARCHAR" />
+        <result column="RISK_LEVEL" property="riskLevel" jdbcType="VARCHAR" />
+        <result column="PROD_MANAGE_PATTERN" property="prodManagePattern" jdbcType="VARCHAR" />
+        <result column="CONT_MODE" property="contMode" jdbcType="VARCHAR" />
+        <result column="PROFIT_TYPE" property="profitType" jdbcType="VARCHAR" />
+        <result column="PROD_SALEBANK_NAME" property="prodSalebankName" jdbcType="VARCHAR" />
+        <result column="OPERATE_MODE" property="operateMode" jdbcType="VARCHAR" />
+        <result column="CMMODE" property="cmmode" jdbcType="VARCHAR" />
+        <result column="TERM_RIGHT_FLAG" property="termRightFlag" jdbcType="VARCHAR" />
+        <result column="COOPERATION_NAME" property="cooperationName" jdbcType="VARCHAR" />
+        <result column="INV_ASSET_TYPE" property="invAssetType" jdbcType="VARCHAR" />
+        <result column="CUSTOMER_RISK_LEVEL" property="customerRiskLevel" jdbcType="VARCHAR" />
+        <result column="CUSTOMER_TYPE" property="customerType" jdbcType="VARCHAR" />
+        <result column="INVEST_ARAE" property="investArae" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="BANK_MARK" property="bankMark" jdbcType="VARCHAR" />
+        <result column="DATE_STATUS" property="dateStatus" jdbcType="DATE" />
+        <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        REGIST_SEQNO REGIST_SEQNO, STATUS_BATCH STATUS_BATCH, PROD_ID PROD_ID, PROD_NAME PROD_NAME, 
+        SURFACE_IN_OUT SURFACE_IN_OUT, PROD_BRAND PROD_BRAND, PROD_STAGE PROD_STAGE, RAISE_CCY RAISE_CCY, 
+        RAISE_AMT_PLAN RAISE_AMT_PLAN, TOTAL_AMT TOTAL_AMT, SALE_AMT_STR SALE_AMT_STR, RAISE_VDATE RAISE_VDATE, 
+        RAISE_ENDDATE RAISE_ENDDATE, CASH_PRIN_CCY CASH_PRIN_CCY, CASH_PROF_CCY CASH_PROF_CCY, 
+        VDATE VDATE, MDATE MDATE, LOW_YIELD LOW_YIELD, HIGH_YIELD HIGH_YIELD, IS_CONSTRACTE IS_CONSTRACTE, 
+        RISK_LEVEL RISK_LEVEL, PROD_MANAGE_PATTERN PROD_MANAGE_PATTERN, CONT_MODE CONT_MODE, 
+        PROFIT_TYPE PROFIT_TYPE, PROD_SALEBANK_NAME PROD_SALEBANK_NAME, OPERATE_MODE OPERATE_MODE, 
+        CMMODE CMMODE, TERM_RIGHT_FLAG TERM_RIGHT_FLAG, COOPERATION_NAME COOPERATION_NAME, 
+        INV_ASSET_TYPE INV_ASSET_TYPE, CUSTOMER_RISK_LEVEL CUSTOMER_RISK_LEVEL, CUSTOMER_TYPE CUSTOMER_TYPE, 
+        INVEST_ARAE INVEST_ARAE, REMARK REMARK, BANK_MARK BANK_MARK, DATE_STATUS DATE_STATUS, 
+        GROUP_ID GROUP_ID, STATUS STATUS, CREATE_USER CREATE_USER, ORG_CODE ORG_CODE, CREATE_DEPT CREATE_DEPT, 
+        CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dao.ChbFinanceProductsSub001Mapper.Base_Column_List" />
+        from CHB_FINANCE_PRODUCTS_SUB
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dao.ChbFinanceProductsSub001Mapper.Base_Column_List" />
+        from CHB_FINANCE_PRODUCTS_SUB
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dao.ChbFinanceProductsSub001Mapper.Base_Column_List" />
+        from CHB_FINANCE_PRODUCTS_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_FINANCE_PRODUCTS_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        insert into CHB_FINANCE_PRODUCTS_SUB (REGIST_SEQNO, STATUS_BATCH, PROD_ID, 
+            PROD_NAME, SURFACE_IN_OUT, PROD_BRAND, 
+            PROD_STAGE, RAISE_CCY, RAISE_AMT_PLAN, 
+            TOTAL_AMT, SALE_AMT_STR, RAISE_VDATE, 
+            RAISE_ENDDATE, CASH_PRIN_CCY, CASH_PROF_CCY, 
+            VDATE, MDATE, LOW_YIELD, 
+            HIGH_YIELD, IS_CONSTRACTE, RISK_LEVEL, 
+            PROD_MANAGE_PATTERN, CONT_MODE, PROFIT_TYPE, 
+            PROD_SALEBANK_NAME, OPERATE_MODE, CMMODE, 
+            TERM_RIGHT_FLAG, COOPERATION_NAME, INV_ASSET_TYPE, 
+            CUSTOMER_RISK_LEVEL, CUSTOMER_TYPE, INVEST_ARAE, 
+            REMARK, BANK_MARK, DATE_STATUS, 
+            GROUP_ID, STATUS, CREATE_USER, 
+            ORG_CODE, CREATE_DEPT, CREATE_TIME, 
+            UPDATE_USER, UPDATE_TIME)
+        values (#{registSeqno,jdbcType=VARCHAR}, #{statusBatch,jdbcType=VARCHAR}, #{prodId,jdbcType=VARCHAR}, 
+            #{prodName,jdbcType=VARCHAR}, #{surfaceInOut,jdbcType=VARCHAR}, #{prodBrand,jdbcType=VARCHAR}, 
+            #{prodStage,jdbcType=DECIMAL}, #{raiseCcy,jdbcType=VARCHAR}, #{raiseAmtPlan,jdbcType=DECIMAL}, 
+            #{totalAmt,jdbcType=DECIMAL}, #{saleAmtStr,jdbcType=DECIMAL}, #{raiseVdate,jdbcType=DATE}, 
+            #{raiseEnddate,jdbcType=DATE}, #{cashPrinCcy,jdbcType=VARCHAR}, #{cashProfCcy,jdbcType=VARCHAR}, 
+            #{vdate,jdbcType=DATE}, #{mdate,jdbcType=DATE}, #{lowYield,jdbcType=DECIMAL}, 
+            #{highYield,jdbcType=DECIMAL}, #{isConstracte,jdbcType=VARCHAR}, #{riskLevel,jdbcType=VARCHAR}, 
+            #{prodManagePattern,jdbcType=VARCHAR}, #{contMode,jdbcType=VARCHAR}, #{profitType,jdbcType=VARCHAR}, 
+            #{prodSalebankName,jdbcType=VARCHAR}, #{operateMode,jdbcType=VARCHAR}, #{cmmode,jdbcType=VARCHAR}, 
+            #{termRightFlag,jdbcType=VARCHAR}, #{cooperationName,jdbcType=VARCHAR}, #{invAssetType,jdbcType=VARCHAR}, 
+            #{customerRiskLevel,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, #{investArae,jdbcType=VARCHAR}, 
+            #{remark,jdbcType=VARCHAR}, #{bankMark,jdbcType=VARCHAR}, #{dateStatus,jdbcType=DATE}, 
+            #{groupId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+            #{orgCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        insert into CHB_FINANCE_PRODUCTS_SUB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                REGIST_SEQNO,
+            </if>
+            <if test="statusBatch != null" >
+                STATUS_BATCH,
+            </if>
+            <if test="prodId != null" >
+                PROD_ID,
+            </if>
+            <if test="prodName != null" >
+                PROD_NAME,
+            </if>
+            <if test="surfaceInOut != null" >
+                SURFACE_IN_OUT,
+            </if>
+            <if test="prodBrand != null" >
+                PROD_BRAND,
+            </if>
+            <if test="prodStage != null" >
+                PROD_STAGE,
+            </if>
+            <if test="raiseCcy != null" >
+                RAISE_CCY,
+            </if>
+            <if test="raiseAmtPlan != null" >
+                RAISE_AMT_PLAN,
+            </if>
+            <if test="totalAmt != null" >
+                TOTAL_AMT,
+            </if>
+            <if test="saleAmtStr != null" >
+                SALE_AMT_STR,
+            </if>
+            <if test="raiseVdate != null" >
+                RAISE_VDATE,
+            </if>
+            <if test="raiseEnddate != null" >
+                RAISE_ENDDATE,
+            </if>
+            <if test="cashPrinCcy != null" >
+                CASH_PRIN_CCY,
+            </if>
+            <if test="cashProfCcy != null" >
+                CASH_PROF_CCY,
+            </if>
+            <if test="vdate != null" >
+                VDATE,
+            </if>
+            <if test="mdate != null" >
+                MDATE,
+            </if>
+            <if test="lowYield != null" >
+                LOW_YIELD,
+            </if>
+            <if test="highYield != null" >
+                HIGH_YIELD,
+            </if>
+            <if test="isConstracte != null" >
+                IS_CONSTRACTE,
+            </if>
+            <if test="riskLevel != null" >
+                RISK_LEVEL,
+            </if>
+            <if test="prodManagePattern != null" >
+                PROD_MANAGE_PATTERN,
+            </if>
+            <if test="contMode != null" >
+                CONT_MODE,
+            </if>
+            <if test="profitType != null" >
+                PROFIT_TYPE,
+            </if>
+            <if test="prodSalebankName != null" >
+                PROD_SALEBANK_NAME,
+            </if>
+            <if test="operateMode != null" >
+                OPERATE_MODE,
+            </if>
+            <if test="cmmode != null" >
+                CMMODE,
+            </if>
+            <if test="termRightFlag != null" >
+                TERM_RIGHT_FLAG,
+            </if>
+            <if test="cooperationName != null" >
+                COOPERATION_NAME,
+            </if>
+            <if test="invAssetType != null" >
+                INV_ASSET_TYPE,
+            </if>
+            <if test="customerRiskLevel != null" >
+                CUSTOMER_RISK_LEVEL,
+            </if>
+            <if test="customerType != null" >
+                CUSTOMER_TYPE,
+            </if>
+            <if test="investArae != null" >
+                INVEST_ARAE,
+            </if>
+            <if test="remark != null" >
+                REMARK,
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK,
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS,
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                #{registSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="statusBatch != null" >
+                #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null" >
+                #{prodId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodName != null" >
+                #{prodName,jdbcType=VARCHAR},
+            </if>
+            <if test="surfaceInOut != null" >
+                #{surfaceInOut,jdbcType=VARCHAR},
+            </if>
+            <if test="prodBrand != null" >
+                #{prodBrand,jdbcType=VARCHAR},
+            </if>
+            <if test="prodStage != null" >
+                #{prodStage,jdbcType=DECIMAL},
+            </if>
+            <if test="raiseCcy != null" >
+                #{raiseCcy,jdbcType=VARCHAR},
+            </if>
+            <if test="raiseAmtPlan != null" >
+                #{raiseAmtPlan,jdbcType=DECIMAL},
+            </if>
+            <if test="totalAmt != null" >
+                #{totalAmt,jdbcType=DECIMAL},
+            </if>
+            <if test="saleAmtStr != null" >
+                #{saleAmtStr,jdbcType=DECIMAL},
+            </if>
+            <if test="raiseVdate != null" >
+                #{raiseVdate,jdbcType=DATE},
+            </if>
+            <if test="raiseEnddate != null" >
+                #{raiseEnddate,jdbcType=DATE},
+            </if>
+            <if test="cashPrinCcy != null" >
+                #{cashPrinCcy,jdbcType=VARCHAR},
+            </if>
+            <if test="cashProfCcy != null" >
+                #{cashProfCcy,jdbcType=VARCHAR},
+            </if>
+            <if test="vdate != null" >
+                #{vdate,jdbcType=DATE},
+            </if>
+            <if test="mdate != null" >
+                #{mdate,jdbcType=DATE},
+            </if>
+            <if test="lowYield != null" >
+                #{lowYield,jdbcType=DECIMAL},
+            </if>
+            <if test="highYield != null" >
+                #{highYield,jdbcType=DECIMAL},
+            </if>
+            <if test="isConstracte != null" >
+                #{isConstracte,jdbcType=VARCHAR},
+            </if>
+            <if test="riskLevel != null" >
+                #{riskLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="prodManagePattern != null" >
+                #{prodManagePattern,jdbcType=VARCHAR},
+            </if>
+            <if test="contMode != null" >
+                #{contMode,jdbcType=VARCHAR},
+            </if>
+            <if test="profitType != null" >
+                #{profitType,jdbcType=VARCHAR},
+            </if>
+            <if test="prodSalebankName != null" >
+                #{prodSalebankName,jdbcType=VARCHAR},
+            </if>
+            <if test="operateMode != null" >
+                #{operateMode,jdbcType=VARCHAR},
+            </if>
+            <if test="cmmode != null" >
+                #{cmmode,jdbcType=VARCHAR},
+            </if>
+            <if test="termRightFlag != null" >
+                #{termRightFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperationName != null" >
+                #{cooperationName,jdbcType=VARCHAR},
+            </if>
+            <if test="invAssetType != null" >
+                #{invAssetType,jdbcType=VARCHAR},
+            </if>
+            <if test="customerRiskLevel != null" >
+                #{customerRiskLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="customerType != null" >
+                #{customerType,jdbcType=VARCHAR},
+            </if>
+            <if test="investArae != null" >
+                #{investArae,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="bankMark != null" >
+                #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        insert into CHB_FINANCE_PRODUCTS_SUB(REGIST_SEQNO, STATUS_BATCH, PROD_ID, PROD_NAME, 
+        SURFACE_IN_OUT, PROD_BRAND, PROD_STAGE, RAISE_CCY, RAISE_AMT_PLAN, TOTAL_AMT, SALE_AMT_STR, 
+        RAISE_VDATE, RAISE_ENDDATE, CASH_PRIN_CCY, CASH_PROF_CCY, VDATE, MDATE, LOW_YIELD, 
+        HIGH_YIELD, IS_CONSTRACTE, RISK_LEVEL, PROD_MANAGE_PATTERN, CONT_MODE, PROFIT_TYPE, 
+        PROD_SALEBANK_NAME, OPERATE_MODE, CMMODE, TERM_RIGHT_FLAG, COOPERATION_NAME, INV_ASSET_TYPE, 
+        CUSTOMER_RISK_LEVEL, CUSTOMER_TYPE, INVEST_ARAE, REMARK, BANK_MARK, DATE_STATUS, 
+        GROUP_ID, STATUS, CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+        )
+        select REGIST_SEQNO, STATUS_BATCH, PROD_ID, PROD_NAME, 
+            SURFACE_IN_OUT, PROD_BRAND, PROD_STAGE, RAISE_CCY, RAISE_AMT_PLAN, TOTAL_AMT, SALE_AMT_STR, 
+            RAISE_VDATE, RAISE_ENDDATE, CASH_PRIN_CCY, CASH_PROF_CCY, VDATE, MDATE, LOW_YIELD, 
+            HIGH_YIELD, IS_CONSTRACTE, RISK_LEVEL, PROD_MANAGE_PATTERN, CONT_MODE, PROFIT_TYPE, 
+            PROD_SALEBANK_NAME, OPERATE_MODE, CMMODE, TERM_RIGHT_FLAG, COOPERATION_NAME, INV_ASSET_TYPE, 
+            CUSTOMER_RISK_LEVEL, CUSTOMER_TYPE, INVEST_ARAE, REMARK, BANK_MARK, DATE_STATUS, 
+            GROUP_ID, #{status,jdbcType=VARCHAR} STATUS, CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+            
+             from CHB_FINANCE_PRODUCTS_SUB
+             where STATUS = 'E' and REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </insert>
+    <!-- 分页查询   -->
+    <select id="findPage" resultType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        SELECT
+        T1.STATUS_BATCH         AS statusBatch,
+        T1.PROD_ID              AS prodId,
+        T1.PROD_NAME            AS prodName,
+        T1.SURFACE_IN_OUT       AS surfaceInOut,
+        T1.PROD_BRAND           AS prodBrand,
+        T1.PROD_STAGE           AS prodStage,
+        T1.RAISE_CCY            AS raiseCcy,
+        T1.RAISE_AMT_PLAN       AS raiseAmtPlan,
+        T1.TOTAL_AMT            AS totalAmt,
+        T1.SALE_AMT_STR         AS saleAmtStr,
+        T1.RAISE_VDATE          AS raiseVdate,
+        T1.RAISE_ENDDATE        AS raiseEnddate,
+        T1.CASH_PRIN_CCY        AS cashPrinCcy,
+        T1.CASH_PROF_CCY        AS cashProfCcy,
+        T1.VDATE                AS vdate,
+        T1.MDATE                AS mdate,
+        T1.LOW_YIELD            AS lowYield,
+        T1.HIGH_YIELD           AS highYield,
+        T1.IS_CONSTRACTE        AS isConstracte,
+        T1.RISK_LEVEL           AS riskLevel,
+        T1.PROD_MANAGE_PATTERN  AS prodManagePattern,
+        T1.CONT_MODE            AS contMode,
+        T1.PROFIT_TYPE          AS profitType,
+        T1.PROD_SALEBANK_NAME   AS prodSalebankName,
+        T1.OPERATE_MODE         AS operateMode,
+        T1.CMMODE               AS cmmode,
+        T1.TERM_RIGHT_FLAG      AS termRightFlag,
+        T1.COOPERATION_NAME     AS cooperationName,
+        T1.INV_ASSET_TYPE       AS invAssetType,
+        T1.CUSTOMER_RISK_LEVEL  AS customerRiskLevel,
+        T1.CUSTOMER_TYPE        AS customerType,
+        T1.INVEST_ARAE          AS investArae ,
+        T1.REMARK               AS remark,
+        T1.BANK_MARK            AS bankMark ,
+        T1.DATE_STATUS          AS dateStatus,
+        T1.GROUP_ID             AS groupId
+        FROM
+        CHB_FINANCE_PRODUCTS_SUB T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+        ORDER BY T1.STATUS_BATCH DESC
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        update CHB_FINANCE_PRODUCTS_SUB
+        <set >
+            <if test="statusBatch != null" >
+                STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="prodId != null" >
+                PROD_ID = #{prodId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodName != null" >
+                PROD_NAME = #{prodName,jdbcType=VARCHAR},
+            </if>
+            <if test="surfaceInOut != null" >
+                SURFACE_IN_OUT = #{surfaceInOut,jdbcType=VARCHAR},
+            </if>
+            <if test="prodBrand != null" >
+                PROD_BRAND = #{prodBrand,jdbcType=VARCHAR},
+            </if>
+            <if test="prodStage != null" >
+                PROD_STAGE = #{prodStage,jdbcType=DECIMAL},
+            </if>
+            <if test="raiseCcy != null" >
+                RAISE_CCY = #{raiseCcy,jdbcType=VARCHAR},
+            </if>
+            <if test="raiseAmtPlan != null" >
+                RAISE_AMT_PLAN = #{raiseAmtPlan,jdbcType=DECIMAL},
+            </if>
+            <if test="totalAmt != null" >
+                TOTAL_AMT = #{totalAmt,jdbcType=DECIMAL},
+            </if>
+            <if test="saleAmtStr != null" >
+                SALE_AMT_STR = #{saleAmtStr,jdbcType=DECIMAL},
+            </if>
+            <if test="raiseVdate != null" >
+                RAISE_VDATE = #{raiseVdate,jdbcType=DATE},
+            </if>
+            <if test="raiseEnddate != null" >
+                RAISE_ENDDATE = #{raiseEnddate,jdbcType=DATE},
+            </if>
+            <if test="cashPrinCcy != null" >
+                CASH_PRIN_CCY = #{cashPrinCcy,jdbcType=VARCHAR},
+            </if>
+            <if test="cashProfCcy != null" >
+                CASH_PROF_CCY = #{cashProfCcy,jdbcType=VARCHAR},
+            </if>
+            <if test="vdate != null" >
+                VDATE = #{vdate,jdbcType=DATE},
+            </if>
+            <if test="mdate != null" >
+                MDATE = #{mdate,jdbcType=DATE},
+            </if>
+            <if test="lowYield != null" >
+                LOW_YIELD = #{lowYield,jdbcType=DECIMAL},
+            </if>
+            <if test="highYield != null" >
+                HIGH_YIELD = #{highYield,jdbcType=DECIMAL},
+            </if>
+            <if test="isConstracte != null" >
+                IS_CONSTRACTE = #{isConstracte,jdbcType=VARCHAR},
+            </if>
+            <if test="riskLevel != null" >
+                RISK_LEVEL = #{riskLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="prodManagePattern != null" >
+                PROD_MANAGE_PATTERN = #{prodManagePattern,jdbcType=VARCHAR},
+            </if>
+            <if test="contMode != null" >
+                CONT_MODE = #{contMode,jdbcType=VARCHAR},
+            </if>
+            <if test="profitType != null" >
+                PROFIT_TYPE = #{profitType,jdbcType=VARCHAR},
+            </if>
+            <if test="prodSalebankName != null" >
+                PROD_SALEBANK_NAME = #{prodSalebankName,jdbcType=VARCHAR},
+            </if>
+            <if test="operateMode != null" >
+                OPERATE_MODE = #{operateMode,jdbcType=VARCHAR},
+            </if>
+            <if test="cmmode != null" >
+                CMMODE = #{cmmode,jdbcType=VARCHAR},
+            </if>
+            <if test="termRightFlag != null" >
+                TERM_RIGHT_FLAG = #{termRightFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperationName != null" >
+                COOPERATION_NAME = #{cooperationName,jdbcType=VARCHAR},
+            </if>
+            <if test="invAssetType != null" >
+                INV_ASSET_TYPE = #{invAssetType,jdbcType=VARCHAR},
+            </if>
+            <if test="customerRiskLevel != null" >
+                CUSTOMER_RISK_LEVEL = #{customerRiskLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="customerType != null" >
+                CUSTOMER_TYPE = #{customerType,jdbcType=VARCHAR},
+            </if>
+            <if test="investArae != null" >
+                INVEST_ARAE = #{investArae,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto" >
+        update CHB_FINANCE_PRODUCTS_SUB
+        set STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            PROD_ID = #{prodId,jdbcType=VARCHAR},
+            PROD_NAME = #{prodName,jdbcType=VARCHAR},
+            SURFACE_IN_OUT = #{surfaceInOut,jdbcType=VARCHAR},
+            PROD_BRAND = #{prodBrand,jdbcType=VARCHAR},
+            PROD_STAGE = #{prodStage,jdbcType=DECIMAL},
+            RAISE_CCY = #{raiseCcy,jdbcType=VARCHAR},
+            RAISE_AMT_PLAN = #{raiseAmtPlan,jdbcType=DECIMAL},
+            TOTAL_AMT = #{totalAmt,jdbcType=DECIMAL},
+            SALE_AMT_STR = #{saleAmtStr,jdbcType=DECIMAL},
+            RAISE_VDATE = #{raiseVdate,jdbcType=DATE},
+            RAISE_ENDDATE = #{raiseEnddate,jdbcType=DATE},
+            CASH_PRIN_CCY = #{cashPrinCcy,jdbcType=VARCHAR},
+            CASH_PROF_CCY = #{cashProfCcy,jdbcType=VARCHAR},
+            VDATE = #{vdate,jdbcType=DATE},
+            MDATE = #{mdate,jdbcType=DATE},
+            LOW_YIELD = #{lowYield,jdbcType=DECIMAL},
+            HIGH_YIELD = #{highYield,jdbcType=DECIMAL},
+            IS_CONSTRACTE = #{isConstracte,jdbcType=VARCHAR},
+            RISK_LEVEL = #{riskLevel,jdbcType=VARCHAR},
+            PROD_MANAGE_PATTERN = #{prodManagePattern,jdbcType=VARCHAR},
+            CONT_MODE = #{contMode,jdbcType=VARCHAR},
+            PROFIT_TYPE = #{profitType,jdbcType=VARCHAR},
+            PROD_SALEBANK_NAME = #{prodSalebankName,jdbcType=VARCHAR},
+            OPERATE_MODE = #{operateMode,jdbcType=VARCHAR},
+            CMMODE = #{cmmode,jdbcType=VARCHAR},
+            TERM_RIGHT_FLAG = #{termRightFlag,jdbcType=VARCHAR},
+            COOPERATION_NAME = #{cooperationName,jdbcType=VARCHAR},
+            INV_ASSET_TYPE = #{invAssetType,jdbcType=VARCHAR},
+            CUSTOMER_RISK_LEVEL = #{customerRiskLevel,jdbcType=VARCHAR},
+            CUSTOMER_TYPE = #{customerType,jdbcType=VARCHAR},
+            INVEST_ARAE = #{investArae,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        CHB_FINANCE_PRODUCTS_SUB
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 批导出是否在执行或待执行 -->
+    <select id="getNoendCountByTaskBeanName" parameterType="string" resultType="int">
+        select count(1)
+        from SYS_BATCHGRP_EXEC_INFO info
+        left join SYS_BATCH_JOB bj
+        on info.BATCH_SEQ_NO=bj.BATCH_SEQ_NO
+        where
+        bj.TASK_ID=#{taskid,jdbcType=VARCHAR}
+        and info.STATUS in ('UNR','RUN')
+    </select>
+</mapper>

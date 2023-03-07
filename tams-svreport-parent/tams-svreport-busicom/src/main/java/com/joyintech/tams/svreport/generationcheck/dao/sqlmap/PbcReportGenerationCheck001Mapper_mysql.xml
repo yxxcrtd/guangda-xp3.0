@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        <id column="DATA_UUID" property="dataUuid" jdbcType="VARCHAR" />
+        <result column="DATA_ID" property="dataId" jdbcType="VARCHAR" />
+        <result column="RULE_ID" property="ruleId" jdbcType="VARCHAR" />
+        <result column="PBC_ELEMENT_CODE" property="pbcElementCode" jdbcType="VARCHAR" />
+        <result column="REPORT_NAME" property="reportName" jdbcType="VARCHAR" />
+        <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
+        <result column="RULE_TYPE" property="ruleType" jdbcType="VARCHAR" />
+        <result column="RULE_CODE" property="ruleCode" jdbcType="VARCHAR" />
+        <result column="RULE_DETAILS" property="ruleDetails" jdbcType="VARCHAR" />
+        <result column="CHECK_DATE" property="checkDate" jdbcType="TIMESTAMP" />
+        <result column="FLAG_UUID" property="flagUuid" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CHECK_FLAG" property="checkFlag" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" extends="BaseResultMap" >
+        <result column="ERR_MSG" property="errMsg" jdbcType="LONGVARCHAR" />
+        <result column="ORG_DATA" property="orgData" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        DATA_UUID DATA_UUID, DATA_ID DATA_ID, RULE_ID RULE_ID, PBC_ELEMENT_CODE PBC_ELEMENT_CODE,
+        REPORT_NAME REPORT_NAME, FIELD_NAME FIELD_NAME, RULE_TYPE RULE_TYPE, RULE_CODE RULE_CODE,
+        RULE_DETAILS RULE_DETAILS, ORG_DATA ORG_DATA, CHECK_DATE CHECK_DATE, CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT,
+        CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME, FLAG_UUID FLAG_UUID
+    </sql>
+    <sql id="Blob_Column_List" >
+        ERR_MSG, ORG_DATA
+    </sql>
+    <sql id="Sql_All_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql.Blob_Column_List" />
+        from pbc_report_generation_check
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql.Blob_Column_List" />
+        from pbc_report_generation_check
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        <include refid="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.svreport.generationcheck.dao.PbcReportGenerationCheck001Mapper_mysql.Blob_Column_List" />
+        from pbc_report_generation_check
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from pbc_report_generation_check
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        insert into pbc_report_generation_check (DATA_UUID, DATA_ID, RULE_ID,
+                                                 PBC_ELEMENT_CODE, REPORT_NAME, FIELD_NAME,
+                                                 RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA,
+                                                 CHECK_DATE, CREATE_USER, CREATE_DEPT,
+                                                 CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+                                                 ERR_MSG, FLAG_UUID)
+        values (#{dataUuid,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, #{ruleId,jdbcType=VARCHAR},
+                #{pbcElementCode,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR},
+                #{ruleType,jdbcType=VARCHAR}, #{ruleCode,jdbcType=VARCHAR}, #{ruleDetails,jdbcType=VARCHAR}, #{orgData,jdbcType=LONGVARCHAR},
+                #{checkDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+                #{errMsg,jdbcType=LONGVARCHAR}, #{flagUuid,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        insert into pbc_report_generation_check
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="dataUuid != null" >
+                DATA_UUID,
+            </if>
+            <if test="dataId != null" >
+                DATA_ID,
+            </if>
+            <if test="ruleId != null" >
+                RULE_ID,
+            </if>
+            <if test="pbcElementCode != null" >
+                PBC_ELEMENT_CODE,
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME,
+            </if>
+            <if test="fieldName != null" >
+                FIELD_NAME,
+            </if>
+            <if test="ruleType != null" >
+                RULE_TYPE,
+            </if>
+            <if test="ruleCode != null" >
+                RULE_CODE,
+            </if>
+            <if test="ruleDetails != null" >
+                RULE_DETAILS,
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA,
+            </if>
+            <if test="checkDate != null" >
+                CHECK_DATE,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG,
+            </if>
+            <if test="flagUuid != null" >
+                FLAG_UUID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="dataUuid != null" >
+                #{dataUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="dataId != null" >
+                #{dataId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleId != null" >
+                #{ruleId,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcElementCode != null" >
+                #{pbcElementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldName != null" >
+                #{fieldName,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleType != null" >
+                #{ruleType,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleCode != null" >
+                #{ruleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleDetails != null" >
+                #{ruleDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="orgData != null" >
+                #{orgData,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null" >
+                #{checkDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errMsg != null" >
+                #{errMsg,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="flagUuid != null" >
+                #{flagUuid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        insert into pbc_report_generation_check(DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+                                                REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA, CHECK_DATE, CREATE_USER,
+                                                CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ERR_MSG, FLAG_UUID)
+        select DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+               REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA, CHECK_DATE, CREATE_USER,
+               CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, ERR_MSG, FLAG_UUID
+        from pbc_report_generation_check
+        where 1 = 1 and DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        update pbc_report_generation_check
+        <set >
+            <if test="dataId != null" >
+                DATA_ID = #{dataId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleId != null" >
+                RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcElementCode != null" >
+                PBC_ELEMENT_CODE = #{pbcElementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldName != null" >
+                FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleType != null" >
+                RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleCode != null" >
+                RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleDetails != null" >
+                RULE_DETAILS = #{ruleDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA = #{orgData,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null" >
+                CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG = #{errMsg,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="flagUuid != null" >
+                FLAG_UUID = #{flagUuid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        update pbc_report_generation_check
+        set DATA_ID = #{dataId,jdbcType=VARCHAR},
+            RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            PBC_ELEMENT_CODE = #{pbcElementCode,jdbcType=VARCHAR},
+            REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+            RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+            RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+            RULE_DETAILS = #{ruleDetails,jdbcType=VARCHAR},
+            ORG_DATA = #{orgData,jdbcType=LONGVARCHAR},
+            CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            ERR_MSG = #{errMsg,jdbcType=LONGVARCHAR},
+            FLAG_UUID = #{flagUuid,jdbcType=VARCHAR},
+            where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto" >
+        update pbc_report_generation_check
+        set DATA_ID = #{dataId,jdbcType=VARCHAR},
+            RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            PBC_ELEMENT_CODE = #{pbcElementCode,jdbcType=VARCHAR},
+            REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+            RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+            RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+            RULE_DETAILS = #{ruleDetails,jdbcType=VARCHAR},
+            ORG_DATA = #{orgData,jdbcType=LONGVARCHAR},
+            CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            ERR_MSG = #{errMsg,jdbcType=LONGVARCHAR},
+            FLAG_UUID = #{flagUuid,jdbcType=VARCHAR},
+            where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </update>
+
+    <!--  -->
+    <select id="searchPage" resultType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto">
+        SELECT
+        t1.DATA_UUID           AS dataUuid,
+        t1.DATA_ID             AS dataId,
+        t3.RULE_ID             AS ruleId,
+        t3.PBC_ASSET_CODE      AS pbcElementCode,
+        t3.TABLE_DATA_NAME     AS reportName,
+        t3.CHECKED_FIELD_NAME  AS fieldName,
+        t3.RULE_TYPE           AS ruleType,
+        t3.RULE_IDENTIFY       AS ruleCode,
+        t3.RULE_CONTENT        AS ruleDetails,
+        t1.ORG_DATA            AS orgData,
+        t1.CHECK_DATE          AS checkDate,
+        t2.CHECK_RESULT        AS checkResult,
+        t2.CHECK_FLAG          AS checkFlag
+        FROM
+        pbc_report_generation_check t1
+        LEFT JOIN pbc_report_generat_checkdetail t2 ON t1.DATA_UUID = t2.CHECK_UUID
+        LEFT JOIN pbc_check_rule_info t3 ON t3.RULE_ID = t2.RULE_ID
+        <where>
+            <if test="checkDateStart != null and !('').equals(checkDateStart)">
+                AND DATE_FORMAT(t1.CHECK_DATE, '%Y-%m-%d') <![CDATA[>=]]> #{checkDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="checkDateEnd != null and !('').equals(checkDateEnd)">
+                AND DATE_FORMAT(t1.CHECK_DATE, '%Y-%m-%d') <![CDATA[<=]]> #{checkDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="reportNameList != null and reportNameList.size()>0">
+                <foreach collection="reportNameList" item="item" open="AND t3.TABLE_DATA_NAME IN (" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="fieldName != null and !('').equals(fieldName)">
+                AND t3.CHECKED_FIELD_NAME LIKE CONCAT('%',CONCAT(#{fieldName,jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="ruleTypeList != null and ruleTypeList.size()>0">
+                <foreach collection="ruleTypeList" item="item" open="AND t3.RULE_TYPE IN (" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="ruleCode != null and !('').equals(ruleCode)">
+                AND t3.RULE_IDENTIFY = #{ruleCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ruleId != null and !('').equals(ruleId)">
+                AND t3.RULE_ID LIKE CONCAT('%',CONCAT(#{ruleId,jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="checkFlag != null and !('').equals(checkFlag)">
+                AND t2.CHECK_FLAG = #{checkFlag,jdbcType=VARCHAR}
+            </if>
+            and t1.IN_FLAG is null
+        </where>
+        order by t3.TABLE_DATA_NAME
+    </select>
+
+    <insert id="insertReportGenerationCheck" parameterType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto">
+        insert into pbc_report_generation_check(DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+        REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA, CHECK_DATE, CREATE_USER,
+        CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ERR_MSG, FLAG_UUID)
+        select DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+        REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA, CHECK_DATE, CREATE_USER,
+        CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ERR_MSG, FLAG_UUID
+        from (
+        select TEMP.* from
+        (
+        <foreach collection="list" item="item" open="select * from(" close=")" separator="union all">
+            SELECT
+            #{dataUuid,jdbcType=VARCHAR} DATA_UUID,
+            #{dataId,jdbcType=VARCHAR} DATA_ID,
+            #{ruleId,jdbcType=VARCHAR} RULE_ID,
+            #{pbcElementCode,jdbcType=VARCHAR} PBC_ELEMENT_CODE,
+            #{reportName,jdbcType=VARCHAR} REPORT_NAME,
+            #{fieldName,jdbcType=VARCHAR} FIELD_NAME,
+            #{ruleType,jdbcType=VARCHAR} RULE_TYPE,
+            #{ruleCode,jdbcType=VARCHAR} RULE_CODE,
+            #{ruleDetails,jdbcType=VARCHAR} RULE_DETAILS,
+            #{orgData,jdbcType=LONGVARCHAR} ORG_DATA,
+            #{checkDate,jdbcType=TIMESTAMP} CHECK_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{errMsg,jdbcType=LONGVARCHAR} ERR_MSG,
+            #{flagUuid,jdbcType=LONGVARCHAR} FLAG_UUID
+            FROM DUAL
+        </foreach>
+        ) TEMP where not exists (select 1 from pbc_report_generation_check CII where CII.DATA_ID = TEMP.DATA_ID)
+        ) de ;
+
+        UPDATE  pbc_report_generation_check as A,
+        (
+        select DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+        REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA, CHECK_DATE, CREATE_USER,
+        CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ERR_MSG, FLAG_UUID
+        from
+        (
+        select TEMP.* from
+        (
+        <foreach collection="list" item="item" open="select * from(" close=")" separator="union all">
+            SELECT
+            #{dataUuid,jdbcType=VARCHAR} DATA_UUID,
+            #{dataId,jdbcType=VARCHAR} DATA_ID,
+            #{ruleId,jdbcType=VARCHAR} RULE_ID,
+            #{pbcElementCode,jdbcType=VARCHAR} PBC_ELEMENT_CODE,
+            #{reportName,jdbcType=VARCHAR} REPORT_NAME,
+            #{fieldName,jdbcType=VARCHAR} FIELD_NAME,
+            #{ruleType,jdbcType=VARCHAR} RULE_TYPE,
+            #{ruleCode,jdbcType=VARCHAR} RULE_CODE,
+            #{ruleDetails,jdbcType=VARCHAR} RULE_DETAILS,
+            #{orgData,jdbcType=VARCHAR} ORG_DATA,
+            #{checkDate,jdbcType=TIMESTAMP} CHECK_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{errMsg,jdbcType=LONGVARCHAR} ERR_MSG,
+            #{flagUuid,jdbcType=LONGVARCHAR} FLAG_UUID
+            FROM DUAL
+        </foreach>
+        ) TEMP
+        ) de
+        ) AS B
+        set  A.* = B.* where exists ( select 1 from pbc_report_generation_check CII  where CII.DATA_ID = TEMP.DATA_ID);
+
+    </insert>
+
+    <delete id="deleteByKey" parameterType="java.util.Map" >
+        delete from pbc_report_generation_check
+        where DATA_ID = #{dataId,jdbcType=VARCHAR}
+          and  REPORT_NAME = #{reportName,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="searchExportExcel" resultMap="ResultMapWithBLOBs">
+        select
+        DATA_UUID DATA_UUID, DATA_ID DATA_ID, RULE_ID RULE_ID, PBC_ELEMENT_CODE PBC_ELEMENT_CODE,
+        REPORT_NAME REPORT_NAME, FIELD_NAME FIELD_NAME, RULE_TYPE RULE_TYPE, RULE_CODE RULE_CODE,
+        RULE_DETAILS RULE_DETAILS, ORG_DATA ORG_DATA, CHECK_DATE CHECK_DATE, CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT,
+        CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME, FLAG_UUID FLAG_UUID, ERR_MSG ERR_MSG, ORG_DATA ORG_DATA
+        from
+        PBC_REPORT_GENERATION_CHECK
+        <where>
+            <if test="keyIdList != null and keyIdList.size() > 0">
+                <foreach collection="keyIdList" item="item" open="DATA_UUID IN (" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteDetailByKey" parameterType="java.util.Map" >
+        delete from PBC_REPORT_GENERAT_CHECKDETAIL where CHECK_UUID IN (
+            select prgc.DATA_UUID from PBC_REPORT_GENERATION_CHECK prgc
+            where prgc.DATA_ID = #{dataId,jdbcType=VARCHAR}
+              and  prgc.REPORT_NAME = #{reportName,jdbcType=VARCHAR})
+    </delete>
+
+
+
+    <delete id="deleteByBeforeBatchList">
+
+        delete from pbc_submit_before_check
+        where  REPORT_NAME = #{tableName,jdbcType=VARCHAR}
+        <foreach collection="erroList" item="item" open="and DATA_ID in (" separator=","  close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+
+    </delete>
+
+    <delete id="deleteByDetailBeBatchList">
+
+        delete from pbc_generat_b_checkdetail
+        where CHECK_UUID IN (
+        select prgc.DATA_UUID from pbc_submit_before_check prgc
+        where prgc.REPORT_NAME = #{tableName,jdbcType=VARCHAR}
+        <foreach collection="erroList" item="item" open="and prgc.DATA_ID in (" separator=","  close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+        )
+
+    </delete>
+
+    <delete id="deleteDetailByBatchList">
+
+        delete from PBC_REPORT_GENERAT_CHECKDETAIL
+         where CHECK_UUID IN (
+        select prgc.DATA_UUID from PBC_REPORT_GENERATION_CHECK prgc
+        where prgc.REPORT_NAME = #{tableName,jdbcType=VARCHAR}
+        <foreach collection="erroList" item="item" open="and prgc.DATA_ID in (" separator=","  close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+        )
+
+    </delete>
+
+    <delete id="deleteDetailByFlag">
+
+        delete from PBC_REPORT_GENERAT_CHECKDETAIL
+        where CHECK_UUID IN (
+        select prgc.DATA_UUID from PBC_REPORT_GENERATION_CHECK prgc
+        where prgc.REPORT_NAME = #{tableName,jdbcType=VARCHAR}
+        and  prgc.IN_FLAG='02'
+        )
+
+    </delete>
+
+    <delete id="deleteByBatchList">
+        delete from pbc_report_generation_check
+        where  REPORT_NAME = #{tableName,jdbcType=VARCHAR}
+        <foreach collection="erroList" item="item" open="and DATA_ID in (" separator=","  close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByFlag">
+        delete from pbc_report_generation_check
+        where  REPORT_NAME = #{tableName,jdbcType=VARCHAR}
+        and IN_FLAG='02'
+    </delete>
+
+    <insert id="insertByBatchLBeforecheckist" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        insert into pbc_submit_before_check (DATA_UUID, DATA_ID, RULE_ID,
+        PBC_ELEMENT_CODE, REPORT_NAME, FIELD_NAME,
+        RULE_TYPE, RULE_CODE, RULE_DETAILS,
+        RELEVANCE_REPORT, CHECK_DATE, CREATE_USER,
+        CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+        UPDATE_TIME, ERR_MSG, ORG_DATA, FLAG_UUID
+        )
+        <foreach collection="subList" item="item" open="select a.* from("
+                 close=") a" separator="union all">
+            SELECT
+            #{item.dataUuid,jdbcType=VARCHAR} DATA_UUID,
+            #{item.dataId,jdbcType=VARCHAR} DATA_ID,
+            #{item.ruleId,jdbcType=VARCHAR} RULE_ID,
+            #{item.pbcElementCode,jdbcType=VARCHAR} PBC_ELEMENT_CODE,
+            #{item.reportName,jdbcType=VARCHAR} REPORT_NAME,
+            #{item.fieldName,jdbcType=VARCHAR}  FIELD_NAME,
+            #{item.ruleType,jdbcType=VARCHAR} RULE_TYPE,
+            #{item.ruleCode,jdbcType=VARCHAR} RULE_CODE,
+            #{item.ruleDetails,jdbcType=VARCHAR} RULE_DETAILS,
+            #{item.relevanceReport,jdbcType=VARCHAR} RELEVANCE_REPORT,
+            #{item.checkDate,jdbcType=TIMESTAMP}  CHECK_DATE,
+            #{item.createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{item.createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{item.createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{item.updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{item.updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{item.errMsg,jdbcType=LONGVARCHAR} ERR_MSG,
+            #{item.orgData,jdbcType=LONGVARCHAR} ORG_DATA,
+            #{item.flagUuid,jdbcType=VARCHAR} FLAG_UUID
+            FROM
+            DUAL
+        </foreach>
+
+    </insert>
+
+
+
+    <insert id="insertByBatchLGcheckist" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        insert into pbc_report_generation_check (DATA_UUID, DATA_ID, RULE_ID,
+        PBC_ELEMENT_CODE, REPORT_NAME, FIELD_NAME,
+        RULE_TYPE, RULE_CODE, RULE_DETAILS, ORG_DATA,
+        CHECK_DATE, CREATE_USER, CREATE_DEPT,
+        CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+        ERR_MSG, FLAG_UUID,IN_FLAG)
+        <foreach collection="subList" item="item" open="select a.* from("
+                 close=") a" separator="union all">
+            SELECT
+            #{item.dataUuid,jdbcType=VARCHAR} DATA_UUID,
+            #{item.dataId,jdbcType=VARCHAR} DATA_ID,
+            #{item.ruleId,jdbcType=VARCHAR} RULE_ID,
+            #{item.pbcElementCode,jdbcType=VARCHAR} PBC_ELEMENT_CODE,
+            #{item.reportName,jdbcType=VARCHAR} REPORT_NAME,
+            #{item.fieldName,jdbcType=VARCHAR}  FIELD_NAME,
+            #{item.ruleType,jdbcType=VARCHAR}  RULE_TYPE,
+            #{item.ruleCode,jdbcType=VARCHAR}  RULE_CODE,
+            #{item.ruleDetails,jdbcType=VARCHAR} RULE_DETAILS,
+            #{item.orgData,jdbcType=VARCHAR} ORG_DATA,
+            #{item.checkDate,jdbcType=TIMESTAMP} CHECK_DATE,
+            #{item.createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{item.createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{item.createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{item.updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{item.updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{item.errMsg,jdbcType=LONGVARCHAR} ERR_MSG,
+            #{item.flagUuid,jdbcType=VARCHAR} FLAG_UUID,
+            #{item.inFlag,jdbcType=VARCHAR} IN_FLAG
+            FROM
+            DUAL
+        </foreach>
+
+    </insert>
+
+    <insert id="insertByBatchLGDetailist" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        insert into PBC_REPORT_GENERAT_CHECKDETAIL (UUID, CHECK_UUID, CHECK_RESULT,
+            CHECK_FLAG, CHECK_DATA, CREATE_TIME,
+            UPDATE_TIME, CREATE_USER, CREATE_DEPT,
+            UPDATE_USER, STATUS, RULE_ID)
+        <foreach collection="subList" item="item" open="select a.* from("
+                 close=") a" separator="union all">
+        SELECT
+           #{item.uuid,jdbcType=VARCHAR} UUID, #{item.checkUuid,jdbcType=VARCHAR} CHECK_UUID,
+            #{item.checkResult,jdbcType=VARCHAR} CHECK_RESULT,
+            #{item.checkFlag,jdbcType=VARCHAR} CHECK_FLAG, #{item.checkData,jdbcType=VARCHAR} CHECK_DATA,
+            #{item.createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{item.updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, #{item.createUser,jdbcType=VARCHAR} CREATE_USER,
+             #{item.createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{item.updateUser,jdbcType=VARCHAR} UPDATE_USER, #{item.status,jdbcType=VARCHAR} STATUS,
+             #{item.ruleId,jdbcType=VARCHAR} RULE_ID
+            FROM
+            DUAL
+        </foreach>
+    </insert>
+
+    <insert id="insertByBatchLGBeforeDetailist" parameterType="com.joyintech.tams.common.base.entity.PbcReportGenerationCheckDetail" >
+        insert into pbc_generat_b_checkdetail (UUID, CHECK_UUID, CHECK_RESULT,
+        CHECK_FLAG, CHECK_DATA, CREATE_TIME,
+        UPDATE_TIME, CREATE_USER, CREATE_DEPT,
+        UPDATE_USER, STATUS, RULE_ID)
+        <foreach collection="subList" item="item" open="select a.* from("
+                 close=") a" separator="union all">
+            SELECT
+            #{item.uuid,jdbcType=VARCHAR} UUID, #{item.checkUuid,jdbcType=VARCHAR} CHECK_UUID,
+            #{item.checkResult,jdbcType=VARCHAR} CHECK_RESULT,
+            #{item.checkFlag,jdbcType=VARCHAR} CHECK_FLAG, #{item.checkData,jdbcType=VARCHAR} CHECK_DATA,
+            #{item.createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{item.updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, #{item.createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{item.createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{item.updateUser,jdbcType=VARCHAR} UPDATE_USER, #{item.status,jdbcType=VARCHAR} STATUS,
+            #{item.ruleId,jdbcType=VARCHAR} RULE_ID
+            FROM
+            DUAL
+        </foreach>
+    </insert>
+
+    <select id="searchExportHtml" resultType="com.joyintech.tams.svreport.generationcheck.dto.PbcReportGenerationCheck001Dto">
+             SELECT
+         t1.DATA_UUID           AS dataUuid,
+         t1.DATA_ID             AS dataId,
+         t3.RULE_ID             AS ruleId,
+         t3.PBC_ASSET_CODE      AS pbcElementCode,
+         t3.TABLE_DATA_NAME     AS reportName,
+         t3.CHECKED_FIELD_NAME  AS fieldName,
+         t3.RULE_TYPE           AS ruleType,
+         t3.RULE_IDENTIFY       AS ruleCode,
+         t3.RULE_CONTENT        AS ruleDetails,
+         t1.ORG_DATA            AS orgData,
+         t1.CHECK_DATE          AS checkDate,
+         t2.CHECK_RESULT        AS checkResult,
+         t2.CHECK_FLAG          AS checkFlag
+     FROM
+         pbc_report_generation_check t1
+             LEFT JOIN pbc_report_generat_checkdetail t2 ON t1.DATA_UUID = t2.CHECK_UUID
+             LEFT JOIN pbc_check_rule_info t3 ON t3.RULE_ID = t2.RULE_ID
+     where  1=1
+     and t1.IN_FLAG='02'
+     AND CHECK_FLAG='1'
+     and t1.REPORT_NAME in(
+    SELECT tri.TABLE_DATA_NAME FROM  pbc_check_rule_info  tri
+    where 1=1
+        <if test="ruleId != null and !('').equals(ruleId)">
+            and  tri.rule_id = #{ruleId,jdbcType=VARCHAR}
+        </if>
+    )
+            order by  cast(t1.DATA_ID as unsigned integer )
+    </select>
+
+
+</mapper>

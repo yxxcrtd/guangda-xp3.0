@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/default}">
+<head>
+<title th:text="#{FwFileUpload.title}">文件上传</title>
+<style>
+span.layui-upload-choose {
+	display: block;
+	margin-top: 20px;
+}
+
+#test10 {
+	padding: 5px;
+	float: left;
+}
+
+.layui-table-cell {
+	height: auto !important;
+}
+</style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div style="padding: 10px 40px; height: 100px; text-align: center"
+			data-th-switch="${type}">
+			<div class="layui-upload" data-th-case="'singleImage'">
+				<button type="button" class="layui-btn" id="test1">上传图片</button>
+				<div class="layui-upload-list">
+					<img class="layui-upload-img" id="demo1">
+					<p id="demoText"></p>
+				</div>
+			</div>
+
+			<div class="layui-upload" data-th-case="'mutiImage'">
+				<button type="button" class="layui-btn" id="test2">多图片上传</button>
+				<blockquote class="layui-elem-quote layui-quote-nm"
+					style="margin-top: 10px;">
+					预览图：
+					<div class="layui-upload-list" id="demo2"></div>
+				</blockquote>
+			</div>
+
+			<div data-th-case="'allowFile'">
+				<button type="button" class="layui-btn" id="test4">
+					<i class="layui-icon"></i>上传文件
+				</button>
+				<div style="margin-top: 10px;">
+					<!-- 示例-970 -->
+					<ins class="adsbygoogle"
+						style="display: inline-block; width: 970px; height: 90px"
+						data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
+				</div>
+			</div>
+
+			<div class="layui-upload" data-th-case="'noAutoUpload'">
+				<button type="button" class="layui-btn layui-btn-normal" id="test8">选择文件</button>
+				<button type="button" class="layui-btn" id="tplDowload">模板下载</button>
+				<button type="button" class="layui-btn" id="test9">开始上传</button>
+			</div>
+
+			<div class="layui-upload" data-th-case="'drag'">
+				<div class="layui-upload-drag" id="test10">
+					<i class="layui-icon"></i>
+					<p>点击上传，或将文件拖拽到此处</p>
+				</div>
+				<div style="width: 120px; float: right; height: 85px; padding: 10px;">
+					<div>
+						<button type="button" class="layui-btn layui-btn-disabled" id="dragUploadAction" disabled data-ignore="all">开始上传</button>
+					</div>
+
+					<!-- 人行数据校验的11个模板 -->
+					<div style="padding-top: 10px" data-th-if="${not hideTpl}" th:if="${currentPageId eq 'PbcDataCollectDatFile'}">
+						<a style="text-decoration: underline; color: #337ab7;" id="tplDowload1" href="javascript:void(0);">模板下载</a>
+					</div>
+					<div style="padding-top: 10px" data-th-if="${not hideTpl}" th:if="${currentPageId ne 'PbcDataCollectDatFile'}">
+						<a style="text-decoration: underline; color: #337ab7;" id="tplDowload" href="javascript:void(0);">模板下载</a>
+					</div>
+
+					<div id="myDownload1Parent" style="padding-top: 10px; display: none;" th:if="${currentPageId eq 'PbcDataCollectDatFile' }">
+						<a style="text-decoration: underline; color: #337ab7;" id="myDowload1" href="javascript:void(0);">校验详细内容下载</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-upload" data-th-case="'list'">
+				<button type="button" class="layui-btn layui-btn-normal"
+					id="testList">选择多文件</button>
+				<div class="layui-upload-list">
+					<table class="layui-table">
+						<thead>
+							<tr>
+								<th>文件名</th>
+								<th>大小</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="demoList"></tbody>
+					</table>
+				</div>
+				<button type="button" class="layui-btn" id="tplDowload">模板下载</button>
+				<button type="button" class="layui-btn" id="testListAction">开始上传</button>
+			</div>
+		</div>
+		<div style="padding: 0 20px; height: 270px" id="msgArea">
+			<!-- 导入验证结果显示区域  style="display: none;"-->
+		</div>
+
+		<p id="importExcelInfo" style="padding-left: 40px;"></p>
+		<p id="uploadExcelInfo" style="padding-left: 40px;"></p>
+		<p id="checkDataInfo" style="padding-left: 40px;"></p>
+		<p id="writeDataInfo" style="padding-left: 40px;"></p>
+		<p id="checkDataEndInfo" style="padding-left: 40px;"></p>
+
+		<!-- <div style="padding-left: 30px; height: 90px; display: table-cell; vertical-align: bottom;">导出</div>-->
+
+	</div>
+
+	<div layout:fragment="script">
+		<script data-th-inline="javascript" type="text/javascript">
+		  var exts = /*[[${exts}]]*/'xls|xlsx';
+		  var currentPageId = /*[[${currentPageId}]]*/'';
+		  var maxFileSize = /*[[${maxFileSize}]]*/'204800';
+		  $(function () {
+			  if(currentPageId =='SvrOperationalInfo001'){
+				  console.log("pageId:"+currentPageId)
+				  $('#tplDowload').attr("style","display:none");
+			  }
+		  })
+
+		  $('#myDowload1').click(function () {
+			  var table= $("#importResultTable").joyintable();
+			  if(table.getAllRows()==null||table.getAllRows()==''){
+			  	return;
+			  }
+			 var datass = JSON.stringify(table.getAllRows());
+			 // 导出错误明细信息
+			 Joyin.exportExcel(basePath + 'pbc/classic/pbcdatacollectdatfile/PbcDataCollectDatFile002/download', {datass:datass});
+	  });
+
+			// 11个模板的下载
+			$('#tplDowload1').click(function() {
+				Joyin.exportExcel(basePath + 'ChbFileUpload/downloadTemplate1', {
+					pageId: parent.pageId,
+					exts: exts
+				});
+			});
+
+			// 监控div数据变化
+			$("#msgArea").bind("DOMNodeInserted", function(e) {
+				if ($(e.target).html() != "") {
+					$("#myDownload1Parent").attr("style", "padding-top: 10px; display: block;");
+					$("#msgAreaLoad").attr("style", "display: none;");
+				}
+				if ($(e.target).html() == "") {
+					setTimeout(function(){
+						$("#myDownload1Parent").hide();
+					},1500);
+				}
+			});
+
+			$('#dragUploadAction').bind("click", function() {
+				if (currentPageId == "PbcDataCollectDatFile") {
+					var message1, message2, message3, message4, message5 = "";
+
+					// 1/5 获取Excel导入信息
+					function getImportExcelInfo() {
+						$.ajax({
+							async: true,
+							type: "get",
+							dataType: 'json',
+							url: basePath + "/pbc/classic/pbcdatacollectdatfile/PbcDataCollectDatFile/getImportExcelInfo",
+							success: function (data) {
+								message1 = data.message;
+								$("#importExcelInfo").html(message1);
+							},
+						});
+					}
+					var importExcelInfo = setInterval(getImportExcelInfo, 3000);
+
+					// 2/5 获取Excel上传信息
+					function getUploadExcelInfo() {
+						$.ajax({
+							async: true,
+							type: "get",
+							dataType: 'json',
+							url: basePath + "/pbc/classic/pbcdatacollectdatfile/PbcDataCollectDatFile/getUploadExcelInfo",
+							success: function (data) {
+								message2 = data.message;
+								$("#uploadExcelInfo").html(message2);
+							},
+						});
+					}
+					var uploadExcelInfo = setInterval(getUploadExcelInfo, 2000);
+
+					// 3/5 获取数据检查开始
+					function getCheckDataInfo() {
+						$.ajax({
+							async: true,
+							type: "get",
+							dataType: 'json',
+							url: basePath + "/pbc/classic/pbcdatacollectdatfile/PbcDataCollectDatFile/getCheckDataInfo",
+							success: function (data) {
+								message3 = data.message;
+								$("#checkDataInfo").html(message3);
+							},
+						});
+					}
+					var checkDataInfo = setInterval(getCheckDataInfo, 3000);
+
+					// 4/5 单个数据检查开始
+					function getWriteDataInfo() {
+						$.ajax({
+							async: true,
+							type: "get",
+							dataType: 'json',
+							url: basePath + "/pbc/classic/pbcdatacollectdatfile/PbcDataCollectDatFile/getWriteDataInfo",
+							success: function (data) {
+								message4 = data.message;
+								$("#writeDataInfo").html(message4);
+							},
+						});
+					}
+					var writeDataInfo = setInterval(getWriteDataInfo, 3000);
+
+					// 5/5 获取数据检查开始
+					function getCheckDataEndInfo() {
+						$.ajax({
+							async: true,
+							type: "get",
+							dataType: 'json',
+							url: basePath + "/pbc/classic/pbcdatacollectdatfile/PbcDataCollectDatFile/getCheckDataEndInfo",
+							success: function (data) {
+								message5 = data.message;
+								$("#checkDataEndInfo").html(message5);
+							},
+						});
+					}
+					var checkDataEndInfo = setInterval(getCheckDataEndInfo, 4000);
+
+					// 清理请求
+					function cleanAjaxRequest() {
+						if (message1 == "" && message2 == "" && message3 == "" && message4 == "" && message5 == "") {
+							clearInterval(importExcelInfo);
+							clearInterval(uploadExcelInfo);
+							clearInterval(checkDataInfo);
+							clearInterval(writeDataInfo);
+							clearInterval(checkDataEndInfo);
+						}
+					}
+					var cleanAjaxReq = setInterval(cleanAjaxRequest, 10000);
+				}
+			});
+
+		</script>
+		<script data-th-src="@{/public/js/fileupload.js}" type="text/javascript"></script>
+	</div>
+</body>
+</html>

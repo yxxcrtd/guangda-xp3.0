@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="RskValAssetCheck001.xlsx" name="穿透后资产校验导出模板">
+    <Worksheet javaBean="com.joyintech.tams.svreport.gd.risk.valtblassetcheck.dto.RskValAssetCheckDto">
+        <Row>
+            <Cell order="1" name="资管计划代码">ptlId</Cell>
+            <Cell order="2" name="资管计划名称">ptlName</Cell>
+            <Cell order="3" name="持仓日期">valDate</Cell>
+            <Cell order="4" name="穿透前净资产">smv</Cell>
+            <Cell order="5" name="穿透后总资产">assetAmt</Cell>
+            <Cell order="6" name="穿透后总负债">odAmt</Cell>
+            <Cell order="7" name="检查结果">checkAmt</Cell>
+  		</Row>
+    </Worksheet>
+</Workbook>

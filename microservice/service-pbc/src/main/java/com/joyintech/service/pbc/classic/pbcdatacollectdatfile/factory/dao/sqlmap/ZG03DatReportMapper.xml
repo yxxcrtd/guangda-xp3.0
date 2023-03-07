@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG03DatReportMapper">
+
+	<delete id="deleteBySub">
+		delete from pbc_col_prd_baseinfo_end_sub
+		where SEND_STATUS != '03'
+		and (( (PBC_PROD_ID) in(
+		select PBC_PROD_ID from PBC_COL_PRD_BASEINFO_SUB where PROD_ID in(
+		select  INSIDE_PROD_ID from pbc_prod_assetpool_code where (
+		<foreach collection="list" item="item" index="index" open="(PBC_CODE) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null)) OR (PBC_CODE) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR})
+		</foreach>
+		))))
+		or (
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null)) OR (PBC_PROD_ID) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR})
+		</foreach>
+		)
+		)
+	</delete>
+
+
+	<delete id="deleteByDat">
+		delete from pbc_col_prd_baseinfo_end_dat
+		where
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PBC_PROD_ID,CCY) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR})
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into pbc_col_prd_baseinfo_end_sub (REGIST_SEQNO, PBC_PROD_ID, MDATE,
+		CCY, PROFIT, PROFIT_CNY,CUSTOM_PROFIT, CUSTOM_PROFIT_CNY, CUS_YEAR_YIELD,
+		SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ, STATUS_DATE, PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE, STATUS, CREATE_USER,ORG_CODE, CREATE_DEPT, CREATE_TIME,
+		UPDATE_USER, UPDATE_TIME,datuuid)values
+		<foreach collection="list" item="item" separator=",">
+			( uuid(), #{item.pbcProdId,jdbcType=VARCHAR}, #{item.mdate,jdbcType=TIMESTAMP},
+			#{item.ccy,jdbcType=CHAR}, #{item.profit,jdbcType=DECIMAL}, #{item.profitCny,jdbcType=DECIMAL},
+			#{item.customProfit,jdbcType=DECIMAL}, #{item.customProfitCny,jdbcType=DECIMAL}, #{item.cusYearYield,jdbcType=DECIMAL},
+			#{item.sendStatus,jdbcType=VARCHAR}, #{item.submitTime,jdbcType=TIMESTAMP}, #{item.submitFeedbackStatus,jdbcType=VARCHAR},
+			#{item.sumitSeq,jdbcType=VARCHAR}, sysdate, #{item.pbcSubmitDeadline,jdbcType=TIMESTAMP},
+			#{item.submitDeadline,jdbcType=TIMESTAMP}, #{item.status,jdbcType=VARCHAR}, #{item.createUser,jdbcType=VARCHAR},
+			#{item.orgCode,jdbcType=VARCHAR}, #{item.createDept,jdbcType=VARCHAR}, sysdate,
+			#{item.updateUser,jdbcType=VARCHAR}, sysdate,#{uuid,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into pbc_col_prd_baseinfo_end_dat (REGIST_SEQNO, PBC_PROD_ID, MDATE,
+		CCY, PROFIT, PROFIT_CNY,CUSTOM_PROFIT, CUSTOM_PROFIT_CNY, CUS_YEAR_YIELD,
+		SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ, STATUS_DATE, PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE, STATUS, CREATE_USER,ORG_CODE, CREATE_DEPT, CREATE_TIME,
+		UPDATE_USER, UPDATE_TIME,datuuid)
+		select
+		REGIST_SEQNO, PBC_PROD_ID, MDATE,
+		CCY, PROFIT, PROFIT_CNY,CUSTOM_PROFIT, CUSTOM_PROFIT_CNY, CUS_YEAR_YIELD,
+		SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ, STATUS_DATE, PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE, STATUS, CREATE_USER,ORG_CODE, CREATE_DEPT, CREATE_TIME,
+		UPDATE_USER, UPDATE_TIME,#{uuid,jdbcType=VARCHAR}
+		from pbc_col_prd_baseinfo_end_sub
+		WHERE
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PBC_PROD_ID,CCY) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		(select PBC_PROD_ID,CCY,MDATE
+		from pbc_col_prd_baseinfo_end_sub
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		and (
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null)) OR (PBC_PROD_ID) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR})
+		</foreach>
+		)
+		UNION
+		select PBC_PROD_ID,CCY,MDATE
+		from pbc_col_prd_baseinfo_end_sub
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		and (
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PBC_PROD_ID,CCY) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR})
+		</foreach>
+		)
+		UNION
+		select PBC_PROD_ID,CCY,MDATE
+		from pbc_col_prd_baseinfo_end_sub
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		and (
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null)) OR (PBC_PROD_ID) in(
+			</if>
+			(Concat('INS',#{item.pbcProdId,jdbcType=VARCHAR}))
+		</foreach>
+		)
+		UNION
+		select PBC_PROD_ID,CCY,MDATE
+		from pbc_col_prd_baseinfo_end_sub
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		and (
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PBC_PROD_ID,CCY) in(
+			</if>
+			(Concat('INS',#{item.pbcProdId,jdbcType=VARCHAR}),
+			#{item.ccy,jdbcType=VARCHAR})
+		</foreach>
+		)) order by PBC_PROD_ID,CCY
+	</select>
+
+	<select id="getPListByUUid" resultType="map" >
+		select
+			a.REGIST_SEQNO,
+		    a.PBC_PROD_ID,
+		    a.MDATE,
+		    a.CCY,
+		    a.PROFIT,
+		    a.PROFIT_CNY,
+		    a.CUSTOM_PROFIT,
+		    a.CUSTOM_PROFIT_CNY,
+			a.CUS_YEAR_YIELD,
+		    a.SEND_STATUS,
+		    a.SUBMIT_FEEDBACK_STATUS,
+		    a.SUMIT_SEQ,
+		   '产品代码:'||PBC_PROD_ID||';币种:'||nvl(a.CCY,'')||';到期日:'||to_char(a.MDATE, 'yyyy-MM-dd') dataKey,
+					to_char(a.STATUS_DATE, 'yyyy-MM-dd')  STATUS_DATESTR
+		from pbc_col_prd_baseinfo_end_sub a
+		where 1=1
+		and datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY a.PBC_PROD_ID,a.CCY,a.PBC_SUBMIT_DEADLINE ASC, a.STATUS_DATE DESC
+	</select>
+
+	<update id="updatePDatDataStatus">
+		update pbc_col_prd_baseinfo_end_SUB
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update pbc_col_prd_baseinfo_end_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PBC_PROD_ID,CCY) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR})
+		</foreach>
+	</update>
+
+	<update id="updateUuidSub">
+        update pbc_col_prd_baseinfo_end_sub
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

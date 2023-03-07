@@ -1,0 +1,1 @@
+UPDATE sys_batch_task SET TASK_PRI = 3001 WHERE TASK_NAME = '投资交易信息接口数据接入';

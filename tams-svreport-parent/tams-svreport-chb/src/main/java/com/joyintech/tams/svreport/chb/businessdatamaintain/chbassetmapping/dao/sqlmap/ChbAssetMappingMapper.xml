@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.tams.svreport.chb.businessdatamaintain.chbassetmapping.dao.ChbAssetMappingMapper">
+	<sql id="BASE_COLUMNS">
+		SVR_ASSET_CODE as svrAssetCode,
+		SADAS_ASSET_CODE as sadasAssetCode,
+		REMARK as remark,
+        STATUS as statusValid,
+		CREATE_USER as createUser,
+		CREATE_TIME as createTime,
+		UPDATE_USER as updateUser,
+        UPDATE_TIME as updateTime
+	</sql>
+	<!-- 界面查询-->
+	<select id="select" resultType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbassetmapping.dto.ChbAssetMappingDto">
+		SELECT
+			E.uuid,
+			E.SVR_ASSET_CODE svrAssetCode,
+			E.SADAS_ASSET_CODE  sadasAssetCode,
+			I.ASSET_NAME assetName
+		FROM chb_asset_mapping_ex E
+		LEFT JOIN CHB_ASSET_INFO I ON E.SVR_ASSET_CODE = I.ASSET_CODE AND I.STATUS IN ('E','M')
+		<where>
+			<if test="svrAssetCodes != null and svrAssetCodes.size() > 0">
+				<foreach collection='svrAssetCodes' open='AND SVR_ASSET_CODE IN(' close=')' index='index'
+						 item='item'>
+					#{item}
+				</foreach>
+			</if>
+			<if test="sadasAssetCode != null and sadasAssetCode != ''">
+				AND SADAS_ASSET_CODE LIKE concat_ws('','%',#{sadasAssetCode},'%')
+			</if>
+			<if test="uuid != null and uuid != ''">
+				AND uuid = #{uuid}
+			</if>
+
+		</where>
+		ORDER BY e.UPDATE_TIME
+	</select>
+
+
+	<delete id="deleteByUUid" parameterType="String">
+		DELETE FROM chb_asset_mapping_ex
+		WHERE uuid = #{uuid}
+	</delete>
+
+
+	<update id="updateStatus">
+		update chb_asset_mapping_ex
+		SET SVR_ASSET_CODE = #{svrAssetCode},
+		SADAS_ASSET_CODE = #{sadasAssetCode}
+		where uuid =  #{uuid}
+	</update>
+
+
+	<update id="updateChbBotCodeF" >
+		UPDATE CHB_BOT_AST_POS P
+		SET PLAN_ASSET_ID = #{svrAssetCode}
+		WHERE PLAN_ASSET_ID = #{sadasAssetCode}
+	</update>
+
+	<update id="updateChbBotCode" >
+		UPDATE CHB_BOT_AST_POS P,chb_asset_mapping_ex E
+		SET PLAN_ASSET_ID = #{svrAssetCode}
+		WHERE P.PLAN_ASSET_ID = E.SVR_ASSET_CODE
+		AND E.SADAS_ASSET_CODE = #{sadasAssetCode}
+	</update>
+
+	<update id="updateChbBotCodeByDelete" >
+		UPDATE CHB_BOT_AST_POS P,chb_asset_mapping_ex E
+		SET PLAN_ASSET_ID = #{sadasAssetCode}
+		WHERE P.PLAN_ASSET_ID = E.SVR_ASSET_CODE
+		AND E.SADAS_ASSET_CODE = #{sadasAssetCode}
+	</update>
+
+
+	<!-- 通过主键验证数据库中是否有值 -->
+	<select id="getChbAssetMappingByKey" resultType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbassetmapping.dto.ChbAssetMappingDto">
+		select * from chb_asset_mapping_ex
+		<where>
+			<if test="svrAssetCode != null and svrAssetCode != ''">
+				and SVR_ASSET_CODE = #{svrAssetCode,jdbcType=VARCHAR}
+			</if>
+			<if test="sadasAssetCode != null and sadasAssetCode != ''">
+				or SADAS_ASSET_CODE = #{sadasAssetCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+
+
+	<!-- 通过主键验证数据库中是否有值 -->
+	<delete id="deleteChbAssetTypeByKey">
+		delete from chb_asset_mapping_ex
+		<where>
+			<if test="uuid != null and uuid != ''">
+				and uuid =  #{uuid}
+			</if>
+
+		</where>
+	</delete>
+
+	<insert id="insert" parameterType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbassetmapping.dto.ChbAssetMappingDto" >
+        insert into CHB_ASSET_MAPPING_EX (UUID, SVR_ASSET_CODE, SADAS_ASSET_CODE,
+            CREATE_USER, CREATE_DEPT, CREATE_TIME,
+            UPDATE_USER, UPDATE_TIME)
+        values (uuid(), #{svrAssetCode,jdbcType=VARCHAR}, #{sadasAssetCode,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+            #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+
+</mapper>

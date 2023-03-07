@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.batch.report.report.chbassetselementssub.dao.SvrChbAssetsElementsSubExportTaskMapper" >
+    <!-- 分页查询   -->
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbassetselementssub.dto.ChbAssetsElementsSub001Dto">
+        SELECT
+        T1.STATUS_BATCH AS statusBatch,
+        T1.ASSET_ID AS assetId,
+        T1.ASSET_NAME AS assetName,
+        T1.INFORMATION_ASSETS_ID AS informationAssetsId,
+        T1.ASSET_FLAG AS assetFlag,
+        T1.FINANCIER_NAME AS financierName,
+        T1.INDUSTRY_ID AS industryId,
+        T1.CCY AS ccy,
+        T1.HOLD_AMOUNT AS holdAmount,
+        T1.ON_PASSAGE_AMT AS onPassageAmt,
+        T1.HOLD_QTY_AMOUNT AS holdQtyAmount,
+        T1.BONDSMAN AS bondsman,
+        T1.FUNDS_USE_REMARK AS fundsUseRemark,
+        T1.PAYMENT_REMARK AS paymentRemark,
+        T1.ORG_ID AS orgId,
+        T1.BANK_MARK AS bankMark,
+        T1.DATE_STATUS AS dateStatus,
+        T1.GROUP_ID AS groupId
+        FROM
+        CHB_ASSETS_ELEMENTS_SUB T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 数据行   -->
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            CHB_ASSETS_ELEMENTS_SUB
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 批   -->
+    <select id="getBatchLog" parameterType="java.lang.String" resultType="com.joyintech.tams.report.system.subinfobatchlog.dto.ChbSubinfoBatchLog">
+		select *
+		from chb_subinfo_batch_log
+		where task_id=#{taskId} and deal_status = '04'
+	</select>
+</mapper>

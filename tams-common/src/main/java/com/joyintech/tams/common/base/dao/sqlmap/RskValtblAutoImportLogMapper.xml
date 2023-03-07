@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+        <result column="PTL_ID" property="ptlId" jdbcType="VARCHAR" />
+        <result column="VAL_DATE" property="valDate" jdbcType="DATE" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" extends="BaseResultMap" >
+        <result column="MESSAGE" property="message" jdbcType="BLOB" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        ID ID, FILE_NAME FILE_NAME, PTL_ID PTL_ID, VAL_DATE VAL_DATE, STATUS STATUS, CREATE_TIME CREATE_TIME, 
+        FILE_PATH FILE_PATH
+    </sql>
+    <sql id="Blob_Column_List" >
+        MESSAGE
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper.Blob_Column_List" />
+        from RSK_VALTBL_AUTO_IMPORT_LOG
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper.Blob_Column_List" />
+        from RSK_VALTBL_AUTO_IMPORT_LOG
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.RskValtblAutoImportLogMapper.Blob_Column_List" />
+        from RSK_VALTBL_AUTO_IMPORT_LOG
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from RSK_VALTBL_AUTO_IMPORT_LOG
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        insert into RSK_VALTBL_AUTO_IMPORT_LOG (ID, FILE_NAME, PTL_ID, 
+            VAL_DATE, STATUS, CREATE_TIME, 
+            FILE_PATH, MESSAGE)
+        values (#{id,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{ptlId,jdbcType=VARCHAR}, 
+            #{valDate,jdbcType=DATE}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{filePath,jdbcType=VARCHAR}, #{message,jdbcType=BLOB})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        insert into RSK_VALTBL_AUTO_IMPORT_LOG
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="fileName != null" >
+                FILE_NAME,
+            </if>
+            <if test="ptlId != null" >
+                PTL_ID,
+            </if>
+            <if test="valDate != null" >
+                VAL_DATE,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="filePath != null" >
+                FILE_PATH,
+            </if>
+            <if test="message != null" >
+                MESSAGE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="fileName != null" >
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="ptlId != null" >
+                #{ptlId,jdbcType=VARCHAR},
+            </if>
+            <if test="valDate != null" >
+                #{valDate,jdbcType=DATE},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="filePath != null" >
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null" >
+                #{message,jdbcType=BLOB},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        insert into RSK_VALTBL_AUTO_IMPORT_LOG(ID, FILE_NAME, PTL_ID, VAL_DATE, STATUS, CREATE_TIME, 
+        FILE_PATH, MESSAGE)
+        select ID, FILE_NAME, PTL_ID, VAL_DATE, #{status,jdbcType=VARCHAR} STATUS, CREATE_TIME, 
+            FILE_PATH, MESSAGE
+             from RSK_VALTBL_AUTO_IMPORT_LOG
+             where STATUS = 'E' and ID = #{id,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        update RSK_VALTBL_AUTO_IMPORT_LOG
+        <set >
+            <if test="fileName != null" >
+                FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="ptlId != null" >
+                PTL_ID = #{ptlId,jdbcType=VARCHAR},
+            </if>
+            <if test="valDate != null" >
+                VAL_DATE = #{valDate,jdbcType=DATE},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null" >
+                FILE_PATH = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null" >
+                MESSAGE = #{message,jdbcType=BLOB},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        update RSK_VALTBL_AUTO_IMPORT_LOG
+        set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            PTL_ID = #{ptlId,jdbcType=VARCHAR},
+            VAL_DATE = #{valDate,jdbcType=DATE},
+            STATUS = #{status,jdbcType=VARCHAR},
+            FILE_PATH = #{filePath,jdbcType=VARCHAR},
+            MESSAGE = #{message,jdbcType=BLOB}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.common.base.entity.RskValtblAutoImportLog" >
+        update RSK_VALTBL_AUTO_IMPORT_LOG
+        set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            PTL_ID = #{ptlId,jdbcType=VARCHAR},
+            VAL_DATE = #{valDate,jdbcType=DATE},
+            STATUS = #{status,jdbcType=VARCHAR},
+            FILE_PATH = #{filePath,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ChbBranchNetwork002.xlsx" name="网点信息映射表">
+	<Worksheet javaBean="com.joyintech.tams.svreport.chb.businessdatamaintain.chbbranchnetwork.dto.ChbBranchNetworkDto">
+		<Row>
+			<Cell order="1" name="数据状态">statusValidStr</Cell>
+			<Cell order="2" name="网点编号">branchNo</Cell>
+			<Cell order="3" name="网点名称">branchName</Cell>
+			<Cell order="4" name="网点所属监管码值">branchFsaStr</Cell>
+			<Cell order="5" name="网点地区码值">networkNoStr</Cell>
+			<Cell order="6" name="更新时间">updateTimeStr</Cell>
+			<Cell order="7" name="更新人">updateUser</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

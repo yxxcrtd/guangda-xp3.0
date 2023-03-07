@@ -1,0 +1,1 @@
+update chb_datacheck_rule_inv set NULLABLE = 'Y',REMARK = REPLACE(REMARK,'不可为空，且','') where PAGE_ID = 'CchbPrdBaseInfo002' and SRCPROPERTY in ('yieldHigh','yieldLow');

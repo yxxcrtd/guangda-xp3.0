@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ZG08SpecCounterQuity.xls" name="特定目的载体交易对手明细信息">
+	<Worksheet javaBean="com.joyintech.tams.svreport.pbc.classic.zg08specounterequity.dto.ZG08SpeCounterQuityDto">
+		<Row>
+			<Cell order="1" name="产品代码">pbcProdId</Cell>
+			<Cell order="2" name="资产负债项目">assetType</Cell>
+			<Cell order="3" name="交易对手产品种类">prrtyProdType</Cell>
+			<Cell order="4" name="交易对手机构编码">prrtyOrgCode</Cell>
+			<Cell order="5" name="交易对手产品代码">prrtyProdId</Cell>
+			<Cell order="6" name="币种">ccy</Cell>
+			<Cell order="7" name="期末金额">amt</Cell>
+			<Cell order="8" name="期末金额折人民币">amtCny</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

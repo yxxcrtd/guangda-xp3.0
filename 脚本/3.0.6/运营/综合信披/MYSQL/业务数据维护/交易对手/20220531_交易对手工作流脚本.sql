@@ -1,0 +1,4 @@
+DELETE FROM SYS_WFL_BUSINESS_MODULE WHERE PAGE_ID = 'ChbMstCounterParty002';
+INSERT INTO SYS_WFL_BUSINESS_MODULE VALUES('ChbMstCounterParty002','ChbMstCounterParty002_btn_add','oneApproval','system',NULL,CURRENT_DATE,'system',CURRENT_DATE,'ALL','02');
+INSERT INTO SYS_WFL_BUSINESS_MODULE VALUES('ChbMstCounterParty002','ChbMstCounterParty002_btn_delete','oneApproval','system',NULL,CURRENT_DATE,'system',CURRENT_DATE,'ALL','02');
+INSERT INTO SYS_WFL_BUSINESS_MODULE VALUES('ChbMstCounterParty002','ChbMstCounterParty002_btn_submit','oneApproval','system',NULL,CURRENT_DATE,'system',CURRENT_DATE,'ALL','02');

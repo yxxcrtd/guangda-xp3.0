@@ -1,0 +1,79 @@
+delete from sys_menu where MENU_ID='REPORT_REGIST_001_003_021';
+INSERT INTO sys_menu
+(MENU_ID, SYSTEM_CODE, ICON, PARENT_MENU_ID, PAGE_ID, ORDER_NO, IS_SPREAD, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+VALUES('REPORT_REGIST_001_003_021', 'SVR', NULL, 'REPORT_REGIST_001_003', 'ZG08SpeCounterQuity', 21, '2', 'ZG08 特定目的载体交易对手明细信息', 'system', NULL, now(), 'system', now());
+
+
+delete from sys_menu_split where MENU_ID='REPORT_REGIST_001_003_014';
+INSERT INTO sys_menu_split
+(MENU_ID, SPLIT_ORDER_NO, SPLIT_MEMO, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+VALUES('REPORT_REGIST_001_003_014', 3, '大数据采集平台', 'admin', NULL, now(), 'admin', now());
+
+delete from sys_page where PAGE_ID='ZG08SpeCounterQuity';
+INSERT INTO sys_page
+(PAGE_ID, SYSTEM_CODE, PAGE_URL, PAGE_FILE, MENU_ID, HEIGHT, WIDTH, IS_HP_SELECT, IS_NEED_WORKFLOW, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+VALUES('ZG08SpeCounterQuity', 'SVR', '/pbc/zg08specounterequity/ZG08SpeCounterQuity', 'report/pbc/classic/zg08specounterequity/ZG08SpeCounterQuity', 'REPORT_REGIST_001_003_021', NULL, NULL, '01', '01', 'ZG08 特定目的载体交易对手明细信息', 'system', NULL, now(), 'system', now());
+
+delete from sys_datadict where DICT_CODE='PBC_SUBMIT_STATUS';
+
+INSERT INTO sys_datadict
+(DICT_CODE, SYSTEM_CODE, DICT_CNNAME, DICT_ENNAME, UPDATE_FLG, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+VALUES('PBC_SUBMIT_STATUS', 'PBC', '人行报送状态', NULL, '1', 'system', NULL, now(), 'system', now());
+
+delete from sys_datadict_list where DICT_CODE='PBC_SUBMIT_STATUS';
+
+INSERT INTO sys_datadict_list
+(DICT_CODE, ITEM_CODE, ITEM_VALUE, ORDER_NO, DEFAULT_VALUE, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+VALUES('PBC_SUBMIT_STATUS', '01', '未报送', 1, '0', 'system', NULL, now(), 'system', now(), NULL);
+
+INSERT INTO sys_datadict_list
+(DICT_CODE, ITEM_CODE, ITEM_VALUE, ORDER_NO, DEFAULT_VALUE, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+VALUES('PBC_SUBMIT_STATUS', '03', '手工处理', 2, '0', 'system', NULL, now(), 'system', now(), NULL);
+
+
+
+DROP TABLE IF EXISTS PBC_COL_SPE_COUNTER_PARTY_SUB;
+CREATE TABLE `PBC_COL_SPE_COUNTER_PARTY_SUB` (
+  `DETAILUUID` char(36)    NULL COMMENT '明细统计uuid',
+  `PBC_PROD_ID` varchar(50)    NULL COMMENT '人行产品代码',
+  `TERMID` varchar(50)     NULL COMMENT '期数',
+  `ASSET_TYPE` varchar(5)     NULL COMMENT '资产负债项目',
+  `PRRTY_PROD_TYPE` char(1)    NULL COMMENT '交易对手产品种类',
+  `PRRTY_ORG_CODE` varchar(14)    NULL COMMENT '交易对手机构编码',
+  `PRRTY_PROD_ID` varchar(15)   NULL COMMENT '交易对手产品代码',
+  `CCY` varchar(3)   NULL COMMENT '币种',
+  `AMT` decimal(20,2)  NULL COMMENT '期末余额',
+  `AMT_CNY` decimal(20,2)  NULL COMMENT '期末余额折人民币',
+  `SUBMIT_TIME` datetime DEFAULT NULL COMMENT '报送日期',
+  `PBC_SUBMIT_DEADLINE` datetime  NULL COMMENT '人行报送截止日',
+  `SUBMIT_DEADLINE` datetime NOT NULL COMMENT '行内报送截止日',
+  `STATUS` varchar(50)   NULL COMMENT '有效状态',
+  `SEND_STATUS` varchar(20)   NULL COMMENT '报送状态',
+  `STATUS_DATE` datetime  NULL COMMENT '数据日期',
+  `CREATE_USER` varchar(20)   NULL COMMENT '创建人',
+  `CREATE_TIME` datetime NOT NULL COMMENT '创建时间',
+  `UPDATE_USER` varchar(20)   NULL COMMENT '更新人',
+  `UPDATE_TIME` datetime NOT NULL COMMENT '更新时间',
+  `ORG_CODE` varchar(20)   DEFAULT NULL COMMENT '机构代码',
+  `DEPT_CODE` varchar(20)   DEFAULT NULL COMMENT '部门代码',
+  `CREATE_DEPT` varchar(20)  DEFAULT NULL COMMENT '创建部门',
+  `PROD_ID` varchar(20)  DEFAULT NULL COMMENT '内部产品代码',
+  UNIQUE KEY `PBC_COL_SPE_COUNTER_PARTY_SUB` (`DETAILUUID`) USING BTREE
+)  COMMENT='特定目的载体交易对手明细登记表';
+
+
+delete from sys_batch_task where TASK_ID='8001';
+INSERT INTO sys_batch_task
+(TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+VALUES('8001', 'SVR', '采集平台特定目的载体交易对手明细信息(ZG08)生成批处理', NULL, 'ZG08SpeCounterQuityTaskService', 3000, 'system', NULL, now(), 'system', now(), NULL);
+
+delete from sys_datadict_list where DICT_CODE='SVR_REPORT_CODE' and ITEM_CODE ='ZG08';
+INSERT INTO sys_datadict_list
+(DICT_CODE, ITEM_CODE, ITEM_VALUE, ORDER_NO, DEFAULT_VALUE, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+VALUES('SVR_REPORT_CODE', 'ZG08', '特定目的载体交易对手明细信息(ZG08)', 54, '0', 'system', NULL, NOW(), 'system', NOW(), NULL);
+
+delete from chb_reg_time_points where SEQNO ='ZG08';
+INSERT INTO chb_reg_time_points
+(SEQNO, ORG_CODE, REPORT_CODE, TYPE_DETAIL, SUBMIT_TIMETYPE, SUBMIT_REQUIRE3, SUBMIT_REQUIRE2, SUBMIT_REQUIRE, SUBMIT_POINT_BOND, SUBMIT_POINT_BANK, UPDATE_SUBMIT_POINT, DELETE_SUBMING_POINT, STATUS, WORKFLOW_ID, DEPT_CODE, UPDATE_USER, UPDATE_TIME, CREATE_USER, CREATE_TIME, CREATE_DEPT)
+VALUES('ZG08', NULL, 'ZG08', NULL, NULL, NULL, '02', '数据有效后N个工作日', 5.00, 5.00, 12.00, 4.00, 'E', NULL, NULL, 'system', NOW(), 'system', '2021-09-17 11:25:29.0', NOW());
+

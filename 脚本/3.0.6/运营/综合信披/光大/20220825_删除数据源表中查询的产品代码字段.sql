@@ -1,0 +1,2 @@
+DELETE from chb_infomgr_result_config where MGRTABLE_ID='CHB_PRD_DEAL_SUB_TMP' and COLUMN_ID='PROD_ID';
+DELETE from chb_infomgr_result_config where MGRTABLE_ID='CHB_INVEST_TRADE_SUB_TMP' and COLUMN_ID='PROD_ID';

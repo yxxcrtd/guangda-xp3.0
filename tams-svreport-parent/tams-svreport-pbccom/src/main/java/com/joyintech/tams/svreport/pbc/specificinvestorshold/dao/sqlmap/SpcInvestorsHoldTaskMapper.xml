@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.specificinvestorshold.dao.SpcInvestorsHoldTaskMapper">
+
+    <!-- 抽取数据 -->
+    <select id="selectInvestHoldSubData" resultType="com.joyintech.tams.svreport.pbc.specificinvestorshold.dto.SpcInvestorsHoldTaskDto">
+        SELECT
+            A.PRODID                     AS account,
+            NVL(C.PBC_CODE,D.PROD_ID)    AS pbcProdId,
+            B.INDENTIFY_MARK             AS indentifyMark,
+            B.HOLDER_NAME                AS holderName,
+            B.HOLDER_TYPE                AS holderType,
+            A.HOLD_DATE                  AS holdDate,
+            A.CCY                        AS ccy,
+            A.QTY                        AS qty,
+            A.AMOUNT                     AS amount
+        FROM
+            CHB_INVESTHOLD_INFO_SUB A
+        INNER JOIN CHB_EQU_SUB B ON A.INDENTIFY_MARK = B.INDENTIFY_MARK AND B.STATUS != '03'
+        LEFT JOIN PBC_PROD_ASSETPOOL_CODE C ON C.INSIDE_PROD_ID = A.PRODID
+        LEFT JOIN PBC_COL_PRD_BASEINFO_SUB D ON A.PRODID = D.PROD_ID
+        WHERE B.HOLDER_TYPE IN ('17','18','19','20','21','22')
+            AND HOLD_DATE = ( SELECT MAX(HOLD_DATE) FROM CHB_INVESTHOLD_INFO_SUB WHERE HOLD_DATE <![CDATA[<]]> #{batchDate,jdbcType=VARCHAR})
+        GROUP BY C.INSIDE_PROD_ID,B.INDENTIFY_MARK,A.CCY
+    </select>
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="com.joyintech.tams.svreport.pbc.specificinvestorshold.dto.SpcInvestorsHoldTaskDto">
+        DELETE FROM PBC_TARGET_INFO
+        WHERE ACCOUNT = #{account,jdbcType=VARCHAR} AND INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR} AND TO_CHAR(HOLD_DATE, 'yyyy-MM-dd') = TO_CHAR(#{holdDate,jdbcType=DATE}, 'yyyy-MM-dd')
+    </delete>
+
+    <!-- 插入数据 -->
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.pbc.specificinvestorshold.dto.SpcInvestorsHoldTaskDto" >
+        insert into PBC_TARGET_INFO (ACCOUNT, INDENTIFY_MARK, UUID, PBC_PROD_ID,
+            HOLDER_NAME, HOLDER_TYPE, HOLD_DATE, CCY, QTY, AMOUNT,
+                                     CREATE_TIME, UPDATE_TIME, CREATE_USER, CREATE_DEPT, UPDATE_USER, STATUS
+        )
+        values (#{account,jdbcType=VARCHAR}, #{indentifyMark,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{pbcProdId,jdbcType=VARCHAR},
+            #{holderName,jdbcType=VARCHAR}, #{holderType,jdbcType=VARCHAR}, #{holdDate,jdbcType=DATE},
+                #{ccy,jdbcType=VARCHAR}, #{qty,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+                #{createDept,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+               )
+    </insert>
+
+</mapper>

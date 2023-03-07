@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.service.chb.gd.risk.valtblassetcheck.dao.RskValAssetCheckMapper">
+    <!--画面一分页查询-->
+    <select id="queryForPage"  resultType="com.joyintech.service.chb.gd.risk.valtblassetcheck.dto.RskValAssetCheckDto" parameterType="Map">
+        SELECT
+        t.ptlId AS ptlId,
+        t.ptlName AS ptlName,
+        t.valDate AS valDate,
+        t.assetAmt AS assetAmt,
+        t.odAmt AS odAmt,
+        t.smv,
+        t.checkAmt AS checkAmt
+        FROM (
+        SELECT
+        asset.PLAN_ASSET_ID AS ptlId,
+        t.ASSET_NAME AS ptlName,
+        asset.POS_DATE AS valDate,
+        asset.asset_amt As assetAmt,
+        od.od_amt As odAmt,
+        asset.ISSUE_AMT AS smv,
+        (asset.asset_amt - od.od_amt - asset.ISSUE_AMT ) As checkAmt
+        FROM
+        (
+        SELECT t.PLAN_ASSET_ID,t.POS_DATE, SUM(t.POS_AMT) AS asset_amt,t.ISSUE_AMT
+        FROM chb_bot_ast_pos t
+        LEFT JOIN chb_asset_info t1 ON t.ASSET_CODE = t1.ASSET_CODE AND t1.ASSET_Type2 = '1902'
+        WHERE t.ASSET_CODE !='OD' AND t1.ASSET_CODE IS NULL
+        GROUP BY t.PLAN_ASSET_ID,t.POS_DATE,t.ISSUE_AMT) asset
+        LEFT JOIN
+        (
+        SELECT t.PLAN_ASSET_ID,t.POS_DATE, SUM(CASE WHEN t.ASSET_CODE = 'OD' THEN t.POS_AMT WHEN t1.ASSET_CODE IS NOT NULL THEN t.POS_AMT ELSE 0 END) AS od_amt
+        FROM chb_bot_ast_pos t
+        LEFT JOIN chb_asset_info t1 ON t.ASSET_CODE = t1.ASSET_CODE AND t1.ASSET_TYPE2 = '1902'
+        GROUP BY t.PLAN_ASSET_ID,t.POS_DATE) od ON asset.PLAN_ASSET_ID=od.PLAN_ASSET_ID AND asset.POS_DATE = od.POS_DATE
+        LEFT JOIN chb_asset_info t ON asset.PLAN_ASSET_ID = t.ASSET_CODE
+        ) t
+        <where>
+            <if test="ptlIdList != null and ptlIdList.size()>0">
+                AND t.ptlId IN
+                <foreach collection="ptlIdList" item="item" separator="," open="(" close =")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="vdate != null">
+                AND t.valDate >= #{vdate}
+            </if>
+            <if test="mdate != null">
+                AND t.valDate &lt;= #{mdate}
+            </if>
+            <if test="ptlName != null and ptlName.trim != ''">
+                and t.ptlName like concat('%', #{ptlName},'%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

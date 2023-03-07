@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbconsignordetailsub.dao.ChbConsignorDetailSubMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto" >
+        <id column="REGIST_SEQNO" property="registSeqno" jdbcType="VARCHAR" />
+        <result column="LAST_HOLD_DAY" property="lastHoldDay" jdbcType="DATE" />
+        <result column="PROD_ID" property="prodId" jdbcType="VARCHAR" />
+        <result column="PROD_NAME" property="prodName" jdbcType="VARCHAR" />
+        <result column="PRD_REGIST_CODE" property="prdRegistCode" jdbcType="VARCHAR" />
+        <result column="MANAGER" property="manager" jdbcType="VARCHAR" />
+        <result column="PROD_TYPE" property="prodType" jdbcType="VARCHAR" />
+        <result column="PROD_INVEST_TYPE" property="prodInvestType" jdbcType="VARCHAR" />
+        <result column="RAISE_TYPE" property="raiseType" jdbcType="VARCHAR" />
+        <result column="TERMID" property="termid" jdbcType="VARCHAR" />
+        <result column="PROD_SCALE" property="prodScale" jdbcType="DECIMAL" />
+        <result column="INBANK_BONDMARK_HOLD_DENOMINA" property="inbankBondmarkHoldDenomina" jdbcType="DECIMAL" />
+        <result column="INBANK_BONDMARK_HOLD_RATIO" property="inbankBondmarkHoldRatio" jdbcType="DECIMAL" />
+        <result column="HOLDER_NAME" property="holderName" jdbcType="VARCHAR" />
+        <result column="HOLDER_TYPE" property="holderType" jdbcType="VARCHAR" />
+        <result column="INVEST_AMOUNT" property="investAmount" jdbcType="DECIMAL" />
+        <result column="INVEST_RATIO" property="investRatio" jdbcType="DECIMAL" />
+        <result column="TWO_HOLDER_NAME" property="twoHolderName" jdbcType="VARCHAR" />
+        <result column="TWO_HOLDER_TYPE" property="twoHolderType" jdbcType="VARCHAR" />
+        <result column="TWO_INVEST_AMOUNT" property="twoInvestAmount" jdbcType="DECIMAL" />
+        <result column="TWO_INVEST_RATIO" property="twoInvestRatio" jdbcType="DECIMAL" />
+        <result column="PROD_SHARE" property="prodShare" jdbcType="DECIMAL" />
+        <result column="HOLDER_SHARE" property="holderShare" jdbcType="DECIMAL" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CHB_SUBMIT_DEADLINE" property="chbSubmitDeadline" jdbcType="TIMESTAMP" />
+        <result column="STATUS_DATE" property="statusDate" jdbcType="DATE" />
+        <result column="SUBMIT_TIME" property="submitTime" jdbcType="TIMESTAMP" />
+        <result column="SUMIT_SEQ" property="sumitSeq" jdbcType="VARCHAR" />
+        <result column="SEND_STATUS" property="sendStatus" jdbcType="VARCHAR" />
+        <result column="SUBMIT_FEEDBACK_STATUS" property="submitFeedbackStatus" jdbcType="VARCHAR" />
+        <result column="SUBMIT_FEEDBACK_MSG" property="submitFeedbackMsg" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        REGIST_SEQNO REGIST_SEQNO, LAST_HOLD_DAY LAST_HOLD_DAY, PROD_ID PROD_ID, PROD_NAME PROD_NAME, 
+        PRD_REGIST_CODE PRD_REGIST_CODE, MANAGER MANAGER, PROD_TYPE PROD_TYPE, PROD_INVEST_TYPE PROD_INVEST_TYPE, 
+        RAISE_TYPE RAISE_TYPE, TERMID TERMID, PROD_SCALE PROD_SCALE, INBANK_BONDMARK_HOLD_DENOMINA INBANK_BONDMARK_HOLD_DENOMINA, 
+        INBANK_BONDMARK_HOLD_RATIO INBANK_BONDMARK_HOLD_RATIO, HOLDER_NAME HOLDER_NAME, HOLDER_TYPE HOLDER_TYPE, 
+        INVEST_AMOUNT INVEST_AMOUNT, INVEST_RATIO INVEST_RATIO, TWO_HOLDER_NAME TWO_HOLDER_NAME, 
+        TWO_HOLDER_TYPE TWO_HOLDER_TYPE, TWO_INVEST_AMOUNT TWO_INVEST_AMOUNT, TWO_INVEST_RATIO TWO_INVEST_RATIO, 
+        PROD_SHARE PROD_SHARE, HOLDER_SHARE HOLDER_SHARE, REMARK REMARK, STATUS STATUS, CHB_SUBMIT_DEADLINE CHB_SUBMIT_DEADLINE, 
+        STATUS_DATE STATUS_DATE, SUBMIT_TIME SUBMIT_TIME, SUMIT_SEQ SUMIT_SEQ, SEND_STATUS SEND_STATUS, 
+        SUBMIT_FEEDBACK_STATUS SUBMIT_FEEDBACK_STATUS, SUBMIT_FEEDBACK_MSG SUBMIT_FEEDBACK_MSG, 
+        CREATE_USER CREATE_USER, ORG_CODE ORG_CODE, CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, 
+        UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbconsignordetailsub.dao.ChbConsignorDetailSubMapper.Base_Column_List" />
+        from CHB_CONSIGNOR_DETAIL_SUB
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbconsignordetailsub.dao.ChbConsignorDetailSubMapper.Base_Column_List" />
+        from CHB_CONSIGNOR_DETAIL_SUB
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbconsignordetailsub.dao.ChbConsignorDetailSubMapper.Base_Column_List" />
+        from CHB_CONSIGNOR_DETAIL_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_CONSIGNOR_DETAIL_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto" >
+        insert into CHB_CONSIGNOR_DETAIL_SUB (REGIST_SEQNO, LAST_HOLD_DAY, PROD_ID, 
+            PROD_NAME, PRD_REGIST_CODE, MANAGER, 
+            PROD_TYPE, PROD_INVEST_TYPE, RAISE_TYPE, 
+            TERMID, PROD_SCALE, INBANK_BONDMARK_HOLD_DENOMINA, 
+            INBANK_BONDMARK_HOLD_RATIO, HOLDER_NAME, 
+            HOLDER_TYPE, INVEST_AMOUNT, INVEST_RATIO, 
+            TWO_HOLDER_NAME, TWO_HOLDER_TYPE, TWO_INVEST_AMOUNT, 
+            TWO_INVEST_RATIO, PROD_SHARE, HOLDER_SHARE, 
+            REMARK, STATUS, CHB_SUBMIT_DEADLINE, 
+            STATUS_DATE, SUBMIT_TIME, SUMIT_SEQ, 
+            SEND_STATUS, SUBMIT_FEEDBACK_STATUS, SUBMIT_FEEDBACK_MSG, 
+            CREATE_USER, ORG_CODE, CREATE_DEPT, 
+            CREATE_TIME, UPDATE_USER, UPDATE_TIME
+            )
+        values (#{registSeqno,jdbcType=VARCHAR}, #{lastHoldDay,jdbcType=DATE}, #{prodId,jdbcType=VARCHAR}, 
+            #{prodName,jdbcType=VARCHAR}, #{prdRegistCode,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+            #{prodType,jdbcType=VARCHAR}, #{prodInvestType,jdbcType=VARCHAR}, #{raiseType,jdbcType=VARCHAR}, 
+            #{termid,jdbcType=VARCHAR}, #{prodScale,jdbcType=DECIMAL}, #{inbankBondmarkHoldDenomina,jdbcType=DECIMAL}, 
+            #{inbankBondmarkHoldRatio,jdbcType=DECIMAL}, #{holderName,jdbcType=VARCHAR}, 
+            #{holderType,jdbcType=VARCHAR}, #{investAmount,jdbcType=DECIMAL}, #{investRatio,jdbcType=DECIMAL}, 
+            #{twoHolderName,jdbcType=VARCHAR}, #{twoHolderType,jdbcType=VARCHAR}, #{twoInvestAmount,jdbcType=DECIMAL}, 
+            #{twoInvestRatio,jdbcType=DECIMAL}, #{prodShare,jdbcType=DECIMAL}, #{holderShare,jdbcType=DECIMAL}, 
+            #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{chbSubmitDeadline,jdbcType=TIMESTAMP}, 
+            #{statusDate,jdbcType=DATE}, #{submitTime,jdbcType=TIMESTAMP}, #{sumitSeq,jdbcType=VARCHAR}, 
+            #{sendStatus,jdbcType=VARCHAR}, #{submitFeedbackStatus,jdbcType=VARCHAR}, #{submitFeedbackMsg,jdbcType=VARCHAR}, 
+            #{createUser,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, 
+            #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto" >
+        insert into CHB_CONSIGNOR_DETAIL_SUB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                REGIST_SEQNO,
+            </if>
+            <if test="lastHoldDay != null" >
+                LAST_HOLD_DAY,
+            </if>
+            <if test="prodId != null" >
+                PROD_ID,
+            </if>
+            <if test="prodName != null" >
+                PROD_NAME,
+            </if>
+            <if test="prdRegistCode != null" >
+                PRD_REGIST_CODE,
+            </if>
+            <if test="manager != null" >
+                MANAGER,
+            </if>
+            <if test="prodType != null" >
+                PROD_TYPE,
+            </if>
+            <if test="prodInvestType != null" >
+                PROD_INVEST_TYPE,
+            </if>
+            <if test="raiseType != null" >
+                RAISE_TYPE,
+            </if>
+            <if test="termid != null" >
+                TERMID,
+            </if>
+            <if test="prodScale != null" >
+                PROD_SCALE,
+            </if>
+            <if test="inbankBondmarkHoldDenomina != null" >
+                INBANK_BONDMARK_HOLD_DENOMINA,
+            </if>
+            <if test="inbankBondmarkHoldRatio != null" >
+                INBANK_BONDMARK_HOLD_RATIO,
+            </if>
+            <if test="holderName != null" >
+                HOLDER_NAME,
+            </if>
+            <if test="holderType != null" >
+                HOLDER_TYPE,
+            </if>
+            <if test="investAmount != null" >
+                INVEST_AMOUNT,
+            </if>
+            <if test="investRatio != null" >
+                INVEST_RATIO,
+            </if>
+            <if test="twoHolderName != null" >
+                TWO_HOLDER_NAME,
+            </if>
+            <if test="twoHolderType != null" >
+                TWO_HOLDER_TYPE,
+            </if>
+            <if test="twoInvestAmount != null" >
+                TWO_INVEST_AMOUNT,
+            </if>
+            <if test="twoInvestRatio != null" >
+                TWO_INVEST_RATIO,
+            </if>
+            <if test="prodShare != null" >
+                PROD_SHARE,
+            </if>
+            <if test="holderShare != null" >
+                HOLDER_SHARE,
+            </if>
+            <if test="remark != null" >
+                REMARK,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="chbSubmitDeadline != null" >
+                CHB_SUBMIT_DEADLINE,
+            </if>
+            <if test="statusDate != null" >
+                STATUS_DATE,
+            </if>
+            <if test="submitTime != null" >
+                SUBMIT_TIME,
+            </if>
+            <if test="sumitSeq != null" >
+                SUMIT_SEQ,
+            </if>
+            <if test="sendStatus != null" >
+                SEND_STATUS,
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                SUBMIT_FEEDBACK_STATUS,
+            </if>
+            <if test="submitFeedbackMsg != null" >
+                SUBMIT_FEEDBACK_MSG,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                #{registSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="lastHoldDay != null" >
+                #{lastHoldDay,jdbcType=DATE},
+            </if>
+            <if test="prodId != null" >
+                #{prodId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodName != null" >
+                #{prodName,jdbcType=VARCHAR},
+            </if>
+            <if test="prdRegistCode != null" >
+                #{prdRegistCode,jdbcType=VARCHAR},
+            </if>
+            <if test="manager != null" >
+                #{manager,jdbcType=VARCHAR},
+            </if>
+            <if test="prodType != null" >
+                #{prodType,jdbcType=VARCHAR},
+            </if>
+            <if test="prodInvestType != null" >
+                #{prodInvestType,jdbcType=VARCHAR},
+            </if>
+            <if test="raiseType != null" >
+                #{raiseType,jdbcType=VARCHAR},
+            </if>
+            <if test="termid != null" >
+                #{termid,jdbcType=VARCHAR},
+            </if>
+            <if test="prodScale != null" >
+                #{prodScale,jdbcType=DECIMAL},
+            </if>
+            <if test="inbankBondmarkHoldDenomina != null" >
+                #{inbankBondmarkHoldDenomina,jdbcType=DECIMAL},
+            </if>
+            <if test="inbankBondmarkHoldRatio != null" >
+                #{inbankBondmarkHoldRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="holderName != null" >
+                #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderType != null" >
+                #{holderType,jdbcType=VARCHAR},
+            </if>
+            <if test="investAmount != null" >
+                #{investAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="investRatio != null" >
+                #{investRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="twoHolderName != null" >
+                #{twoHolderName,jdbcType=VARCHAR},
+            </if>
+            <if test="twoHolderType != null" >
+                #{twoHolderType,jdbcType=VARCHAR},
+            </if>
+            <if test="twoInvestAmount != null" >
+                #{twoInvestAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="twoInvestRatio != null" >
+                #{twoInvestRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="prodShare != null" >
+                #{prodShare,jdbcType=DECIMAL},
+            </if>
+            <if test="holderShare != null" >
+                #{holderShare,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="chbSubmitDeadline != null" >
+                #{chbSubmitDeadline,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusDate != null" >
+                #{statusDate,jdbcType=DATE},
+            </if>
+            <if test="submitTime != null" >
+                #{submitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sumitSeq != null" >
+                #{sumitSeq,jdbcType=VARCHAR},
+            </if>
+            <if test="sendStatus != null" >
+                #{sendStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                #{submitFeedbackStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackMsg != null" >
+                #{submitFeedbackMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto" >
+        insert into CHB_CONSIGNOR_DETAIL_SUB(REGIST_SEQNO, LAST_HOLD_DAY, PROD_ID, PROD_NAME, 
+        PRD_REGIST_CODE, MANAGER, PROD_TYPE, PROD_INVEST_TYPE, RAISE_TYPE, TERMID, PROD_SCALE, 
+        INBANK_BONDMARK_HOLD_DENOMINA, INBANK_BONDMARK_HOLD_RATIO, HOLDER_NAME, HOLDER_TYPE, 
+        INVEST_AMOUNT, INVEST_RATIO, TWO_HOLDER_NAME, TWO_HOLDER_TYPE, TWO_INVEST_AMOUNT, 
+        TWO_INVEST_RATIO, PROD_SHARE, HOLDER_SHARE, REMARK, STATUS, CHB_SUBMIT_DEADLINE, 
+        STATUS_DATE, SUBMIT_TIME, SUMIT_SEQ, SEND_STATUS, SUBMIT_FEEDBACK_STATUS, SUBMIT_FEEDBACK_MSG, 
+        CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+        select REGIST_SEQNO, LAST_HOLD_DAY, PROD_ID, PROD_NAME, 
+            PRD_REGIST_CODE, MANAGER, PROD_TYPE, PROD_INVEST_TYPE, RAISE_TYPE, TERMID, PROD_SCALE, 
+            INBANK_BONDMARK_HOLD_DENOMINA, INBANK_BONDMARK_HOLD_RATIO, HOLDER_NAME, HOLDER_TYPE, 
+            INVEST_AMOUNT, INVEST_RATIO, TWO_HOLDER_NAME, TWO_HOLDER_TYPE, TWO_INVEST_AMOUNT, 
+            TWO_INVEST_RATIO, PROD_SHARE, HOLDER_SHARE, REMARK, #{status,jdbcType=VARCHAR} STATUS, CHB_SUBMIT_DEADLINE, 
+            STATUS_DATE, SUBMIT_TIME, SUMIT_SEQ, SEND_STATUS, SUBMIT_FEEDBACK_STATUS, SUBMIT_FEEDBACK_MSG, 
+            CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+             from CHB_CONSIGNOR_DETAIL_SUB
+             where STATUS = 'E' and REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto" >
+        update CHB_CONSIGNOR_DETAIL_SUB
+        <set >
+            <if test="lastHoldDay != null" >
+                LAST_HOLD_DAY = #{lastHoldDay,jdbcType=DATE},
+            </if>
+            <if test="prodId != null" >
+                PROD_ID = #{prodId,jdbcType=VARCHAR},
+            </if>
+            <if test="prodName != null" >
+                PROD_NAME = #{prodName,jdbcType=VARCHAR},
+            </if>
+            <if test="prdRegistCode != null" >
+                PRD_REGIST_CODE = #{prdRegistCode,jdbcType=VARCHAR},
+            </if>
+            <if test="manager != null" >
+                MANAGER = #{manager,jdbcType=VARCHAR},
+            </if>
+            <if test="prodType != null" >
+                PROD_TYPE = #{prodType,jdbcType=VARCHAR},
+            </if>
+            <if test="prodInvestType != null" >
+                PROD_INVEST_TYPE = #{prodInvestType,jdbcType=VARCHAR},
+            </if>
+            <if test="raiseType != null" >
+                RAISE_TYPE = #{raiseType,jdbcType=VARCHAR},
+            </if>
+            <if test="termid != null" >
+                TERMID = #{termid,jdbcType=VARCHAR},
+            </if>
+            <if test="prodScale != null" >
+                PROD_SCALE = #{prodScale,jdbcType=DECIMAL},
+            </if>
+            <if test="inbankBondmarkHoldDenomina != null" >
+                INBANK_BONDMARK_HOLD_DENOMINA = #{inbankBondmarkHoldDenomina,jdbcType=DECIMAL},
+            </if>
+            <if test="inbankBondmarkHoldRatio != null" >
+                INBANK_BONDMARK_HOLD_RATIO = #{inbankBondmarkHoldRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="holderName != null" >
+                HOLDER_NAME = #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderType != null" >
+                HOLDER_TYPE = #{holderType,jdbcType=VARCHAR},
+            </if>
+            <if test="investAmount != null" >
+                INVEST_AMOUNT = #{investAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="investRatio != null" >
+                INVEST_RATIO = #{investRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="twoHolderName != null" >
+                TWO_HOLDER_NAME = #{twoHolderName,jdbcType=VARCHAR},
+            </if>
+            <if test="twoHolderType != null" >
+                TWO_HOLDER_TYPE = #{twoHolderType,jdbcType=VARCHAR},
+            </if>
+            <if test="twoInvestAmount != null" >
+                TWO_INVEST_AMOUNT = #{twoInvestAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="twoInvestRatio != null" >
+                TWO_INVEST_RATIO = #{twoInvestRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="prodShare != null" >
+                PROD_SHARE = #{prodShare,jdbcType=DECIMAL},
+            </if>
+            <if test="holderShare != null" >
+                HOLDER_SHARE = #{holderShare,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null" >
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="chbSubmitDeadline != null" >
+                CHB_SUBMIT_DEADLINE = #{chbSubmitDeadline,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusDate != null" >
+                STATUS_DATE = #{statusDate,jdbcType=DATE},
+            </if>
+            <if test="submitTime != null" >
+                SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sumitSeq != null" >
+                SUMIT_SEQ = #{sumitSeq,jdbcType=VARCHAR},
+            </if>
+            <if test="sendStatus != null" >
+                SEND_STATUS = #{sendStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackStatus != null" >
+                SUBMIT_FEEDBACK_STATUS = #{submitFeedbackStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="submitFeedbackMsg != null" >
+                SUBMIT_FEEDBACK_MSG = #{submitFeedbackMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto" >
+        update CHB_CONSIGNOR_DETAIL_SUB
+        set LAST_HOLD_DAY = #{lastHoldDay,jdbcType=DATE},
+            PROD_ID = #{prodId,jdbcType=VARCHAR},
+            PROD_NAME = #{prodName,jdbcType=VARCHAR},
+            PRD_REGIST_CODE = #{prdRegistCode,jdbcType=VARCHAR},
+            MANAGER = #{manager,jdbcType=VARCHAR},
+            PROD_TYPE = #{prodType,jdbcType=VARCHAR},
+            PROD_INVEST_TYPE = #{prodInvestType,jdbcType=VARCHAR},
+            RAISE_TYPE = #{raiseType,jdbcType=VARCHAR},
+            TERMID = #{termid,jdbcType=VARCHAR},
+            PROD_SCALE = #{prodScale,jdbcType=DECIMAL},
+            INBANK_BONDMARK_HOLD_DENOMINA = #{inbankBondmarkHoldDenomina,jdbcType=DECIMAL},
+            INBANK_BONDMARK_HOLD_RATIO = #{inbankBondmarkHoldRatio,jdbcType=DECIMAL},
+            HOLDER_NAME = #{holderName,jdbcType=VARCHAR},
+            HOLDER_TYPE = #{holderType,jdbcType=VARCHAR},
+            INVEST_AMOUNT = #{investAmount,jdbcType=DECIMAL},
+            INVEST_RATIO = #{investRatio,jdbcType=DECIMAL},
+            TWO_HOLDER_NAME = #{twoHolderName,jdbcType=VARCHAR},
+            TWO_HOLDER_TYPE = #{twoHolderType,jdbcType=VARCHAR},
+            TWO_INVEST_AMOUNT = #{twoInvestAmount,jdbcType=DECIMAL},
+            TWO_INVEST_RATIO = #{twoInvestRatio,jdbcType=DECIMAL},
+            PROD_SHARE = #{prodShare,jdbcType=DECIMAL},
+            HOLDER_SHARE = #{holderShare,jdbcType=DECIMAL},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            CHB_SUBMIT_DEADLINE = #{chbSubmitDeadline,jdbcType=TIMESTAMP},
+            STATUS_DATE = #{statusDate,jdbcType=DATE},
+            SUBMIT_TIME = #{submitTime,jdbcType=TIMESTAMP},
+            SUMIT_SEQ = #{sumitSeq,jdbcType=VARCHAR},
+            SEND_STATUS = #{sendStatus,jdbcType=VARCHAR},
+            SUBMIT_FEEDBACK_STATUS = #{submitFeedbackStatus,jdbcType=VARCHAR},
+            SUBMIT_FEEDBACK_MSG = #{submitFeedbackMsg,jdbcType=VARCHAR},
+            ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=VARCHAR}
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+
+
+    <!--  分页查询  -->
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto">
+        SELECT
+            T1.REGIST_SEQNO                  AS registSeqno,
+            nvl(T1.UPDATE_TIME,T1.CREATE_TIME)   AS statusDate,
+            T1.LAST_HOLD_DAY                 AS lastHoldDay,
+            T1.PRD_REGIST_CODE               AS prodId,
+            T1.PROD_NAME                     AS prodName,
+            T1.MANAGER                       AS manager,
+            T1.PROD_TYPE                     AS prodType,
+            T1.PROD_INVEST_TYPE              AS prodInvestType,
+            T1.RAISE_TYPE                    AS raiseType,
+            T1.TERMID                        AS termid,
+            T1.PROD_SCALE                    AS prodScale,
+            T1.INBANK_BONDMARK_HOLD_DENOMINA AS inbankBondmarkHoldDenomina,
+            T1.INBANK_BONDMARK_HOLD_RATIO    AS inbankBondmarkHoldRatio,
+            T1.HOLDER_NAME                   AS holderName,
+            T1.HOLDER_TYPE                   AS holderType,
+            T1.INVEST_AMOUNT                 AS investAmount,
+            T1.INVEST_RATIO                  AS investRatio,
+            T1.TWO_HOLDER_NAME               AS twoHolderName,
+            T1.TWO_HOLDER_TYPE               AS twoHolderType,
+            T1.TWO_INVEST_AMOUNT             AS twoInvestAmount,
+            T1.TWO_INVEST_RATIO              AS twoInvestRatio,
+            T1.PROD_SHARE                    AS prodShare,
+            T1.HOLDER_SHARE                  AS holderShare,
+            T1.REMARK                        AS remark
+        FROM
+            CHB_CONSIGNOR_DETAIL_SUB T1
+        <where>
+            1=1
+            <if test="prodId != null and prodId != '' ">
+                AND (
+                    T1.PROD_ID LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                    OR
+                    T1.PRD_REGIST_CODE LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                    )
+            </if>
+            <if test="raiseType != null and raiseType != ''">
+                AND T1.RAISE_TYPE = #{raiseType,jdbcType=VARCHAR}
+            </if>
+            <if test="holderType != null and holderType != ''">
+                AND T1.HOLDER_TYPE = #{holderType,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and TO_CAHR(nvl(T1.UPDATE_TIME,T1.CREATE_TIME),'yyyy-MM-dd') &gt;= #{statusDateStart}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and TO_CAHR(nvl(T1.UPDATE_TIME,T1.CREATE_TIME),'yyyy-MM-dd') &lt;= #{statusDateEnd}
+            </if>
+            <if test="lastDayHold != null and lastDayHold != ''">
+                and TO_CAHR(T1.LAST_HOLD_DAY,'yyyy-MM-dd') = #{lastDayHold}
+            </if>
+        </where>
+    </select>
+
+    <!-- 联想下拉框   -->
+    <select id="queryProdInfo" resultType="com.joyintech.framework.select.SuggestDto">
+        SELECT DISTINCT
+        T1.PROD_ID           AS code,
+        T1.PRD_REGIST_CODE   AS name,
+        T1.PRD_REGIST_CODE   AS shortName,
+        T1.PRD_REGIST_CODE   AS hidCode
+        FROM
+        CHB_CONSIGNOR_DETAIL_SUB T1
+        <where>
+            <if test="prodId != null and prodId != '' ">
+                T1.PROD_ID LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                OR
+                T1.PRD_REGIST_CODE LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 数据行   -->
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        CHB_CONSIGNOR_DETAIL_SUB T1
+        <where>
+            1=1
+            <if test="prodId != null and prodId != '' ">
+                AND (
+                T1.PROD_ID LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                OR
+                T1.PRD_REGIST_CODE LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                )
+            </if>
+            <if test="raiseType != null and raiseType != ''">
+                AND T1.RAISE_TYPE = #{raiseType,jdbcType=VARCHAR}
+            </if>
+            <if test="holderType != null and holderType != ''">
+                AND T1.HOLDER_TYPE = #{holderType,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and to_char(nvl(T1.UPDATE_TIME,T1.CREATE_TIME),'yyyy-MM-dd') &gt;= #{statusDateStart}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and to_char(nvl(T1.UPDATE_TIME,T1.CREATE_TIME),'yyyy-MM-dd') &lt;= #{statusDateEnd}
+            </if>
+            <if test="lastDayHold != null and lastDayHold != ''">
+                and to_char(T1.LAST_HOLD_DAY,'yyyy-MM-dd') = #{lastDayHold}
+            </if>
+        </where>
+    </select>
+
+    <!-- 批导出是否在执行或待执行 -->
+    <select id="getNoendCountByTaskBeanName" parameterType="string" resultType="int">
+        select count(1)
+        from SYS_BATCHGRP_EXEC_INFO info
+        left join SYS_BATCH_JOB bj
+        on info.BATCH_SEQ_NO=bj.BATCH_SEQ_NO
+        where
+        bj.TASK_ID=#{taskid,jdbcType=VARCHAR}
+        and info.STATUS in ('UNR','RUN')
+    </select>
+</mapper>

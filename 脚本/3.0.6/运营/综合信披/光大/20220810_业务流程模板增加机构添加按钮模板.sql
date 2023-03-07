@@ -1,0 +1,2 @@
+delete from sys_wfl_business_module where PAGE_ID="SysDepartment002" and ELEMENT_ID="SysDepartment002_btn_save";
+insert into sys_wfl_business_module(PAGE_ID,ELEMENT_ID,MODULE_ID,CREATE_USER,CREATE_DEPT,CREATE_TIME,UPDATE_USER,UPDATE_TIME,INSTITUTION_CODE,IS_SEND_UORG) values("SysDepartment002","SysDepartment002_btn_save","noneApproval","system",null,now(),"system",now(),"ALL","02");

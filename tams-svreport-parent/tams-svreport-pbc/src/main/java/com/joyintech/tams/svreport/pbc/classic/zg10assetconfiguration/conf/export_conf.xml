@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ZG10PbcColAssetConfigurationSub.xlsx" name="债券等资产配置情况信息(ZG10)">
+	<Worksheet javaBean="com.joyintech.tams.svreport.pbc.classic.zg10pbccolreport.dto.ZG10PbcColReportDto">
+		<Row>
+			<Cell order="1" name="发行机构代码">issuePartyId</Cell>
+			<Cell order="2" name="产品品种">pbcProdType</Cell>
+			<Cell order="3" name="h10000_一、债务证券（按评级分类）">h10000Str</Cell>
+			<Cell order="4" name="h11000_其中：政策性金融债券">h11000Str</Cell>
+			<Cell order="5" name="h11100_AA+（含）以上">h11100Str</Cell>
+			<Cell order="6" name="h11200_AA+以下">h11200Str</Cell>
+			<Cell order="7" name="h11300_无评级">h11300Str</Cell>
+			<Cell order="8" name="h12000_其他金融债券">h12000Str</Cell>
+			<Cell order="9" name="h12100_AA+（含）以上">h12100Str</Cell>
+			<Cell order="10" name="h12200_AA+以下">h12200Str</Cell>
+			<Cell order="11" name="h12300_无评级">h12300Str</Cell>
+			<Cell order="12" name="h13000_企业债券">h13000Str</Cell>
+			<Cell order="13" name="h13100_AA+（含）以上">h13100Str</Cell>
+			<Cell order="14" name="h13200_AA+以下">h13200Str</Cell>
+			<Cell order="15" name="h13300_无评级">h13300Str</Cell>
+			<Cell order="16" name="h14000_资产支持证券">h14000Str</Cell>
+			<Cell order="17" name="h14100_AA+（含）以上">h14100Str</Cell>
+			<Cell order="18" name="h14200_AA+以下">h14200Str</Cell>
+			<Cell order="19" name="h14300_无评级">h14300Str</Cell>
+			<Cell order="20" name="h20000_二、企业债券按券种分类">h20000Str</Cell>
+			<Cell order="21" name="h21000_其中：企业债">h21000Str</Cell>
+			<Cell order="22" name="h22000_公司债">h22000Str</Cell>
+			<Cell order="23" name="h23000_非金融企业债务融资工具">h23000Str</Cell>
+			<Cell order="24" name="h30000_三、银行资本补充工具合计">h30000Str</Cell>
+			<Cell order="25" name="h31000_其中：优先股">h31000Str</Cell>
+			<Cell order="26" name="h32000_永续债（债性）">h32000Str</Cell>
+			<Cell order="27" name="h33000_永续债（股性）">h33000Str</Cell>
+			<Cell order="28" name="h34000_二级资本债">h34000Str</Cell>
+			<Cell order="29" name="h40000_四、债券逆回购">h40000Str</Cell>
+			<Cell order="30" name="h41000_住户">h41000Str</Cell>
+			<Cell order="31" name="h42000_广义政府">h42000Str</Cell>
+			<Cell order="32" name="h43000_非金融企业">h43000Str</Cell>
+			<Cell order="33" name="h44000_银行业存款类金融机构">h44000Str</Cell>
+			<Cell order="34" name="h45000_银行业非存款类金融机构">h45000Str</Cell>
+			<Cell order="35" name="h46000_非银行业金融机构">h46000Str</Cell>
+			<Cell order="36" name="h46100_其中：中央交易对手方">h46100Str</Cell>
+			<Cell order="37" name="h47000_特定目的载体">h47000Str</Cell>
+			<Cell order="38" name="h47100_银行非保本理财">h47100Str</Cell>
+			<Cell order="39" name="h47200_信托公司资管产品">h47200Str</Cell>
+			<Cell order="40" name="h47300_证券公司及其子公司资管产品">h47300Str</Cell>
+			<Cell order="41" name="h47400_基金管理公司及其子公司专户">h47400Str</Cell>
+			<Cell order="42" name="h47500_期货公司及其子公司资管产品">h47500Str</Cell>
+			<Cell order="43" name="h47600_保险资管产品">h47600Str</Cell>
+			<Cell order="44" name="h47700_金融资产投资公司资管产品">h47700Str</Cell>
+			<Cell order="45" name="h47800_公募基金">h47800Str</Cell>
+			<Cell order="46" name="h47900_私募机构私募基金">h47900Str</Cell>
+			<Cell order="47" name="h47a00_其他特定目的载体">h47a00Str</Cell>
+			<Cell order="48" name="h48000_境外">h48000Str</Cell>
+			<Cell order="49" name="h50000_五、资产减值准备">h50000Str</Cell>
+			<Cell order="50" name="h51000_存款">h51000Str</Cell>
+			<Cell order="51" name="h52000_可转让存单">h52000Str</Cell>
+			<Cell order="52" name="h53000_债务证券">h53000Str</Cell>
+			<Cell order="53" name="h54000_除回购和拆借外贷款">h54000Str</Cell>
+			<Cell order="54" name="h55000_回购和拆借">h55000Str</Cell>
+			<Cell order="55" name="h56000_资产收益权">h56000Str</Cell>
+			<Cell order="56" name="h57000_股权及特定目的载体份额">h57000Str</Cell>
+			<Cell order="57" name="h58000_金融衍生品">h58000Str</Cell>
+			<Cell order="58" name="h59000_应收账款">h59000Str</Cell>
+			<Cell order="59" name="h5a000_其他">h5a000Str</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

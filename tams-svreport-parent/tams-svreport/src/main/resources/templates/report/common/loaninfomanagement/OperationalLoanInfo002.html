@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="~{layout/default}">
+<head>
+	<title data-th-text="#{OperationalLoanInfo002}">贷款明细信息新建</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<form class="layui-form joyin-form-wrap pro-module-form" id="submitForm">
+		<!-- 隐藏字段 金融产品代码 -->
+		<input type="text" name="assetUuid" data-th-value='${assetUuid}' hidden>
+		<div class="layui-form-item">
+			<div class="layui-inline layui-col-md6">
+				<label class="layui-form-label form-label-wrap">资产代码</label>
+				<div class="layui-input-inline input-inline">
+					<select id="assetCode" name="assetCode" class="input-select" placeholder="请选择"
+							data-th-data-url='@{/svreport/loaninfomanagement/OperationalLoanInfo002/queryPbcAssetCode}'
+							data-th-initValue='${entity?.assetCode}' data-th-data-formatoption=true
+							data-th-placeholder="#{SysCommon.selectplaceholder}" allowClear="true" required>
+					</select>
+				</div>
+			</div>
+			<div class="layui-inline layui-col-md6">
+				<label class="layui-form-label form-label-wrap">人行资产三级分类</label>
+				<div class="layui-input-inline input-inline">
+					<select id="assetType" name="assetType"
+							class="layui-input form-input input-select"
+							data-th-placeholder="#{SysCommon.placeholder}"
+							data-th-initValue='${entity?.assetType}'
+							data-th-data-result="${SVR_LOANS_ASSET_TYPE}"  disabled>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div id="syqDiv" style="display:none">
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.assetsInvest}">基础资产出让机构类型</label>
+					<div class="layui-input-inline input-inline">
+						<select id="assetsInvest" name="assetsInvest"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsInvest}'
+								data-th-data-result="${SVR_CUSTOMER_TYPE1}" required>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.eachProportion}">各比例</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="eachProportion" id="eachProportion"
+							   class="layui-input form-input" maxlength="200"
+							   data-th-placeholder="#{OperationalLoanInfo002.eachProportionRemark}"
+							   data-th-value='${entity?.eachProportion}' required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">资产负债项目</label>
+					<div class="layui-input-inline input-inline">
+						<select id="assetsLiabilities" name="assetsLiabilities"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsLiabilities}'
+								data-th-data-result="${ASSETS_LIABILITIES}" disabled>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">资产收益权内部编码</label>
+					<div class="layui-input-inline input-inline">
+						<!--/*@thymesVar id="assetUsufructCode" type=""*/-->
+						<input type="text" id="assetUsufructCode" name="assetUsufructCode"
+							   data-th-value='${entity?.assetUsufructCode}' maxlength="30"
+							   class="layui-input form-input" placeholder="请输入内容" required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构名称</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" id="assetsTransferName" name="assetsTransferName"
+							   data-th-value='${entity?.assetsTransferName}' maxlength="200"
+							   class="layui-input form-input" placeholder="请输入内容" required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构代码</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" id="assetsTransferId" name="assetsTransferId"
+							   data-th-value='${entity?.assetsTransferId}' maxlength="100"
+							   class="layui-input form-input" placeholder="请输入内容" required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构行业</label>
+					<div class="layui-input-inline input-inline">
+						<select name="assetsTransferIindu" id="assetsTransferIindu" required
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsTransferIindu}'
+								data-th-data-result="${SVR_INDUSTRY_DOOR_CODE}">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构国别</label>
+					<div class="layui-input-inline input-inline">
+						<select name="assetsTransferCountry" id="assetsTransferCountry"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsTransferCountry}'
+								data-th-data-result="${SVR_COUNTRY_AREA}">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构注册地区(省)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="assetsTransferProv" id="assetsTransferProv"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsTransferProv}' required
+								data-th-data-result="${AREA_TYPE1}"
+								childrenIds="assetsTransferCity">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构注册地区(市)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="assetsTransferCity" id="assetsTransferCity" required
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsTransferCity}'
+								data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getAssetsTransferCities}"
+								parentIds="assetsTransferProv" childrenIds="assetsTransferCounty">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构注册地区(县)</label>
+					<div class="layui-input-inline input-inline">
+						<select id="assetsTransferCounty" name="assetsTransferCounty" required
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsTransferCounty}'
+								data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getAssetsTransferCounties}"
+								parentIds="assetsTransferCity">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构经济成分</label>
+					<div class="layui-input-inline input-inline">
+						<select name="economicComposition" id="economicComposition"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.economicComposition}'
+								data-th-data-result="${SVR_ECONOMIC_SECOND_LEVEL}">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产出让机构规模</label>
+					<div class="layui-input-inline input-inline">
+						<select name="assetsTransferScale" id="assetsTransferScale"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.assetsTransferScale}'
+								data-th-data-result="${SVR_SCALE}">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产类型</label>
+					<div class="layui-input-inline input-inline">
+						<select name="basicassetType" id="basicassetType" required
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.basicassetType}'
+								data-th-data-result="${BASICASSET_TYPE}">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">转让起始日期</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="transferVdate" id="transferVdate"
+							   class="layui-input form-input input-dateSelect" required
+							   data-th-value='${#dates.format(entity?.transferVdate,"yyyy-MM-dd")}'>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">转让预计终止日期</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="transferEstiMdate" id="transferEstiMdate"
+							   class="layui-input form-input input-dateSelect" required
+							   data-th-value='${#dates.format(entity?.transferEstiMdate,"yyyy-MM-dd")}'>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">转让展期到期日期</label>
+					<div class="layui-input-inline input-inline">
+					   <input type="text" name="transferExtdueMdate" id="transferExtdueMdate"
+							class="layui-input form-input input-dateSelect"
+							th:value='${#dates.format(entity?.transferExtdueMdate,"yyyy-MM-dd")}'>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">转让实际终止日期</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="transferActmdate" id="transferActmdate"
+							   class="layui-input form-input input-dateSelect"
+							   data-th-value='${#dates.format(entity?.transferActmdate,"yyyy-MM-dd")}'>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产原始协议币种</label>
+					<div class="layui-input-inline input-inline">
+						<select name="assetsOrigccy" id="assetsOrigccy"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.assetsOrigccy}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${CURRENCY_PBC}" required>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产原始协议金额</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="assetsOrigamt" id="assetsOrigamt"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="20"
+							   data-textrange="2" data-th-value='${entity?.assetsOrigamt}' required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产原始协议金额折人民币</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="assetsOrigamtCny" id="assetsOrigamtCny"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="20"
+							   data-textrange="2" data-th-value='${entity?.assetsOrigamtCny}' required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产转让币种</label>
+					<div class="layui-input-inline input-inline">
+						<select name="currencyTransferccy" id="currencyTransferccy"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.currencyTransferccy}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${CURRENCY_PBC}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产转让金额</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="currencyTransferamt" id="currencyTransferamt"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="20"
+							   data-textrange="2" data-th-value='${entity?.currencyTransferamt}' required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产转让金额折人民币</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="currencyTransferamtcny" id="currencyTransferamtcny"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="20"
+							   data-textrange="2" data-th-value='${entity?.currencyTransferamtcny}' required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">出让机构出表标识</label>
+					<div class="layui-input-inline input-inline">
+						<select  id="labelTransferorMark" name="labelTransferorMark"
+								 data-th-initValue="${entity?.labelTransferorMark}"
+								 class="layui-input form-input input-select"
+								 data-th-data-result="${SVR_PBC_YESORNO}" required
+						></select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">出让机构回购标识</label>
+					<div class="layui-input-inline input-inline">
+						<select  id="repurchaseMark" name="repurchaseMark"
+								 data-th-initValue="${entity?.repurchaseMark}"
+								 class="layui-input form-input input-select"
+								 data-th-data-result="${SVR_PBC_YESORNO}" required
+						></select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">利率是否固定</label>
+					<div class="layui-input-inline input-inline">
+						<select  id="rateFixedFlag" name="rateFixedFlag"
+								 data-th-initValue="${entity?.rateFixedFlag}"
+								 class="layui-input form-input input-select"
+								 data-th-data-result="${SVR_INTEREST_TYPE}" required
+						></select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">利率水平</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="assetRateLevel" id="assetRateLevel"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="10"
+							   data-textrange="5" data-th-value='${entity?.assetRateLevel}' required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">担保方式</label>
+					<div class="layui-input-inline input-inline">
+						<select  id="guaranteeMethod" name="guaranteeMethod"
+								 data-th-initValue="${entity?.guaranteeMethod}"
+								 class="layui-input form-input input-select"
+								 data-th-data-result="${SVR_LOAN_GUA_TYPE_01}"
+						></select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产投向部门</label>
+					<div class="layui-input-inline input-inline">
+						<select  id="assetsInvDepa" name="assetsInvDepa"
+								 data-th-initValue="${entity?.assetsInvDepa}"
+								 class="layui-input form-input input-select"
+								 data-th-data-result="${SVR_NEW_DEPT_TYPE}"
+								 required="required"
+								 multiple="multiple"
+						></select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap">基础资产期末币种</label>
+					<div class="layui-input-inline input-inline">
+						<select  id="currencyEperiodccy" name="currencyEperiodccy"
+								 data-th-initValue="${entity?.currencyEperiodccy}"
+								 class="layui-input form-input input-select"
+								 data-th-data-result="${CURRENCY_PBC}" required
+						></select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="loannDiv" style="display:none">
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loansType}">贷款种类</label>
+					<div class="layui-input-inline input-inline">
+						<select id="loansType" name="loansType"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.loansType}'
+								data-th-data-result="${SVR_LOAN_TYPE}" required>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanTransferorId}">贷款转让方机构代码</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanTransferorId" id="loanTransferorId"
+							   class="layui-input form-input"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-th-value='${entity?.loanTransferorId}'>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanTransferorName}">贷款转让方机构名称</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanTransferorName" id="loanTransferorName"
+							   class="layui-input form-input"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-th-value='${entity?.loanTransferorName}'>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanContractOrgId}">贷款合同原始发放机构代码</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanContractOrgId" id="loanContractOrgId"
+							   class="layui-input form-input"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-th-value='${entity?.loanContractOrgId}'>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanContractOrgName}">贷款合同原始发放机构名称</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanContractOrgName" id="loanContractOrgName"
+							   class="layui-input form-input"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-th-value='${entity?.loanContractOrgName}'>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanContractOrgProvince}">贷款合同原始发放机构所在地(省)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanContractOrgProvince" id="loanContractOrgProvince"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.loanContractOrgProvince}'
+								data-th-data-result="${SYS_AREA_TYPE_01}"
+								childrenIds="loanContractOrgCity">
+								<!--data-th-data-result="${AREA_TYPE1}"-->
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanContractOrgCity}">贷款合同原始发放机构所在地(市)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanContractOrgCity" id="loanContractOrgCity"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.loanContractOrgCity}'
+								data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getLoanCities2}"
+								parentIds="loanContractOrgProvince" childrenIds="loanContractOrgCounty">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanContractOrgCounty}">贷款合同原始发放机构所在地(县)</label>
+					<div class="layui-input-inline input-inline">
+						<select id="loanContractOrgCounty" name="loanContractOrgCounty"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.loanContractOrgCounty}'
+								data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getLoanCounties2}"
+								parentIds="loanContractOrgCity">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.borrowerType}">借款人类型</label>
+					<div class="layui-input-inline input-inline">
+						<select name="borrowerType" id="borrowerType"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.borrowerType}'
+								data-th-data-result="${SVR_DEPT_TYPE}" required >
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.industryInfo}">行业信息</label>
+					<div class="layui-input-inline input-inline">
+						<select name="industryInfo" id="industryInfo"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.industryInfo}'
+								data-th-data-result="${SVR_INDUSTRY_DOOR_CODE}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.borrowerNationality}">借款人国别</label>
+					<div class="layui-input-inline input-inline">
+						<select name="borrowerNationality" id="borrowerNationality"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.borrowerNationality}'
+								data-th-data-result="${SVR_COUNTRY_AREA}">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.borrowerProvince}">地区代码(省)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="borrowerProvince" id="borrowerProvince"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.borrowerProvince}'
+								data-th-data-result="${SYS_AREA_TYPE_01}"
+								childrenIds="borrowerCity" >
+								<!--data-th-data-result="${AREA_TYPE1}"-->
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.borrowerCity}">地区代码(市)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="borrowerCity" id="borrowerCity"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.borrowerCity}'
+								data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getBorrowerCities2}"
+								parentIds="borrowerProvince" childrenIds="borrowerCounty">
+							<!--data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getBorrowerCities}"-->
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.borrowerCounty}">地区代码(县)</label>
+					<div class="layui-input-inline input-inline">
+						<select name="borrowerCounty" id="borrowerCounty"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.borrowerCounty}'
+								data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getBorrowerCounties2}"
+								parentIds="borrowerCity">
+							<!--data-th-data-url="@{/svreport/loaninfomanagement/OperationalLoanInfo002/getBorrowerCounties}"-->
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.borrowerId}">借款人代码</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="borrowerId" id="borrowerId"
+							   class="layui-input form-input"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-th-value='${entity?.borrowerId}' required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.enterpriseInvestorTypeFirst}">企业出资人经济成分（一级）</label>
+					<div class="layui-input-inline input-inline">
+						<select name="enterpriseInvestorTypeFirst" id="enterpriseInvestorTypeFirst"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.enterpriseInvestorTypeFirst}'
+								data-th-data-result="${SVR_ECONOMIC_FIRST_LEVEL}"
+								childrenIds="enterpriseInvestorTypeSec">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.enterpriseInvestorTypeSec}">企业出资人经济成分（二级）</label>
+					<div class="layui-input-inline input-inline">
+						<select name="enterpriseInvestorTypeSec" id="enterpriseInvestorTypeSec"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.enterpriseInvestorTypeSec}'
+								data-th-data-result="${SVR_ECONOMIC_SECOND_LEVEL}"
+								parentIds="enterpriseInvestorTypeFirst" childrenIds="enterpriseInvestorTypeThird">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.enterpriseInvestorTypeThird}">企业出资人经济成分（三级）</label>
+					<div class="layui-input-inline input-inline">
+						<select name="enterpriseInvestorTypeThird" id="enterpriseInvestorTypeThird"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.enterpriseInvestorTypeThird}'
+								data-th-data-result="${SVR_ECONOMIC_THIRD_LEVEL}"
+								parentIds="enterpriseInvestorTypeSec">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.enterpriseScale}">企业规模</label>
+					<div class="layui-input-inline input-inline">
+						<select name="enterpriseScale" id="enterpriseScale"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.enterpriseScale}'
+								data-th-data-result="${SVR_SCALE}">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanBasisId}">贷款借据编码</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanBasisId" id="loanBasisId"
+							   class="layui-input form-input"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-th-value='${entity?.loanBasisId}'>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanPrdType}">贷款产品类别</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanPrdType" id="loanPrdType"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.loanPrdType}'
+								data-th-data-result="${SVR_LOAN_PEOD_TYPE}" required>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanActualInvest}">贷款实际投向</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanActualInvest" id="loanActualInvest"
+								class="layui-input form-input input-select"
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-initValue='${entity?.loanActualInvest}'
+								data-th-data-result="${PBC_LOAN_ACT_INVEST}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanVdate}">贷款发放日期</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanVdate" id="loanVdate"
+							   class="layui-input form-input input-dateSelect"
+							   data-th-value='${#dates.format(entity?.loanVdate,"yyyy-MM-dd")}' required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanMdate}">贷款到期日期</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanMdate" id="loanMdate"
+							   class="layui-input form-input input-dateSelect"
+							   data-th-value='${#dates.format(entity?.loanMdate,"yyyy-MM-dd")}'
+							   required>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanExtensionDueDate}">贷款展期到期日期</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanExtensionDueDate" id="loanExtensionDueDate"
+							   class="layui-input form-input input-dateSelect"
+							   data-th-value='${#dates.format(entity?.loanExtensionDueDate,"yyyy-MM-dd")}'>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.rateFixed}">利率是否固定</label>
+					<div class="layui-input-inline input-inline">
+						<select name="rateFixed" id="rateFixed"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.rateFixed}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${SVR_INTEREST_TYPE}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.rateLevel}">利率水平(%)</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="rateLevel" id="rateLevel"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="10"
+							   data-textrange="5" data-th-value='${entity?.rateLevel}' required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanGuaranteeMode}">贷款担保方式</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanGuaranteeMode" id="loanGuaranteeMode"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.loanGuaranteeMode}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${SVR_LOAN_GUA_TYPE}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanQuality}">贷款质量</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanQuality" id="loanQuality"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.loanQuality}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${SVR_LOAN_QUALITY}">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanState}">贷款状态</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanState" id="loanState"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.loanState}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${SVR_LOAN_STATUS}">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanTransferorRate}">贷款转让折扣率(%)</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="loanTransferorRate" id="loanTransferorRate"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}" maxlength="10"
+							   data-textrange="5" data-th-value='${entity?.loanTransferorRate}'>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.origCcy}">原始合同币种代码</label>
+					<div class="layui-input-inline input-inline">
+						<select name="origCcy" id="origCcy"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.origCcy}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${CURRENCY_PBC}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.origContractAmount}">原始合同金额</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="origContractAmount" id="origContractAmount"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-textrange="2" data-th-value='${entity?.origContractAmount}' required>
+					</div>
+				</div>
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.origContractAmountCny}">原始合同金额折人民币</label>
+					<div class="layui-input-inline input-inline">
+						<input type="text" name="origContractAmountCny" id="origContractAmountCny"
+							   class="layui-input form-input text-number"
+							   data-th-placeholder="#{SysCommon.placeholder}"
+							   data-textrange="2" data-th-value='${entity?.origContractAmountCny}'>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline layui-col-md6">
+					<label class="layui-form-label form-label-wrap"
+						   data-th-text="#{OperationalLoanInfo002.loanBalanceCcy}">贷款余额币种</label>
+					<div class="layui-input-inline input-inline">
+						<select name="loanBalanceCcy" id="loanBalanceCcy"
+								class="layui-input form-input input-select"
+								data-th-initValue='${entity?.loanBalanceCcy}'
+								data-th-placeholder="#{SysCommon.placeholder}"
+								data-th-data-result="${CURRENCY_PBC}" required>
+						</select>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row text-center stepbar">
+			<a id="OperationalLoanInfo002_btn_submit"
+			   class="layui-btn layui-btn-sm btn-submit"
+			   data-th-text="#{SysCommon.submit}">提交</a>
+			<a id="OperationalLoanInfo002_btn_cancel"
+			   class="layui-btn layui-btn-sm btn-cancel"
+			   data-th-text="#{SysCommon.cancel}">取消</a>
+		</div>
+	</form>
+</div>
+<div layout:fragment="script">
+	<script data-th-inline="javascript" type="text/javascript">
+		var SVR_LOAN_TYPE_1 = /*[[${SVR_LOAN_TYPE_1}]]*/'1';// 数据字典.贷款种类_直接发放贷款
+		var SVR_LOAN_TYPE_2 = /*[[${SVR_LOAN_TYPE_2}]]*/'2';// 数据字典.贷款种类_委托发放贷款
+		var SVR_LOAN_TYPE_3 = /*[[${SVR_LOAN_TYPE_3}]]*/'3';// 数据字典.贷款种类_转让贷款
+		var SVR_LOAN_TYPE_4 = /*[[${SVR_LOAN_TYPE_4}]]*/'4';// 数据字典.贷款种类_其他债权
+		var SVR_INDUSTRY_DOOR_CODE_1 = /*[[${SVR_INDUSTRY_DOOR_CODE_1}]]*/'1';// 数据字典.行业门内编码_境内个人
+		var SVR_INDUSTRY_DOOR_CODE_2 = /*[[${SVR_INDUSTRY_DOOR_CODE_2}]]*/'2';// 数据字典.行业门内编码_非居民
+		var SVR_DEPT_TYPE_1 = /*[[${SVR_DEPT_TYPE_1}]]*/'1';// 数据字典.借款人类型_住户
+		var SVR_DEPT_TYPE_2 = /*[[${SVR_DEPT_TYPE_2}]]*/'2';// 数据字典.借款人类型_广义政府
+		var SVR_DEPT_TYPE_3 = /*[[${SVR_DEPT_TYPE_3}]]*/'3';// 数据字典.借款人类型_非金融企业
+		var SVR_DEPT_TYPE_4 = /*[[${SVR_DEPT_TYPE_4}]]*/'4';// 数据字典.借款人类型_金融机构（实体）
+		var SVR_DEPT_TYPE_5 = /*[[${SVR_DEPT_TYPE_5}]]*/'5';// 数据字典.借款人类型_特定目的载体
+		var SVR_DEPT_TYPE_6 = /*[[${SVR_DEPT_TYPE_6}]]*/'6';// 数据字典.借款人类型_境外
+		var SVR_LOAN_PEOD_TYPE_F99 = /*[[${SVR_LOAN_PEOD_TYPE_F99}]]*/'F99';// 数据字典.贷款产品类别_其他贷款
+		var SVR_LOAN_STATUS_FS01 = /*[[${SVR_LOAN_STATUS_FS01}]]*/'FS01';// 数据字典.贷款状态_正常
+		var SVR_LOAN_STATUS_FS02 = /*[[${SVR_LOAN_STATUS_FS02}]]*/'FS02';// 数据字典.贷款状态_展期
+		var SVR_LOAN_STATUS_FS03 = /*[[${SVR_LOAN_STATUS_FS03}]]*/'FS03';// 数据字典.贷款状态_逾期
+
+		var pageId = /*[[${pageId}]]*/''; // 画面Id
+	</script>
+	<script data-th-src="@{/js/report/common/loaninfomanagement/OperationalLoanInfo002.js}" type="text/javascript"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zg09assetdebtterm.dao.ZG09PbcAssetDebtTermMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.pbc.classic.zg09assetdebtterm.dto.ZG09PbcColReport">
+        <id property="reportuuid" column="REPORTUUID" jdbcType="CHAR"/>
+        <result property="termid" column="TERMID" jdbcType="VARCHAR"/>
+        <result property="reporttype" column="REPORTTYPE" jdbcType="VARCHAR"/>
+        <result property="startdate" column="STARTDATE" jdbcType="DATE"/>
+        <result property="enddate" column="ENDDATE" jdbcType="DATE"/>
+        <result property="issuePartyId" column="ISSUE_PARTY_ID" jdbcType="VARCHAR"/>
+        <result property="issuePartyName" column="ISSUE_PARTY_NAME" jdbcType="VARCHAR"/>
+        <result property="reportDate" column="REPORT_DATE" jdbcType="DATE"/>
+        <result property="submitTime" column="SUBMIT_TIME" jdbcType="DATE"/>
+        <result property="pbcSubmitDeadline" column="PBC_SUBMIT_DEADLINE" jdbcType="DATE"/>
+        <result property="submitDeadline" column="SUBMIT_DEADLINE" jdbcType="DATE"/>
+        <result property="status" column="STATUS" jdbcType="VARCHAR"/>
+        <result property="sendStatus" column="SEND_STATUS" jdbcType="VARCHAR"/>
+        <result property="statusDate" column="STATUS_DATE" jdbcType="DATE"/>
+        <result property="createUser" column="CREATE_USER" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="UPDATE_USER" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="orgCode" column="ORG_CODE" jdbcType="VARCHAR"/>
+        <result property="deptCode" column="DEPT_CODE" jdbcType="VARCHAR"/>
+        <result property="createDept" column="CREATE_DEPT" jdbcType="VARCHAR"/>
+        <result property="pbcProdType" column="PBC_PROD_TYPE" jdbcType="CHAR"/>
+        <result property="g000a" column="G000A" jdbcType="DECIMAL"/>
+        <result property="g000b" column="G000B" jdbcType="DECIMAL"/>
+        <result property="g000c" column="G000C" jdbcType="DECIMAL"/>
+        <result property="g000d" column="G000D" jdbcType="DECIMAL"/>
+        <result property="g000e" column="G000E" jdbcType="DECIMAL"/>
+        <result property="g100a" column="G100A" jdbcType="DECIMAL"/>
+        <result property="g100b" column="G100B" jdbcType="DECIMAL"/>
+        <result property="g100c" column="G100C" jdbcType="DECIMAL"/>
+        <result property="g100d" column="G100D" jdbcType="DECIMAL"/>
+        <result property="g100e" column="G100E" jdbcType="DECIMAL"/>
+        <result property="g200a" column="G200A" jdbcType="DECIMAL"/>
+        <result property="g200b" column="G200B" jdbcType="DECIMAL"/>
+        <result property="g200c" column="G200C" jdbcType="DECIMAL"/>
+        <result property="g200d" column="G200D" jdbcType="DECIMAL"/>
+        <result property="g200e" column="G200E" jdbcType="DECIMAL"/>
+        <result property="g300a" column="G300A" jdbcType="DECIMAL"/>
+        <result property="g300b" column="G300B" jdbcType="DECIMAL"/>
+        <result property="g300c" column="G300C" jdbcType="DECIMAL"/>
+        <result property="g300d" column="G300D" jdbcType="DECIMAL"/>
+        <result property="g300e" column="G300E" jdbcType="DECIMAL"/>
+        <result property="g400a" column="G400A" jdbcType="DECIMAL"/>
+        <result property="g400b" column="G400B" jdbcType="DECIMAL"/>
+        <result property="g400c" column="G400C" jdbcType="DECIMAL"/>
+        <result property="g400d" column="G400D" jdbcType="DECIMAL"/>
+        <result property="g400e" column="G400E" jdbcType="DECIMAL"/>
+        <result property="g500a" column="G500A" jdbcType="DECIMAL"/>
+        <result property="g500b" column="G500B" jdbcType="DECIMAL"/>
+        <result property="g500c" column="G500C" jdbcType="DECIMAL"/>
+        <result property="g500d" column="G500D" jdbcType="DECIMAL"/>
+        <result property="g500e" column="G500E" jdbcType="DECIMAL"/>
+        <result property="g600a" column="G600A" jdbcType="DECIMAL"/>
+        <result property="g600b" column="G600B" jdbcType="DECIMAL"/>
+        <result property="g600c" column="G600C" jdbcType="DECIMAL"/>
+        <result property="g600d" column="G600D" jdbcType="DECIMAL"/>
+        <result property="g600e" column="G600E" jdbcType="DECIMAL"/>
+        <result property="g700a" column="G700A" jdbcType="DECIMAL"/>
+        <result property="g700b" column="G700B" jdbcType="DECIMAL"/>
+        <result property="g700c" column="G700C" jdbcType="DECIMAL"/>
+        <result property="g700d" column="G700D" jdbcType="DECIMAL"/>
+        <result property="g700e" column="G700E" jdbcType="DECIMAL"/>
+        <result property="g800a" column="G800A" jdbcType="DECIMAL"/>
+        <result property="g800b" column="G800B" jdbcType="DECIMAL"/>
+        <result property="g800c" column="G800C" jdbcType="DECIMAL"/>
+        <result property="g800d" column="G800D" jdbcType="DECIMAL"/>
+        <result property="g800e" column="G800E" jdbcType="DECIMAL"/>
+        <result property="g00001" column="G00001" jdbcType="DECIMAL"/>
+        <result property="g00002" column="G00002" jdbcType="DECIMAL"/>
+        <result property="datuuid" column="DATUUID" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        REPORTUUID,TERMID,REPORTTYPE,
+        STARTDATE,ENDDATE,ISSUE_PARTY_ID,
+        ISSUE_PARTY_NAME,REPORT_DATE,SUBMIT_TIME,
+        PBC_SUBMIT_DEADLINE,SUBMIT_DEADLINE,STATUS,
+        SEND_STATUS,STATUS_DATE,CREATE_USER,
+        CREATE_TIME,UPDATE_USER,UPDATE_TIME,
+        ORG_CODE,DEPT_CODE,CREATE_DEPT,
+        PBC_PROD_TYPE,G000A,G000B,
+        G000C,G000D,G000E,
+        G100A,G100B,G100C,
+        G100D,G100E,G200A,
+        G200B,G200C,G200D,
+        G200E,G300A,G300B,
+        G300C,G300D,G300E,
+        G400A,G400B,G400C,
+        G400D,G400E,G500A,
+        G500B,G500C,G500D,
+        G500E,G600A,G600B,
+        G600C,G600D,G600E,
+        G700A,G700B,G700C,
+        G700D,G700E,G800A,
+        G800B,G800C,G800D,
+        G800E,G00001,G00002
+    </sql>
+    <delete id="deleteByTermId" parameterType="java.lang.String">
+        delete from ZG09_PBC_COL_REPORT where send_status='01' and TERMID=#{termId}
+    </delete>
+
+    <select id="selectCountByTermId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from ZG09_PBC_COL_REPORT where send_status !='01' and TERMID=#{termId}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.pbc.classic.zg09assetdebtterm.dto.ZG09PbcAssetDebtTermDto" >
+        insert into zg09_pbc_col_report
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="reportuuid != null" >
+                REPORTUUID,
+            </if>
+            <if test="termid != null" >
+                TERMID,
+            </if>
+            <if test="reporttype != null" >
+                REPORTTYPE,
+            </if>
+            <if test="startdate != null" >
+                STARTDATE,
+            </if>
+            <if test="enddate != null" >
+                ENDDATE,
+            </if>
+            <if test="issuePartyId != null" >
+                ISSUE_PARTY_ID,
+            </if>
+            <if test="issuePartyName != null" >
+                ISSUE_PARTY_NAME,
+            </if>
+            <if test="reportDate != null" >
+                REPORT_DATE,
+            </if>
+            <if test="submitTime != null" >
+                SUBMIT_TIME,
+            </if>
+            <if test="pbcSubmitDeadline != null" >
+                PBC_SUBMIT_DEADLINE,
+            </if>
+            <if test="submitDeadline != null" >
+                SUBMIT_DEADLINE,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="sendStatus != null" >
+                SEND_STATUS,
+            </if>
+            <if test="statusDate != null" >
+                STATUS_DATE,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="deptCode != null" >
+                DEPT_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="pbcProdType != null" >
+                PBC_PROD_TYPE,
+            </if>
+            <if test="g000a != null" >
+                G000A,
+            </if>
+            <if test="g000b != null" >
+                G000B,
+            </if>
+            <if test="g000c != null" >
+                G000C,
+            </if>
+            <if test="g000d != null" >
+                G000D,
+            </if>
+            <if test="g000e != null" >
+                G000E,
+            </if>
+            <if test="g100a != null" >
+                G100A,
+            </if>
+            <if test="g100b != null" >
+                G100B,
+            </if>
+            <if test="g100c != null" >
+                G100C,
+            </if>
+            <if test="g100d != null" >
+                G100D,
+            </if>
+            <if test="g100e != null" >
+                G100E,
+            </if>
+            <if test="g200a != null" >
+                G200A,
+            </if>
+            <if test="g200b != null" >
+                G200B,
+            </if>
+            <if test="g200c != null" >
+                G200C,
+            </if>
+            <if test="g200d != null" >
+                G200D,
+            </if>
+            <if test="g200e != null" >
+                G200E,
+            </if>
+            <if test="g300a != null" >
+                G300A,
+            </if>
+            <if test="g300b != null" >
+                G300B,
+            </if>
+            <if test="g300c != null" >
+                G300C,
+            </if>
+            <if test="g300d != null" >
+                G300D,
+            </if>
+            <if test="g300e != null" >
+                G300E,
+            </if>
+            <if test="g400a != null" >
+                G400A,
+            </if>
+            <if test="g400b != null" >
+                G400B,
+            </if>
+            <if test="g400c != null" >
+                G400C,
+            </if>
+            <if test="g400d != null" >
+                G400D,
+            </if>
+            <if test="g400e != null" >
+                G400E,
+            </if>
+            <if test="g500a != null" >
+                G500A,
+            </if>
+            <if test="g500b != null" >
+                G500B,
+            </if>
+            <if test="g500c != null" >
+                G500C,
+            </if>
+            <if test="g500d != null" >
+                G500D,
+            </if>
+            <if test="g500e != null" >
+                G500E,
+            </if>
+            <if test="g600a != null" >
+                G600A,
+            </if>
+            <if test="g600b != null" >
+                G600B,
+            </if>
+            <if test="g600c != null" >
+                G600C,
+            </if>
+            <if test="g600d != null" >
+                G600D,
+            </if>
+            <if test="g600e != null" >
+                G600E,
+            </if>
+            <if test="g700a != null" >
+                G700A,
+            </if>
+            <if test="g700b != null" >
+                G700B,
+            </if>
+            <if test="g700c != null" >
+                G700C,
+            </if>
+            <if test="g700d != null" >
+                G700D,
+            </if>
+            <if test="g700e != null" >
+                G700E,
+            </if>
+            <if test="g800a != null" >
+                G800A,
+            </if>
+            <if test="g800b != null" >
+                G800B,
+            </if>
+            <if test="g800c != null" >
+                G800C,
+            </if>
+            <if test="g800d != null" >
+                G800D,
+            </if>
+            <if test="g800e != null" >
+                G800E,
+            </if>
+            <if test="g00001 != null" >
+                G00001,
+            </if>
+            <if test="g00002 != null" >
+                G00002,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="reportuuid != null" >
+                #{reportuuid,jdbcType=CHAR},
+            </if>
+            <if test="termid != null" >
+                #{termid,jdbcType=VARCHAR},
+            </if>
+            <if test="reporttype != null" >
+                #{reporttype,jdbcType=VARCHAR},
+            </if>
+            <if test="startdate != null" >
+                #{startdate,jdbcType=DATE},
+            </if>
+            <if test="enddate != null" >
+                #{enddate,jdbcType=DATE},
+            </if>
+            <if test="issuePartyId != null" >
+                #{issuePartyId,jdbcType=VARCHAR},
+            </if>
+            <if test="issuePartyName != null" >
+                #{issuePartyName,jdbcType=VARCHAR},
+            </if>
+            <if test="reportDate != null" >
+                #{reportDate,jdbcType=DATE},
+            </if>
+            <if test="submitTime != null" >
+                #{submitTime,jdbcType=DATE},
+            </if>
+            <if test="pbcSubmitDeadline != null" >
+                #{pbcSubmitDeadline,jdbcType=DATE},
+            </if>
+            <if test="submitDeadline != null" >
+                #{submitDeadline,jdbcType=DATE},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="sendStatus != null" >
+                #{sendStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="statusDate != null" >
+                #{statusDate,jdbcType=DATE},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="deptCode != null" >
+                #{deptCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcProdType != null" >
+                #{pbcProdType,jdbcType=CHAR},
+            </if>
+            <if test="g000a != null" >
+                #{g000a,jdbcType=DECIMAL},
+            </if>
+            <if test="g000b != null" >
+                #{g000b,jdbcType=DECIMAL},
+            </if>
+            <if test="g000c != null" >
+                #{g000c,jdbcType=DECIMAL},
+            </if>
+            <if test="g000d != null" >
+                #{g000d,jdbcType=DECIMAL},
+            </if>
+            <if test="g000e != null" >
+                #{g000e,jdbcType=DECIMAL},
+            </if>
+            <if test="g100a != null" >
+                #{g100a,jdbcType=DECIMAL},
+            </if>
+            <if test="g100b != null" >
+                #{g100b,jdbcType=DECIMAL},
+            </if>
+            <if test="g100c != null" >
+                #{g100c,jdbcType=DECIMAL},
+            </if>
+            <if test="g100d != null" >
+                #{g100d,jdbcType=DECIMAL},
+            </if>
+            <if test="g100e != null" >
+                #{g100e,jdbcType=DECIMAL},
+            </if>
+            <if test="g200a != null" >
+                #{g200a,jdbcType=DECIMAL},
+            </if>
+            <if test="g200b != null" >
+                #{g200b,jdbcType=DECIMAL},
+            </if>
+            <if test="g200c != null" >
+                #{g200c,jdbcType=DECIMAL},
+            </if>
+            <if test="g200d != null" >
+                #{g200d,jdbcType=DECIMAL},
+            </if>
+            <if test="g200e != null" >
+                #{g200e,jdbcType=DECIMAL},
+            </if>
+            <if test="g300a != null" >
+                #{g300a,jdbcType=DECIMAL},
+            </if>
+            <if test="g300b != null" >
+                #{g300b,jdbcType=DECIMAL},
+            </if>
+            <if test="g300c != null" >
+                #{g300c,jdbcType=DECIMAL},
+            </if>
+            <if test="g300d != null" >
+                #{g300d,jdbcType=DECIMAL},
+            </if>
+            <if test="g300e != null" >
+                #{g300e,jdbcType=DECIMAL},
+            </if>
+            <if test="g400a != null" >
+                #{g400a,jdbcType=DECIMAL},
+            </if>
+            <if test="g400b != null" >
+                #{g400b,jdbcType=DECIMAL},
+            </if>
+            <if test="g400c != null" >
+                #{g400c,jdbcType=DECIMAL},
+            </if>
+            <if test="g400d != null" >
+                #{g400d,jdbcType=DECIMAL},
+            </if>
+            <if test="g400e != null" >
+                #{g400e,jdbcType=DECIMAL},
+            </if>
+            <if test="g500a != null" >
+                #{g500a,jdbcType=DECIMAL},
+            </if>
+            <if test="g500b != null" >
+                #{g500b,jdbcType=DECIMAL},
+            </if>
+            <if test="g500c != null" >
+                #{g500c,jdbcType=DECIMAL},
+            </if>
+            <if test="g500d != null" >
+                #{g500d,jdbcType=DECIMAL},
+            </if>
+            <if test="g500e != null" >
+                #{g500e,jdbcType=DECIMAL},
+            </if>
+            <if test="g600a != null" >
+                #{g600a,jdbcType=DECIMAL},
+            </if>
+            <if test="g600b != null" >
+                #{g600b,jdbcType=DECIMAL},
+            </if>
+            <if test="g600c != null" >
+                #{g600c,jdbcType=DECIMAL},
+            </if>
+            <if test="g600d != null" >
+                #{g600d,jdbcType=DECIMAL},
+            </if>
+            <if test="g600e != null" >
+                #{g600e,jdbcType=DECIMAL},
+            </if>
+            <if test="g700a != null" >
+                #{g700a,jdbcType=DECIMAL},
+            </if>
+            <if test="g700b != null" >
+                #{g700b,jdbcType=DECIMAL},
+            </if>
+            <if test="g700c != null" >
+                #{g700c,jdbcType=DECIMAL},
+            </if>
+            <if test="g700d != null" >
+                #{g700d,jdbcType=DECIMAL},
+            </if>
+            <if test="g700e != null" >
+                #{g700e,jdbcType=DECIMAL},
+            </if>
+            <if test="g800a != null" >
+                #{g800a,jdbcType=DECIMAL},
+            </if>
+            <if test="g800b != null" >
+                #{g800b,jdbcType=DECIMAL},
+            </if>
+            <if test="g800c != null" >
+                #{g800c,jdbcType=DECIMAL},
+            </if>
+            <if test="g800d != null" >
+                #{g800d,jdbcType=DECIMAL},
+            </if>
+            <if test="g800e != null" >
+                #{g800e,jdbcType=DECIMAL},
+            </if>
+            <if test="g00001 != null" >
+                #{g00001,jdbcType=DECIMAL},
+            </if>
+            <if test="g00002 != null" >
+                #{g00002,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectOtherDebt" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+        select sum(B5000) from zg05_pbc_col_report
+        where TERMID=#{termId} AND  STATUS_TYPE='3'
+    </select>
+
+    <select id="searchPage" parameterType="map"  resultType="com.joyintech.tams.svreport.pbc.classic.zg09assetdebtterm.dto.ZG09PbcColReport">
+        SELECT
+        REPORTUUID reportuuid, TERMID termid, REPORTTYPE reporttype,
+        STARTDATE startdate, ENDDATE enddate, ISSUE_PARTY_ID issuePartyId,
+        ISSUE_PARTY_NAME issuePartyName, REPORT_DATE reportDate, SUBMIT_TIME submitTime,
+        PBC_SUBMIT_DEADLINE pbcSubmitDeadline, SUBMIT_DEADLINE submitDeadline,
+        STATUS status, SEND_STATUS sendStatus, STATUS_DATE statusDate,
+        CREATE_USER createUser, CREATE_TIME createTime, UPDATE_USER updateUser,
+        UPDATE_TIME updateTime, ORG_CODE orgCode, DEPT_CODE deptCode, PBC_PROD_TYPE pbcProdType,
+        CREATE_DEPT createDept,G000A g000a,G000B g000b,
+        G000C g000c,G000D g000d,G000E g000e,
+        G100A g100a,G100B g100b,G100C g100c,
+        G100D g100d,G100E g100e,G200A g200a,
+        G200B g200b,G200C g200c,G200D g200d,
+        G200E g200e,G300A g300a,G300B g300b,
+        G300C g300c,G300D g300d,G300E g300e,
+        G400A g400a,G400B g400b,G400C g400c,
+        G400D g400d,G400E g400e,G500A g500a,
+        G500B g500b,G500C g500c,G500D g500d,
+        G500E g500e,G600A g600a,G600B g600b,
+        G600C g600c,G600D g600d,G600E g600e,
+        G700A g700a,G700B g700b,G700C g700c,
+        G700D g700d,G700E g700e,G800A g800a,
+        G800B g800b,G800C g800c,G800D g800d,
+        G800E g800e,G00001 g00001,G00002 g00002,
+        DATUUID datuuid
+        FROM ZG09_PBC_COL_REPORT  report
+        <where>
+            <if test="sendStatusList != null and sendStatusList.size()&gt;0">
+                <foreach close=")" collection="sendStatusList" item="item" open="and report.SEND_STATUS in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="registList != null and registList.size > 0">
+                <foreach collection="registList" item="items" open="and REPORTUUID in (" separator="," close =")">
+                    <if test="(index % 999) == 998">
+                        null) OR REPORTUUID in (
+                    </if>
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="ccyList != null and ccyList.size()&gt;0">
+                <foreach close=")" collection="ccyList" item="item" open="and report.CCY in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &gt;= #{statusDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &lt;= #{statusDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &gt;= #{submitTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &lt;= #{submitTimeEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineStart != null and submitDeadLineStart != ''">
+                AND to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &gt;= #{submitDeadLineStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineEnd != null and submitDeadLineEnd != ''">
+                and to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &lt;= #{submitDeadLineEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="termId != null and termId != ''">
+                and report.TERMID = #{termId}
+            </if>
+        </where>
+        ORDER BY  report.PBC_SUBMIT_DEADLINE ASC, report.UPDATE_TIME DESC
+
+    </select>
+
+    <select id="searchExport" parameterType="map"  resultType="com.joyintech.tams.svreport.pbc.classic.zg09assetdebtterm.dto.ZG09PbcColReport">
+        SELECT
+        REPORTUUID reportuuid, TERMID termid, REPORTTYPE reporttype,
+        STARTDATE startdate, ENDDATE enddate, ISSUE_PARTY_ID issuePartyId,
+        ISSUE_PARTY_NAME issuePartyName, REPORT_DATE reportDate, SUBMIT_TIME submitTime,
+        PBC_SUBMIT_DEADLINE pbcSubmitDeadline, SUBMIT_DEADLINE submitDeadline,
+        STATUS status, SEND_STATUS sendStatus, STATUS_DATE statusDate,
+        CREATE_USER createUser, CREATE_TIME createTime, UPDATE_USER updateUser,
+        UPDATE_TIME updateTime, ORG_CODE orgCode, DEPT_CODE deptCode, PBC_PROD_TYPE pbcProdType,
+        CREATE_DEPT createDept,G000A g000a,G000B g000b,
+        G000C g000c,G000D g000d,G000E g000e,
+        G100A g100a,G100B g100b,G100C g100c,
+        G100D g100d,G100E g100e,G200A g200a,
+        G200B g200b,G200C g200c,G200D g200d,
+        G200E g200e,G300A g300a,G300B g300b,
+        G300C g300c,G300D g300d,G300E g300e,
+        G400A g400a,G400B g400b,G400C g400c,
+        G400D g400d,G400E g400e,G500A g500a,
+        G500B g500b,G500C g500c,G500D g500d,
+        G500E g500e,G600A g600a,G600B g600b,
+        G600C g600c,G600D g600d,G600E g600e,
+        G700A g700a,G700B g700b,G700C g700c,
+        G700D g700d,G700E g700e,G800A g800a,
+        G800B g800b,G800C g800c,G800D g800d,
+        G800E g800e,G00001 g00001,G00002 g00002,
+        DATUUID datuuid
+        FROM ZG09_PBC_COL_REPORT  report
+        <where>
+            report.SEND_STATUS='01'
+            <if test="sendStatusList != null and sendStatusList.size()&gt;0">
+                <foreach close=")" collection="sendStatusList" item="item" open="and report.SEND_STATUS in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="ccyList != null and ccyList.size()&gt;0">
+                <foreach close=")" collection="ccyList" item="item" open="and report.CCY in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &gt;= #{statusDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and to_char(report.STATUS_DATE,'yyyy-MM-dd') &lt;= #{statusDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &gt;= #{submitTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and to_char(report.SUBMIT_TIME,'yyyy-MM-dd') &lt;= #{submitTimeEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineStart != null and submitDeadLineStart != ''">
+                AND to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &gt;= #{submitDeadLineStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineEnd != null and submitDeadLineEnd != ''">
+                and to_char(report.PBC_SUBMIT_DEADLINE,'yyyy-MM-dd') &lt;= #{submitDeadLineEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="termId != null and termId != ''">
+                and report.TERMID = #{termId}
+            </if>
+        </where>
+        ORDER BY  report.PBC_SUBMIT_DEADLINE ASC, report.UPDATE_TIME DESC
+
+    </select>
+
+
+    <update id="doManul" parameterType="java.util.List">
+        update ZG09_PBC_COL_REPORT sub
+        set
+        sub.SEND_STATUS = '03',
+        sub.submit_time = NOW(),
+        sub.UPDATE_TIME = NOW()
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            sub.TERMID=#{item,jdbcType=VARCHAR}
+        </foreach>
+        and sub.SEND_STATUS ='01'
+    </update>
+
+    <update id="cancelManul" parameterType="java.util.List">
+        update ZG09_PBC_COL_REPORT sub
+        set
+        sub.SEND_STATUS = '01',
+        sub.submit_time = null,
+        sub.UPDATE_TIME = NOW()
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            sub.TERMID=#{item,jdbcType=VARCHAR}
+        </foreach>
+        and sub.SEND_STATUS ='03'
+    </update>
+
+    <select id="searchByUuid" parameterType="java.lang.String" resultMap="BaseResultMap" flushCache="true" useCache="false">
+        SELECT
+        <include refid="Base_Column_List" />
+        from ZG09_PBC_COL_REPORT  a
+        where a.TERMID =(select TERMID from ZG09_PBC_COL_REPORT b where b.REPORTUUID=#{uuid,jdbcType=VARCHAR})
+        ORDER BY  a.PBC_SUBMIT_DEADLINE ASC, a.UPDATE_TIME DESC
+
+    </select>
+
+    <!-- 手工处理 -->
+    <update id="doDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '03',
+        file.SUBMIT_TIME = sysdate,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 取消手工处理 -->
+    <update id="cancelDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '01',
+        file.SUBMIT_TIME = null,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

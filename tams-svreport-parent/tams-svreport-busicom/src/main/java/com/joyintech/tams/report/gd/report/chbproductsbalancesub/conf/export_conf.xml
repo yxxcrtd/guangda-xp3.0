@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ChbProductsBalanceSub001.xlsx" name="理财产品账户余额登记表">
+    <Worksheet javaBean="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto">
+        <Row>
+            <Cell order="1" name="数据批次">statusBatch</Cell>
+            <Cell order="2" name="理财产品编号">account</Cell>
+            <Cell order="3" name="客户编号">indentifyMark</Cell>
+            <Cell order="4" name="客户账号">fundAcc</Cell>
+            <Cell order="5" name="理财账号">finAcc</Cell>
+            <Cell order="6" name="折人民币账户余额">amountCny</Cell>
+            <Cell order="7" name="机构编号">isConsign</Cell>
+            <Cell order="8" name="银行标识号">bankMark</Cell>
+            <Cell order="9" name="数据时点">dateStatusStr</Cell>
+            <Cell order="10" name="组别">groupId</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

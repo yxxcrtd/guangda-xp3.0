@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG10DatReportMapper_mysql">
+
+	<delete id="deleteBySub">
+		delete from ZG10_PBC_COL_REPORT
+		where SEND_STATUS != '03'
+		<foreach collection="list" item="item" index="index" open="and TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<delete id="deleteByDat">
+		delete from ZG10_PBC_COL_REPORT_DAT
+		where
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into ZG10_PBC_COL_REPORT (
+			REPORTUUID,
+			TERMID,
+			REPORTTYPE,
+			STARTDATE,
+			ENDDATE,
+			ISSUE_PARTY_ID,
+			ISSUE_PARTY_NAME,
+			REPORT_DATE,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			SUBMIT_FEEDBACK_STATUS,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PBC_PROD_TYPE,
+			h10000,
+			h11000,
+			h11100,
+			h11200,
+			h11300,
+			h12000,
+			h12100,
+			h12200,
+			h12300,
+			h13000,
+			h13100,
+			h13200,
+			h13300,
+			h14000,
+			h14100,
+			h14200,
+			h14300,
+			h20000,
+			h21000,
+			h22000,
+			h23000,
+			h30000,
+			h31000,
+			h32000,
+			h33000,
+			h34000,
+			h40000,
+			h41000,
+			h42000,
+			h43000,
+			h44000,
+			h45000,
+			h46000,
+			h46100,
+			h47000,
+			h47100,
+			h47200,
+			h47300,
+			h47400,
+			h47500,
+			h47600,
+			h47700,
+			h47800,
+			h47900,
+			h47a00,
+			h48000,
+			h50000,
+			h51000,
+			h52000,
+			h53000,
+			h54000,
+			h55000,
+			h56000,
+			h57000,
+			h58000,
+			h59000,
+			h5a000,
+			datuuid
+		)
+		<foreach collection="list" item="item" separator="union all">
+			select uuid(),
+			#{item.termId,jdbcType=VARCHAR},
+			#{item.reporttype,jdbcType=VARCHAR},
+			#{item.startdate,jdbcType=TIMESTAMP},
+			#{item.enddate,jdbcType=TIMESTAMP},
+			#{item.issuePartyId,jdbcType=VARCHAR},
+			#{item.issuePartyName,jdbcType=VARCHAR},
+			#{item.reportdate,jdbcType=TIMESTAMP},
+			#{item.submitTime,jdbcType=TIMESTAMP},
+			#{item.pbcSubmitDeadline,jdbcType=TIMESTAMP},
+			#{item.submitDeadline,jdbcType=TIMESTAMP},
+			#{item.submitFeedbackStatus,jdbcType=VARCHAR},
+			#{item.status,jdbcType=VARCHAR},
+			#{item.sendStatus,jdbcType=VARCHAR},
+			now(),
+			#{item.createUser,jdbcType=VARCHAR},
+			now(),
+			#{item.updateUser,jdbcType=VARCHAR},
+			now(),
+			#{item.orgCode,jdbcType=VARCHAR},
+			#{item.deptCode,jdbcType=VARCHAR},
+			#{item.createDept,jdbcType=VARCHAR},
+			#{item.pbcProdType,jdbcType=VARCHAR},
+			#{item.h10000,jdbcType=DECIMAL},
+			#{item.h11000,jdbcType=DECIMAL},
+			#{item.h11100,jdbcType=DECIMAL},
+			#{item.h11200,jdbcType=DECIMAL},
+			#{item.h11300,jdbcType=DECIMAL},
+			#{item.h12000,jdbcType=DECIMAL},
+			#{item.h12100,jdbcType=DECIMAL},
+			#{item.h12200,jdbcType=DECIMAL},
+			#{item.h12300,jdbcType=DECIMAL},
+			#{item.h13000,jdbcType=DECIMAL},
+			#{item.h13100,jdbcType=DECIMAL},
+			#{item.h13200,jdbcType=DECIMAL},
+			#{item.h13300,jdbcType=DECIMAL},
+			#{item.h14000,jdbcType=DECIMAL},
+			#{item.h14100,jdbcType=DECIMAL},
+			#{item.h14200,jdbcType=DECIMAL},
+			#{item.h14300,jdbcType=DECIMAL},
+			#{item.h20000,jdbcType=DECIMAL},
+			#{item.h21000,jdbcType=DECIMAL},
+			#{item.h22000,jdbcType=DECIMAL},
+			#{item.h23000,jdbcType=DECIMAL},
+			#{item.h30000,jdbcType=DECIMAL},
+			#{item.h31000,jdbcType=DECIMAL},
+			#{item.h32000,jdbcType=DECIMAL},
+			#{item.h33000,jdbcType=DECIMAL},
+			#{item.h34000,jdbcType=DECIMAL},
+			#{item.h40000,jdbcType=DECIMAL},
+			#{item.h41000,jdbcType=DECIMAL},
+			#{item.h42000,jdbcType=DECIMAL},
+			#{item.h43000,jdbcType=DECIMAL},
+			#{item.h44000,jdbcType=DECIMAL},
+			#{item.h45000,jdbcType=DECIMAL},
+			#{item.h46000,jdbcType=DECIMAL},
+			#{item.h46100,jdbcType=DECIMAL},
+			#{item.h47000,jdbcType=DECIMAL},
+			#{item.h47100,jdbcType=DECIMAL},
+			#{item.h47200,jdbcType=DECIMAL},
+			#{item.h47300,jdbcType=DECIMAL},
+			#{item.h47400,jdbcType=DECIMAL},
+			#{item.h47500,jdbcType=DECIMAL},
+			#{item.h47600,jdbcType=DECIMAL},
+			#{item.h47700,jdbcType=DECIMAL},
+			#{item.h47800,jdbcType=DECIMAL},
+			#{item.h47900,jdbcType=DECIMAL},
+			#{item.h47a00,jdbcType=DECIMAL},
+			#{item.h48000,jdbcType=DECIMAL},
+			#{item.h50000,jdbcType=DECIMAL},
+			#{item.h51000,jdbcType=DECIMAL},
+			#{item.h52000,jdbcType=DECIMAL},
+			#{item.h53000,jdbcType=DECIMAL},
+			#{item.h54000,jdbcType=DECIMAL},
+			#{item.h55000,jdbcType=DECIMAL},
+			#{item.h56000,jdbcType=DECIMAL},
+			#{item.h57000,jdbcType=DECIMAL},
+			#{item.h58000,jdbcType=DECIMAL},
+			#{item.h59000,jdbcType=DECIMAL},
+			#{item.h5a000,jdbcType=DECIMAL},
+			#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into ZG10_PBC_COL_REPORT_DAT (
+			REPORTUUID,
+			TERMID,
+			REPORTTYPE,
+			STARTDATE,
+			ENDDATE,
+			ISSUE_PARTY_ID,
+			ISSUE_PARTY_NAME,
+			REPORT_DATE,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			SUBMIT_FEEDBACK_STATUS,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PBC_PROD_TYPE,
+			h10000,
+			h11000,
+			h11100,
+			h11200,
+			h11300,
+			h12000,
+			h12100,
+			h12200,
+			h12300,
+			h13000,
+			h13100,
+			h13200,
+			h13300,
+			h14000,
+			h14100,
+			h14200,
+			h14300,
+			h20000,
+			h21000,
+			h22000,
+			h23000,
+			h30000,
+			h31000,
+			h32000,
+			h33000,
+			h34000,
+			h40000,
+			h41000,
+			h42000,
+			h43000,
+			h44000,
+			h45000,
+			h46000,
+			h46100,
+			h47000,
+			h47100,
+			h47200,
+			h47300,
+			h47400,
+			h47500,
+			h47600,
+			h47700,
+			h47800,
+			h47900,
+			h47a00,
+			h48000,
+			h50000,
+			h51000,
+			h52000,
+			h53000,
+			h54000,
+			h55000,
+			h56000,
+			h57000,
+			h58000,
+			h59000,
+			h5a000,
+			datuuid
+		)
+			SELECT
+		    REPORTUUID,
+			TERMID,
+			REPORTTYPE,
+			STARTDATE,
+			ENDDATE,
+			ISSUE_PARTY_ID,
+			ISSUE_PARTY_NAME,
+			REPORT_DATE,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			SUBMIT_FEEDBACK_STATUS,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PBC_PROD_TYPE,
+			h10000,
+			h11000,
+			h11100,
+			h11200,
+			h11300,
+			h12000,
+			h12100,
+			h12200,
+			h12300,
+			h13000,
+			h13100,
+			h13200,
+			h13300,
+			h14000,
+			h14100,
+			h14200,
+			h14300,
+			h20000,
+			h21000,
+			h22000,
+			h23000,
+			h30000,
+			h31000,
+			h32000,
+			h33000,
+			h34000,
+			h40000,
+			h41000,
+			h42000,
+			h43000,
+			h44000,
+			h45000,
+			h46000,
+			h46100,
+			h47000,
+			h47100,
+			h47200,
+			h47300,
+			h47400,
+			h47500,
+			h47600,
+			h47700,
+			h47800,
+			h47900,
+			h47a00,
+			h48000,
+			h50000,
+			h51000,
+			h52000,
+			h53000,
+			h54000,
+			h55000,
+			h56000,
+			h57000,
+			h58000,
+			h59000,
+			h5a000,#{uuid,jdbcType=VARCHAR}
+		from ZG10_PBC_COL_REPORT
+		WHERE
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select ISSUE_PARTY_ID,TERMID
+		from ZG10_PBC_COL_REPORT
+		where (STATUS = '03' or SEND_STATUS = '03')
+		<foreach collection="list" item="item" index="index" open="and ( TERMID in(" separator="," close=") )">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+
+	<update id="updatePDatDataStatus" parameterType="java.lang.String">
+		update ZG10_PBC_COL_REPORT_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update ZG10_PBC_COL_REPORT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<select id="getPListByUUid"  resultType="java.util.Map">
+	 select REPORTUUID,
+		TERMID,
+		REPORTTYPE,
+		STARTDATE,
+		ENDDATE,
+		ISSUE_PARTY_ID,
+		ISSUE_PARTY_NAME,
+		REPORT_DATE,
+		SUBMIT_FEEDBACK_STATUS,
+		STATUS,
+		SEND_STATUS,
+		CREATE_USER,
+		UPDATE_USER,
+		ORG_CODE,
+		DEPT_CODE,
+		CREATE_DEPT,
+		PBC_PROD_TYPE,
+		h10000,
+		h11000,
+		h11100,
+		h11200,
+		h11300,
+		h12000,
+		h12100,
+		h12200,
+		h12300,
+		h13000,
+		h13100,
+		h13200,
+		h13300,
+		h14000,
+		h14100,
+		h14200,
+		h14300,
+		h20000,
+		h21000,
+		h22000,
+		h23000,
+		h30000,
+		h31000,
+		h32000,
+		h33000,
+		h34000,
+		h40000,
+		h41000,
+		h42000,
+		h43000,
+		h44000,
+		h45000,
+		h46000,
+		h46100,
+		h47000,
+		h47100,
+		h47200,
+		h47300,
+		h47400,
+		h47500,
+		h47600,
+		h47700,
+		h47800,
+		h47900,
+		h47a00,
+		h48000,
+		h50000,
+		h51000,
+		h52000,
+		h53000,
+		h54000,
+		h55000,
+		h56000,
+		h57000,
+		h58000,
+		h59000,
+		h5a000,
+		CONCAT('发行机构代码:',ISSUE_PARTY_ID,';统计年月:',TERMID) dataKey
+		from ZG10_PBC_COL_REPORT
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY  termid,PBC_SUBMIT_DEADLINE ASC, UPDATE_TIME DESC,ISSUE_PARTY_ID
+	</select>
+
+	<update id="updateUuidSub">
+        update ZG10_PBC_COL_REPORT
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

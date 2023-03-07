@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="OpertionLoanInfo001.xlsx" name="资产收益权明细信息(ZG06)">
+	<Worksheet javaBean="com.joyintech.tams.svreport.loaninfomanagement.dto.OperationalLoanInfo001Dto">
+		<Row>
+			<Cell order="1" name="资产代码">assetCode</Cell>
+			<Cell order="2" name="资产收益权内部编码">assetUsufructCode</Cell>
+			<Cell order="3" name="基础资产出让机构代码">assetsTransferId</Cell>
+			<Cell order="4" name="基础资产出让机构名称">assetsTransferName</Cell>
+			<Cell order="5" name="基础资产出让机构类型">assetsInvestStr</Cell>
+			<Cell order="6" name="基础资产出让机构行业">assetsTransferIinduStr</Cell>
+			<Cell order="7" name="基础资产出让机构国别">assetsTransferCountryStr</Cell>
+			<Cell order="8" name="基础资产出让机构注册地区(省)">assetsTransferProvStr</Cell>
+			<Cell order="9" name="基础资产出让机构注册地区(市)">assetsTransferCityStr</Cell>
+			<Cell order="10" name="基础资产出让机构注册地区(县)">assetsTransferCountyStr</Cell>
+			<Cell order="11" name="基础资产出让机构经济成分">economicCompositionStr</Cell>
+			<Cell order="12" name="基础资产出让机构规模">assetsTransferScaleStr</Cell>
+			<Cell order="13" name="转让起始日期">transferVdateStr</Cell>
+			<Cell order="14" name="转让预计终止日期">transferEstiMdateStr</Cell>
+			<Cell order="15" name="转让展期到期日期">transferExtdueMdateStr</Cell>
+			<Cell order="16" name="转让实际终止日期">transferActmdateStr</Cell>
+			<Cell order="17" name="基础资产类型">basicassetTypeStr</Cell>
+			<Cell order="18" name="基础资产原始协议币种">assetsOrigccyStr</Cell>
+			<Cell order="19" name="基础资产原始协议金额">assetsOrigamt</Cell>
+			<Cell order="20" name="基础资产原始协议金额折人民币">assetsOrigamtCny</Cell>
+			<Cell order="21" name="基础资产转让币种">currencyTransferccyStr</Cell>
+			<Cell order="22" name="基础资产转让金额">currencyTransferamt</Cell>
+			<Cell order="23" name="基础资产转让金额折人民币">currencyTransferamtcny</Cell>
+			<Cell order="24" name="出让机构出表标识">labelTransferorMarkStr</Cell>
+			<Cell order="25" name="出让机构回购标识">repurchaseMarkStr</Cell>
+			<Cell order="26" name="利率是否固定">rateFixedFlagStr</Cell>
+			<Cell order="27" name="利率水平(%)">assetRateLevel</Cell>
+			<Cell order="28" name="担保方式">guaranteeMethodStr</Cell>
+			<Cell order="29" name="基础资产投向部门">assetsInvDepaStr</Cell>
+			<Cell order="30" name="基础资产期末币种">currencyEperiodccyStr</Cell>
+			<Cell order="31" name="各比例">eachProportion</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

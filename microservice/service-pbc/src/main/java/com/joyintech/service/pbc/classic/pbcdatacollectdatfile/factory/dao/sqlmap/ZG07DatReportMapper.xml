@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG07DatReportMapper">
+
+	<delete id="deleteBySub">
+		delete from PBC_COL_LOAN_DETAIL_SUB
+		where SEND_STATUS != '03'
+		and (
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+		)
+	</delete>
+
+
+	<delete id="deleteByDat">
+		delete from PBC_COL_LOAN_DETAIL_dat
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into PBC_COL_LOAN_DETAIL_SUB (PBC_PROD_ID, LOAN_BASIS_ID, STATUS,
+		DETAILUUID, TERMID, ASSET_CODE,
+		LOAN_TRANSFEROR_ID, LOAN_CONTRACT_ORG_ID,
+		LOAN_CONTRACT_ORG_CODE, BORROWER_TYPE, BORROWER_COUNTY,
+		BORROWER_ID, INDUSTRY_INFO, ENTERPRISE_INVESTOR_TYPE,
+		ENTERPRISE_SCALE, LOAN_PRD_TYPE, LOAN_ACTUAL_INVEST,
+		LOAN_VDATE, LOAN_MDATE, LOAN_EXTENSION_DUE_DATE,
+		RATE_FIXED, RATE_LEVEL, LOANS_TYPE, LOAN_GUARANTEE_MODE,
+		LOAN_QUALITY, LOAN_STATE, LOAN_TRANSFEROR_RATE,
+		ORIG_CCY, ORIG_CONTRACT_AMOUNT, ORIG_CONTRACT_AMOUNT_CNY,
+		AMT_CCY, CONTRACT_AMOUNT, CONTRACT_AMOUNT_CNY,
+		SUBMIT_TIME, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+		SEND_STATUS, STATUS_DATE, CREATE_USER,
+		CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+		ORG_CODE, DEPT_CODE, CREATE_DEPT,
+		PROD_ID,datuuid)values
+		<foreach collection="list" item="item" separator=",">
+			( #{item.pbcProdId,jdbcType=VARCHAR}, #{item.loanBasisId,jdbcType=VARCHAR}, #{item.status,jdbcType=VARCHAR},
+            f_uuid(), #{item.termId,jdbcType=VARCHAR}, #{item.assetCode,jdbcType=VARCHAR},
+			#{item.loanTransferorId,jdbcType=VARCHAR}, #{item.loanContractOrgId,jdbcType=VARCHAR},
+			#{item.loanContractOrgCode,jdbcType=VARCHAR}, #{item.borrowerType,jdbcType=VARCHAR}, #{item.borrowerCounty,jdbcType=VARCHAR},
+			#{item.borrowerId,jdbcType=VARCHAR}, #{item.industryInfo,jdbcType=VARCHAR}, #{item.enterpriseInvestorType,jdbcType=VARCHAR},
+			#{item.enterpriseScale,jdbcType=VARCHAR}, #{item.loanPrdType,jdbcType=VARCHAR}, #{item.loanActualInvest,jdbcType=VARCHAR},
+			#{item.loanVdate,jdbcType=DATE}, #{item.loanMdate,jdbcType=DATE}, #{item.loanExtensionDueDate,jdbcType=DATE},
+			#{item.rateFixed,jdbcType=VARCHAR}, #{item.rateLevel,jdbcType=DECIMAL}, #{item.loansType,jdbcType=VARCHAR}, #{item.loanGuaranteeMode,jdbcType=VARCHAR},
+			#{item.loanQuality,jdbcType=VARCHAR}, #{item.loanState,jdbcType=VARCHAR}, #{item.loanTransferorRate,jdbcType=DECIMAL},
+			#{item.origCcy,jdbcType=VARCHAR}, #{item.origContractAmount,jdbcType=DECIMAL}, #{item.origContractAmountCny,jdbcType=DECIMAL},
+			#{item.amtCcy,jdbcType=VARCHAR}, #{item.contractAmount,jdbcType=DECIMAL}, #{item.contractAmountCny,jdbcType=DECIMAL},
+			#{item.submitTime,jdbcType=DATE}, #{item.pbcSubmitDeadline,jdbcType=DATE}, #{item.submitDeadline,jdbcType=DATE},
+			#{item.sendStatus,jdbcType=VARCHAR}, sysdate, #{item.createUser,jdbcType=VARCHAR},
+			sysdate, #{item.updateUser,jdbcType=VARCHAR}, sysdate,
+			#{item.orgCode,jdbcType=VARCHAR}, #{item.deptCode,jdbcType=VARCHAR}, #{item.createDept,jdbcType=VARCHAR},
+			#{item.prodId,jdbcType=VARCHAR},#{uuid,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into PBC_COL_LOAN_DETAIL_dat (PBC_PROD_ID, LOAN_BASIS_ID, STATUS,
+		DETAILUUID, TERMID, ASSET_CODE,
+		LOAN_TRANSFEROR_ID, LOAN_CONTRACT_ORG_ID,
+		LOAN_CONTRACT_ORG_CODE, BORROWER_TYPE, BORROWER_COUNTY,
+		BORROWER_ID, INDUSTRY_INFO, ENTERPRISE_INVESTOR_TYPE,
+		ENTERPRISE_SCALE, LOAN_PRD_TYPE, LOAN_ACTUAL_INVEST,
+		LOAN_VDATE, LOAN_MDATE, LOAN_EXTENSION_DUE_DATE,
+		RATE_FIXED, RATE_LEVEL, LOANS_TYPE, LOAN_GUARANTEE_MODE,
+		LOAN_QUALITY, LOAN_STATE, LOAN_TRANSFEROR_RATE,
+		ORIG_CCY, ORIG_CONTRACT_AMOUNT, ORIG_CONTRACT_AMOUNT_CNY,
+		AMT_CCY, CONTRACT_AMOUNT, CONTRACT_AMOUNT_CNY,
+		SUBMIT_TIME, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+		SEND_STATUS, STATUS_DATE, CREATE_USER,
+		CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+		ORG_CODE, DEPT_CODE, CREATE_DEPT,
+		PROD_ID,datuuid)
+		select
+		PBC_PROD_ID, LOAN_BASIS_ID, STATUS,
+		DETAILUUID, TERMID, ASSET_CODE,
+		LOAN_TRANSFEROR_ID, LOAN_CONTRACT_ORG_ID,
+		LOAN_CONTRACT_ORG_CODE, BORROWER_TYPE, BORROWER_COUNTY,
+		BORROWER_ID, INDUSTRY_INFO, ENTERPRISE_INVESTOR_TYPE,
+		ENTERPRISE_SCALE, LOAN_PRD_TYPE, LOAN_ACTUAL_INVEST,
+		LOAN_VDATE, LOAN_MDATE, LOAN_EXTENSION_DUE_DATE,
+		RATE_FIXED, RATE_LEVEL, LOANS_TYPE, LOAN_GUARANTEE_MODE,
+		LOAN_QUALITY, LOAN_STATE, LOAN_TRANSFEROR_RATE,
+		ORIG_CCY, ORIG_CONTRACT_AMOUNT, ORIG_CONTRACT_AMOUNT_CNY,
+		AMT_CCY, CONTRACT_AMOUNT, CONTRACT_AMOUNT_CNY,
+		SUBMIT_TIME, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+		SEND_STATUS, STATUS_DATE, CREATE_USER,
+		CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+		ORG_CODE, DEPT_CODE, CREATE_DEPT,
+		PROD_ID,#{uuid,jdbcType=VARCHAR}
+		from PBC_COL_LOAN_DETAIL_SUB
+		WHERE
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select termid
+		from PBC_COL_LOAN_DETAIL_SUB
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		<foreach collection="keys" item="item" index="index" open="and ( termid in(" separator="," close=") )">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+
+	<select id="getPListByUUid" resultType="map" >
+		SELECT
+             PBC_PROD_ID
+            ,LOAN_BASIS_ID
+            ,STATUS
+            ,DETAILUUID
+            ,TERMID
+            ,ASSET_CODE
+            ,LOAN_TRANSFEROR_ID
+            ,LOAN_CONTRACT_ORG_ID
+            ,LOAN_CONTRACT_ORG_CODE
+            ,BORROWER_TYPE
+            ,BORROWER_COUNTY
+            ,BORROWER_ID
+            ,INDUSTRY_INFO
+            ,ENTERPRISE_INVESTOR_TYPE
+            ,ENTERPRISE_SCALE
+            ,LOAN_PRD_TYPE
+            ,LOAN_ACTUAL_INVEST
+            ,LOAN_VDATE
+            ,LOAN_MDATE
+            ,LOAN_EXTENSION_DUE_DATE
+            ,RATE_FIXED
+            ,RATE_LEVEL
+            ,LOANS_TYPE
+            ,LOAN_GUARANTEE_MODE
+            ,LOAN_QUALITY
+            ,LOAN_STATE
+            ,LOAN_TRANSFEROR_RATE
+            ,ORIG_CCY
+            ,ORIG_CONTRACT_AMOUNT
+            ,ORIG_CONTRACT_AMOUNT_CNY
+            ,AMT_CCY
+            ,CONTRACT_AMOUNT
+            ,CONTRACT_AMOUNT_CNY
+            ,SEND_STATUS
+            ,PROD_ID
+            ,'产品代码:'||PBC_PROD_ID||';贷款借据编码:'||nvl(LOAN_BASIS_ID,'')||';统计年月:'||TERMID dataKey
+		from PBC_COL_LOAN_DETAIL_SUB report
+		where 1=1
+		and report.datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY report.TERMID, report.PBC_PROD_ID, report.ASSET_CODE, report.LOANS_TYPE, report.SUBMIT_DEADLINE ASC, report.UPDATE_TIME DESC
+	</select>
+
+	<update id="updatePDatDataStatus">
+		update PBC_COL_LOAN_DETAIL_SUB
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update PBC_COL_LOAN_DETAIL_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<select id="getProdIdPbcProdIdList" resultType="map">
+		select DISTINCT pbc_prod_id pbcprodid,prod_id prodid
+          from PBC_COL_PRD_BASEINFO_SUB
+	</select>
+
+	<update id="updateUuidSub">
+        update PBC_COL_LOAN_DETAIL_SUB
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

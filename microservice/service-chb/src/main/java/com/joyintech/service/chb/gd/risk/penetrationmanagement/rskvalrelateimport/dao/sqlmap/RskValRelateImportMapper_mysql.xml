@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.service.chb.gd.risk.penetrationmanagement.rskvalrelateimport.dao.RskValRelateImportMapper_mysql">
+	<select id="queryStructMapId" resultType="com.joyintech.framework.select.SelectOptionDto">
+		select 
+		    rvs.ID id,
+		concat_ws('',rvs.ID ,  ':' , rvs.NAME) text
+		from RSK_VALTBL_STRUCT_MAP rvs
+		<where>
+			<if test="search != null and search != ''">
+				AND (rvs.ID LIKE concat('%', #{search},'%')
+				OR rvs.NAME LIKE concat('%', #{search},'%'))
+			</if>
+		</where>
+	</select>
+	<select id="querySumsubMapId" resultType="com.joyintech.framework.select.SelectOptionDto">
+		select 
+		    rvs.ID id,
+		concat_ws('',rvs.ID ,  ':' , rvs.NAME) text
+		from RSK_VALTBL_SUMSUB_MAP rvs
+		<where>
+			<if test="search != null and search != ''">
+				AND (rvs.ID LIKE concat('%', #{search},'%')
+				OR rvs.NAME LIKE concat('%', #{search},'%'))
+			</if>
+		</where>
+	</select>
+	<select id="queryAssetSubMapId" resultType="com.joyintech.framework.select.SelectOptionDto">
+		select 
+		    rva.ID id,
+		concat_ws('',rva.ID ,  ':' , rva.NAME) text
+		from RSK_VALTBL_ASSET_SUB_MAP rva
+		<where>
+			<if test="search != null and search != ''">
+				AND (rva.ID LIKE concat('%', #{search},'%')
+				OR rva.NAME LIKE concat('%', #{search},'%'))
+			</if>
+		</where>
+	</select>
+	<select id="selectForPage" resultType="com.joyintech.service.chb.gd.risk.penetrationmanagement.rskvalrelateimport.dto.RskValRelateImportDto">
+		select
+		rvp.PTL_ID ptlId,
+		ptp.ASSET_NAME name,
+		rvp.START_ROW startRow,
+		rvp.SUBJECT_CODE_COL subjectCodeCol,
+		rvsm.NAME sumsubMapId,
+		rva.NAME assetSubMapId,
+		rvs.NAME structMapId
+		from RSK_VALTBL_PRT_IMP_MAP rvp
+		left join chb_asset_info ptp
+		on ptp.ASSET_CODE  = rvp.PTL_ID
+		left join RSK_VALTBL_STRUCT_MAP rvs
+		on rvs.ID = rvp.STRUCT_MAP_ID
+		left join RSK_VALTBL_SUMSUB_MAP rvsm
+		on rvsm.ID = rvp.SUMSUB_MAP_ID
+		left join RSK_VALTBL_ASSET_SUB_MAP rva
+		on rva.ID = rvp.ASSET_SUB_MAP_ID
+		<where>
+			<if test="groupId != null and groupId.size() > 0">
+				rvp.PTL_ID in
+				<foreach collection="groupId" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	<select id="selectGroupName" resultType="String">
+		select
+			info.asset_name name
+		from chb_asset_info info
+		where info.asset_code = #{ptlId}
+	</select>
+	<delete id="deleteList" parameterType="java.util.List">
+		delete from RSK_VALTBL_PRT_IMP_MAP  rvp
+		where 1=1
+		<if test="list != null and list.size() > 0">
+			and rvp.PTL_ID in
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	<select id="checkGroupName" resultType="int">
+		select count(1)
+		from RSK_VALTBL_PRT_IMP_MAP rvp
+		where rvp.PTL_ID = #{ptlId}
+	</select>
+
+	<select id="queryProdIdInfo" resultType="com.joyintech.framework.select.SelectOptionDto">
+		SELECT
+		ASSET_CODE as id, /**行内资产负债编码 **/
+		ASSET_NAME as text, /**资产名称**/
+		ASSET_TYPE as col /**资产类型**/
+		FROM
+		chb_asset_info /**资产要素表**/
+		WHERE
+		status in ('E', 'M')
+		AND ASSET_TYPE = '12' /**资管计划**/
+		<if test="search != null and search != ''">
+			AND (ASSET_CODE LIKE concat(concat('%', #{search}),'%')
+			OR ASSET_NAME LIKE concat(concat('%', #{search}),'%'))
+		</if>
+		<if test="initValue != null and initValue != ''">
+			AND ASSET_CODE = #{initValue}
+		</if>
+	</select>
+
+	<select id="queryAssetInfo" resultType="com.joyintech.tams.common.base.entity.ChbAssetInfo">
+		SELECT
+			ASSET_CODE , /**行内资产负债编码 **/
+			ASSET_NAME , /**资产名称**/
+			ASSET_TYPE   /**资产类型**/
+		FROM
+			chb_asset_info /**资产要素表**/
+		WHERE
+			status in ('E', 'M')
+		  AND ASSET_TYPE = '12'
+	</select>
+
+	<select id="selectAllAsset" resultType="com.joyintech.tams.common.base.entity.ChbAssetInfo">
+		SELECT
+		<include refid="com.joyintech.tams.common.base.dao.ChbAssetInfoMapper.Base_Column_List" />
+		FROM
+			chb_asset_info /**资产要素表**/
+		WHERE
+			status in ('E', 'M')
+	</select>
+
+	<select id="selectSumSubjectMapping" resultType="String">
+		select SRCFIELD1 from chb_type_mapping_ex where MAPPINGCODE = 'ChbInvestOperation001'
+	</select>
+</mapper>

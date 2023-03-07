@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dao.SvrProductsBalanceSubInterfMapper" >
+
+    <!-- 获取产品代码-->
+    <select id="getProdId" resultType="java.lang.String">
+        SELECT DISTINCT
+            PRODID
+        FROM
+            CHB_INVESTHOLD_INFO
+        WHERE
+           HOLD_DATE = STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+    </select>
+    
+    <!-- 取得数据 -->
+    <select id="getProductsBalanceSubInterfData" resultType="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dto.SvrProductsBalanceSubInterfDto">
+        SELECT
+            ACCOUNT         AS account,
+            INDENTIFY_MARK  AS indentifyMark,
+            FUND_ACC        AS fundAcc,
+            FIN_ACC         AS finAcc,
+            SUM(AMOUNT_CNY) AS amountCny,
+            IS_CONSIGN      AS isConsign,
+            BANK_MARK       AS bankMark,
+            STR_TO_DATE(DATE_STATUS,'%Y-%m-%d')     AS dateStatus,
+            GROUP_ID        AS groupId
+        FROM
+            (SELECT
+                ACCOUNT,
+                INDENTIFY_MARK,
+                FUND_ACC,
+                FIN_ACC,
+                (CASE
+                     WHEN BUSI_TYPE IN('01','02','05','06','11','13','14')
+                     THEN AMOUNT_CNY
+                     WHEN BUSI_TYPE IN('03','04','07','10','12','15','16')
+                     THEN 0-AMOUNT_CNY
+                     WHEN BUSI_TYPE IN('08','09')
+                     THEN 0
+                END) AS AMOUNT_CNY,
+                BUSI_TYPE,
+                (CASE
+                     WHEN IS_CONSIGN IN ('02')
+                     THEN '1018'
+                     WHEN IS_CONSIGN IN ('01')
+                     THEN SUBSTR(AGENCY_CODE,-4)
+                END) AS IS_CONSIGN,
+                '91110000100011743X'AS BANK_MARK,
+                #{batchDateEnd}     AS DATE_STATUS,
+                DATA_SOURCE         AS GROUP_ID
+            FROM
+                CHB_EQUDET
+            WHERE
+                STATUS IN ('E','M','A')
+                AND EQUITY_CONF_DATE = STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+                <if test="prodIdList != null and prodIdList.size > 0 ">
+                    <foreach collection="prodIdList" item="prodId" open="AND ACCOUNT IN (" separator="," close=")">
+                        #{prodId}
+                    </foreach>
+                </if>
+            ) T1
+        GROUP BY
+            ACCOUNT,INDENTIFY_MARK,FUND_ACC,FIN_ACC,IS_CONSIGN,BANK_MARK,DATE_STATUS,GROUP_ID
+    </select>
+
+    <!-- 检查持有 -->
+    <select id="checkChbInvestholdInfo" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+            PRD_REGIST_CODE
+        FROM
+            CHB_INVESTHOLD_INFO
+        WHERE
+            HOLD_DATE = STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+    </select>
+
+    <!-- 检查明细   -->
+    <select id="checkChbEqudet" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+            BUSI_SEQNO
+        FROM
+            CHB_EQUDET
+        WHERE
+            EQUITY_CONF_DATE  BETWEEN  STR_TO_DATE(#{batchDateStart},'%Y-%m-%d') AND STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+    </select>
+
+    <delete id="deleteProductsBalanceSub" parameterType="java.lang.String">
+        DELETE FROM CHB_PRODUCTS_BALANCE_SUB WHERE DATE_STATUS = STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+    </delete>
+
+    <insert id="insertProductsBalanceSub" parameterType="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dto.SvrProductsBalanceSubInterfDto">
+        INSERT INTO CHB_PRODUCTS_BALANCE_SUB (
+            REGIST_SEQNO,STATUS_BATCH,ACCOUNT,
+            INDENTIFY_MARK,FUND_ACC,FIN_ACC,
+            AMOUNT_CNY,IS_CONSIGN, BANK_MARK,
+            DATE_STATUS,GROUP_ID,STATUS,
+            CREATE_USER, ORG_CODE, CREATE_DEPT,
+            CREATE_TIME,UPDATE_USER,UPDATE_TIME
+            )
+        SELECT
+            A.REGIST_SEQNO, A.STATUS_BATCH, A.ACCOUNT,
+            A.INDENTIFY_MARK, A.FUND_ACC, A.FIN_ACC,
+            A.AMOUNT_CNY, A.IS_CONSIGN, A.BANK_MARK,
+            A.DATE_STATUS, A.GROUP_ID, A.STATUS,
+            A.CREATE_USER, A.ORG_CODE, A.CREATE_DEPT,
+            A.CREATE_TIME, A.UPDATE_USER, A.UPDATE_TIME
+        FROM (
+        <foreach collection="dataList" index="index" item="item" separator=" UNION ALL ">
+            select
+            #{item.registSeqno,jdbcType=VARCHAR} AS REGIST_SEQNO, #{item.statusBatch,jdbcType=VARCHAR} AS STATUS_BATCH,#{item.account,jdbcType=VARCHAR} AS ACCOUNT,
+            #{item.indentifyMark,jdbcType=VARCHAR} AS INDENTIFY_MARK, #{item.fundAcc,jdbcType=VARCHAR} AS FUND_ACC, #{item.finAcc,jdbcType=VARCHAR} AS FIN_ACC,
+            #{item.amountCny,jdbcType=DECIMAL} AS AMOUNT_CNY, #{item.isConsign,jdbcType=VARCHAR} AS IS_CONSIGN, #{item.bankMark,jdbcType=VARCHAR} AS BANK_MARK,
+            #{item.dateStatus,jdbcType=DATE} AS DATE_STATUS, #{item.groupId,jdbcType=VARCHAR} AS GROUP_ID, #{item.status,jdbcType=VARCHAR} AS STATUS,
+            #{item.createUser,jdbcType=VARCHAR} AS CREATE_USER, #{item.orgCode,jdbcType=VARCHAR} AS ORG_CODE, #{item.createDept,jdbcType=VARCHAR} AS CREATE_DEPT,
+            #{item.createTime,jdbcType=TIMESTAMP} AS CREATE_TIME, #{item.updateUser,jdbcType=VARCHAR} AS UPDATE_USER, #{item.updateTime,jdbcType=TIMESTAMP} AS UPDATE_TIME
+            from dual
+        </foreach>
+        ) A
+    </insert>
+</mapper>

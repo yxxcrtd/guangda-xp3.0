@@ -1,0 +1,22 @@
+-- MySQL
+DROP TABLE IF EXISTS PBC_TARGET_INFO_ERRORDATA;
+CREATE TABLE PBC_TARGET_INFO_ERRORDATA (
+     `UUID` varchar(36) DEFAULT NULL COMMENT '主键',
+     `ACCOUNT` varchar(50) DEFAULT NULL COMMENT '内部产品代码',
+     `INDENTIFY_MARK` varchar(30) DEFAULT NULL COMMENT '识别标识',
+     `PBC_PROD_ID` varchar(100) DEFAULT NULL COMMENT '人行产品代码',
+     `HOLDER_NAME` varchar(200) DEFAULT NULL COMMENT '投资者名称',
+     `HOLDER_TYPE` varchar(2) DEFAULT NULL COMMENT '投资者类别',
+     `HOLD_DATE` date DEFAULT NULL COMMENT '持有日期',
+     `CCY` varchar(10) DEFAULT NULL COMMENT '币种',
+     `QTY` decimal(32,2) DEFAULT NULL COMMENT '持有份额',
+     `AMOUNT` decimal(32,2)  DEFAULT NULL COMMENT '持有金额',
+     `CREATE_TIME` timestamp(6)  DEFAULT NULL COMMENT '创建日期',
+     `UPDATE_TIME` timestamp(6)  DEFAULT NULL COMMENT '更新日期',
+     `CREATE_USER` varchar(50) DEFAULT NULL COMMENT '创建人',
+     `CREATE_DEPT` varchar(10) DEFAULT NULL COMMENT '创建部门',
+     `UPDATE_USER` varchar(10) DEFAULT NULL COMMENT '更新人',
+     `STATUS` varchar(50) NULL DEFAULT NULL COMMENT '数据状态',
+     `ERR_MSG` TEXT DEFAULT NULL COMMENT '错误信息',
+     `ORG_DATA` TEXT DEFAULT NULL COMMENT '原始数据'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='特定目的载体持有信息（投资者）错误信息表';

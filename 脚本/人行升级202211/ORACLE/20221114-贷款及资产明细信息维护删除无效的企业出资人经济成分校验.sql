@@ -1,0 +1,1 @@
+delete from chb_datacheck_condition where CHECKCONDITIONID in ('9A703479-A19B-1CE2-E053-035AA8C028DF','e9b0478d-5aff-492f-8c9c-f7243befb7d2','e9b0478d-5aff-492f-8c9c-f7243befb7d3');

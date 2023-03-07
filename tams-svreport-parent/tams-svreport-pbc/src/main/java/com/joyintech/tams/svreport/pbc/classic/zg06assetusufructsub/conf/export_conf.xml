@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ZG06PbcAssetSusfructSub.xlsx" name="产品终止信息">
+	<Worksheet javaBean="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dto.ZG06PbcAssetSusfructSub">
+		<Row>
+			<!--<Cell order="1" name="资产代码">assetCode</Cell>-->
+			<Cell order="1"  name="产品代码">pbcProdId</Cell>
+			<Cell order="2"  name="资产负债项目">assetLiabilities</Cell>
+			<Cell order="3"  name="资产收益权内部编码">assetUsufructCode</Cell>
+			<Cell order="4"  name="基础资产出让机构名称">assetTransferName</Cell>
+			<Cell order="5"  name="基础资产出让机构代码">assetTransferId</Cell>
+			<Cell order="6"  name="基础资产出让机构类型">assetInvest</Cell>
+			<Cell order="7"  name="基础资产出让机构行业">assetTransferIindu</Cell>
+			<Cell order="8"  name="基础资产出让机构注册地区">assetTransfer</Cell>
+			<Cell order="9"  name="基础资产出让机构经济成分">economicComposition</Cell>
+			<Cell order="10" name="基础资产出让机构规模">assetTransferScale</Cell>
+			<Cell order="11" name="转让起始日期">transferVdateStr</Cell>
+			<Cell order="12" name="转让预计终止日期">transferEstiMdateStr</Cell>
+			<Cell order="13" name="转让展期到期日期">transferExtdueMdateStr</Cell>
+			<Cell order="14" name="转让实际终止日期">transferActMdateStr</Cell>
+			<Cell order="15" name="基础资产类型">basicAssetType</Cell>
+			<Cell order="16" name="基础资产原始协议币种">assetsOrigCcy</Cell>
+			<Cell order="17" name="基础资产原始协议金额">assetsOrigAmtStr</Cell>
+			<Cell order="18" name="基础资产原始协议金额折人民币">assetsOrigAmtCnyStr</Cell>
+			<Cell order="19" name="基础资产转让币种">currencyTransferCcy</Cell>
+			<Cell order="20" name="基础资产转让金额">currencyTransferAmtStr</Cell>
+			<Cell order="21" name="基础资产转让金额折人民币">currencyTransferAmtCnyStr</Cell>
+			<Cell order="22" name="出让机构出表标识">labelTransferorMark</Cell>
+			<Cell order="23" name="出让机构回购标识">repurchaseMark</Cell>
+			<Cell order="24" name="利率是否固定">rateFixedFlag</Cell>
+			<Cell order="25" name="利率水平">assetRateLevel</Cell>
+			<Cell order="26" name="担保方式">guaranteeMethod</Cell>
+			<Cell order="27" name="基础资产投向部门">assetsInvDepa</Cell>
+			<Cell order="28" name="基础资产期末币种">currencyEperiodCcy</Cell>
+			<Cell order="29" name="基础资产期末余额">currencyAmtStr</Cell>
+			<Cell order="30" name="基础资产期末余额折人民币">currencyAmtCnyStr</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

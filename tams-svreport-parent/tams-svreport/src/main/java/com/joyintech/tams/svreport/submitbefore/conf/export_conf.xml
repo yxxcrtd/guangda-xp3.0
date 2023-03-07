@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="PbcSubmitBeforeCheck001.xlsx" name="报送前检查">
+    <Worksheet javaBean="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto">
+        <Row>
+            <Cell order="1" name="报表名称">reportNameStr</Cell>
+            <Cell order="2" name="数据唯一标识">dataId</Cell>
+            <Cell order="3" name="规则编码">ruleId</Cell>
+            <Cell order="4" name="检查结果">checkFlagStr</Cell>
+            <Cell order="5" name="人行要素编码">pbcElementCode</Cell>
+            <Cell order="6" name="字段名称">fieldName</Cell>
+            <Cell order="7" name="规则类型">ruleTypeStr</Cell>
+            <Cell order="8" name="规则标识">ruleCodeStr</Cell>
+            <Cell order="9" name="规则详细内容">ruleDetails</Cell>
+            <Cell order="10" name="错误信息提示语">checkResult</Cell>
+            <Cell order="11" name="关联报表">relevanceReport</Cell>
+            <Cell order="12" name="检查时间">checkDateStr</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

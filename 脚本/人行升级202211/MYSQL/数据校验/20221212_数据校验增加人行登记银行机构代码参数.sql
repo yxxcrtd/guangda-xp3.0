@@ -1,0 +1,3 @@
+delete from sys_para where PARA_CODE = 'PBC_ISSUE_PARTY_ID';
+INSERT INTO sys_para (SYSTEM_CODE, PARA_CODE, PARAM_VALUE, DATA_TYPE, DATA_SCOPE, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE, UPDATE_FLG) VALUES ('SVR', 'PBC_ISSUE_PARTY_ID', '', null, null, '人行发行机构代码', 'admin', null, now(), 'admin',  now(), null, '01');
+update sys_para set PARAM_VALUE = (select PBC_BANK_CODE from CHB_ORG_REGIST_BANK_CODE LIMIT 0,1) where PARA_CODE = 'PBC_ISSUE_PARTY_ID';

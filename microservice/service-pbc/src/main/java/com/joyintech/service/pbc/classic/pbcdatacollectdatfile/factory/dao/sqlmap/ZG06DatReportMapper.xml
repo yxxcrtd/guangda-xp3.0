@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG06DatReportMapper">
+
+	<delete id="deleteBySub">
+		delete from PBC_COL_ASSET_USUFRUCT_SUB
+		where SEND_STATUS != '03'
+		<foreach collection="list" item="item" index="index" open="and TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<delete id="deleteByDat">
+		delete from PBC_COL_ASSET_USUFRUCT_DAT
+		where
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into PBC_COL_ASSET_USUFRUCT_SUB (
+			DETAILUUID,
+			PBC_PROD_ID,
+			TERMID,
+			ASSETS_LIABILITIES,
+			ASSET_USUFRUCT_CODE,
+			ASSETS_TRANSFER_NAME,
+			ASSETS_TRANSFER_ID,
+			ASSETS_INVEST,
+			ASSETS_TRANSFER_IINDU,
+			ASSETS_TRANSFER,
+			ECONOMIC_COMPOSITION,
+			ASSETS_TRANSFER_SCALE,
+			TRANSFER_VDATE,
+			TRANSFER_ESTI_MDATE,
+			TRANSFER_EXTDUE_MDATE,
+			TRANSFER_ACTMDATE,
+			BASICASSET_TYPE,
+			ASSETS_ORIGCCY,
+			ASSETS_ORIGAMT,
+			ASSETS_ORIGAMT_CNY,
+			CURRENCY_TRANSFERCCY,
+			CURRENCY_TRANSFERAMT,
+			CURRENCY_TRANSFERAMTCNY,
+			LABEL_TRANSFEROR_MARK,
+			REPURCHASE_MARK,
+			RATE_FIXED_FLAG,
+			ASSET_RATE_LEVEL,
+			GUARANTEE_METHOD,
+			ASSETS_INV_DEPA,
+			CURRENCY_EPERIODCCY,
+			CURRENCY_AMT,
+			CURRENCY_AMT_CNY,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PROD_ID,
+			ASSET_CODE,
+			datuuid
+		)
+		<foreach collection="list" item="item" separator="union all">
+			select f_guid(),#{item.pbcProdId,jdbcType=VARCHAR},#{item.termId,jdbcType=VARCHAR},#{item.assetLiabilities,jdbcType=VARCHAR},
+			#{item.assetUsufructCode,jdbcType=VARCHAR},#{item.assetTransferName,jdbcType=VARCHAR},#{item.assetTransferId,jdbcType=VARCHAR},#{item.assetInvest,jdbcType=VARCHAR},
+			#{item.assetTransferIindu,jdbcType=VARCHAR},#{item.assetTransfer,jdbcType=VARCHAR},#{item.economicComposition,jdbcType=VARCHAR},#{item.assetTransferScale,jdbcType=VARCHAR},
+			#{item.transferVdate,jdbcType=DATE},#{item.transferEstiMdate,jdbcType=DATE},#{item.transferExtdueMdate,jdbcType=DATE},#{item.transferActMdate,jdbcType=DATE},
+			#{item.basicAssetType,jdbcType=VARCHAR},#{item.assetsOrigCcy,jdbcType=VARCHAR},#{item.assetsOrigAmt,jdbcType=DECIMAL},#{item.assetsOrigAmtCny,jdbcType=DECIMAL},
+			#{item.currencyTransferCcy,jdbcType=VARCHAR},#{item.currencyTransferAmt,jdbcType=DECIMAL},#{item.currencyTransferAmtCny,jdbcType=DECIMAL},#{item.labelTransferorMark,jdbcType=VARCHAR},
+			#{item.repurchaseMark,jdbcType=VARCHAR},#{item.rateFixedFlag,jdbcType=VARCHAR},#{item.assetRateLevel,jdbcType=DECIMAL},#{item.guaranteeMethod,jdbcType=VARCHAR},#{item.assetsInvDepa,jdbcType=VARCHAR},
+			#{item.currencyEperiodCcy,jdbcType=VARCHAR},#{item.currencyAmt,jdbcType=DECIMAL},#{item.currencyAmtCny,jdbcType=DECIMAL},#{item.submitTime,jdbcType=TIMESTAMP},
+			#{item.pbcSubmitDeadline,jdbcType=TIMESTAMP},#{item.submitDeadline,jdbcType=TIMESTAMP},#{item.status,jdbcType=VARCHAR},#{item.sendStatus,jdbcType=VARCHAR},
+			sysdate,#{item.createUser,jdbcType=VARCHAR},sysdate,#{item.updateUser,jdbcType=VARCHAR},sysdate,#{item.orgCode,jdbcType=VARCHAR},
+			#{item.deptCode,jdbcType=VARCHAR},#{item.createDept,jdbcType=VARCHAR},#{item.prodId,jdbcType=VARCHAR},#{item.assetCode,jdbcType=VARCHAR},#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into PBC_COL_ASSET_USUFRUCT_DAT (
+			DETAILUUID,
+			PBC_PROD_ID,
+			TERMID,
+			ASSETS_LIABILITIES,
+			ASSET_USUFRUCT_CODE,
+			ASSETS_TRANSFER_NAME,
+			ASSETS_TRANSFER_ID,
+			ASSETS_INVEST,
+			ASSETS_TRANSFER_IINDU,
+			ASSETS_TRANSFER,
+			ECONOMIC_COMPOSITION,
+			ASSETS_TRANSFER_SCALE,
+			TRANSFER_VDATE,
+			TRANSFER_ESTI_MDATE,
+			TRANSFER_EXTDUE_MDATE,
+			TRANSFER_ACTMDATE,
+			BASICASSET_TYPE,
+			ASSETS_ORIGCCY,
+			ASSETS_ORIGAMT,
+			ASSETS_ORIGAMT_CNY,
+			CURRENCY_TRANSFERCCY,
+			CURRENCY_TRANSFERAMT,
+			CURRENCY_TRANSFERAMTCNY,
+			LABEL_TRANSFEROR_MARK,
+			REPURCHASE_MARK,
+			RATE_FIXED_FLAG,
+			ASSET_RATE_LEVEL,
+			GUARANTEE_METHOD,
+			ASSETS_INV_DEPA,
+			CURRENCY_EPERIODCCY,
+			CURRENCY_AMT,
+			CURRENCY_AMT_CNY,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PROD_ID,
+			ASSET_CODE,
+			datuuid
+		)
+		SELECT
+			DETAILUUID,
+			PBC_PROD_ID,
+			TERMID,
+			ASSETS_LIABILITIES,
+			ASSET_USUFRUCT_CODE,
+			ASSETS_TRANSFER_NAME,
+			ASSETS_TRANSFER_ID,
+			ASSETS_INVEST,
+			ASSETS_TRANSFER_IINDU,
+			ASSETS_TRANSFER,
+			ECONOMIC_COMPOSITION,
+			ASSETS_TRANSFER_SCALE,
+			TRANSFER_VDATE,
+			TRANSFER_ESTI_MDATE,
+			TRANSFER_EXTDUE_MDATE,
+			TRANSFER_ACTMDATE,
+			BASICASSET_TYPE,
+			ASSETS_ORIGCCY,
+			ASSETS_ORIGAMT,
+			ASSETS_ORIGAMT_CNY,
+			CURRENCY_TRANSFERCCY,
+			CURRENCY_TRANSFERAMT,
+			CURRENCY_TRANSFERAMTCNY,
+			LABEL_TRANSFEROR_MARK,
+			REPURCHASE_MARK,
+			RATE_FIXED_FLAG,
+			ASSET_RATE_LEVEL,
+			GUARANTEE_METHOD,
+			ASSETS_INV_DEPA,
+			CURRENCY_EPERIODCCY,
+			CURRENCY_AMT,
+			CURRENCY_AMT_CNY,
+			SUBMIT_TIME,
+			PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE,
+			STATUS,
+			SEND_STATUS,
+			STATUS_DATE,
+			CREATE_USER,
+			CREATE_TIME,
+			UPDATE_USER,
+			UPDATE_TIME,
+			ORG_CODE,
+			DEPT_CODE,
+			CREATE_DEPT,
+			PROD_ID,
+			ASSET_CODE,#{uuid,jdbcType=VARCHAR}
+		from PBC_COL_ASSET_USUFRUCT_SUB
+		WHERE
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select PBC_PROD_ID,ASSETS_LIABILITIES,ASSET_CODE,TERMID
+		from PBC_COL_ASSET_USUFRUCT_SUB
+		where (STATUS = '03' or SEND_STATUS = '03')
+
+		<foreach collection="keys" item="item" index="index" open="and ( TERMID in(" separator="," close=") )">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+
+	<update id="updatePDatDataStatus" parameterType="java.lang.String">
+		update PBC_COL_ASSET_USUFRUCT_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update PBC_COL_ASSET_USUFRUCT_SUB
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where
+		<foreach collection="list" item="item" index="index" open="TERMID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR TERMID in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<select id="getPListByUUid" resultType="java.util.Map">
+	 select DETAILUUID,
+			ASSET_CODE	ASSET_CODE,
+			PBC_PROD_ID	PBC_PROD_ID,
+			TERMID	TERMID,
+			ASSETS_LIABILITIES	assetLiabilities,
+			ASSET_USUFRUCT_CODE	assetUsufructCode,
+			ASSETS_TRANSFER_NAME	assetTransferName,
+			ASSETS_TRANSFER_ID	assetTransferId,
+			ASSETS_INVEST	assetInvest,
+			ASSETS_TRANSFER_IINDU	assetTransferIindu,
+			ASSETS_TRANSFER	assetTransfer,
+			ECONOMIC_COMPOSITION	economicComposition,
+			ASSETS_TRANSFER_SCALE	assetTransferScale,
+			TRANSFER_VDATE	TRANSFER_VDATE,
+			TRANSFER_ESTI_MDATE	TRANSFER_ESTI_MDATE,
+			TRANSFER_EXTDUE_MDATE	TRANSFER_EXTDUE_MDATE,
+			TRANSFER_ACTMDATE	TRANSFER_ACTMDATE,
+			BASICASSET_TYPE	basicAssetType,
+			ASSETS_ORIGCCY	assetsOrigCcy,
+			ASSETS_ORIGAMT	assetsOrigAmt,
+			ASSETS_ORIGAMT_CNY	assetsOrigAmtCny,
+			CURRENCY_TRANSFERCCY	currencyTransferCcy,
+			CURRENCY_TRANSFERAMT	currencyTransferAmt,
+			CURRENCY_TRANSFERAMTCNY	currencyTransferAmtCny,
+			LABEL_TRANSFEROR_MARK	labelTransferorMark,
+			REPURCHASE_MARK	repurchaseMark,
+			RATE_FIXED_FLAG	rateFixedFlag,
+			ASSET_RATE_LEVEL	assetRateLevel,
+			GUARANTEE_METHOD	guaranteeMethod,
+			ASSETS_INV_DEPA	assetsInvDepa,
+			CURRENCY_EPERIODCCY	currencyEperiodCcy,
+			CURRENCY_AMT	currencyAmt,
+			CURRENCY_AMT_CNY	currencyAmtCny,
+			STATUS	STATUS,
+			SEND_STATUS	SEND_STATUS,
+			CREATE_USER	CREATE_USER,
+			UPDATE_USER	UPDATE_USER,
+			ORG_CODE	ORG_CODE,
+			DEPT_CODE	DEPT_CODE,
+			CREATE_DEPT	CREATE_DEPT,
+			CONCAT('产品代码:',PBC_PROD_ID,';资产负债项目:',NVL(ASSETS_LIABILITIES,''),';资产收益权内部编码:',NVL(ASSET_USUFRUCT_CODE,''),';统计年月:',TERMID) dataKey
+
+			PROD_ID	PROD_ID
+		from PBC_COL_ASSET_USUFRUCT_SUB
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY TERMID,PBC_SUBMIT_DEADLINE ASC, UPDATE_TIME DESC,PBC_PROD_ID, ASSET_CODE ,ASSETS_LIABILITIES
+	</select>
+
+	<select id="selectAssetCode" resultType="map">
+
+     select ASSET_CODE,
+     ASSET_USUFRUCT_CODE
+      from chb_loan_detail_info
+     where 1=1
+     and STATUS in ('E','M')
+     AND ASSET_CODE IS NOT NULL
+     AND ASSET_USUFRUCT_CODE IS NOT NULL
+
+	</select>
+
+	<update id="updateUuidSub">
+        update PBC_COL_ASSET_USUFRUCT_SUB
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

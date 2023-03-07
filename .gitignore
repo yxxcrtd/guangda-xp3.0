@@ -1,0 +1,37 @@
+# Intellij IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Mac
+.DS_Store
+
+# Maven
+target/
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+
+# Other
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+#eclipse
+.classpath
+.project
+.settings/
+
+AppLog*
+tams-integration/*
+.txlcn*
+
+*rebel.xml
+/maven_2.1.2/
+*.rebel.xml.bak
+cache/*

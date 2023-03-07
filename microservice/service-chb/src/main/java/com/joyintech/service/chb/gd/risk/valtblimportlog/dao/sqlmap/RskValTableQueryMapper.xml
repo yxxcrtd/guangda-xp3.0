@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.service.chb.gd.risk.valtblimportlog.dao.RskValTableImportLogMapper">
+    <!--画面一分页查询-->
+    <select id="queryForPage"  resultType="com.joyintech.service.chb.gd.risk.valtblimportlog.dto.RskValTableImportLogDto" parameterType="Map">
+        SELECT
+        t1.id,
+        t1.file_name AS fileName,
+        t1.ptl_id AS ptlId,
+        t1.val_date AS valDate,
+        t2.asset_name AS ptlName,
+        t1.status,
+        t1.message,
+        t1.create_time AS createTime,
+        t1.file_path filePath
+        FROM rsk_valtbl_auto_import_log t1
+        LEFT JOIN chb_asset_info t2 ON t1.ptl_id = t2.ASSET_CODE
+        <where>
+            <if test="ptlIdList != null and ptlIdList.size()>0">
+                AND t1.PTL_ID IN
+                <foreach collection="ptlIdList" item="item" separator="," open="(" close =")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="statusList != null and statusList.size()>0">
+                AND t1.status IN
+                <foreach collection="statusList" item="item" separator="," open="(" close =")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="vdate != null">
+                AND t1.val_date >= #{vdate}
+            </if>
+            <if test="mdate != null">
+                AND t1.val_date &lt;= #{mdate}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBatch">
+        <foreach collection="updateList" item="item" index="index"
+                 separator=";">
+            update rsk_valtbl_auto_import_log
+            set status = '03'
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <select id="selectNoendCountByTaskBeanName" parameterType="string" resultType="int">
+        select count(1)
+        from SYS_BATCHGRP_EXEC_INFO info
+        left join SYS_BATCH_JOB bj
+        on info.BATCH_SEQ_NO=bj.BATCH_SEQ_NO
+        where
+        bj.TASK_ID=#{taskId,jdbcType=VARCHAR}
+        and info.STATUS in ('UNR','RUN')
+    </select>
+</mapper>

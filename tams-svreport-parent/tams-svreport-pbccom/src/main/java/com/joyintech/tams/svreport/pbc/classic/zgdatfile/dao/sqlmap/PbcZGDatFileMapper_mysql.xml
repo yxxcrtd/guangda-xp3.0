@@ -1,0 +1,2049 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zgdatfile.dao.PbcZGDatFileMapper_mysql" >
+
+    <sql id="SQL_PBC_COL_PRD_BASEINFO_SUB">
+       (
+            select a.* from (
+                SELECT PBC_PROD_ID, PROD_ID, OPERATE_MODE, IVSTORIENTATION,VDATE, STATUS, RAISE_ENDDATE, ORG_CODE, ISSUE_PARTY_ID,
+                row_number() OVER (partition BY PBC_PROD_ID ORDER BY IFNULL(UPDATE_TIME, CREATE_TIME) DESC) AS myrank
+                FROM PBC_COL_PRD_BASEINFO_SUB
+            ) a
+            WHERE a.myrank=1
+       )
+    </sql>
+
+    <sql id="SQL_PBC_PROD_ASSETPOOL_CODE">
+       (
+            SELECT
+                INSIDE_PROD_ID,
+                PBC_CODE
+            FROM
+                PBC_PROD_ASSETPOOL_CODE
+            WHERE
+                STATUS = 'E'
+                AND CODE_TYPE = '01'
+        )
+    </sql>
+
+    <delete id="deletePbcDataCollectDatFileByName">
+        delete from PBC_DATA_COLLECT_DAT_FILE t
+        where DAT_FILE_NAME = #{datFileName,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insertZG01DetailDatFromSub">
+          insert into PBC_COL_PRD_BASEINFO_DAT (
+            REGIST_SEQNO, PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+            PROD_BRAND, PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+            RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE, TERM_RIGHT_FLAG,
+            CUS_REDEEM_FLAG, CREDIT_FLAG, CREDIT_TYPE, CREDIT_MODE, IN_DEP_NAME, IN_DEP_CODE, OUT_DEP_CTRY,
+            OUT_DEP_NAME, CDATE, VDATE, MDATE, IS_CONSTRACTE, TRANSFER_TYPE, CASH_MANA_CATE,
+            CROSS_BORDER_FLAG, IS_PROPERTY_FLAG, BASE_INFO_SIGN, CHANGE_REASON, BACKUP1, BACKUP2, BACKUP3,
+            BACKUP4,BACKUP5, SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ, STATUS_DATE,
+            PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE,CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME,
+            DATUUID
+		)
+        select
+            t1.REGIST_SEQNO REGIST_SEQNO,
+            IFNULL(t2.pbc_code, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.ISSUE_PARTY_ID ISSUE_PARTY_ID,
+            t1.ISSUE_PARTY_NAME ISSUE_PARTY_NAME,
+            t1.PBC_PROD_TYPE PBC_PROD_TYPE,
+            t1.PROD_NAME PROD_NAME,
+            t1.IVSTORIENTATION IVSTORIENTATION,
+            t1.PROD_BRAND PROD_BRAND,
+            t1.PROD_STAGE PROD_STAGE,
+            t1.PROD_ID PROD_ID,
+            t1.INFO_TYPE INFO_TYPE,
+            t1.RAISE_CCY RAISE_CCY,
+            t1.CASH_PRIN_CCY CASH_PRIN_CCY,
+            t1.CASH_PROF_CCY CASH_PROF_CCY,
+            t1.RAISE_TYPE RAISE_TYPE,
+            t1.MANAGE_TYPE MANAGE_TYPE,
+            t1.FIDUCIARY_DUTY FIDUCIARY_DUTY,
+            t1.OPERATE_MODE OPERATE_MODE,
+            t1.RAISE_VDATE RAISE_VDATE,
+            t1.RAISE_ENDDATE RAISE_ENDDATE,
+            t1.TERM_RIGHT_FLAG TERM_RIGHT_FLAG,
+            t1.CUS_REDEEM_FLAG CUS_REDEEM_FLAG,
+            t1.CREDIT_FLAG CREDIT_FLAG,
+            t1.CREDIT_TYPE CREDIT_TYPE,
+            t1.CREDIT_MODE CREDIT_MODE,
+            t1.IN_DEP_NAME IN_DEP_NAME,
+            t1.IN_DEP_CODE IN_DEP_CODE,
+            t1.OUT_DEP_CTRY OUT_DEP_CTRY,
+            t1.OUT_DEP_NAME OUT_DEP_NAME,
+            t1.CDATE CDATE,
+            t1.VDATE VDATE,
+            t1.MDATE MDATE,
+            t1.IS_CONSTRACTE IS_CONSTRACTE,
+            t1.TRANSFER_TYPE TRANSFER_TYPE,
+            t1.CASH_MANA_CATE CASH_MANA_CATE,
+            t1.CROSS_BORDER_FLAG CROSS_BORDER_FLAG,
+            t1.IS_PROPERTY_FLAG IS_PROPERTY_FLAG,
+            t1.BASE_INFO_SIGN BASE_INFO_SIGN,
+            t1.CHANGE_REASON CHANGE_REASON,
+            t1.BACKUP1 BACKUP1,
+            t1.BACKUP2 BACKUP2,
+            t1.BACKUP3 BACKUP3,
+            t1.BACKUP4 BACKUP4,
+            t1.BACKUP5 BACKUP5,
+            t1.SEND_STATUS,
+            t1.SUBMIT_TIME,
+            t1.SUBMIT_FEEDBACK_STATUS SUBMIT_FEEDBACK_STATUS,
+            t1.SUMIT_SEQ SUMIT_SEQ,
+            t1.STATUS_DATE STATUS_DATE,
+            t1.PBC_SUBMIT_DEADLINE PBC_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE SUBMIT_DEADLINE,
+            t1.`STATUS` `STATUS`,
+            #{cerateUser,jdbcType=VARCHAR} CERATE_USER,
+            t1.ORG_CODE ORG_CODE,
+            #{cerateDept,jdbcType=VARCHAR} CERATE_DEPT,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+		from PBC_COL_PRD_BASEINFO_SUB t1
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = t1.PROD_ID
+		where 1 = 1
+		    <!--
+		    and t1.VDATE = #{batchDate,jdbcType=DATE}-->
+           <!-- <if test="prodIdList != null and prodIdList.size > 0">
+                AND t1.PBC_PROD_ID IN
+                <foreach collection="prodIdList" open="(" close=")" separator="," item="item">
+                    #{item, jdbcType=VARCHAR}
+                </foreach>
+            </if>-->
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG02DetailDatFromSub">
+        insert into PBC_COL_INIT_PROD_RAISING_DAT (
+            REGIST_SEQNO,
+            PBC_PROD_ID,
+            BUY_PLACE,
+            /*RAISING_DATE,*/
+            CUSTOMER_TYPE1,
+            CCY,
+            INIT_RAISING_AMTSUM,
+            INIT_RAISING_AMTSUMCNY,
+            INIT_RAISING_QTY,
+            SEND_STATUS,
+            SUBMIT_TIME,
+            SUBMIT_FEEDBACK_STATUS,
+            SUMIT_SEQ,
+            STATUS_DATE,
+            PBC_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            CREATE_USER,
+            ORG_CODE,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            DATUUID
+        )
+        select
+            t1.REGIST_SEQNO REGIST_SEQNO,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.BUY_PLACE BUY_PLACE,
+            /*t1.RAISING_DATE RAISING_DATE,*/
+            t1.CUSTOMER_TYPE1 CUSTOMER_TYPE1,
+            t1.CCY CCY,
+            t1.INIT_RAISING_AMTSUM INIT_RAISING_AMTSUM,
+            t1.INIT_RAISING_AMTSUMCNY INIT_RAISING_AMTSUMCNY,
+            t1.INIT_RAISING_QTY INIT_RAISING_QTY,
+            t1.SEND_STATUS SEND_STATUS,
+            t1.SUBMIT_TIME SUBMIT_TIME,
+            t1.SUBMIT_FEEDBACK_STATUS SUBMIT_FEEDBACK_STATUS,
+            t1.SUMIT_SEQ SUMIT_SEQ,
+            t1.STATUS_DATE STATUS_DATE,
+            t1.PBC_SUBMIT_DEADLINE PBC_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE SUBMIT_DEADLINE,
+            t1.STATUS STATUS,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            t1.ORG_CODE ORG_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from PBC_COL_INIT_PROD_RAISING_SUB t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <!--<if test="batchDate != null and batchDate != ''">
+                and t1.RAISING_DATE = #{batchDate,jdbcType=DATE}
+            </if>-->
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG03DetailDatFromSub">
+        insert into PBC_COL_PRD_BASEINFO_END_DAT (
+            REGIST_SEQNO,
+            PBC_PROD_ID,
+            MDATE,
+            CCY,
+            PROFIT,
+            PROFIT_CNY,
+            CUSTOM_PROFIT,
+            CUSTOM_PROFIT_CNY,
+            CUS_YEAR_YIELD,
+            SEND_STATUS,
+            SUBMIT_TIME,
+            SUBMIT_FEEDBACK_STATUS,
+            SUMIT_SEQ,
+            STATUS_DATE,
+            PBC_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            CREATE_USER,
+            ORG_CODE,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            DATUUID
+        )
+        select
+            t1.REGIST_SEQNO	REGIST_SEQNO,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.MDATE	MDATE,
+            t1.CCY	CCY,
+            t1.PROFIT	PROFIT,
+            t1.PROFIT_CNY	PROFIT_CNY,
+            t1.CUSTOM_PROFIT	CUSTOM_PROFIT,
+            t1.CUSTOM_PROFIT_CNY	CUSTOM_PROFIT_CNY,
+            t1.CUS_YEAR_YIELD	CUS_YEAR_YIELD,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.SUBMIT_FEEDBACK_STATUS	SUBMIT_FEEDBACK_STATUS,
+            t1.SUMIT_SEQ	SUMIT_SEQ,
+            t1.STATUS_DATE	STATUS_DATE,
+            t1.PBC_SUBMIT_DEADLINE	PBC_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.STATUS	STATUS,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            t1.ORG_CODE ORG_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from PBC_COL_PRD_BASEINFO_END_SUB t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <!--<if test="batchDate != null and batchDate != ''">
+                and t1.MDATE = #{batchDate,jdbcType=DATE}
+            </if>-->
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG04DetailDatFromSub">
+        insert into PBC_COL_PROD_RAISING_DAT (
+            REGIST_SEQNO,
+            RAISING_DATE,
+            PBC_PROD_ID,
+            BUY_PLACE,
+            CUSTOMER_TYPE1,
+            CCY,
+            RAISING_AMTSUM,
+            RAISING_AMTSUM_CNY,
+            RAISING_QTY,
+            REDAMT,
+            REDAMT_CNY,
+            REDQTY,
+            ENDAMTSUM,
+            ENDAMTSUM_CNY,
+            ENDQTY,
+            PROD_VALUE,
+            PROD_VALUE_CNY,
+            UNIT_VALUE_TOTAL,
+            UNIT_VALUE_TOTAL_CNY,
+            PROD_END_YIELD,
+            SEND_STATUS,
+            SUBMIT_TIME,
+            SUBMIT_FEEDBACK_STATUS,
+            SUMIT_SEQ,
+            STATUS_DATE,
+            PBC_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            CREATE_USER,
+            ORG_CODE,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            DATUUID
+        )
+        select
+            t1.REGIST_SEQNO	REGIST_SEQNO,
+            t1.RAISING_DATE	RAISING_DATE,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.BUY_PLACE	BUY_PLACE,
+            t1.CUSTOMER_TYPE1	CUSTOMER_TYPE1,
+            t1.CCY	CCY,
+            t1.RAISING_AMTSUM	RAISING_AMTSUM,
+            t1.RAISING_AMTSUM_CNY	RAISING_AMTSUM_CNY,
+            t1.RAISING_QTY	RAISING_QTY,
+            t1.REDAMT	REDAMT,
+            t1.REDAMT_CNY	REDAMT_CNY,
+            t1.REDQTY	REDQTY,
+            t1.ENDAMTSUM	ENDAMTSUM,
+            t1.ENDAMTSUM_CNY	ENDAMTSUM_CNY,
+            t1.ENDQTY	ENDQTY,
+            t1.PROD_VALUE	PROD_VALUE,
+            t1.PROD_VALUE_CNY	PROD_VALUE_CNY,
+            t1.UNIT_VALUE_TOTAL	UNIT_VALUE_TOTAL,
+            t1.UNIT_VALUE_TOTAL_CNY	UNIT_VALUE_TOTAL_CNY,
+            t1.PROD_END_YIELD	PROD_END_YIELD,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.SUBMIT_FEEDBACK_STATUS	SUBMIT_FEEDBACK_STATUS,
+            t1.SUMIT_SEQ	SUMIT_SEQ,
+            t1.STATUS_DATE	STATUS_DATE,
+            t1.PBC_SUBMIT_DEADLINE	PBC_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.STATUS	STATUS,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            t1.ORG_CODE ORG_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from PBC_COL_PROD_RAISING_SUB t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <!--<if test="batchDate != null and batchDate != ''">
+                and t1.RAISING_DATE = #{batchDate,jdbcType=DATE}
+            </if>-->
+            <if test="termid != null and termid != ''">
+                and t1.RAISING_DATE = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG05DetailDatFromSub">
+        insert into ZG05_PBC_COL_REPORT_DAT (
+            REPORTUUID,
+            TERMID,
+            REPORTTYPE,
+            STARTDATE,
+            ENDDATE,
+            ISSUE_PARTY_ID,
+            ISSUE_PARTY_NAME,
+            REPORT_DATE,
+            SUBMIT_TIME,
+            CHB_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            SUBMIT_FEEDBACK_STATUS,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            PBC_PROD_ID,
+            PROD_ID,
+            CCY,
+            STATUS_TYPE,
+            A0000,
+            A1000,
+            A2000,
+            A2100,
+            A2110,
+            A2120,
+            A2200,
+            A2210,
+            A2220,
+            A3000,
+            A3100,
+            A3200,
+            A4000,
+            A4100,
+            A4200,
+            A4300,
+            A4400,
+            A4500,
+            A4600,
+            A4700,
+            A4800,
+            A5000,
+            A5100,
+            A5200,
+            A5210,
+            A5220,
+            A5230,
+            A5240,
+            A5250,
+            A5260,
+            A5261,
+            A5270,
+            A5271,
+            A5272,
+            A5273,
+            A5274,
+            A5275,
+            A5276,
+            A5277,
+            A5278,
+            A5279,
+            A527a,
+            A5280,
+            A6000,
+            A6100,
+            A6200,
+            A6300,
+            A6400,
+            A6500,
+            A6600,
+            A6700,
+            A7000,
+            A7100,
+            A7110,
+            A7120,
+            A7200,
+            A7210,
+            A7220,
+            A7230,
+            A7240,
+            A7250,
+            A7260,
+            A7270,
+            A7280,
+            A7290,
+            A72a0,
+            A7300,
+            A7310,
+            A7320,
+            A7400,
+            A8000,
+            A8100,
+            A8200,
+            A9000,
+            AA000,
+            AB000,
+            AC000,
+            D0000,
+            B0000,
+            B1000,
+            B1100,
+            B1200,
+            B1210,
+            B1220,
+            B1230,
+            B1240,
+            B1250,
+            B1260,
+            B1261,
+            B1270,
+            B1271,
+            B1272,
+            B1273,
+            B1274,
+            B1275,
+            B1276,
+            B1277,
+            B1278,
+            B1279,
+            B127a,
+            B1280,
+            B2000,
+            B3000,
+            B3100,
+            B3200,
+            B4000,
+            B5000,
+            C0000,
+            C1000,
+            C1100,
+            C1110,
+            C1120,
+            C1130,
+            C1140,
+            C1150,
+            C1160,
+            C1170,
+            C1171,
+            C1172,
+            C1173,
+            C1174,
+            C1175,
+            C1176,
+            C1177,
+            C1178,
+            C1179,
+            C117a,
+            C1180,
+            C1200,
+            C1210,
+            C1220,
+            C1230,
+            C1240,
+            C1250,
+            C1260,
+            C1270,
+            C1271,
+            C1272,
+            C1273,
+            C1274,
+            C1275,
+            C1276,
+            C1277,
+            C1278,
+            C1279,
+            C127a,
+            C1280,
+            C3000,
+            C4000,
+            DATUUID
+        )
+        select
+            t1.REPORTUUID	REPORTUUID,
+            t1.TERMID	TERMID,
+            t1.REPORTTYPE	REPORTTYPE,
+            t1.STARTDATE	STARTDATE,
+            t1.ENDDATE	ENDDATE,
+            t1.ISSUE_PARTY_ID	ISSUE_PARTY_ID,
+            t1.ISSUE_PARTY_NAME	ISSUE_PARTY_NAME,
+            t1.REPORT_DATE	REPORT_DATE,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.CHB_SUBMIT_DEADLINE	CHB_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.SUBMIT_FEEDBACK_STATUS	SUBMIT_FEEDBACK_STATUS,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            t1.DEPT_CODE	DEPT_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.PROD_ID	PROD_ID,
+            t1.CCY	CCY,
+            t1.STATUS_TYPE	STATUS_TYPE,
+            t1.A0000	A0000,
+            t1.A1000	A1000,
+            t1.A2000	A2000,
+            t1.A2100	A2100,
+            t1.A2110	A2110,
+            t1.A2120	A2120,
+            t1.A2200	A2200,
+            t1.A2210	A2210,
+            t1.A2220	A2220,
+            t1.A3000	A3000,
+            t1.A3100	A3100,
+            t1.A3200	A3200,
+            t1.A4000	A4000,
+            t1.A4100	A4100,
+            t1.A4200	A4200,
+            t1.A4300	A4300,
+            t1.A4400	A4400,
+            t1.A4500	A4500,
+            t1.A4600	A4600,
+            t1.A4700	A4700,
+            t1.A4800	A4800,
+            t1.A5000	A5000,
+            t1.A5100	A5100,
+            t1.A5200	A5200,
+            t1.A5210	A5210,
+            t1.A5220	A5220,
+            t1.A5230	A5230,
+            t1.A5240	A5240,
+            t1.A5250	A5250,
+            t1.A5260	A5260,
+            t1.A5261	A5261,
+            t1.A5270	A5270,
+            t1.A5271	A5271,
+            t1.A5272	A5272,
+            t1.A5273	A5273,
+            t1.A5274	A5274,
+            t1.A5275	A5275,
+            t1.A5276	A5276,
+            t1.A5277	A5277,
+            t1.A5278	A5278,
+            t1.A5279	A5279,
+            t1.A527a	A527a,
+            t1.A5280	A5280,
+            t1.A6000	A6000,
+            t1.A6100	A6100,
+            t1.A6200	A6200,
+            t1.A6300	A6300,
+            t1.A6400	A6400,
+            t1.A6500	A6500,
+            t1.A6600	A6600,
+            t1.A6700	A6700,
+            t1.A7000	A7000,
+            t1.A7100	A7100,
+            t1.A7110	A7110,
+            t1.A7120	A7120,
+            t1.A7200	A7200,
+            t1.A7210	A7210,
+            t1.A7220	A7220,
+            t1.A7230	A7230,
+            t1.A7240	A7240,
+            t1.A7250	A7250,
+            t1.A7260	A7260,
+            t1.A7270	A7270,
+            t1.A7280	A7280,
+            t1.A7290	A7290,
+            t1.A72a0	A72a0,
+            t1.A7300	A7300,
+            t1.A7310	A7310,
+            t1.A7320	A7320,
+            t1.A7400	A7400,
+            t1.A8000	A8000,
+            t1.A8100	A8100,
+            t1.A8200	A8200,
+            t1.A9000	A9000,
+            t1.AA000	AA000,
+            t1.AB000	AB000,
+            t1.AC000	AC000,
+            t1.D0000	D0000,
+            t1.B0000	B0000,
+            t1.B1000	B1000,
+            t1.B1100	B1100,
+            t1.B1200	B1200,
+            t1.B1210	B1210,
+            t1.B1220	B1220,
+            t1.B1230	B1230,
+            t1.B1240	B1240,
+            t1.B1250	B1250,
+            t1.B1260	B1260,
+            t1.B1261	B1261,
+            t1.B1270	B1270,
+            t1.B1271	B1271,
+            t1.B1272	B1272,
+            t1.B1273	B1273,
+            t1.B1274	B1274,
+            t1.B1275	B1275,
+            t1.B1276	B1276,
+            t1.B1277	B1277,
+            t1.B1278	B1278,
+            t1.B1279	B1279,
+            t1.B127a	B127a,
+            t1.B1280	B1280,
+            t1.B2000	B2000,
+            t1.B3000	B3000,
+            t1.B3100	B3100,
+            t1.B3200	B3200,
+            t1.B4000	B4000,
+            t1.B5000	B5000,
+            t1.C0000	C0000,
+            t1.C1000	C1000,
+            t1.C1100	C1100,
+            t1.C1110	C1110,
+            t1.C1120	C1120,
+            t1.C1130	C1130,
+            t1.C1140	C1140,
+            t1.C1150	C1150,
+            t1.C1160	C1160,
+            t1.C1170	C1170,
+            t1.C1171	C1171,
+            t1.C1172	C1172,
+            t1.C1173	C1173,
+            t1.C1174	C1174,
+            t1.C1175	C1175,
+            t1.C1176	C1176,
+            t1.C1177	C1177,
+            t1.C1178	C1178,
+            t1.C1179	C1179,
+            t1.C117a	C117a,
+            t1.C1180	C1180,
+            t1.C1200	C1200,
+            t1.C1210	C1210,
+            t1.C1220	C1220,
+            t1.C1230	C1230,
+            t1.C1240	C1240,
+            t1.C1250	C1250,
+            t1.C1260	C1260,
+            t1.C1270	C1270,
+            t1.C1271	C1271,
+            t1.C1272	C1272,
+            t1.C1273	C1273,
+            t1.C1274	C1274,
+            t1.C1275	C1275,
+            t1.C1276	C1276,
+            t1.C1277	C1277,
+            t1.C1278	C1278,
+            t1.C1279	C1279,
+            t1.C127a	C127a,
+            t1.C1280	C1280,
+            t1.C3000	C3000,
+            t1.C4000	C4000,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from ZG05_PBC_COL_REPORT t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG06DetailDatFromSub">
+        insert into PBC_COL_ASSET_USUFRUCT_DAT (
+            DETAILUUID,
+            PBC_PROD_ID,
+            TERMID,
+            ASSETS_LIABILITIES,
+            ASSET_USUFRUCT_CODE,
+            ASSETS_TRANSFER_NAME,
+            ASSETS_TRANSFER_ID,
+            ASSETS_INVEST,
+            ASSETS_TRANSFER_IINDU,
+            ASSETS_TRANSFER,
+            ECONOMIC_COMPOSITION,
+            ASSETS_TRANSFER_SCALE,
+            TRANSFER_VDATE,
+            TRANSFER_ESTI_MDATE,
+            TRANSFER_EXTDUE_MDATE,
+            TRANSFER_ACTMDATE,
+            BASICASSET_TYPE,
+            ASSETS_ORIGCCY,
+            ASSETS_ORIGAMT,
+            ASSETS_ORIGAMT_CNY,
+            CURRENCY_TRANSFERCCY,
+            CURRENCY_TRANSFERAMT,
+            CURRENCY_TRANSFERAMTCNY,
+            LABEL_TRANSFEROR_MARK,
+            REPURCHASE_MARK,
+            RATE_FIXED_FLAG,
+            ASSET_RATE_LEVEL,
+            GUARANTEE_METHOD,
+            ASSETS_INV_DEPA,
+            CURRENCY_EPERIODCCY,
+            CURRENCY_AMT,
+            CURRENCY_AMT_CNY,
+            SUBMIT_TIME,
+            PBC_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            PROD_ID,
+            ASSET_CODE,
+            DATUUID
+        )
+        select
+            t1.DETAILUUID	DETAILUUID,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.TERMID	TERMID,
+            t1.ASSETS_LIABILITIES	ASSETS_LIABILITIES,
+            t1.ASSET_USUFRUCT_CODE	ASSET_USUFRUCT_CODE,
+            t1.ASSETS_TRANSFER_NAME	ASSETS_TRANSFER_NAME,
+            t1.ASSETS_TRANSFER_ID	ASSETS_TRANSFER_ID,
+            t1.ASSETS_INVEST	ASSETS_INVEST,
+            t1.ASSETS_TRANSFER_IINDU	ASSETS_TRANSFER_IINDU,
+            t1.ASSETS_TRANSFER	ASSETS_TRANSFER,
+            t1.ECONOMIC_COMPOSITION	ECONOMIC_COMPOSITION,
+            t1.ASSETS_TRANSFER_SCALE	ASSETS_TRANSFER_SCALE,
+            t1.TRANSFER_VDATE	TRANSFER_VDATE,
+            t1.TRANSFER_ESTI_MDATE	TRANSFER_ESTI_MDATE,
+            t1.TRANSFER_EXTDUE_MDATE	TRANSFER_EXTDUE_MDATE,
+            t1.TRANSFER_ACTMDATE	TRANSFER_ACTMDATE,
+            t1.BASICASSET_TYPE	BASICASSET_TYPE,
+            t1.ASSETS_ORIGCCY	ASSETS_ORIGCCY,
+            t1.ASSETS_ORIGAMT	ASSETS_ORIGAMT,
+            t1.ASSETS_ORIGAMT_CNY	ASSETS_ORIGAMT_CNY,
+            t1.CURRENCY_TRANSFERCCY	CURRENCY_TRANSFERCCY,
+            t1.CURRENCY_TRANSFERAMT	CURRENCY_TRANSFERAMT,
+            t1.CURRENCY_TRANSFERAMTCNY	CURRENCY_TRANSFERAMTCNY,
+            t1.LABEL_TRANSFEROR_MARK	LABEL_TRANSFEROR_MARK,
+            t1.REPURCHASE_MARK	REPURCHASE_MARK,
+            t1.RATE_FIXED_FLAG	RATE_FIXED_FLAG,
+            t1.ASSET_RATE_LEVEL	ASSET_RATE_LEVEL,
+            t1.GUARANTEE_METHOD	GUARANTEE_METHOD,
+            t1.ASSETS_INV_DEPA	ASSETS_INV_DEPA,
+            t1.CURRENCY_EPERIODCCY	CURRENCY_EPERIODCCY,
+            t1.CURRENCY_AMT	CURRENCY_AMT,
+            t1.CURRENCY_AMT_CNY	CURRENCY_AMT_CNY,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.PBC_SUBMIT_DEADLINE	PBC_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            t1.CREATE_DEPT	CREATE_DEPT,
+            t1.PROD_ID	PROD_ID,
+            t1.ASSET_CODE	ASSET_CODE,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from PBC_COL_ASSET_USUFRUCT_SUB t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG07DetailDatFromSub">
+        insert into PBC_COL_LOAN_DETAIL_DAT (
+            DETAILUUID,
+            PBC_PROD_ID,
+            TERMID,
+            ASSET_CODE,
+            LOAN_TRANSFEROR_ID,
+            LOAN_CONTRACT_ORG_ID,
+            LOAN_CONTRACT_ORG_CODE,
+            BORROWER_TYPE,
+            BORROWER_COUNTY,
+            BORROWER_ID,
+            INDUSTRY_INFO,
+            ENTERPRISE_INVESTOR_TYPE,
+            ENTERPRISE_SCALE,
+            LOAN_BASIS_ID,
+            LOAN_PRD_TYPE,
+            LOAN_ACTUAL_INVEST,
+            LOAN_VDATE,
+            LOAN_MDATE,
+            LOAN_EXTENSION_DUE_DATE,
+            RATE_FIXED,
+            RATE_LEVEL,
+            LOANS_TYPE,
+            LOAN_GUARANTEE_MODE,
+            LOAN_QUALITY,
+            LOAN_STATE,
+            LOAN_TRANSFEROR_RATE,
+            ORIG_CCY,
+            ORIG_CONTRACT_AMOUNT,
+            ORIG_CONTRACT_AMOUNT_CNY,
+            AMT_CCY,
+            CONTRACT_AMOUNT,
+            CONTRACT_AMOUNT_CNY,
+            SUBMIT_TIME,
+            CHB_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            PROD_ID,
+            DATUUID
+        )
+        select
+            t1.DETAILUUID	DETAILUUID,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.TERMID	TERMID,
+            t1.ASSET_CODE	ASSET_CODE,
+            t1.LOAN_TRANSFEROR_ID	LOAN_TRANSFEROR_ID,
+            t1.LOAN_CONTRACT_ORG_ID	LOAN_CONTRACT_ORG_ID,
+            t1.LOAN_CONTRACT_ORG_CODE	LOAN_CONTRACT_ORG_CODE,
+            t1.BORROWER_TYPE	BORROWER_TYPE,
+            t1.BORROWER_COUNTY	BORROWER_COUNTY,
+            t1.BORROWER_ID	BORROWER_ID,
+            t1.INDUSTRY_INFO	INDUSTRY_INFO,
+            t1.ENTERPRISE_INVESTOR_TYPE	ENTERPRISE_INVESTOR_TYPE,
+            t1.ENTERPRISE_SCALE	ENTERPRISE_SCALE,
+            t1.LOAN_BASIS_ID	LOAN_BASIS_ID,
+            t1.LOAN_PRD_TYPE	LOAN_PRD_TYPE,
+            t1.LOAN_ACTUAL_INVEST	LOAN_ACTUAL_INVEST,
+            t1.LOAN_VDATE	LOAN_VDATE,
+            t1.LOAN_MDATE	LOAN_MDATE,
+            t1.LOAN_EXTENSION_DUE_DATE	LOAN_EXTENSION_DUE_DATE,
+            t1.RATE_FIXED	RATE_FIXED,
+            t1.RATE_LEVEL	RATE_LEVEL,
+            t1.LOANS_TYPE	LOANS_TYPE,
+            t1.LOAN_GUARANTEE_MODE	LOAN_GUARANTEE_MODE,
+            t1.LOAN_QUALITY	LOAN_QUALITY,
+            t1.LOAN_STATE	LOAN_STATE,
+            t1.LOAN_TRANSFEROR_RATE	LOAN_TRANSFEROR_RATE,
+            t1.ORIG_CCY	ORIG_CCY,
+            t1.ORIG_CONTRACT_AMOUNT	ORIG_CONTRACT_AMOUNT,
+            t1.ORIG_CONTRACT_AMOUNT_CNY	ORIG_CONTRACT_AMOUNT_CNY,
+            t1.AMT_CCY	AMT_CCY,
+            t1.CONTRACT_AMOUNT	CONTRACT_AMOUNT,
+            t1.CONTRACT_AMOUNT_CNY	CONTRACT_AMOUNT_CNY,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.CHB_SUBMIT_DEADLINE	CHB_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            t1.DEPT_CODE	DEPT_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            t1.PROD_ID	PROD_ID,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from PBC_COL_LOAN_DETAIL_SUB t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG08DetailDatFromSub">
+        insert into PBC_COL_SPE_COUNTER_PARTY_DAT (
+            DETAILUUID,
+            PBC_PROD_ID,
+            TERMID,
+            ASSET_TYPE,
+            PRRTY_PROD_TYPE,
+            PRRTY_ORG_CODE,
+            PRRTY_PROD_ID,
+            CCY,
+            AMT,
+            AMT_CNY,
+            SUBMIT_TIME,
+            PBC_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            PROD_ID,
+            DATUUID
+        )
+        select
+            t1.DETAILUUID	DETAILUUID,
+            IFNULL(t2.PBC_CODE, t1.PBC_PROD_ID) PBC_PROD_ID,
+            t1.TERMID	TERMID,
+            t1.ASSET_TYPE	ASSET_TYPE,
+            t1.PRRTY_PROD_TYPE	PRRTY_PROD_TYPE,
+            t1.PRRTY_ORG_CODE	PRRTY_ORG_CODE,
+            t1.PRRTY_PROD_ID	PRRTY_PROD_ID,
+            t1.CCY	CCY,
+            t1.AMT	AMT,
+            t1.AMT_CNY	AMT_CNY,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.PBC_SUBMIT_DEADLINE	PBC_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            t1.DEPT_CODE	DEPT_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            t1.PROD_ID	PROD_ID,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from PBC_COL_SPE_COUNTER_PARTY_SUB t1
+        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID
+        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG09DetailDatFromSub">
+        insert into ZG09_PBC_COL_REPORT_DAT (
+            REPORTUUID,
+            TERMID,
+            REPORTTYPE,
+            STARTDATE,
+            ENDDATE,
+            ISSUE_PARTY_ID,
+            ISSUE_PARTY_NAME,
+            REPORT_DATE,
+            SUBMIT_TIME,
+            CHB_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            PBC_PROD_TYPE,
+            G000A,
+            G000B,
+            G000C,
+            G000D,
+            G000E,
+            G100A,
+            G100B,
+            G100C,
+            G100D,
+            G100E,
+            G200A,
+            G200B,
+            G200C,
+            G200D,
+            G200E,
+            G300A,
+            G300B,
+            G300C,
+            G300D,
+            G300E,
+            G400A,
+            G400B,
+            G400C,
+            G400D,
+            G400E,
+            G500A,
+            G500B,
+            G500C,
+            G500D,
+            G500E,
+            G600A,
+            G600B,
+            G600C,
+            G600D,
+            G600E,
+            G700A,
+            G700B,
+            G700C,
+            G700D,
+            G700E,
+            G800A,
+            G800B,
+            G800C,
+            G800D,
+            G800E,
+            G00001,
+            G00002,
+            DATUUID
+        )
+        select
+            t1.REPORTUUID	REPORTUUID,
+            t1.TERMID	TERMID,
+            t1.REPORTTYPE	REPORTTYPE,
+            t1.STARTDATE	STARTDATE,
+            t1.ENDDATE	ENDDATE,
+            t1.ISSUE_PARTY_ID	ISSUE_PARTY_ID,
+            t1.ISSUE_PARTY_NAME	ISSUE_PARTY_NAME,
+            t1.REPORT_DATE	REPORT_DATE,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.CHB_SUBMIT_DEADLINE	CHB_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            t1.DEPT_CODE	DEPT_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            t1.PBC_PROD_TYPE	PBC_PROD_TYPE,
+            t1.G000A	G000A,
+            t1.G000B	G000B,
+            t1.G000C	G000C,
+            t1.G000D	G000D,
+            t1.G000E	G000E,
+            t1.G100A	G100A,
+            t1.G100B	G100B,
+            t1.G100C	G100C,
+            t1.G100D	G100D,
+            t1.G100E	G100E,
+            t1.G200A	G200A,
+            t1.G200B	G200B,
+            t1.G200C	G200C,
+            t1.G200D	G200D,
+            t1.G200E	G200E,
+            t1.G300A	G300A,
+            t1.G300B	G300B,
+            t1.G300C	G300C,
+            t1.G300D	G300D,
+            t1.G300E	G300E,
+            t1.G400A	G400A,
+            t1.G400B	G400B,
+            t1.G400C	G400C,
+            t1.G400D	G400D,
+            t1.G400E	G400E,
+            t1.G500A	G500A,
+            t1.G500B	G500B,
+            t1.G500C	G500C,
+            t1.G500D	G500D,
+            t1.G500E	G500E,
+            t1.G600A	G600A,
+            t1.G600B	G600B,
+            t1.G600C	G600C,
+            t1.G600D	G600D,
+            t1.G600E	G600E,
+            t1.G700A	G700A,
+            t1.G700B	G700B,
+            t1.G700C	G700C,
+            t1.G700D	G700D,
+            t1.G700E	G700E,
+            t1.G800A	G800A,
+            t1.G800B	G800B,
+            t1.G800C	G800C,
+            t1.G800D	G800D,
+            t1.G800E	G800E,
+            t1.G00001	G00001,
+            t1.G00002	G00002,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from ZG09_PBC_COL_REPORT t1
+        <!--        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID-->
+        <!--        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID-->
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG10DetailDatFromSub">
+        insert into ZG10_PBC_COL_REPORT_DAT (
+            REPORTUUID,
+            TERMID,
+            REPORTTYPE,
+            STARTDATE,
+            ENDDATE,
+            ISSUE_PARTY_ID,
+            ISSUE_PARTY_NAME,
+            REPORT_DATE,
+            SUBMIT_TIME,
+            CHB_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            SUBMIT_FEEDBACK_STATUS,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            PBC_PROD_TYPE,
+            h10000,
+            h11000,
+            h11100,
+            h11200,
+            h11300,
+            h12000,
+            h12100,
+            h12200,
+            h12300,
+            h13000,
+            h13100,
+            h13200,
+            h13300,
+            h14000,
+            h14100,
+            h14200,
+            h14300,
+            h20000,
+            h21000,
+            h22000,
+            h23000,
+            h30000,
+            h31000,
+            h32000,
+            h33000,
+            h34000,
+            h40000,
+            h41000,
+            h42000,
+            h43000,
+            h44000,
+            h45000,
+            h46000,
+            h46100,
+            h47000,
+            h47100,
+            h47200,
+            h47300,
+            h47400,
+            h47500,
+            h47600,
+            h47700,
+            h47800,
+            h47900,
+            h47a00,
+            h48000,
+            h50000,
+            h51000,
+            h52000,
+            h53000,
+            h54000,
+            h55000,
+            h56000,
+            h57000,
+            h58000,
+            h59000,
+            h5a000,
+            DATUUID
+        )
+        select
+            t1.REPORTUUID	REPORTUUID,
+            t1.TERMID	TERMID,
+            t1.REPORTTYPE	REPORTTYPE,
+            t1.STARTDATE	STARTDATE,
+            t1.ENDDATE	ENDDATE,
+            t1.ISSUE_PARTY_ID	ISSUE_PARTY_ID,
+            t1.ISSUE_PARTY_NAME	ISSUE_PARTY_NAME,
+            t1.REPORT_DATE	REPORT_DATE,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.CHB_SUBMIT_DEADLINE	CHB_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.SUBMIT_FEEDBACK_STATUS	SUBMIT_FEEDBACK_STATUS,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            t1.DEPT_CODE	DEPT_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            t1.PBC_PROD_TYPE	PBC_PROD_TYPE,
+            t1.h10000	h10000,
+            t1.h11000	h11000,
+            t1.h11100	h11100,
+            t1.h11200	h11200,
+            t1.h11300	h11300,
+            t1.h12000	h12000,
+            t1.h12100	h12100,
+            t1.h12200	h12200,
+            t1.h12300	h12300,
+            t1.h13000	h13000,
+            t1.h13100	h13100,
+            t1.h13200	h13200,
+            t1.h13300	h13300,
+            t1.h14000	h14000,
+            t1.h14100	h14100,
+            t1.h14200	h14200,
+            t1.h14300	h14300,
+            t1.h20000	h20000,
+            t1.h21000	h21000,
+            t1.h22000	h22000,
+            t1.h23000	h23000,
+            t1.h30000	h30000,
+            t1.h31000	h31000,
+            t1.h32000	h32000,
+            t1.h33000	h33000,
+            t1.h34000	h34000,
+            t1.h40000	h40000,
+            t1.h41000	h41000,
+            t1.h42000	h42000,
+            t1.h43000	h43000,
+            t1.h44000	h44000,
+            t1.h45000	h45000,
+            t1.h46000	h46000,
+            t1.h46100	h46100,
+            t1.h47000	h47000,
+            t1.h47100	h47100,
+            t1.h47200	h47200,
+            t1.h47300	h47300,
+            t1.h47400	h47400,
+            t1.h47500	h47500,
+            t1.h47600	h47600,
+            t1.h47700	h47700,
+            t1.h47800	h47800,
+            t1.h47900	h47900,
+            t1.h47a00	h47a00,
+            t1.h48000	h48000,
+            t1.h50000	h50000,
+            t1.h51000	h51000,
+            t1.h52000	h52000,
+            t1.h53000	h53000,
+            t1.h54000	h54000,
+            t1.h55000	h55000,
+            t1.h56000	h56000,
+            t1.h57000	h57000,
+            t1.h58000	h58000,
+            t1.h59000	h59000,
+            t1.h5a000	h5a000,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from ZG10_PBC_COL_REPORT t1
+        <!--        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID-->
+        <!--        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID-->
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <insert id="insertZG11DetailDatFromSub">
+        insert into ZG11_PBC_COL_REPORT_DAT (
+            REPORTUUID,
+            TERMID,
+            REPORTTYPE,
+            STARTDATE,
+            ENDDATE,
+            REPORT_DATE,
+            SUBMIT_TIME,
+            CHB_SUBMIT_DEADLINE,
+            SUBMIT_DEADLINE,
+            SUBMIT_FEEDBACK_STATUS,
+            STATUS,
+            SEND_STATUS,
+            STATUS_DATE,
+            CREATE_USER,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ORG_CODE,
+            DEPT_CODE,
+            CREATE_DEPT,
+            ISSUE_PARTY_ID,
+            ISSUE_PARTY_NAME,
+            PROD_VARIETY,
+            c00000,
+            c01000,
+            c02000,
+            c03000,
+            c04000,
+            c10000,
+            c11000,
+            c12000,
+            c13000,
+            c14000,
+            c20000,
+            c21000,
+            c22000,
+            c23000,
+            c24000,
+            c30000,
+            c31000,
+            c32000,
+            c33000,
+            c34000,
+            c40000,
+            c41000,
+            c42000,
+            c43000,
+            c44000,
+            c50000,
+            c51000,
+            c52000,
+            c53000,
+            c54000,
+            c60000,
+            c61000,
+            c62000,
+            c63000,
+            c64000,
+            c70000,
+            c71000,
+            c72000,
+            c73000,
+            c74000,
+            c80000,
+            c81000,
+            c82000,
+            c83000,
+            c84000,
+            c90000,
+            c91000,
+            c92000,
+            c93000,
+            c94000,
+            ca0000,
+            ca1000,
+            ca2000,
+            ca3000,
+            ca4000,
+            cb0000,
+            cb1000,
+            cb2000,
+            cb3000,
+            cb4000,
+            cc0000,
+            cc1000,
+            cc2000,
+            cc3000,
+            cc4000,
+            cd0000,
+            cd1000,
+            cd2000,
+            cd3000,
+            cd4000,
+            ce0000,
+            ce1000,
+            ce2000,
+            ce3000,
+            ce4000,
+            cf0000,
+            cf1000,
+            cf2000,
+            cf3000,
+            cf4000,
+            cg0000,
+            cg1000,
+            cg2000,
+            cg3000,
+            cg4000,
+            ch0000,
+            ch1000,
+            ch2000,
+            ch3000,
+            ch4000,
+            ci0000,
+            ci1000,
+            ci2000,
+            ci3000,
+            ci4000,
+            cj0000,
+            cj1000,
+            cj2000,
+            cj3000,
+            cj4000,
+            DATUUID
+        )
+        select
+            t1.REPORTUUID	REPORTUUID,
+            t1.TERMID	TERMID,
+            t1.REPORTTYPE	REPORTTYPE,
+            t1.STARTDATE	STARTDATE,
+            t1.ENDDATE	ENDDATE,
+            t1.REPORT_DATE	REPORT_DATE,
+            t1.SUBMIT_TIME	SUBMIT_TIME,
+            t1.CHB_SUBMIT_DEADLINE	CHB_SUBMIT_DEADLINE,
+            t1.SUBMIT_DEADLINE	SUBMIT_DEADLINE,
+            t1.SUBMIT_FEEDBACK_STATUS	SUBMIT_FEEDBACK_STATUS,
+            t1.STATUS	STATUS,
+            t1.SEND_STATUS	SEND_STATUS,
+            t1.STATUS_DATE	STATUS_DATE,
+            #{createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            t1.ORG_CODE	ORG_CODE,
+            t1.DEPT_CODE	DEPT_CODE,
+            #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            t1.ISSUE_PARTY_ID	ISSUE_PARTY_ID,
+            t1.ISSUE_PARTY_NAME	ISSUE_PARTY_NAME,
+            t1.PROD_VARIETY	PROD_VARIETY,
+            t1.c00000	c00000,
+            t1.c01000	c01000,
+            t1.c02000	c02000,
+            t1.c03000	c03000,
+            t1.c04000	c04000,
+            t1.c10000	c10000,
+            t1.c11000	c11000,
+            t1.c12000	c12000,
+            t1.c13000	c13000,
+            t1.c14000	c14000,
+            t1.c20000	c20000,
+            t1.c21000	c21000,
+            t1.c22000	c22000,
+            t1.c23000	c23000,
+            t1.c24000	c24000,
+            t1.c30000	c30000,
+            t1.c31000	c31000,
+            t1.c32000	c32000,
+            t1.c33000	c33000,
+            t1.c34000	c34000,
+            t1.c40000	c40000,
+            t1.c41000	c41000,
+            t1.c42000	c42000,
+            t1.c43000	c43000,
+            t1.c44000	c44000,
+            t1.c50000	c50000,
+            t1.c51000	c51000,
+            t1.c52000	c52000,
+            t1.c53000	c53000,
+            t1.c54000	c54000,
+            t1.c60000	c60000,
+            t1.c61000	c61000,
+            t1.c62000	c62000,
+            t1.c63000	c63000,
+            t1.c64000	c64000,
+            t1.c70000	c70000,
+            t1.c71000	c71000,
+            t1.c72000	c72000,
+            t1.c73000	c73000,
+            t1.c74000	c74000,
+            t1.c80000	c80000,
+            t1.c81000	c81000,
+            t1.c82000	c82000,
+            t1.c83000	c83000,
+            t1.c84000	c84000,
+            t1.c90000	c90000,
+            t1.c91000	c91000,
+            t1.c92000	c92000,
+            t1.c93000	c93000,
+            t1.c94000	c94000,
+            t1.ca0000	ca0000,
+            t1.ca1000	ca1000,
+            t1.ca2000	ca2000,
+            t1.ca3000	ca3000,
+            t1.ca4000	ca4000,
+            t1.cb0000	cb0000,
+            t1.cb1000	cb1000,
+            t1.cb2000	cb2000,
+            t1.cb3000	cb3000,
+            t1.cb4000	cb4000,
+            t1.cc0000	cc0000,
+            t1.cc1000	cc1000,
+            t1.cc2000	cc2000,
+            t1.cc3000	cc3000,
+            t1.cc4000	cc4000,
+            t1.cd0000	cd0000,
+            t1.cd1000	cd1000,
+            t1.cd2000	cd2000,
+            t1.cd3000	cd3000,
+            t1.cd4000	cd4000,
+            t1.ce0000	ce0000,
+            t1.ce1000	ce1000,
+            t1.ce2000	ce2000,
+            t1.ce3000	ce3000,
+            t1.ce4000	ce4000,
+            t1.cf0000	cf0000,
+            t1.cf1000	cf1000,
+            t1.cf2000	cf2000,
+            t1.cf3000	cf3000,
+            t1.cf4000	cf4000,
+            t1.cg0000	cg0000,
+            t1.cg1000	cg1000,
+            t1.cg2000	cg2000,
+            t1.cg3000	cg3000,
+            t1.cg4000	cg4000,
+            t1.ch0000	ch0000,
+            t1.ch1000	ch1000,
+            t1.ch2000	ch2000,
+            t1.ch3000	ch3000,
+            t1.ch4000	ch4000,
+            t1.ci0000	ci0000,
+            t1.ci1000	ci1000,
+            t1.ci2000	ci2000,
+            t1.ci3000	ci3000,
+            t1.ci4000	ci4000,
+            t1.cj0000	cj0000,
+            t1.cj1000	cj1000,
+            t1.cj2000	cj2000,
+            t1.cj3000	cj3000,
+            t1.cj4000	cj4000,
+            #{detailid,jdbcType=VARCHAR} DETAIL_ID
+        from ZG11_PBC_COL_REPORT t1
+        <!--        left join <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b on t1.PBC_PROD_ID = b.PBC_PROD_ID-->
+        <!--        left join <include refid="SQL_PBC_PROD_ASSETPOOL_CODE" /> t2 ON t2.INSIDE_PROD_ID = b.PROD_ID-->
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </insert>
+
+    <update id="updateZG01SubDatUUID">
+        update PBC_COL_PRD_BASEINFO_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG02SubDatUUID">
+        update PBC_COL_INIT_PROD_RAISING_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG03SubDatUUID">
+        update PBC_COL_PRD_BASEINFO_END_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and EXISTS (
+                select 1
+                from <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b
+                where t1.PBC_PROD_ID = b.PBC_PROD_ID
+                and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+                )
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG04SubDatUUID">
+        update PBC_COL_PROD_RAISING_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.RAISING_DATE = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and EXISTS (
+                    select 1
+                    from <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b
+                    where t1.PBC_PROD_ID = b.PBC_PROD_ID
+                        and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+                )
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG05SubDatUUID">
+        update ZG05_PBC_COL_REPORT t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG06SubDatUUID">
+        update PBC_COL_ASSET_USUFRUCT_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and EXISTS (
+                    select 1
+                    from <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b
+                    where t1.PBC_PROD_ID = b.PBC_PROD_ID
+                        and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+                )
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG07SubDatUUID">
+        update PBC_COL_LOAN_DETAIL_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and EXISTS (
+                    select 1
+                    from <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b
+                    where t1.PBC_PROD_ID = b.PBC_PROD_ID
+                        and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+                )
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG08SubDatUUID">
+        update PBC_COL_SPE_COUNTER_PARTY_SUB t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and EXISTS (
+                    select 1
+                    from <include refid="SQL_PBC_COL_PRD_BASEINFO_SUB" /> b
+                    where t1.PBC_PROD_ID = b.PBC_PROD_ID
+                        and b.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+                )
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG09SubDatUUID">
+        update ZG09_PBC_COL_REPORT t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG10SubDatUUID">
+        update ZG10_PBC_COL_REPORT t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+    <update id="updateZG11SubDatUUID">
+        update ZG11_PBC_COL_REPORT t1
+        set t1.DATUUID = #{detailid,jdbcType=VARCHAR},
+            t1.UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            t1.UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where 1 = 1
+            <if test="termid != null and termid != ''">
+                and t1.TERMID = #{termid,jdbcType=VARCHAR}
+            </if>
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and t1.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="orgCode != null and orgCode != ''" >
+                and t1.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="issuePartyId != null and issuePartyId != ''" >
+                and t1.ISSUE_PARTY_ID = #{issuePartyId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and t1.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    </update>
+
+<select id="selectAllPbcId" resultType="com.joyintech.tams.report.system.peoplebankcodepoolmanagement.dto.ProPeoplebankcodeManagement001Dto">
+SELECT distinct  b.PBC_PROD_ID as  pbcCode,t2.pbc_code as pbcProjectCodeExternal  from
+ (
+select a.* from (SELECT PBC_PROD_ID,PROD_ID,
+            row_number() OVER (partition BY PBC_PROD_ID ORDER BY ifnull(UPDATE_TIME,CREATE_TIME)
+            DESC) AS myrank
+            FROM pbc_col_prd_baseinfo_sub
+            where PBC_PROD_ID is not null) a
+            WHERE a.myrank=1
+            ) b
+    LEFT JOIN(
+    SELECT
+    inside_prod_id,
+    pbc_code
+    FROM
+    pbc_prod_assetpool_code
+    WHERE
+    status='E'
+    AND code_type='01'
+    )t2 ON t2.inside_prod_id=b.PROD_ID
+
+</select>
+</mapper>

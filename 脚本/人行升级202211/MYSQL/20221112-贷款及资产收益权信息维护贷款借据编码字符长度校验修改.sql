@@ -1,0 +1,2 @@
+delete from chb_datacheck_rule where CHECKRULEID ='9A48C2BF-0EA5-0CFD-E053-035AA8C0F562';
+INSERT INTO chb_datacheck_rule (CHECKRULEID, DATATYPE, CHECKCLASS, CHECKMETHOD, SRCPROPERTY, COMPARETO, OBJVALUE, NULLABLE, REMARK, STATUS) VALUES ('9A48C2BF-0EA5-0CFD-E053-035AA8C0F562', 'CHB_LOAN_DETAIL_INFO', 'com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib', 'lessThanCharLength', 'LOAN_BASIS_ID', null, '101', 'Y', '贷款借据编码要素超长(最大长100字节)。', 'E');

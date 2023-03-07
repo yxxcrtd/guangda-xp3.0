@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        <id column="DATA_UUID" property="dataUuid" jdbcType="VARCHAR" />
+        <result column="DATA_ID" property="dataId" jdbcType="VARCHAR" />
+        <result column="RULE_ID" property="ruleId" jdbcType="VARCHAR" />
+        <result column="PBC_ELEMENT_CODE" property="pbcElementCode" jdbcType="VARCHAR" />
+        <result column="REPORT_NAME" property="reportName" jdbcType="VARCHAR" />
+        <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
+        <result column="RULE_TYPE" property="ruleType" jdbcType="VARCHAR" />
+        <result column="RULE_CODE" property="ruleCode" jdbcType="VARCHAR" />
+        <result column="RULE_DETAILS" property="ruleDetails" jdbcType="VARCHAR" />
+        <result column="RELEVANCE_REPORT" property="relevanceReport" jdbcType="VARCHAR" />
+        <result column="CHECK_DATE" property="checkDate" jdbcType="TIMESTAMP" />
+        <result column="FLAG_UUID" property="flagUuid" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CHECK_FLAG" property="checkFlag" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" extends="BaseResultMap" >
+        <result column="ERR_MSG" property="errMsg" jdbcType="LONGVARCHAR" />
+        <result column="ORG_DATA" property="orgData" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        DATA_UUID DATA_UUID, DATA_ID DATA_ID, RULE_ID RULE_ID, PBC_ELEMENT_CODE PBC_ELEMENT_CODE,
+        REPORT_NAME REPORT_NAME, FIELD_NAME FIELD_NAME, RULE_TYPE RULE_TYPE, RULE_CODE RULE_CODE,
+        RULE_DETAILS RULE_DETAILS, RELEVANCE_REPORT RELEVANCE_REPORT, CHECK_DATE CHECK_DATE,
+        CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER,
+        UPDATE_TIME UPDATE_TIME, FLAG_UUID FLAG_UUID
+    </sql>
+    <sql id="Blob_Column_List" >
+        ERR_MSG, ORG_DATA
+    </sql>
+    <sql id="Sql_All_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.Blob_Column_List" />
+        from pbc_submit_before_check
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.Blob_Column_List" />
+        from pbc_submit_before_check
+    </sql>
+
+    <sql id="sql_Page">
+        t1.DATA_UUID           AS dataUuid,
+        t1.DATA_ID             AS dataId,
+        t3.RULE_ID             AS ruleId,
+        t3.PBC_ASSET_CODE      AS pbcElementCode,
+        t3.TABLE_DATA_NAME     AS reportName,
+        t3.CHECKED_FIELD_NAME  AS fieldName,
+        t3.RULE_TYPE           AS ruleType,
+        t3.RULE_IDENTIFY       AS ruleCode,
+        t3.RULE_CONTENT        AS ruleDetails,
+        t1.ORG_DATA            AS orgData,
+        t1.CHECK_DATE          AS checkDate,
+        t2.CHECK_RESULT        AS checkResult,
+        t1.RELEVANCE_REPORT    AS relevanceReport
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.Blob_Column_List" />
+        from pbc_submit_before_check
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from pbc_submit_before_check
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        insert into pbc_submit_before_check (DATA_UUID, DATA_ID, RULE_ID,
+                                             PBC_ELEMENT_CODE, REPORT_NAME, FIELD_NAME,
+                                             RULE_TYPE, RULE_CODE, RULE_DETAILS,
+                                             RELEVANCE_REPORT, CHECK_DATE, CREATE_USER,
+                                             CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+                                             UPDATE_TIME, ERR_MSG, ORG_DATA, FLAG_UUID
+        )
+        values (#{dataUuid,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, #{ruleId,jdbcType=VARCHAR},
+                #{pbcElementCode,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR}, #{fieldName,jdbcType=VARCHAR},
+                #{ruleType,jdbcType=VARCHAR}, #{ruleCode,jdbcType=VARCHAR}, #{ruleDetails,jdbcType=VARCHAR},
+                #{relevanceReport,jdbcType=VARCHAR}, #{checkDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+                #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP}, #{errMsg,jdbcType=LONGVARCHAR}, #{orgData,jdbcType=LONGVARCHAR},
+                #{flagUuid,jdbcType=VARCHAR}
+               )
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        insert into pbc_submit_before_check
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="dataUuid != null" >
+                DATA_UUID,
+            </if>
+            <if test="dataId != null" >
+                DATA_ID,
+            </if>
+            <if test="ruleId != null" >
+                RULE_ID,
+            </if>
+            <if test="pbcElementCode != null" >
+                PBC_ELEMENT_CODE,
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME,
+            </if>
+            <if test="fieldName != null" >
+                FIELD_NAME,
+            </if>
+            <if test="ruleType != null" >
+                RULE_TYPE,
+            </if>
+            <if test="ruleCode != null" >
+                RULE_CODE,
+            </if>
+            <if test="ruleDetails != null" >
+                RULE_DETAILS,
+            </if>
+            <if test="relevanceReport != null" >
+                RELEVANCE_REPORT,
+            </if>
+            <if test="checkDate != null" >
+                CHECK_DATE,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG,
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA,
+            </if>
+            <if test="flagUuid != null" >
+                FLAG_UUID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="dataUuid != null" >
+                #{dataUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="dataId != null" >
+                #{dataId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleId != null" >
+                #{ruleId,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcElementCode != null" >
+                #{pbcElementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldName != null" >
+                #{fieldName,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleType != null" >
+                #{ruleType,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleCode != null" >
+                #{ruleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleDetails != null" >
+                #{ruleDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="relevanceReport != null" >
+                #{relevanceReport,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null" >
+                #{checkDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errMsg != null" >
+                #{errMsg,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="orgData != null" >
+                #{orgData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="flagUuid != null" >
+                #{flagUuid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        insert into pbc_submit_before_check(DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+                                            REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, RELEVANCE_REPORT, CHECK_DATE,
+                                            CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ERR_MSG, ORG_DATA, FLAG_UUID
+        )
+        select DATA_UUID, DATA_ID, RULE_ID, PBC_ELEMENT_CODE,
+               REPORT_NAME, FIELD_NAME, RULE_TYPE, RULE_CODE, RULE_DETAILS, RELEVANCE_REPORT, CHECK_DATE,
+               CREATE_USER, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, ERR_MSG, ORG_DATA,
+               FLAG_UUID
+
+        from pbc_submit_before_check
+        where 1 = 1 and DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        update pbc_submit_before_check
+        <set >
+            <if test="dataId != null" >
+                DATA_ID = #{dataId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleId != null" >
+                RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcElementCode != null" >
+                PBC_ELEMENT_CODE = #{pbcElementCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="fieldName != null" >
+                FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleType != null" >
+                RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleCode != null" >
+                RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleDetails != null" >
+                RULE_DETAILS = #{ruleDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="relevanceReport != null" >
+                RELEVANCE_REPORT = #{relevanceReport,jdbcType=VARCHAR},
+            </if>
+            <if test="checkDate != null" >
+                CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG = #{errMsg,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA = #{orgData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="flagUuid != null" >
+                FLAG_UUID = #{flagUuid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto" >
+        update pbc_submit_before_check
+        set DATA_ID = #{dataId,jdbcType=VARCHAR},
+            RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            PBC_ELEMENT_CODE = #{pbcElementCode,jdbcType=VARCHAR},
+            REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+            RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+            RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+            RULE_DETAILS = #{ruleDetails,jdbcType=VARCHAR},
+            RELEVANCE_REPORT = #{relevanceReport,jdbcType=VARCHAR},
+            CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            ERR_MSG = #{errMsg,jdbcType=LONGVARCHAR},
+            ORG_DATA = #{orgData,jdbcType=LONGVARCHAR},
+            FLAG_UUID = #{flagUuid,jdbcType=VARCHAR}
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto">
+        update pbc_submit_before_check
+        set DATA_ID = #{dataId,jdbcType=VARCHAR},
+            RULE_ID = #{ruleId,jdbcType=VARCHAR},
+            PBC_ELEMENT_CODE = #{pbcElementCode,jdbcType=VARCHAR},
+            REPORT_NAME = #{reportName,jdbcType=VARCHAR},
+            FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+            RULE_TYPE = #{ruleType,jdbcType=VARCHAR},
+            RULE_CODE = #{ruleCode,jdbcType=VARCHAR},
+            RULE_DETAILS = #{ruleDetails,jdbcType=VARCHAR},
+            RELEVANCE_REPORT = #{relevanceReport,jdbcType=VARCHAR},
+            CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            ERR_MSG = #{errMsg,jdbcType=LONGVARCHAR},
+            ORG_DATA = #{orgData,jdbcType=LONGVARCHAR},
+            FLAG_UUID = #{flagUuid,jdbcType=VARCHAR}
+        where DATA_UUID = #{dataUuid,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 分页查询 -->
+    <select id="searchPage" resultType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto">
+        SELECT
+            t1.DATA_UUID           AS dataUuid,
+            t1.DATA_ID             AS dataId,
+            t3.RULE_ID             AS ruleId,
+            t3.PBC_ASSET_CODE      AS pbcElementCode,
+            t3.TABLE_DATA_NAME     AS reportName,
+            t3.CHECKED_FIELD_NAME  AS fieldName,
+            t3.RULE_TYPE           AS ruleType,
+            t3.RULE_IDENTIFY       AS ruleCode,
+            t3.RULE_CONTENT        AS ruleDetails,
+            t1.ERR_MSG             AS errMsg,
+            t1.ORG_DATA            AS orgData,
+            t1.CHECK_DATE          AS checkDate,
+            t2.CHECK_RESULT        AS checkResult,
+            t1.RELEVANCE_REPORT    AS relevanceReport,
+            t2.CHECK_FLAG          AS checkFlag
+        FROM
+            pbc_submit_before_check t1
+        LEFT JOIN pbc_generat_b_checkdetail t2 ON t1.DATA_UUID = t2.CHECK_UUID
+        LEFT JOIN pbc_check_rule_info t3 ON t3.RULE_ID = t2.RULE_ID
+        <where>
+            t2.CHECK_FLAG = '1'
+            <if test="checkDateStart != null and !('').equals(checkDateStart)">
+                AND TO_CHAR(t1.CHECK_DATE, 'yyyy-MM-dd') <![CDATA[>=]]> #{checkDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="checkDateEnd != null and !('').equals(checkDateEnd)">
+                AND TO_CHAR(t1.CHECK_DATE, 'yyyy-MM-dd') <![CDATA[<=]]> #{checkDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="reportNameList != null and reportNameList.size()>0">
+                <foreach collection="reportNameList" item="item" open="AND t3.TABLE_DATA_NAME IN (" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="fieldName != null and !('').equals(fieldName)">
+                AND t3.CHECKED_FIELD_NAME LIKE CONCAT('%',CONCAT(#{fieldName,jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="relevanceReportList != null and relevanceReportList.size()>0">
+                <foreach collection="relevanceReportList" item="item" open="AND t1.RELEVANCE_REPORT IN (" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="ruleCode != null and !('').equals(ruleCode)">
+                AND t3.RULE_IDENTIFY = #{ruleCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ruleId != null and !('').equals(ruleId)">
+                AND t3.RULE_ID LIKE CONCAT('%',CONCAT(#{ruleId,jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="checkFlag != null and !('').equals(checkFlag)">
+                AND t2.CHECK_FLAG = #{checkFlag,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertPbcSubmitBeforeCheck" parameterType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto">
+        MERGE INTO PBC_SUBMIT_BEFORE_CHECK CII
+        USING (
+        <foreach collection="newDataList" item="item" open="select * from(" close=")" separator="union all">
+            SELECT
+                #{dataUuid,jdbcType=VARCHAR} DATA_UUID,
+                #{dataId,jdbcType=VARCHAR} DATA_ID,
+                #{ruleId,jdbcType=VARCHAR} RULE_ID,
+                #{pbcElementCode,jdbcType=VARCHAR} PBC_ELEMENT_CODE,
+                #{reportName,jdbcType=VARCHAR} REPORT_NAME,
+                #{fieldName,jdbcType=VARCHAR} FIELD_NAME,
+                #{ruleType,jdbcType=VARCHAR} RULE_TYPE,
+                #{ruleCode,jdbcType=VARCHAR} RULE_CODE,
+                #{ruleDetails,jdbcType=VARCHAR} RULE_DETAILS,
+                #{orgData,jdbcType=LONGVARCHAR} ORG_DATA,
+                #{checkDate,jdbcType=TIMESTAMP} CHECK_DATE,
+                #{createUser,jdbcType=VARCHAR} CREATE_USER,
+                #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+                #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+                #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+                #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+                #{errMsg,jdbcType=LONGVARCHAR} ERR_MSG,
+                #{relevanceReport,jdbcType=VARCHAR} RELEVANCE_REPORT,
+                #{flagUuid,jdbcType=VARCHAR} FLAG_UUID
+            FROM
+            DUAL
+        </foreach>
+        ) TEMP
+        <!-- 业务主键匹配 -->
+        ON( CII.DATA_ID = TEMP.DATA_ID )
+        <!-- 匹配到则更新 -->
+        WHEN MATCHED THEN
+        UPDATE
+            SET
+             CII.DATA_UUID = TEMP.DATA_UUID,
+             CII.RULE_ID = TEMP.RULE_ID,
+             CII.PBC_ELEMENT_CODE = TEMP.PBC_ELEMENT_CODE,
+             CII.REPORT_NAME = TEMP.REPORT_NAME,
+             CII.FIELD_NAME = TEMP.FIELD_NAME,
+             CII.RULE_TYPE = TEMP.RULE_TYPE,
+             CII.RULE_CODE = TEMP.RULE_CODE,
+             CII.RULE_DETAILS = TEMP.RULE_DETAILS,
+             CII.ORG_DATA = TEMP.ORG_DATA,
+             CII.CHECK_DATE = TEMP.CHECK_DATE,
+             CII.UPDATE_USER = TEMP.UPDATE_USER,
+             CII.UPDATE_TIME = TEMP.UPDATE_TIME,
+             CII.ERR_MSG = TEMP.ERR_MSG,
+             CII.RELEVANCE_REPORT = TEMP.RELEVANCE_REPORT,
+             CII.FLAG_UUID = TEMP.FLAG_UUID,
+        <!-- 未匹配到这插入 -->
+        WHEN NOT MATCHED THEN
+        INSERT (
+            DATA_UUID,
+            DATA_ID,
+            RULE_ID,
+            PBC_ELEMENT_CODE,
+            REPORT_NAME,
+            FIELD_NAME,
+            RULE_TYPE,
+            RULE_CODE,
+            RULE_DETAILS,
+            ORG_DATA,
+            CHECK_DATE,
+            CREATE_USER,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+            ERR_MSG,
+            RELEVANCE_REPORT,
+            FLAG_UUID
+        )
+        VALUES (
+            TEMP.DATA_UUID,
+            TEMP.DATA_ID,
+            TEMP.RULE_ID,
+            TEMP.PBC_ELEMENT_CODE,
+            TEMP.REPORT_NAME,
+            TEMP.FIELD_NAME,
+            TEMP.RULE_TYPE,
+            TEMP.RULE_CODE,
+            TEMP.RULE_DETAILS,
+            TEMP.ORG_DATA,
+            TEMP.CHECK_DATE,
+            TEMP.CREATE_USER,
+            TEMP.CREATE_DEPT,
+            TEMP.CREATE_TIME,
+            TEMP.UPDATE_USER,
+            TEMP.UPDATE_TIME,
+            TEMP.ERR_MSG,
+            TEMP.RELEVANCE_REPORT,
+            TEMP.FLAG_UUID
+        )
+    </insert>
+
+    <delete id="deleteByKey" parameterType="java.util.Map" >
+        delete from PBC_SUBMIT_BEFORE_CHECK
+        where DATA_ID = #{dataId,jdbcType=VARCHAR}
+        and REPORT_NAME = #{reportName,jdbcType=VARCHAR}
+    </delete>
+
+
+
+    <select id="searchBackKey" parameterType="string"
+            resultType="com.joyintech.tams.report.common.dto.ExcelValidDto">
+        select DATA_UUID checkSeqno,
+        DATA_ID validKey,
+        '03' checkResult,
+        ERR_MSG errorInfo,
+        NULL warnInfo
+        from
+        PBC_SUBMIT_BEFORE_CHECK
+        WHERE FLAG_UUID = #{backKey,jdbcType=VARCHAR}
+    </select>
+
+    <select id="searchExportExcel" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+        SELECT
+            DATA_UUID DATA_UUID, DATA_ID DATA_ID, RULE_ID RULE_ID, PBC_ELEMENT_CODE PBC_ELEMENT_CODE,
+            REPORT_NAME REPORT_NAME, FIELD_NAME FIELD_NAME, RULE_TYPE RULE_TYPE, RULE_CODE RULE_CODE,
+            RULE_DETAILS RULE_DETAILS, RELEVANCE_REPORT RELEVANCE_REPORT, CHECK_DATE CHECK_DATE,
+            CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER,
+            UPDATE_TIME UPDATE_TIME, FLAG_UUID FLAG_UUID, ERR_MSG ERR_MSG, ORG_DATA ORG_DATA
+        FROM
+            pbc_submit_before_check
+        <where>
+            <if test="keyIdList != null and keyIdList.size() > 0">
+                <foreach collection="keyIdList" item="item" open="DATA_UUID IN (" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="searchExportErr" parameterType="java.util.Map" resultType="com.joyintech.tams.svreport.submitbefore.dto.PbcSubmitBeforeCheck001Dto">
+        select
+        <include refid="com.joyintech.tams.svreport.submitbefore.dao.PbcSubmitBeforeCheck001Mapper.sql_Page" />
+        FROM
+        pbc_submit_before_check t1
+        LEFT JOIN pbc_generat_b_checkdetail t2 ON t1.DATA_UUID = t2.CHECK_UUID
+        LEFT JOIN pbc_check_rule_info t3 ON t3.RULE_ID = t2.RULE_ID
+        where
+        ((t1.DATA_UUID, t3.RULE_ID, t3.PBC_ASSET_CODE))
+        <foreach collection="keyList" item="item" open="(" separator="," close=")">
+            (#{item.dataUuid}, #{item.ruleId}, #{item.pbcElementCode})
+        </foreach>
+    </select>
+
+    <delete id="deleteDetailByKey" parameterType="java.util.Map" >
+        delete from PBC_REPORT_GENERAT_CHECKDETAIL where CHECK_UUID IN (
+            select psbc.DATA_UUID from PBC_SUBMIT_BEFORE_CHECK psbc
+            where psbc.DATA_ID = #{dataId,jdbcType=VARCHAR}
+              and  psbc.REPORT_NAME = #{reportName,jdbcType=VARCHAR})
+    </delete>
+
+    <select id="selectZg01ListTer" resultType="map" >
+        SELECT
+            a.*
+        FROM
+            (
+                SELECT
+                    replace(PBC_PROD_ID,'INS','')                                                            pbcProdId,
+                    PROD_NAME                                                              prodName,
+                    PBC_PROD_TYPE                                                          pbcProdType,
+                    IVSTORIENTATION                                                        ivstorientation,
+                    PROD_BRAND                                                             prodBrand,
+                    PROD_STAGE                                                             prodStage,
+                    RAISE_CCY                                                              raiseCcy,
+                    CASH_PRIN_CCY                                                          cashPrinCcy,
+                    CASH_PROF_CCY                                                          cashProfCcy,
+                    RAISE_TYPE                                                             raiseType,
+                    MANAGE_TYPE                                                            manageType,
+                    OPERATE_MODE                                                           operateMode,
+                    RAISE_VDATE                                                            raiseVdate,
+                    RAISE_ENDDATE                                                          raiseEnddate,
+                    TERM_RIGHT_FLAG                                                        termRightFlag,
+                    CUS_REDEEM_FLAG                                                        cusRedeemFlag,
+                    CREDIT_FLAG                                                            creditFlag,
+                    CREDIT_TYPE                                                            creditType,
+                    CREDIT_MODE                                                            creditMode,
+                    IN_DEP_NAME                                                            inDepName,
+                    IN_DEP_CODE                                                            inDepCode,
+                    OUT_DEP_CTRY                                                           outDepCtry,
+                    OUT_DEP_NAME                                                           outDepName,
+                    VDATE                                                                  vdate,
+                    MDATE                                                                  mdate,
+                    FIDUCIARY_DUTY                                                         fiduciaryDuty,
+                    IS_CONSTRACTE                                                          isConstracte,
+                    TRANSFER_TYPE                                                          transferType,
+                    CASH_MANA_CATE                                                         cashManaCate,
+                    CROSS_BORDER_FLAG                                                      crossBorderFlag,
+                    IS_PROPERTY_FLAG                                                       isPropertyFlag,
+                    BASE_INFO_SIGN                                                         baseInfoSign,
+                    ISSUE_PARTY_ID                                                         issuePartyId,
+                    ISSUE_PARTY_NAME                                                       issuePartyName,
+                    PROD_ID                                                                prodId,
+                    row_number() OVER (partition BY PBC_PROD_ID ORDER BY UPDATE_TIME DESC) AS myrank
+                FROM
+                    PBC_COL_PRD_BASEINFO_SUB
+                WHERE
+                    SEND_STATUS='03') a
+        WHERE
+            a.myrank=1
+    </select>
+    <select id="selectHaveDate" resultType="java.lang.String">
+        select t2.pbc_code
+        from chb_prd_deal deal
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=deal.PROD_ID
+        where deal.TRADE_TYPE='16'
+        and deal.STATUS in ('E','M')
+        and TO_CHAR(deal.SETTDATE_DATE,'yyyyMM') = #{termId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectNoVdate" resultType="java.lang.String">
+
+     SELECT  nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+     FROM pbc_col_prd_baseinfo_sub a
+      LEFT JOIN(
+        SELECT
+            inside_prod_id,
+            pbc_code
+        FROM
+            pbc_prod_assetpool_code
+        WHERE
+                status='E'
+          AND code_type='01'
+    )t2 ON t2.inside_prod_id=a.PROD_ID
+     where  a.OPERATE_MODE ='3'
+     and  TO_CHAR(a.VDATE,'yyyyMM') != #{termId,jdbcType=VARCHAR}
+
+    </select>
+
+    <select id="selectNoMdate" resultType="java.lang.String">
+
+    SELECT  nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+    FROM pbc_col_prd_baseinfo_sub a
+             LEFT JOIN(
+        SELECT
+            inside_prod_id,
+            pbc_code
+        FROM
+            pbc_prod_assetpool_code
+        WHERE
+                status='E'
+          AND code_type='01'
+    )t2 ON t2.inside_prod_id=a.PROD_ID
+    where  a.OPERATE_MODE ='3'
+      AND a.CUS_REDEEM_FLAG='2'
+      and not exists(
+          select 1 from pbc_col_prd_baseinfo_end_sub b
+          where a.PBC_PROD_ID=b.PBC_PROD_ID
+            and  TO_CHAR(b.MDATE,'yyyyMM')  != #{termId,jdbcType=VARCHAR}
+        )
+    </select>
+
+    <select id="selecthMdate" resultType="java.lang.String">
+
+    SELECT  nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+    FROM pbc_col_prd_baseinfo_sub a
+             LEFT JOIN(
+        SELECT
+            inside_prod_id,
+            pbc_code
+        FROM
+            pbc_prod_assetpool_code
+        WHERE
+                status='E'
+          AND code_type='01'
+    )t2 ON t2.inside_prod_id=a.PROD_ID
+    where 1=1
+      and  exists(
+          select 1 from pbc_col_prd_baseinfo_end_sub b
+          where a.PBC_PROD_ID=b.PBC_PROD_ID
+            and  TO_CHAR(b.MDATE,'yyyyMM')  = #{termId,jdbcType=VARCHAR}
+        )
+    </select>
+
+    <select id="selectNotSubmitProdId" resultType="java.lang.String">
+        select DISTINCT nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+        from pbc_col_prd_baseinfo_sub a
+        left join pbc_col_prd_baseinfo_end_sub b
+        on a.PBC_PROD_ID = b.PBC_PROD_ID
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=a.PROD_ID
+        where TO_CHAR(a.MDATE,'yyyy-MM-dd')  <![CDATA[<]]> #{termId,jdbcType=VARCHAR}
+        and b.REGIST_SEQNO is null
+    </select>
+
+    <select id="selectNotSubmit3DayProdId" resultType="java.lang.String">
+        select DISTINCT nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+        from pbc_col_prd_baseinfo_sub a
+        left join pbc_col_prd_baseinfo_end_sub b
+        on a.PBC_PROD_ID = b.PBC_PROD_ID
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=a.PROD_ID
+        where TO_CHAR(a.MDATE+3,'yyyy-MM-dd')  <![CDATA[<]]> #{termId,jdbcType=VARCHAR}
+        and b.REGIST_SEQNO is null
+    </select>
+
+    <select id="selectAllZG01ProdId" resultType="java.lang.String">
+        select DISTINCT nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+        from pbc_col_prd_baseinfo_sub a
+        LEFT JOIN(
+        SELECT
+        inside_prod_id,
+        pbc_code
+        FROM
+        pbc_prod_assetpool_code
+        WHERE
+        status='E'
+        AND code_type='01'
+        )t2 ON t2.inside_prod_id=a.PROD_ID
+    </select>
+
+
+
+    <select id="selectVdate" resultType="java.lang.String">
+
+     SELECT  nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+     FROM pbc_col_prd_baseinfo_sub a
+      LEFT JOIN(
+        SELECT
+            inside_prod_id,
+            pbc_code
+        FROM
+            pbc_prod_assetpool_code
+        WHERE
+                status='E'
+          AND code_type='01'
+    )t2 ON t2.inside_prod_id=a.PROD_ID
+     and  TO_CHAR(a.VDATE,'yyyyMM') = #{termId,jdbcType=VARCHAR}
+
+    </select>
+
+
+    <select id="selectVdateList" resultType="java.lang.String">
+
+     SELECT  nvl(t2.pbc_code,a.PBC_PROD_ID)  as PBC_PROD_ID
+     FROM pbc_col_prd_baseinfo_sub a
+      LEFT JOIN(
+        SELECT
+            inside_prod_id,
+            pbc_code
+        FROM
+            pbc_prod_assetpool_code
+        WHERE
+                status='E'
+          AND code_type='01'
+    )t2 ON t2.inside_prod_id=a.PROD_ID
+     where  TO_CHAR(a.VDATE,'yyyyMM') = #{termId,jdbcType=VARCHAR}
+
+    </select>
+</mapper>

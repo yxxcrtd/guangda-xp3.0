@@ -1,0 +1,1 @@
+alter table pbc_check_rule_info  modify column rule_param varchar(1000);

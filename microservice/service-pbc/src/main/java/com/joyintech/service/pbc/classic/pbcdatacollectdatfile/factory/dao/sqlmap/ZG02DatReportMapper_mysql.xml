@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG02DatReportMapper_mysql">
+
+	<delete id="deleteBySub">
+		delete from pbc_col_init_prod_raising_sub
+		where SEND_STATUS != '03'
+		<foreach collection="list" item="item" index="index" open=" and (PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null,null,null)) OR (PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR},
+			#{item.buyPlace,jdbcType=VARCHAR},
+			#{item.customerType1,jdbcType=VARCHAR})
+		</foreach>
+	</delete>
+
+	<delete id="deleteByDat">
+		delete from pbc_col_init_prod_raising_DAT
+		where
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null,null,null)) OR (PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR},
+			#{item.buyPlace,jdbcType=VARCHAR},
+			#{item.customerType1,jdbcType=VARCHAR})
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into pbc_col_init_prod_raising_sub (
+			REGIST_SEQNO, PROD_ID,PBC_PROD_ID, BUY_PLACE,
+			CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM,
+			INIT_RAISING_AMTSUMCNY, INIT_RAISING_QTY, SEND_STATUS,
+			SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ,
+			STATUS_DATE, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+			STATUS, CREATE_USER, ORG_CODE,
+			CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+			UPDATE_TIME,datuuid
+		)
+		<foreach collection="list" item="item" separator="union all">
+			select uuid(), #{item.prodId,jdbcType=VARCHAR}, #{item.pbcProdId,jdbcType=VARCHAR},#{item.buyPlace,jdbcType=VARCHAR},
+			#{item.customerType1,jdbcType=VARCHAR}, #{item.ccy,jdbcType=CHAR}, #{item.initRaisingAmtsum,jdbcType=DECIMAL},
+			#{item.initRaisingAmtsumcny,jdbcType=DECIMAL}, #{item.initRaisingQty,jdbcType=DECIMAL}, #{item.sendStatus,jdbcType=VARCHAR},
+			#{item.submitTime,jdbcType=TIMESTAMP}, #{item.submitFeedbackStatus,jdbcType=VARCHAR}, #{item.sumitSeq,jdbcType=VARCHAR},
+			now(), #{item.pbcSubmitDeadline,jdbcType=TIMESTAMP}, #{item.submitDeadline,jdbcType=TIMESTAMP},
+			#{item.status,jdbcType=VARCHAR}, #{item.createUser,jdbcType=VARCHAR}, #{item.orgCode,jdbcType=VARCHAR},
+			#{item.createDept,jdbcType=VARCHAR}, now(), #{item.updateUser,jdbcType=VARCHAR},now(),#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into pbc_col_init_prod_raising_DAT (
+		REGIST_SEQNO, PROD_ID,PBC_PROD_ID, BUY_PLACE,
+		CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM,
+		INIT_RAISING_AMTSUMCNY, INIT_RAISING_QTY, SEND_STATUS,
+		SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ,
+		STATUS_DATE, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+		STATUS, CREATE_USER, ORG_CODE,
+		CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+		UPDATE_TIME,datuuid
+		)
+		SELECT
+		REGIST_SEQNO, PROD_ID,PBC_PROD_ID, BUY_PLACE,
+		CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM,
+		INIT_RAISING_AMTSUMCNY, INIT_RAISING_QTY, SEND_STATUS,
+		SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ,
+		STATUS_DATE, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+		STATUS, CREATE_USER, ORG_CODE,
+		CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+		UPDATE_TIME,#{uuid,jdbcType=VARCHAR}
+		FROM pbc_col_init_prod_raising_sub
+		WHERE
+		<foreach collection="list" item="item" index="index" open="(PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null,null,null)) OR (PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR},
+			#{item.buyPlace,jdbcType=VARCHAR},
+			#{item.customerType1,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select PBC_PROD_ID, CCY, BUY_PLACE, CUSTOMER_TYPE1, INIT_RAISING_AMTSUM, INIT_RAISING_AMTSUMCNY, INIT_RAISING_QTY
+		from pbc_col_init_prod_raising_sub
+		where (STATUS = '03' or SEND_STATUS = '03') and (
+		<foreach collection="list" item="item" index="index" open=" (PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null,null,null)) OR (PBC_PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(
+			</if>
+			(#{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.ccy,jdbcType=VARCHAR},
+			#{item.buyPlace,jdbcType=VARCHAR},
+			#{item.customerType1,jdbcType=VARCHAR})
+		</foreach>
+		)
+	</select>
+
+	<update id="updatePDatDataStatus" parameterType="java.lang.String">
+		update pbc_col_init_prod_raising_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update pbc_col_init_prod_raising_sub
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where
+		<foreach collection="list" item="item" index="index" open="(PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null,null,null)) OR (PROD_ID,CCY,BUY_PLACE,CUSTOMER_TYPE1) in(
+			</if>
+			(#{item.prodId,jdbcType=VARCHAR} ,
+			#{item.ccy,jdbcType=VARCHAR},
+			#{item.buyPlace,jdbcType=VARCHAR},
+			#{item.customerType1,jdbcType=VARCHAR})
+		</foreach>
+
+
+	</update>
+
+	<select id="getPListByUUid" resultType="java.util.Map">
+	 select REGIST_SEQNO, PROD_ID,replace(PBC_PROD_ID,'INS','') PBC_PROD_ID, BUY_PLACE,
+			   CUSTOMER_TYPE1, CCY, INIT_RAISING_AMTSUM,
+			   INIT_RAISING_AMTSUMCNY, INIT_RAISING_QTY, SEND_STATUS,
+			   SUBMIT_FEEDBACK_STATUS, SUMIT_SEQ,
+			   STATUS, CREATE_USER, ORG_CODE,
+			   CREATE_DEPT,  UPDATE_USER,
+			   CONCAT('产品代码:',replace(PBC_PROD_ID,'INS',''),';币种:',CCY,';地区:',BUY_PLACE,';客户类型:',CUSTOMER_TYPE1,';起息日:'
+				   ,date_format(STATUS_DATE, '%Y-%m-%d')) dataKey,
+			   date_format(STATUS_DATE, '%Y-%m-%d')  STATUS_DATESTR
+		from pbc_col_init_prod_raising_sub A
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY A.PBC_PROD_ID ,A.CCY ,A.BUY_PLACE ,A.CUSTOMER_TYPE1 , A.PBC_SUBMIT_DEADLINE, A.STATUS_DATE DESC
+	</select>
+
+	<update id="updateUuidSub">
+        update pbc_col_init_prod_raising_sub
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

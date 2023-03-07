@@ -1,0 +1,76 @@
+package com.joyintech.tams.batch.svreport.prodinfo.service;
+
+import com.joyintech.framework.exception.BusinessException;
+import com.joyintech.tams.batch.report.autosendcb.common.service.AutoSendCBBaseService;
+import com.joyintech.tams.common.ProdTargetFileImpService;
+import com.joyintech.tams.common.base.entity.ChbInterfConfigDto;
+import com.joyintech.tams.common.svreport.chb.util.ChbInterfUtil;
+import com.joyintech.tams.report.common.constant.BatchBeanName;
+import com.joyintech.tams.report.interf.common.constant.InterfConstants;
+import com.joyintech.tams.svreport.interf.chb.prodinfo.service.ChbPrdPeriodyieldInterf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @Description 特定目的载体持有信息（投资者）接口
+ * @author jiangxiao
+ * @version 1.7 2019年5月10日
+ * @since 1.7
+ */
+@Service(value = "prodTargetImpMainService")
+@Scope("prototype")
+@Transactional(rollbackFor = Exception.class)
+public class ProdTargetImpMainService extends AutoSendCBBaseService{
+
+	/**
+     * 日志
+     */
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
+    @Autowired
+    private ProdTargetFileImpService prodTargetFileImpService;
+    
+    @Autowired
+	private ChbPrdPeriodyieldInterf chbPrdPeriodyieldInterf;
+    
+	public Map<String, List<String>> generatePrdTargetData(Date batchDate,List<String> prodidList) {
+		Map<String, List<String>> mapPara = new HashMap<String, List<String>>();
+		// 设置批处理bean
+		setBatchBeanName(BatchBeanName.特定目的载体持有信息接口数据接入);
+		logInfoBatchStart();
+		try {
+			// 获取配置项
+			ChbInterfConfigDto interfConfig = ChbInterfUtil
+					.queryInterfConfigByInterfid(com.joyintech.tams.common.InterfDefine.产品收益率净值接口数据.getCode());
+			if (interfConfig == null) {
+				logger.info("CHB_INTERF_CONFIG表中无配置项！");
+			}
+			String contentSrc = interfConfig.getContentSrc();
+			if (InterfConstants.CONTENTSRC_FILE_XML.equals(contentSrc)
+					|| InterfConstants.CONTENTSRC_FILE_TXT.equals(contentSrc)) {
+            	// 报价信息文件接入
+            	String result = prodTargetFileImpService.execute(batchDate,com.joyintech.tams.common.InterfDefine.特定目的载体持有信息接口数据.getCode());
+            	if("fail".equals(result)){
+//					throw new BusinessException("fail");
+				}
+			} else {
+				logger.error("CHB_INTERF_CONFIG表中内容来源配置无效！");
+			}
+		} catch (Exception e) {
+			logger.error("特定目的载体持有信息（投资者）接口数据接入Error",e);
+//			throw new BusinessException(e);
+		}
+		logInfoBatchEnd();
+		return mapPara;
+	}
+	
+}

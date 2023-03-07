@@ -1,0 +1,7 @@
+
+DELETE FROM CHB_DATACHECK_RULE WHERE CHECKRULEID like 'CHB_MST_COUNTER_PARTY_JYDS-20220529%';
+INSERT INTO CHB_DATACHECK_RULE VALUES ('CHB_MST_COUNTER_PARTY_JYDS-20220529-0001-01','CHB_MST_COUNTER_PARTY','com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib','inDatadict','COUNTER_TYPE','==','MST_COUNTER_TYPE','N','交易对手类别不在值域范围内','E');
+INSERT INTO CHB_DATACHECK_RULE VALUES ('CHB_MST_COUNTER_PARTY_JYDS-20220529-0001-02','CHB_MST_COUNTER_PARTY','com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib','lessThanCharLength','COUNTER_ID',NULL,'33','N','交易对手代码不可以为空，且不能超过32个字符。','E');
+INSERT INTO CHB_DATACHECK_RULE VALUES ('CHB_MST_COUNTER_PARTY_JYDS-20220529-0001-03','CHB_MST_COUNTER_PARTY','com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib','lessThanCharLength','COUNTER_NAME',NULL,'201','N','交易对手名称不可以为空，且不能超过200个字符。','E');
+INSERT INTO CHB_DATACHECK_RULE VALUES ('CHB_MST_COUNTER_PARTY_JYDS-20220529-0001-04','CHB_MST_COUNTER_PARTY','com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib','inDatadict','COUNTER_TYPE2','==','SVR_CUSTOMER_TYPE2','N','交易对手类型不在值域范围内','E');
+INSERT INTO CHB_DATACHECK_RULE VALUES ('CHB_MST_COUNTER_PARTY_JYDS-20220529-0001-05','CHB_MST_COUNTER_PARTY','com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib','lessThanCharLength','REMARK',NULL,'257','Y','备注不能超过256个字符。','E');

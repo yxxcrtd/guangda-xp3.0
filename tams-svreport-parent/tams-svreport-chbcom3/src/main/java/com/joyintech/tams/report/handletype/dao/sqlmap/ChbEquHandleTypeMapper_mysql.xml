@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.report.handletype.dao.ChbEquHandleTypeMapper_mysql">
+	<select id="selectInvestHoldData" resultType="com.joyintech.tams.report.handletype.dto.EquityHolderTypeDto">
+		select  INDENTIFY_MARK as  indentifyMark,
+		CASE WHEN MAX(CNY_AMT) &lt; 6000000
+		THEN '02'
+		ELSE '03'
+		END  holderType,
+		'E' status,
+		NOW() updateTime,
+		NOW() createTime
+		from chb_investhold_info_sub
+		where HOLD_DATE=STR_TO_DATE(#{excuteDate},'%Y-%m-%d')
+		AND  CNY_AMT>1000000
+		GROUP BY INDENTIFY_MARK
+	</select>
+
+	<delete id="truncateTmp">
+     TRUNCATE TABLE chb_equ_type_tmp
+	</delete>
+
+	<select id="selectChangeHoldType" resultType="com.joyintech.tams.report.submitmaintenance.equityinfo.dto.EquityInfo001Dto">
+    SELECT
+        sub.INDENTIFY_MARK  AS indentifyMark,
+        sub.ORG_INDENTIFY_MARK AS orgIndentifyMark,
+        sub.REGIST_BANK_CODE AS bankCode,
+        sub.IS_BELONG_BANK AS isBelongBank,
+        sub.THE_BANK_NAME AS theBankName,
+        sub.THE_BANK_CODE AS theBankCode,
+        sub.HOLDER_MARK AS holderMark,
+        sub.HOLDER_REGION AS holderRegion,
+        tmp.HOLDER_TYPE AS holderType,
+        sub.TYPE AS type,
+        sub.PERSONAL_IDENTIFY_TYPE AS personalIdentifyType,
+        sub.INSTITUTION_IDENTIFY_TYPE AS institutionIdentifyType,
+        sub.OTHER_IDENTIFY_NAME AS otherIdentifyName,
+        sub.IDENTIFY_NUMBER AS identifyNumber,
+        sub.SPV_CAP_ACC_BANK AS spvCapAccBank,
+        sub.OTHER_CAP_ACC_BANK AS otherCapAccBank,
+        sub.SPV_REGIST_CODE AS spvRegistCode,
+        sub.HOLDER_DATE AS holderDate,
+        sub.HOLDER_NAME AS holderName,
+        sub.HOLDER_SEX AS holderSex,
+        sub.HOLDER_RISK_PREFER AS holderRiskPrefer,
+        sub.HOLDER_CELLPHONE AS holderCellphone,
+        sub.HOLDER_TELEPHONE AS holderTelephone,
+        sub.HOLDER_EMAIL AS holderEmail,
+        sub.REMARK AS remark,
+        sub.STATUS AS status,
+        sub.DEPT_CODE AS deptCode,
+        sub.UPDATE_USER AS updateUser,
+        sub.UPDATE_TIME AS updateTime,
+        sub.CREATE_USER AS createUser,
+        sub.ORG_CODE AS orgCode,
+        sub.SUBMIT_STATUS AS submitStatus
+    from (select t.*
+    from (
+         select qu.*,
+                rank() over (partition by INDENTIFY_MARK order by SUBMIT_STATUS ) rk
+         from CHB_EQU_SUB qu
+     ) t where rk=1 )   sub
+    inner join  chb_equ_type_tmp tmp
+    on sub.INDENTIFY_MARK=tmp.INDENTIFY_MARK
+    and  sub.HOLDER_TYPE != tmp.HOLDER_TYPE
+    where sub.STATUS in  ('01','02')
+	</select>
+
+	<update id="updateSubHandleType" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" >
+			update CHB_EQU_SUB  sub
+			set
+			sub.HOLDER_TYPE = #{item.holderType,jdbcType=VARCHAR}
+			where
+			sub.INDENTIFY_MARK = #{item.indentifyMark}
+			AND SUBMIT_STATUS='01'
+		</foreach>
+		;
+	</update>
+
+    <update id="updateSubHandleInfoType" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+            update CHB_EQU_HOLD  sub
+            set
+            sub.HOLDER_TYPE = #{item.holderType,jdbcType=VARCHAR}
+            where
+            sub.INDENTIFY_MARK = #{item.indentifyMark}
+            AND STATUS='E'
+        </foreach>
+        ;
+    </update>
+
+</mapper>

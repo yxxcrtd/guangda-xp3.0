@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dao.ChbProductsBalanceSubMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto" >
+        <id column="REGIST_SEQNO" property="registSeqno" jdbcType="VARCHAR" />
+        <result column="STATUS_BATCH" property="statusBatch" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="INDENTIFY_MARK" property="indentifyMark" jdbcType="VARCHAR" />
+        <result column="FUND_ACC" property="fundAcc" jdbcType="VARCHAR" />
+        <result column="FIN_ACC" property="finAcc" jdbcType="VARCHAR" />
+        <result column="AMOUNT_CNY" property="amountCny" jdbcType="DECIMAL" />
+        <result column="IS_CONSIGN" property="isConsign" jdbcType="VARCHAR" />
+        <result column="BANK_MARK" property="bankMark" jdbcType="VARCHAR" />
+        <result column="DATE_STATUS" property="dateStatus" jdbcType="DATE" />
+        <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        REGIST_SEQNO REGIST_SEQNO, STATUS_BATCH STATUS_BATCH, ACCOUNT ACCOUNT, INDENTIFY_MARK INDENTIFY_MARK, 
+        FUND_ACC FUND_ACC, FIN_ACC FIN_ACC, AMOUNT_CNY AMOUNT_CNY, IS_CONSIGN IS_CONSIGN, 
+        BANK_MARK BANK_MARK, DATE_STATUS DATE_STATUS, GROUP_ID GROUP_ID, STATUS STATUS, CREATE_USER CREATE_USER, 
+        ORG_CODE ORG_CODE, CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, 
+        UPDATE_TIME UPDATE_TIME
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dao.ChbProductsBalanceSubMapper.Base_Column_List" />
+        from CHB_PRODUCTS_BALANCE_SUB
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dao.ChbProductsBalanceSubMapper.Base_Column_List" />
+        from CHB_PRODUCTS_BALANCE_SUB
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.svreport.gd.report.chbproductsbalancesub.dao.ChbProductsBalanceSubMapper.Base_Column_List" />
+        from CHB_PRODUCTS_BALANCE_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_PRODUCTS_BALANCE_SUB
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto" >
+        insert into CHB_PRODUCTS_BALANCE_SUB (REGIST_SEQNO, STATUS_BATCH, ACCOUNT, 
+            INDENTIFY_MARK, FUND_ACC, FIN_ACC, 
+            AMOUNT_CNY, IS_CONSIGN, BANK_MARK, 
+            DATE_STATUS, GROUP_ID, STATUS, 
+            CREATE_USER, ORG_CODE, CREATE_DEPT, 
+            CREATE_TIME, UPDATE_USER, UPDATE_TIME
+            )
+        values (
+            #{registSeqno,jdbcType=VARCHAR}, #{statusBatch,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR},
+            #{indentifyMark,jdbcType=VARCHAR}, #{fundAcc,jdbcType=VARCHAR}, #{finAcc,jdbcType=VARCHAR}, 
+            #{amountCny,jdbcType=DECIMAL}, #{isConsign,jdbcType=VARCHAR}, #{bankMark,jdbcType=VARCHAR}, 
+            #{dateStatus,jdbcType=DATE}, #{groupId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+            #{createUser,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, 
+            #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto" >
+        insert into CHB_PRODUCTS_BALANCE_SUB
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                REGIST_SEQNO,
+            </if>
+            <if test="statusBatch != null" >
+                STATUS_BATCH,
+            </if>
+            <if test="account != null" >
+                ACCOUNT,
+            </if>
+            <if test="indentifyMark != null" >
+                INDENTIFY_MARK,
+            </if>
+            <if test="fundAcc != null" >
+                FUND_ACC,
+            </if>
+            <if test="finAcc != null" >
+                FIN_ACC,
+            </if>
+            <if test="amountCny != null" >
+                AMOUNT_CNY,
+            </if>
+            <if test="isConsign != null" >
+                IS_CONSIGN,
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK,
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS,
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="registSeqno != null" >
+                #{registSeqno,jdbcType=VARCHAR},
+            </if>
+            <if test="statusBatch != null" >
+                #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="indentifyMark != null" >
+                #{indentifyMark,jdbcType=VARCHAR},
+            </if>
+            <if test="fundAcc != null" >
+                #{fundAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="finAcc != null" >
+                #{finAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="amountCny != null" >
+                #{amountCny,jdbcType=DECIMAL},
+            </if>
+            <if test="isConsign != null" >
+                #{isConsign,jdbcType=VARCHAR},
+            </if>
+            <if test="bankMark != null" >
+                #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto" >
+        insert into CHB_PRODUCTS_BALANCE_SUB(REGIST_SEQNO, STATUS_BATCH, ACCOUNT, INDENTIFY_MARK, 
+        FUND_ACC, FIN_ACC, AMOUNT_CNY, IS_CONSIGN, BANK_MARK, DATE_STATUS, GROUP_ID, STATUS, 
+        CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+        select REGIST_SEQNO, STATUS_BATCH, ACCOUNT, INDENTIFY_MARK, 
+            FUND_ACC, FIN_ACC, AMOUNT_CNY, IS_CONSIGN, BANK_MARK, DATE_STATUS, GROUP_ID, #{status,jdbcType=VARCHAR} STATUS, 
+            CREATE_USER, ORG_CODE, CREATE_DEPT, CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+             from CHB_PRODUCTS_BALANCE_SUB
+             where STATUS = 'E' and REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto" >
+        update CHB_PRODUCTS_BALANCE_SUB
+        <set >
+            <if test="statusBatch != null" >
+                STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                ACCOUNT = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="indentifyMark != null" >
+                INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR},
+            </if>
+            <if test="fundAcc != null" >
+                FUND_ACC = #{fundAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="finAcc != null" >
+                FIN_ACC = #{finAcc,jdbcType=VARCHAR},
+            </if>
+            <if test="amountCny != null" >
+                AMOUNT_CNY = #{amountCny,jdbcType=DECIMAL},
+            </if>
+            <if test="isConsign != null" >
+                IS_CONSIGN = #{isConsign,jdbcType=VARCHAR},
+            </if>
+            <if test="bankMark != null" >
+                BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            </if>
+            <if test="dateStatus != null" >
+                DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            </if>
+            <if test="groupId != null" >
+                GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="orgCode != null" >
+                ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto" >
+        update CHB_PRODUCTS_BALANCE_SUB
+        set STATUS_BATCH = #{statusBatch,jdbcType=VARCHAR},
+            ACCOUNT = #{account,jdbcType=VARCHAR},
+            INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR},
+            FUND_ACC = #{fundAcc,jdbcType=VARCHAR},
+            FIN_ACC = #{finAcc,jdbcType=VARCHAR},
+            AMOUNT_CNY = #{amountCny,jdbcType=DECIMAL},
+            IS_CONSIGN = #{isConsign,jdbcType=VARCHAR},
+            BANK_MARK = #{bankMark,jdbcType=VARCHAR},
+            DATE_STATUS = #{dateStatus,jdbcType=DATE},
+            GROUP_ID = #{groupId,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where REGIST_SEQNO = #{registSeqno,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 分页查询 -->
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbproductsbalancesub.dto.ChbProductsBalanceSub001Dto">
+        SELECT
+            T1.REGIST_SEQNO   AS registSeqno,
+            T1.STATUS_BATCH   AS statusBatch,
+            T1.ACCOUNT        AS account,
+            T1.INDENTIFY_MARK AS indentifyMark,
+            T1.FUND_ACC       AS fundAcc,
+            T1.FIN_ACC        AS finAcc,
+            T1.AMOUNT_CNY     AS amountCny,
+            T1.IS_CONSIGN     AS isConsign,
+            T1.BANK_MARK      AS bankMark,
+            T1.DATE_STATUS    AS dateStatus,
+            T1.GROUP_ID       AS groupId
+        FROM
+            CHB_PRODUCTS_BALANCE_SUB T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.DATE_STATUS = TO_DATE(#{dateStatus}, 'yyyy-MM-dd')
+            </if>
+        </where>
+    </select>
+
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+             CHB_PRODUCTS_BALANCE_SUB
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and DATE_STATUS = TO_DATE(#{dateStatus}, 'yyyy-MM-dd')
+            </if>
+        </where>
+    </select>
+    <!-- 批导出是否在执行或待执行 -->
+    <select id="getNoendCountByTaskBeanName" parameterType="string" resultType="int">
+        select count(1)
+        from SYS_BATCHGRP_EXEC_INFO info
+        left join SYS_BATCH_JOB bj
+        on info.BATCH_SEQ_NO=bj.BATCH_SEQ_NO
+        where
+        bj.TASK_ID=#{taskid,jdbcType=VARCHAR}
+        and info.STATUS in ('UNR','RUN')
+    </select>
+</mapper>

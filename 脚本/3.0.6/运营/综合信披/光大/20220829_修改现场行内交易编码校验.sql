@@ -1,0 +1,1 @@
+update CHB_DATACHECK_RULE_INV set CHECKMETHOD='lessThanCharLength',OBJVALUE='33'  where PAGE_ID='CchbInvestTrade002' and SRCPROPERTY='tradeCode';

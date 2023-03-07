@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dao.ChbMstCounterPartyDao">
+    <insert id="insert">
+        MERGE INTO CHB_MST_COUNTER_PARTY a USING (
+            SELECT
+                #{uuid,jdbcType=VARCHAR} UUID,
+                #{counterId,jdbcType=VARCHAR} COUNTER_ID,
+                #{counterType,jdbcType=VARCHAR} COUNTER_TYPE,
+                #{counterName,jdbcType=VARCHAR} COUNTER_NAME,
+                #{counterType1,jdbcType=VARCHAR} COUNTER_TYPE1,
+                #{counterType2,jdbcType=VARCHAR} COUNTER_TYPE2,
+                #{dataSource,jdbcType=VARCHAR} DATA_SOURCE,
+                #{status,jdbcType=VARCHAR} STATUS,
+                #{remark,jdbcType=VARCHAR} REMARK,
+                #{errMsg,jdbcType=VARCHAR} ERR_MSG,
+                #{createUser,jdbcType=VARCHAR} CREATE_USER,
+                #{createDept,jdbcType=VARCHAR} CREATE_DEPT,
+                #{createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+                #{updateUser,jdbcType=VARCHAR} UPDATE_USER,
+                #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+            FROM  DUAL
+        )b ON (a.COUNTER_ID = b.COUNTER_ID)
+            WHEN  MATCHED THEN
+                UPDATE SET
+                    a.COUNTER_TYPE = b.COUNTER_TYPE,
+                    a.COUNTER_NAME = b.COUNTER_NAME,
+                    a.COUNTER_TYPE1 = b.COUNTER_TYPE1,
+                    a.COUNTER_TYPE2 = b.COUNTER_TYPE2,
+                    a.DATA_SOURCE = b.DATA_SOURCE,
+                    a.STATUS = b.STATUS,
+                    a.REMARK = b.REMARK,
+                    a.ERR_MSG = b.ERR_MSG,
+                    a.UPDATE_USER = b.UPDATE_USER,
+                    a.UPDATE_TIME = b.UPDATE_TIME
+            WHEN NOT MATCHED THEN
+                INSERT (
+                        UUID,
+                        COUNTER_ID,
+                        COUNTER_TYPE,
+                        COUNTER_NAME,
+                        COUNTER_TYPE1,
+                        COUNTER_TYPE2,
+                        DATA_SOURCE,
+                        STATUS,
+                        REMARK,
+                        ERR_MSG,
+                        CREATE_USER,
+                        CREATE_DEPT,
+                        CREATE_TIME,
+                        UPDATE_USER,
+                        UPDATE_TIME
+                    )
+                    VALUES(
+                              b.UUID,
+                              b.COUNTER_ID,
+                              b.COUNTER_TYPE,
+                              b.COUNTER_NAME,
+                              b.COUNTER_TYPE1,
+                              b.COUNTER_TYPE2,
+                              b.DATA_SOURCE,
+                              b.STATUS,
+                              b.REMARK,
+                              b.ERR_MSG,
+                              b.CREATE_USER,
+                              b.CREATE_DEPT,
+                              b.CREATE_TIME,
+                              b.UPDATE_USER,
+                              b.UPDATE_TIME
+                          )
+    </insert>
+    <update id="update" parameterType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        update CHB_MST_COUNTER_PARTY set STATUS = #{status},UPDATE_USER = #{updateUser},UPDATE_TIME = #{updateTime}
+        <where>
+            <if test="uuid!=null and uuid!=''">
+                UUID = #{uuid}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateDto" parameterType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        update CHB_MST_COUNTER_PARTY set
+        STATUS = 'E',
+        COUNTER_ID= #{counterId},
+        COUNTER_TYPE= #{counterType},
+        COUNTER_NAME=#{counterName},
+        REMARK=#{remark},
+        COUNTER_TYPE1= #{counterType1},
+        COUNTER_TYPE2= #{counterType2},
+        UPDATE_USER = #{updateUser},
+        UPDATE_TIME = #{updateTime}
+        <where>
+            <if test="uuid!=null and uuid!=''">
+                UUID = #{uuid}
+            </if>
+        </where>
+    </update>
+
+    <delete id="delete" parameterType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto" >
+        delete from CHB_MST_COUNTER_PARTY_ERRODATA
+        where UUID = #{uuid}
+    </delete>
+    <delete id="deleteByKey">
+        delete from CHB_MST_COUNTER_PARTY where COUNTER_ID = #{counterId}
+    </delete>
+    <select id="selectByCounterId" resultType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        select
+        UUID uuid,
+        STATUS status,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_TYPE2 counterType2,
+        REMARK remark
+        from CHB_MST_COUNTER_PARTY B
+        <where>
+            status='E'
+            <if test="counterId!=null and counterId!=''">
+                and  B.COUNTER_ID = #{counterId}
+            </if>
+        </where>
+    </select>
+    <select id="selectByKey" resultType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        select
+        UUID uuid,
+        STATUS statusValid,
+        'INFO' info,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_NAME counterName1,
+        COUNTER_NAME counterName5,
+        COUNTER_TYPE2 counterType2,
+        REMARK remark
+        from CHB_MST_COUNTER_PARTY B
+        <where>
+            <if test="uuid!=null and uuid!=''">
+                B.UUID = #{uuid}
+            </if>
+        </where>
+    </select>
+    <select id="selectErrorByKey" resultType="com.joyintech.tams.common.base.entity.ChbMstCounterPartyErrodataWithBLOBs">
+        select
+        UUID uuid,
+        status statusValid,
+        'ERROR' info,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_NAME counterName1,
+        COUNTER_NAME counterName5,
+        COUNTER_TYPE2 counterType2,
+        ERR_MSG errMsg,
+        ORG_DATA orgData
+        from CHB_MST_COUNTER_PARTY_ERRODATA A
+        <where>
+            <if test="uuid!=null and uuid!=''">
+                A.UUID = #{uuid}
+            </if>
+        </where>
+    </select>
+    <select id="selectAssetNameByAssetCode" resultType="java.util.Map">
+        SELECT ASSET_NAME FROM CHB_ASSET_INFO where ASSET_CODE = #{assetCode}
+    </select>
+    <select id="selectAll" resultType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        select
+        UUID uuid,
+        STATUS statusValid,
+        'ERROR' info,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_TYPE2 counterType2,
+        '' remark,
+        ERR_MSG errMsg,
+        CREATE_TIME updateTime,
+        UPDATE_USER updateUser
+        from CHB_MST_COUNTER_PARTY_ERRODATA A
+        <where>
+            <if test="counterTypes != null and counterTypes.length>0">
+                <foreach collection="counterTypes" item="item" open="A.COUNTER_TYPE in(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="counterNames != null and counterNames.length>0">
+                <foreach collection="counterNames" item="item" open=" and A.COUNTER_Name in(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="counterType2s != null and counterType2s.length>0">
+                <foreach collection="counterType2s" item="item" open=" and A.COUNTER_TYPE2 in(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        union ALL
+        select
+        UUID uuid,
+        STATUS statusValid,
+        'INFO' info,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_TYPE2 counterType2,
+        REMARK remark,
+        ERR_MSG errMsg,
+        CREATE_TIME updateTime,
+        UPDATE_USER updateUser
+        from CHB_MST_COUNTER_PARTY B
+        <where>
+            <if test="counterTypes != null and counterTypes.length>0">
+                <foreach collection="counterTypes" item="item" open="B.COUNTER_TYPE in(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="counterNames != null and counterNames.length>0">
+                <foreach collection="counterNames" item="item" open=" and B.COUNTER_Name in(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="counterType2s != null and counterType2s.length>0">
+                <foreach collection="counterType2s" item="item" open=" and B.COUNTER_TYPE2 in(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    <select id="getCounterName" resultType="com.joyintech.framework.select.SelectOptionDto">
+        select distinct
+        id,
+        text
+        from(
+        SELECT
+        COUNTER_NAME id,
+        COUNTER_NAME text
+        FROM CHB_MST_COUNTER_PARTY
+        <where>
+            <if test="search !=null and  search !='' ">
+                COUNTER_NAME LIKE CONCAT('%',#{search}, '%')
+            </if>
+            <if test="counterName !=null and  counterName !='' ">
+                and COUNTER_NAME = #{counterName}
+            </if>
+        </where>
+        union all
+        SELECT
+        COUNTER_NAME id,
+        COUNTER_NAME text
+        FROM CHB_MST_COUNTER_PARTY_ERRODATA
+        <where>
+            <if test="search !=null and  search !='' ">
+                COUNTER_NAME LIKE CONCAT('%',#{search}, '%')
+            </if>
+            <if test="counterName !=null and  counterName !='' ">
+                and COUNTER_NAME = #{counterName}
+            </if>
+        </where>
+        ) T
+
+    </select>
+    <select id="getCustomerName" resultType="com.joyintech.framework.select.SelectOptionDto">
+        SELECT
+        DISTINCT CUSTOMER_NAME id,
+        CUSTOMER_NAME text
+        FROM MST_CUSTOMER_INFO
+        <where>
+            <if test="search !=null and  search !='' ">
+                CUSTOMER_NAME LIKE CONCAT('%',#{search}, '%')
+            </if>
+            <if test="counterName !=null and  counterName !='' ">
+                and CUSTOMER_NAME = #{counterName}
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="getRivalPartyName" resultType="com.joyintech.framework.select.SelectOptionDto">
+        SELECT
+        distinct(COUNTER_NAME) code,
+        COUNTER_NAME name,
+        COUNTER_NAME shortName,
+        COUNTER_NAME hidCode
+        FROM MST_CUSTOMER_INFO
+        <where>
+            <if test="search !=null and  search !='' ">
+                COUNTER_NAME LIKE CONCAT('%',#{search}, '%')
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getFinprodId"
+            resultType="com.joyintech.framework.select.SelectOptionDto">
+        select PROD_NAME id,
+        PROD_NAME text
+        from CHB_PRD_BASEINFO
+        where 1=1
+        <if test="search !=null and search != ''">
+            AND	(PROD_ID like concat_ws('','%',#{search},'%')
+            OR PROD_NAME like concat_ws('','%',#{search},'%'))
+        </if>
+        <if test="initValue != null and initValue != ''">
+            and PROD_NAME = #{initValue}
+        </if>
+        order by PROD_ID
+    </select>
+    <select id="selectCounterIdByCounterName" resultType="java.util.Map">
+        SELECT
+            CUSTOMER_ID
+        FROM MST_CUSTOMER_INFO
+        WHERE CUSTOMER_NAME=#{counterName} and rownum = 1
+    </select>
+    <select id="selectRivalPartyType" resultType="java.util.Map">
+        SELECT
+            PROD_ID
+        FROM CHB_PRD_BASEINFO
+        WHERE PROD_NAME=#{counterName} and rownum=1
+    </select>
+    <select id="selectValidRecords" resultType="java.lang.Integer">
+        select count(*) from  CHB_MST_COUNTER_PARTY where
+        COUNTER_ID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.COUNTER_ID}
+        </foreach>
+        and STATUS !='D'
+    </select>
+    <select id="countDuplicatedData" resultType="java.lang.Integer">
+        select count(1) from CHB_MST_COUNTER_PARTY where COUNTER_ID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.COUNTER_ID,jdbcType=VARCHAR}
+        </foreach>
+        and STATUS = 'E'
+    </select>
+    <select id="selectBykeys" resultType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        select
+        UUID uuid,
+        STATUS statusValid,
+        'ERROR' info,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_TYPE2 counterType2,
+        '' remark,
+        ERR_MSG errMsg,
+        CREATE_TIME updateTime,
+        UPDATE_USER updateUser
+        from CHB_MST_COUNTER_PARTY_ERRODATA A
+        where UUID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        union ALL
+        select
+        UUID uuid,
+        STATUS statusValid,
+        'INFO' info,
+        COUNTER_TYPE counterType,
+        COUNTER_ID counterId,
+        COUNTER_NAME counterName,
+        COUNTER_TYPE2 counterType2,
+        REMARK remark,
+        '' errMsg,
+        CREATE_TIME updateTime,
+        UPDATE_USER updateUser
+        from CHB_MST_COUNTER_PARTY B
+        where UUID in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <insert id="batchInsert" parameterType="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        MERGE INTO CHB_MST_COUNTER_PARTY bbd using (
+        <foreach collection="list" item="item" separator="from dual union all select" open="select * from (select "
+                 close="from dual)">
+            #{item.uuid,jdbcType=VARCHAR} UUID,
+            #{item.counterId,jdbcType=VARCHAR} COUNTER_ID,
+            #{item.counterType,jdbcType=VARCHAR} COUNTER_TYPE,
+            #{item.counterName,jdbcType=VARCHAR} COUNTER_NAME,
+            #{item.remark,jdbcType=VARCHAR} REMARK,
+            #{item.createUser,jdbcType=VARCHAR} CREATE_USER,
+            #{item.createDept,jdbcType=VARCHAR} CREATE_DEPT,
+            #{item.createTime,jdbcType=TIMESTAMP} CREATE_TIME,
+            #{item.updateUser,jdbcType=VARCHAR} UPDATE_USER,
+            #{item.updateTime,jdbcType=TIMESTAMP} UPDATE_TIME,
+            #{item.counterType2,jdbcType=VARCHAR} COUNTER_TYPE2,
+            #{item.status,jdbcType=VARCHAR} STATUS
+        </foreach>
+        ) datas on (bbd.COUNTER_ID = datas.COUNTER_ID
+        )
+        WHEN MATCHED THEN
+        UPDATE set
+        bbd.COUNTER_TYPE = datas.COUNTER_TYPE,
+        bbd.COUNTER_NAME = datas.COUNTER_NAME,
+        bbd.REMARK = datas.REMARK,
+        bbd.COUNTER_TYPE2 = datas.COUNTER_TYPE2,
+        bbd.UPDATE_USER = datas.UPDATE_USER,
+        bbd.UPDATE_TIME = datas.UPDATE_TIME
+        WHEN NOT MATCHED THEN
+        INSERT (
+        UUID,COUNTER_ID, COUNTER_TYPE,COUNTER_NAME,REMARK,CREATE_USER, CREATE_DEPT, CREATE_TIME,UPDATE_USER, UPDATE_TIME,COUNTER_TYPE2,STATUS)
+        VALUES (
+        datas.UUID,datas.COUNTER_ID, datas.COUNTER_TYPE,datas.COUNTER_NAME,datas.REMARK,datas.CREATE_USER, datas.CREATE_DEPT, datas.CREATE_TIME,datas.UPDATE_USER, datas.UPDATE_TIME,datas.COUNTER_TYPE2,datas.STATUS
+        )
+    </insert>
+</mapper>

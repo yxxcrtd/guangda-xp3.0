@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ZG02PbcPrdInitRaiseSub.xlsx" name="初始募集信息">
+	<Worksheet javaBean="com.joyintech.tams.svreport.pbc.classic.zg02prdinitraisesub.dto.ZG02PbcPrdInitRaiseSub">
+		<Row>
+			<Cell order="1" name="产品代码">pbcProdId</Cell>
+			<Cell order="2" name="币种">ccy</Cell>
+			<Cell order="3" name="地区">buyPlace</Cell>
+			<Cell order="4" name="客户类型">customerType1</Cell>
+			<Cell order="5" name="初始募集金额">initRaisingAmtsumStr</Cell>
+			<Cell order="6" name="初始募集金额折人民币">initRaisingAmtsumcnyStr</Cell>
+			<Cell order="7" name="初始募集份额">initRaisingQtyStr</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

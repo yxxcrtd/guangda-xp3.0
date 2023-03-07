@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG04DatReportMapper_mysql">
+
+	<delete id="deleteBySub">
+		delete from pbc_col_prod_raising_sub
+		where SEND_STATUS != '03'
+		<foreach collection="list" item="item" index="index" open="and RAISING_DATE in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR RAISING_DATE in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<delete id="deleteByDat">
+		delete from pbc_col_prod_raising_DAT
+		where
+		<foreach collection="list" item="item" index="index" open="RAISING_DATE in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR RAISING_DATE in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into pbc_col_prod_raising_sub (
+			REGIST_SEQNO, RAISING_DATE, PBC_PROD_ID,
+			BUY_PLACE, CUSTOMER_TYPE1, CCY,
+			RAISING_AMTSUM, RAISING_AMTSUM_CNY, RAISING_QTY,
+			REDAMT, REDAMT_CNY, REDQTY,
+			ENDAMTSUM, ENDAMTSUM_CNY, ENDQTY,
+			PROD_VALUE, PROD_VALUE_CNY, UNIT_VALUE_TOTAL,
+			UNIT_VALUE_TOTAL_CNY, PROD_END_YIELD,
+			SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS,
+			SUMIT_SEQ, STATUS_DATE, PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE, STATUS, CREATE_USER,
+			ORG_CODE, CREATE_DEPT, CREATE_TIME,
+			UPDATE_USER, UPDATE_TIME,datuuid
+		)
+		<foreach collection="list" item="item" separator="union all">
+			select uuid(),#{item.termId,jdbcType=VARCHAR}, #{item.pbcProdId,jdbcType=VARCHAR},
+			#{item.buyPlace,jdbcType=VARCHAR}, #{item.customerType1,jdbcType=VARCHAR}, #{item.ccy,jdbcType=CHAR},
+			#{item.raisingAmtsum,jdbcType=DECIMAL}, #{item.raisingAmtsumCny,jdbcType=DECIMAL}, #{item.raisingQty,jdbcType=DECIMAL},
+			#{item.redamt,jdbcType=DECIMAL}, #{item.redamtCny,jdbcType=DECIMAL}, #{item.redqty,jdbcType=DECIMAL},
+			#{item.endamtsum,jdbcType=DECIMAL}, #{item.endamtsumCny,jdbcType=DECIMAL}, #{item.endqty,jdbcType=DECIMAL},
+			#{item.prodValue,jdbcType=DECIMAL}, #{item.prodValueCny,jdbcType=DECIMAL}, #{item.unitValueTotal,jdbcType=DECIMAL},
+			#{item.unitValueTotalCny,jdbcType=DECIMAL},#{item.prodEndYield,jdbcType=DECIMAL},
+			#{item.sendStatus,jdbcType=VARCHAR}, #{item.submitTime,jdbcType=TIMESTAMP}, #{item.submitFeedbackStatus,jdbcType=VARCHAR},
+			#{item.sumitSeq,jdbcType=VARCHAR}, now(), #{item.pbcSubmitDeadline,jdbcType=TIMESTAMP},
+			#{item.submitDeadline,jdbcType=TIMESTAMP}, #{item.status,jdbcType=VARCHAR}, #{item.createUser,jdbcType=VARCHAR},
+			#{item.orgCode,jdbcType=VARCHAR}, #{item.createDept,jdbcType=VARCHAR}, now(),
+			#{item.updateUser,jdbcType=VARCHAR}, now(),#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into pbc_col_prod_raising_DAT (
+			REGIST_SEQNO, RAISING_DATE, PBC_PROD_ID,
+			BUY_PLACE, CUSTOMER_TYPE1, CCY,
+			RAISING_AMTSUM, RAISING_AMTSUM_CNY, RAISING_QTY,
+			REDAMT, REDAMT_CNY, REDQTY,
+			ENDAMTSUM, ENDAMTSUM_CNY, ENDQTY,
+			PROD_VALUE, PROD_VALUE_CNY, UNIT_VALUE_TOTAL,
+			UNIT_VALUE_TOTAL_CNY, PROD_END_YIELD,
+			SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS,
+			SUMIT_SEQ, STATUS_DATE, PBC_SUBMIT_DEADLINE,
+			SUBMIT_DEADLINE, STATUS, CREATE_USER,
+			ORG_CODE, CREATE_DEPT, CREATE_TIME,
+			UPDATE_USER, UPDATE_TIME,datuuid
+		)
+		SELECT
+		REGIST_SEQNO, RAISING_DATE, PBC_PROD_ID,
+		BUY_PLACE, CUSTOMER_TYPE1, CCY,
+		RAISING_AMTSUM, RAISING_AMTSUM_CNY, RAISING_QTY,
+		REDAMT, REDAMT_CNY, REDQTY,
+		ENDAMTSUM, ENDAMTSUM_CNY, ENDQTY,
+		PROD_VALUE, PROD_VALUE_CNY, UNIT_VALUE_TOTAL,
+		UNIT_VALUE_TOTAL_CNY, PROD_END_YIELD,
+		SEND_STATUS, SUBMIT_TIME, SUBMIT_FEEDBACK_STATUS,
+		SUMIT_SEQ, STATUS_DATE, PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE, STATUS, CREATE_USER,
+		ORG_CODE, CREATE_DEPT, CREATE_TIME,
+		UPDATE_USER, UPDATE_TIME,#{uuid,jdbcType=VARCHAR}
+		FROM pbc_col_prod_raising_sub
+		WHERE
+		<foreach collection="list" item="item" index="index" open="RAISING_DATE in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR RAISING_DATE in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select PBC_PROD_ID, CCY, BUY_PLACE, CUSTOMER_TYPE1,RAISING_DATE
+		from pbc_col_prod_raising_sub
+		where (STATUS = '03' or SEND_STATUS = '03')
+		<foreach collection="keys" item="item" index="index" open="and ( RAISING_DATE in(" separator="," close=") )">
+			<if test="(index % 999) == 998">
+				null) OR RAISING_DATE in(
+			</if>
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+
+	<update id="updatePDatDataStatus" parameterType="java.lang.String">
+		update pbc_col_prod_raising_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update pbc_col_prod_raising_sub
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where
+		<foreach collection="list" item="item" index="index" open="RAISING_DATE in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR RAISING_DATE in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<select id="getPListByUUid" resultType="java.util.Map">
+	 select REGIST_SEQNO, RAISING_DATE TERMID, PBC_PROD_ID,
+			BUY_PLACE, CUSTOMER_TYPE1, CCY,
+			RAISING_AMTSUM, RAISING_AMTSUM_CNY, RAISING_QTY,
+			REDAMT, REDAMT_CNY, REDQTY,
+			ENDAMTSUM, ENDAMTSUM_CNY, ENDQTY,
+			PROD_VALUE, PROD_VALUE_CNY, UNIT_VALUE_TOTAL,
+			UNIT_VALUE_TOTAL_CNY, PROD_END_YIELD,
+			SEND_STATUS, SUBMIT_FEEDBACK_STATUS,
+			SUMIT_SEQ,
+			STATUS, CREATE_USER,
+			ORG_CODE, CREATE_DEPT,
+			UPDATE_USER,
+			CONCAT('产品代码:',PBC_PROD_ID,';币种:',IFNULL(CCY,''),';地区:',IFNULL(BUY_PLACE,''),';客户类型:',IFNULL(CUSTOMER_TYPE1,''),';统计年月:'
+											,RAISING_DATE) dataKey
+	 from pbc_col_prod_raising_sub
+		where datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY PBC_PROD_ID,CCY,PBC_SUBMIT_DEADLINE ASC, RAISING_DATE DESC
+	</select>
+
+	<update id="updateUuidSub">
+        update pbc_col_prod_raising_sub
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dao.ZG06PbcColAssetUsufructBatchMapper_mysql" >
+
+    <select id="selectAssetInfo" resultType="com.joyintech.tams.svreport.loaninfomanagement.dto.OperationalLoanInfo001Dto">
+        select
+        cldi.ASSET_UUID, cldi.ASSET_CODE,IF(cldi.ASSET_TYPE=#{assetType08},'02','01') loanFlag,
+        IF(cldi.ASSET_TYPE=#{assetType08},cldi.BORROWER_TYPE,
+        (case cldi.ASSETS_INVEST
+               when 'C01' then '1'
+               when 'C02' then '2'
+               when 'C03' then '3'
+               when 'C04' then '4'
+               when 'C05' then '5'
+               when 'C06' then '6'
+               else '' end
+         )
+        ) ASSETS_INVEST,
+        cldi.STATUS,cldi.ASSET_TYPE,cai.ASSET_NAME,cai.pbc_asset_type3 pbcAssetType,
+        cldi.EACH_PROPORTION, cldi.LOANS_TYPE, cldi.ORIG_CCY,
+        cldi.ORIG_CONTRACT_AMOUNT, cldi.ORIG_CONTRACT_AMOUNT_CNY,
+        cldi.BORROWER_TYPE, cldi.BORROWER_ID, cldi.INDUSTRY_INFO,
+        cldi.BORROWER_NATIONALITY, cldi.BORROWER_PROVINCE,
+        cldi.BORROWER_CITY, cldi.BORROWER_COUNTY, cldi.LOAN_TRANSFEROR_ID,
+        cldi.LOAN_TRANSFEROR_NAME, cldi.LOAN_CONTRACT_ORG_ID,
+        cldi.LOAN_CONTRACT_ORG_NAME, cldi.LOAN_CONTRACT_ORG_PROVINCE,
+        cldi.LOAN_CONTRACT_ORG_CITY,cldi.LOAN_CONTRACT_ORG_COUNTY,
+        cldi.ENTERPRISE_INVESTOR_TYPE_FIRST, cldi.ENTERPRISE_INVESTOR_TYPE_SEC,
+        cldi.ENTERPRISE_INVESTOR_TYPE_THIRD, cldi.ENTERPRISE_SCALE,
+        cldi.LOAN_BASIS_ID, cldi.LOAN_PRD_TYPE, cldi.LOAN_ACTUAL_INVEST,
+        cldi.LOAN_VDATE, cldi.LOAN_MDATE, cldi.LOAN_EXTENSION_DUE_DATE,
+        cldi.RATE_FIXED, cldi.RATE_LEVEL, cldi.LOAN_GUARANTEE_MODE,
+        cldi.LOAN_QUALITY, cldi.LOAN_STATE, cldi.LOAN_TRANSFEROR_RATE,
+        cldi.ORG_CODE,  cldi.DATA_SOURCE,
+        cldi.FINPROD_ID,  cldi.ASSETS_LIABILITIES,
+        cldi.ASSET_USUFRUCT_CODE, cldi.ASSETS_TRANSFER_NAME,
+        cldi.ASSETS_TRANSFER_ID, cldi.ASSETS_TRANSFER_IINDU,
+        cldi.ASSETS_TRANSFER_COUNTRY, cldi.ASSETS_TRANSFER_PROV,
+        cldi.ASSETS_TRANSFER_CITY, cldi.ASSETS_TRANSFER_COUNTY,
+        cldi.ECONOMIC_COMPOSITION, cldi.ASSETS_TRANSFER_SCALE,
+        cldi.TRANSFER_VDATE, cldi.TRANSFER_ESTI_MDATE, cldi.TRANSFER_EXTDUE_MDATE,
+        cldi.TRANSFER_ACTMDATE, cldi.BASICASSET_TYPE, cldi.ASSETS_ORIGCCY,
+        cldi.ASSETS_ORIGAMT, cldi.ASSETS_ORIGAMT_CNY, cldi.CURRENCY_TRANSFERCCY,
+        cldi.CURRENCY_TRANSFERAMT, cldi.CURRENCY_TRANSFERAMTCNY,
+        cldi.LABEL_TRANSFEROR_MARK, cldi.REPURCHASE_MARK, cldi.RATE_FIXED_FLAG,
+        cldi.ASSET_RATE_LEVEL, cldi.GUARANTEE_METHOD, cldi.ASSETS_INV_DEPA,
+        cldi.CURRENCY_EPERIODCCY,cldi.LOAN_BALANCE_CCY
+        from CHB_LOAN_DETAIL_INFO cldi
+        left join chb_asset_info cai on cldi.ASSET_CODE = cai.ASSET_CODE and cai.status in('M','E')
+        where cldi.status in('E','M')
+        and cai.PBC_ASSET_TYPE3 in ('Q01','Q02','Q03','Q04','Q05','Q06','Q07')
+        AND cldi.ASSET_CODE  IS NOT NULL
+    </select>
+
+    <select id="selectAssetPositionInfoList" resultType="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dto.ZG06PbcColAssetUsufructSubBatchDto">
+        select
+        PINFO.pbc_code AS pbcProdId,
+        POS.prodid AS prodId,
+        POS.ASSET_CODE as assetCode,
+        SUM(ifnull(cabd.TDY_COST_AMT,0)+ifnull(cabd.TDY_FLOAT_INGPL,0)+ifnull(cabd.TDY_INTINCEXP,0))  as currencyAmt
+        from
+        PBC_MONTH_ASSET_POSITION  POS
+        left join chb_prd_baseinfo info on pos.prodid=info.PROD_ID and info.STATUS in('E','M')
+        inner join  (select ifnull(t2.pbc_code,a.PBC_PROD_ID) as pbc_code,ifnull(inside_prod_id,a.PROD_ID)as prodid from pbc_col_prd_baseinfo_sub a
+	       LEFT JOIN(
+	       SELECT inside_prod_id, pbc_code
+	       FROM pbc_prod_assetpool_code
+	       WHERE status='E' AND code_type='01'
+	       )t2 ON t2.inside_prod_id=a.PROD_ID
+        ) PINFO  ON  PINFO.prodid = POS.prodid
+        left join chb_assets_basis_data cabd on cabd.ASSET_ID =pos.ASSET_CODE and POS.PRODID =cabd.PROD_ID and cabd.STATUS in('E','M') and date_format(cabd.VALUE_DATE,'%Y-%m-%d')= #{executeDate, jdbcType=VARCHAR}
+        WHERE
+        POS.ASSET_TYPE1 = 'P06' and POS.AMT>0 and INFO.PROFIT_TYPE= '03' and date_format(pos.ENDDATE,'%Y-%m-%d')= #{executeDate, jdbcType=VARCHAR}
+        group by PINFO.pbc_code,POS.prodid,POS.ASSET_CODE
+    </select>
+
+    <insert id="insertSubData" parameterType="com.joyintech.tams.svreport.pbc.classic.zg06assetusufructsub.dto.ZG06PbcColAssetUsufructSubBatchDto">
+        insert into PBC_COL_ASSET_USUFRUCT_SUB (DETAILUUID,PBC_PROD_ID,TERMID,ASSETS_LIABILITIES,ASSET_USUFRUCT_CODE,ASSETS_TRANSFER_NAME,ASSETS_TRANSFER_ID
+        ,ASSETS_INVEST,ASSETS_TRANSFER_IINDU,ASSETS_TRANSFER,ECONOMIC_COMPOSITION,ASSETS_TRANSFER_SCALE,TRANSFER_VDATE,TRANSFER_ESTI_MDATE
+        ,TRANSFER_EXTDUE_MDATE,TRANSFER_ACTMDATE,BASICASSET_TYPE,ASSETS_ORIGCCY,ASSETS_ORIGAMT,ASSETS_ORIGAMT_CNY,CURRENCY_TRANSFERCCY
+        ,CURRENCY_TRANSFERAMT,CURRENCY_TRANSFERAMTCNY,LABEL_TRANSFEROR_MARK,REPURCHASE_MARK,RATE_FIXED_FLAG,ASSET_RATE_LEVEL
+        ,GUARANTEE_METHOD,ASSETS_INV_DEPA,CURRENCY_EPERIODCCY,CURRENCY_AMT,CURRENCY_AMT_CNY,SUBMIT_TIME,PBC_SUBMIT_DEADLINE
+        ,SUBMIT_DEADLINE,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME,ORG_CODE
+        ,DEPT_CODE,CREATE_DEPT,PROD_ID,ASSET_CODE
+        )values(#{detailUuid ,jdbcType=CHAR},#{pbcProdId ,jdbcType=VARCHAR},#{termId,jdbcType=VARCHAR},#{assetLiabilities ,jdbcType=VARCHAR},
+        #{assetUsufructCode ,jdbcType=VARCHAR},#{assetTransferName ,jdbcType=VARCHAR},#{assetTransferId ,jdbcType=VARCHAR},#{assetInvest ,jdbcType=VARCHAR},
+        #{assetTransferIindu ,jdbcType=VARCHAR},#{assetTransfer ,jdbcType=VARCHAR},#{economicComposition ,jdbcType=VARCHAR},#{assetTransferScale ,jdbcType=VARCHAR},
+        #{transferVdate ,jdbcType=DATE},#{transferEstiMdate ,jdbcType=DATE},#{transferExtdueMdate ,jdbcType=DATE},#{transferActMdate ,jdbcType=DATE},
+        #{basicAssetType ,jdbcType=VARCHAR},#{assetsOrigCcy ,jdbcType=VARCHAR},#{assetsOrigAmt ,jdbcType=DECIMAL},#{assetsOrigAmtCny ,jdbcType=DECIMAL},
+        #{currencyTransferCcy ,jdbcType=VARCHAR},#{currencyTransferAmt ,jdbcType=DECIMAL},#{currencyTransferAmtCny ,jdbcType=DECIMAL},#{labelTransferorMark ,jdbcType=VARCHAR},#{repurchaseMark ,jdbcType=VARCHAR},
+        #{rateFixedFlag ,jdbcType=VARCHAR},#{assetRateLevel ,jdbcType=DECIMAL},#{guaranteeMethod ,jdbcType=VARCHAR},#{assetsInvDepa ,jdbcType=VARCHAR},
+        #{currencyEperiodCcy ,jdbcType=VARCHAR},#{currencyAmt ,jdbcType=DECIMAL},#{currencyAmtCny ,jdbcType=DECIMAL},#{submitTime ,jdbcType=TIMESTAMP},
+        #{pbcSubmitDeadline ,jdbcType=TIMESTAMP},#{submitDeadline ,jdbcType=TIMESTAMP},#{status ,jdbcType=VARCHAR},#{sendStatus ,jdbcType=VARCHAR},
+        #{statusDate ,jdbcType=TIMESTAMP},#{createUser ,jdbcType=VARCHAR},#{createTime ,jdbcType=TIMESTAMP},#{updateUser ,jdbcType=VARCHAR},
+        #{updateTime ,jdbcType=TIMESTAMP},#{orgCode ,jdbcType=VARCHAR},#{deptCode ,jdbcType=VARCHAR},#{createDept ,jdbcType=VARCHAR},#{prodId ,jdbcType=VARCHAR},#{assetCode ,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <select id="selectCountByTermId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from PBC_COL_ASSET_USUFRUCT_SUB where send_status='03' and TERMID=#{termId}
+    </select>
+
+    <select id="deleteByTermId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        delete from PBC_COL_ASSET_USUFRUCT_SUB where send_status!='03' and TERMID=#{termId}
+    </select>
+
+</mapper>

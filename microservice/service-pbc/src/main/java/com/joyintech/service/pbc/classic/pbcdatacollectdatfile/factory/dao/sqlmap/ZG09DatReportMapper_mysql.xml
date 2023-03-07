@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG09DatReportMapper_mysql">
+
+	<delete id="deleteBySub">
+		delete from ZG09_PBC_COL_REPORT
+		where SEND_STATUS != '03'
+		and (
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+		)
+	</delete>
+
+
+	<delete id="deleteByDat">
+		delete from ZG09_PBC_COL_REPORT_dat
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into ZG09_PBC_COL_REPORT (REPORTUUID,TERMID,REPORTTYPE,STARTDATE,ENDDATE,ISSUE_PARTY_ID,ISSUE_PARTY_NAME,REPORT_DATE,
+		SUBMIT_TIME,PBC_SUBMIT_DEADLINE,SUBMIT_DEADLINE,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,
+		CREATE_TIME,UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,PBC_PROD_TYPE,G000A,
+		G000B,G000C,G000D,G000E,G100A,G100B,G100C,G100D,G100E,G200A,G200B,G200C,G200D,G200E,G300A,
+		G300B,G300C,G300D,G300E,G400A,G400B,G400C,G400D,G400E,G500A,G500B,G500C,G500D,G500E,G600A,
+		G600B,G600C,G600D,G600E,G700A,G700B,G700C,G700D,G700E,G800A,G800B,G800C,G800D,G800E,G00001,G00002,datuuid)
+		<foreach collection="list" item="item" separator="union all">
+			select uuid(),#{item.termId,jdbcType=VARCHAR},'ZG09',#{item.startdate,jdbcType=DATE},
+			#{item.enddate,jdbcType=DATE},#{item.issuePartyId,jdbcType=VARCHAR},#{item.issuePartyName,jdbcType=VARCHAR},
+			#{item.reportDate,jdbcType=DATE},#{item.submitTime,jdbcType=DATE},#{item.pbcSubmitDeadline,jdbcType=DATE},
+			#{item.submitDeadline,jdbcType=DATE},#{item.status,jdbcType=VARCHAR},#{item.sendStatus,jdbcType=VARCHAR},
+			now(),#{item.createUser,jdbcType=VARCHAR},now(),
+			#{item.updateUser,jdbcType=VARCHAR},now(),#{item.orgCode,jdbcType=VARCHAR},
+			#{item.deptCode,jdbcType=VARCHAR},#{item.createDept,jdbcType=VARCHAR},#{item.pbcProdType,jdbcType=VARCHAR},
+			#{item.g000a,jdbcType=DECIMAL},#{item.g000b,jdbcType=DECIMAL},#{item.g000c,jdbcType=DECIMAL},#{item.g000d,jdbcType=DECIMAL}
+			,#{item.g000e,jdbcType=DECIMAL},#{item.g100a,jdbcType=DECIMAL},#{item.g100b,jdbcType=DECIMAL},#{item.g100c,jdbcType=DECIMAL}
+			,#{item.g100d,jdbcType=DECIMAL},#{item.g100e,jdbcType=DECIMAL},#{item.g200a,jdbcType=DECIMAL},#{item.g200b,jdbcType=DECIMAL}
+			,#{item.g200c,jdbcType=DECIMAL},#{item.g200d,jdbcType=DECIMAL},#{item.g200e,jdbcType=DECIMAL},#{item.g300a,jdbcType=DECIMAL}
+			,#{item.g300b,jdbcType=DECIMAL},#{item.g300c,jdbcType=DECIMAL},#{item.g300d,jdbcType=DECIMAL},#{item.g300e,jdbcType=DECIMAL}
+			,#{item.g400a,jdbcType=DECIMAL},#{item.g400b,jdbcType=DECIMAL},#{item.g400c,jdbcType=DECIMAL},#{item.g400d,jdbcType=DECIMAL},#{item.g400e,jdbcType=DECIMAL}
+			,#{item.g500a,jdbcType=DECIMAL},#{item.g500b,jdbcType=DECIMAL},#{item.g500c,jdbcType=DECIMAL},#{item.g500d,jdbcType=DECIMAL},#{item.g500e,jdbcType=DECIMAL}
+			,#{item.g600a,jdbcType=DECIMAL},#{item.g600b,jdbcType=DECIMAL},#{item.g600c,jdbcType=DECIMAL},#{item.g600d,jdbcType=DECIMAL},#{item.g600e,jdbcType=DECIMAL}
+			,#{item.g700a,jdbcType=DECIMAL},#{item.g700b,jdbcType=DECIMAL},#{item.g700c,jdbcType=DECIMAL},#{item.g700d,jdbcType=DECIMAL},#{item.g700e,jdbcType=DECIMAL}
+			,#{item.g800a,jdbcType=DECIMAL},#{item.g800b,jdbcType=DECIMAL},#{item.g800c,jdbcType=DECIMAL},#{item.g800d,jdbcType=DECIMAL},#{item.g800e,jdbcType=DECIMAL}
+			,#{item.g00001,jdbcType=DECIMAL},#{item.g00002,jdbcType=DECIMAL},#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into ZG09_PBC_COL_REPORT_dat (REPORTUUID,TERMID,REPORTTYPE,STARTDATE,ENDDATE,ISSUE_PARTY_ID,ISSUE_PARTY_NAME,REPORT_DATE,
+		SUBMIT_TIME,PBC_SUBMIT_DEADLINE,SUBMIT_DEADLINE,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,
+		CREATE_TIME,UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,PBC_PROD_TYPE,G000A,
+		G000B,G000C,G000D,G000E,G100A,G100B,G100C,G100D,G100E,G200A,G200B,G200C,G200D,G200E,G300A,
+		G300B,G300C,G300D,G300E,G400A,G400B,G400C,G400D,G400E,G500A,G500B,G500C,G500D,G500E,G600A,
+		G600B,G600C,G600D,G600E,G700A,G700B,G700C,G700D,G700E,G800A,G800B,G800C,G800D,G800E,G00001,G00002,datuuid)
+		select
+		REPORTUUID,TERMID,REPORTTYPE,STARTDATE,ENDDATE,ISSUE_PARTY_ID,ISSUE_PARTY_NAME,REPORT_DATE,
+		SUBMIT_TIME,PBC_SUBMIT_DEADLINE,SUBMIT_DEADLINE,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,
+		CREATE_TIME,UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,PBC_PROD_TYPE,G000A,
+		G000B,G000C,G000D,G000E,G100A,G100B,G100C,G100D,G100E,G200A,G200B,G200C,G200D,G200E,G300A,
+		G300B,G300C,G300D,G300E,G400A,G400B,G400C,G400D,G400E,G500A,G500B,G500C,G500D,G500E,G600A,
+		G600B,G600C,G600D,G600E,G700A,G700B,G700C,G700D,G700E,G800A,G800B,G800C,G800D,G800E,G00001,G00002,#{uuid,jdbcType=VARCHAR}
+		from ZG09_PBC_COL_REPORT
+		WHERE
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select termid
+		from ZG09_PBC_COL_REPORT
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		and (
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+		)
+	</select>
+
+	<select id="getPListByUUid" resultType="map" >
+		select
+			REPORTUUID,TERMID,REPORTTYPE,
+			STARTDATE,ENDDATE,ISSUE_PARTY_ID,
+			ISSUE_PARTY_NAME,REPORT_DATE,
+			STATUS,
+			SEND_STATUS,CREATE_USER,
+			UPDATE_USER,
+			ORG_CODE,DEPT_CODE,CREATE_DEPT,
+			PBC_PROD_TYPE,G000A,G000B,
+			G000C,G000D,G000E,
+			G100A,G100B,G100C,
+			G100D,G100E,G200A,
+			G200B,G200C,G200D,
+			G200E,G300A,G300B,
+			G300C,G300D,G300E,
+			G400A,G400B,G400C,
+			G400D,G400E,G500A,
+			G500B,G500C,G500D,
+			G500E,G600A,G600B,
+			G600C,G600D,G600E,
+			G700A,G700B,G700C,
+			G700D,G700E,G800A,
+			G800B,G800C,G800D,
+			G800E,G00001,G00002,
+		CONCAT('发行机构代码:',ISSUE_PARTY_ID,';统计年月:',TERMID) dataKey
+		from ZG09_PBC_COL_REPORT
+		where 1=1
+		and datuuid = #{uuid,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updatePDatDataStatus">
+		update ZG09_PBC_COL_REPORT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update ZG09_PBC_COL_REPORT_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<update id="updateUuidSub">
+        update ZG09_PBC_COL_REPORT
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

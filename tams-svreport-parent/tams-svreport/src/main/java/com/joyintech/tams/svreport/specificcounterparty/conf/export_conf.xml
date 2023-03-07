@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="pbc/PbcSpecificCounterParty001Export.xlsx" name="特定目的载体对手方信息维护">
+    <Worksheet javaBean="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto">
+        <Row>
+            <Cell order="1" name="数据状态">statusStr</Cell>
+            <Cell order="2" name="资产代码">assetCode</Cell>
+            <Cell order="3" name="交易对手机构名称">partyOrgName</Cell>
+            <Cell order="4" name="交易对手产品名称">partyProdName</Cell>
+            <Cell order="5" name="资产负债项目">assetTypeStr</Cell>
+            <Cell order="6" name="交易对手产品种类">partyProdTypeStr</Cell>
+            <Cell order="7" name="交易对手机构编码">partyOrgCode</Cell>
+            <Cell order="8" name="交易对手产品代码">partyProdId</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

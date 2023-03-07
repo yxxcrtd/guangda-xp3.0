@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.service.chb.gd.risk.rskValtblPrtBotasset.dao.RskValtblPrtBotassetMapper_mysql">
+	 <select id="queryForPage"  resultType="com.joyintech.service.chb.gd.risk.rskValtblPrtBotasset.dto.RskValtblPrtBotassetMapDto" parameterType="Map">
+	SELECT DISTINCT
+	T1.PTL_ID,
+	T3.ASSET_NAME ptlName,
+	T1.SUB_CODE,
+	T1.SUB_NAME,
+	T1.SUB_CLASS,
+	T1.ASSET_SOURCE,
+	T1.FINPROD_ID,
+	T2.ASSET_ID AS FINPROD_MARKET_ID,
+	T2.ASSET_NAME AS FINPROD_ABBR,
+	T2.TRADE_MARKET,
+	T1.MARKET_ID tblMarketId
+	FROM
+	RSK_VALTBL_PRT_BOTASSET_MAP T1
+	LEFT JOIN CHB_ASSET_INFO T2 ON T1.FINPROD_ID = T2.ASSET_CODE
+	LEFT JOIN chb_asset_info T3 ON T1.PTL_ID = T3.ASSET_CODE AND T3.ASSET_TYPE = '12'
+	<!--筛选利息-->
+	where exists  (select 1 from RSK_VALTBL_PRT_BOTASSET_MAP T2  where
+		 T2.SUB_CODE NOT LIKE '1002%'			/** 排除活期存款1002**/
+		 AND (T2.SUB_CODE NOT LIKE '1204%' OR T2.SUB_CODE like '120406%')			/** 排除活期存款利息1204**/
+		 AND T2.SUB_CODE NOT LIKE '2206%'			/** 排除应付管理人报酬2206**/
+		 AND T2.SUB_CODE NOT LIKE '2207%'			/** 排除应付托管费2207**/
+		 AND T2.SUB_CODE NOT LIKE '2209%'			/** 排除应付交易费用2209**/
+		 AND T2.SUB_CODE NOT LIKE '2221%'			/** 排除应付税费2221**/
+		 AND T2.SUB_CODE NOT LIKE '2222%'			/** 排除预估税费2222**/
+		 AND T2.SUB_CODE NOT LIKE '2501%'			/** 排除预提费用2501**/
+		 AND T2.SUB_CODE NOT LIKE '2801%'			/** 排除其他应付款2801**/
+
+		 AND T2.SUB_CODE NOT LIKE '2231%'			/** 排除应付利息2231**/
+		 AND T2.SUB_CODE NOT LIKE '3003%'			/** 排除清算款3003**/
+		 AND T2.SUB_CODE NOT LIKE '1021%'
+		 AND T2.SUB_CODE NOT LIKE '1031%'
+		 AND T1.PTL_ID = T2.PTL_ID
+		 AND T1.SUB_CODE = T2.SUB_CODE)
+		and T1.SUB_CLASS not in ('ZHG','NHG') /**回购资产无需做映射 **/
+		<if test="ptlIds != null and ptlIds.size>0">
+			<foreach collection="ptlIds" item="item" open=" and T1.PTL_ID in (" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	<if test="mappingStat == 'MAPPED'">
+		and T1.FINPROD_ID is not null
+	</if>
+	<if test="mappingStat == 'UNMAP'">
+		and T1.FINPROD_ID is null
+	</if>
+	order by T1.SUB_CODE
+	</select>
+	
+	 <select id="selectBotAssetMap" resultType="com.joyintech.service.chb.gd.risk.rskValtblPrtBotasset.dto.RskValtblPrtBotassetMapDto">
+	 SELECT
+		PTL_ID,
+		SUB_CODE,
+		FINPROD_ID
+		FROM
+	 RSK_VALTBL_PRT_BOTASSET_MAP
+	  <where>
+		  <if test="ptlId !=null and ptlId !=''">
+		   AND	PTL_ID = #{ptlId,jdbcType=VARCHAR}
+		  </if>
+	  </where>
+	 </select>
+
+	<select id="selectAssetById"
+			resultType="com.joyintech.service.chb.gd.risk.rskValtblPrtBotasset.dto.RskValtblPrtBotassetMapDto">
+		SELECT ASSET_CODE as FINPROD_ID, /**行内资产负债编码 **/
+			   ASSET_NAME as FINPROD_ABBR, /**资产名称**/
+			   ASSET_ID   as FINPROD_MARKET_ID,
+			   ASSET_TYPE2 as FINPROD_TYPE2,
+			   TRADE_MARKET
+		FROM chb_asset_info /**资产要素表**/
+		WHERE ASSET_CODE = #{finprodId,jdbcType=VARCHAR}
+	</select>
+	 
+	 <!-- get wind债券信息 -->
+	 <select id="selectWindBondAssetById" resultType="com.joyintech.service.chb.gd.risk.rskValtblPrtBotasset.dto.RskValtblPrtBotassetMapDto">
+	 	SELECT
+	 		OBJECT_ID,
+			SECNAME FINPROD_ABBR,
+			SECID FINPROD_MARKET_ID,
+			MARKET TRADE_MARKET 
+		FROM
+			INTERF_PAYHSRCSECINFO
+		 where SECID = #{finprodId,jdbcType=VARCHAR}
+	 </select>
+	 
+	 <!-- 获取未映射count -->
+	 <select id="getCountForValUnmapped" parameterType="Map" resultType="Integer">
+	 	SELECT
+			count( 1 ) 
+		FROM
+			RSK_VALTBL_ASSET_SUB
+			where PTL_ID = #{ptlId}
+			and SUB_CODE = #{subCode}
+			and FINPROD_ID is null
+	 </select>
+	 
+	 <!-- 应用未映射 -->
+	 <update id="applyMapForValUnmapped" parameterType="Map">
+	 	update RSK_VALTBL_ASSET_SUB set
+			FINPROD_ID = #{finprodId, jdbcType=VARCHAR}
+		where
+			PTL_ID = #{ptlId}
+			 and (SUB_CODE = #{subCode}
+			 <!-- TISHKBS-1172 [估值表资产科目映射]映射完资产信息后，rsk_valtbl_asset_sub入表数据不正确 add by hpp 2020-09-27 -->
+			 <!--OR SUB_NAME in (SELECT SUB_NAME FROM RSK_VALTBL_ASSET_SUB WHERE SUB_CODE = #{subCode} AND PTL_ID = #{ptlId})-->
+		 		OR SUB_CODE like concat_ws('%',substr(#{subCode},8))
+			 )
+			and FINPROD_ID is null
+	 </update>
+
+	<update id="applyForValUnmapped" parameterType="com.joyintech.tams.common.base.entity.RskValtblPrtBotassetMap">
+		update RSK_VALTBL_ASSET_SUB set
+		FINPROD_ID = #{finprodId, jdbcType=VARCHAR}
+		where
+		PTL_ID = #{ptlId}
+		and
+		substring(SUB_CODE,9) = substring(#{subCode,jdbcType=VARCHAR},9)
+		and FINPROD_ID is null
+	</update>
+	 <!-- 获取不同映射count -->
+	 <select id="getCountForValDiffmapped" parameterType="Map" resultType="Integer">
+	 	SELECT
+			count( 1 ) 
+		FROM
+			RSK_VALTBL_ASSET_SUB
+			where PTL_ID = #{ptlId}
+			and SUB_CODE = #{subCode}
+			and FINPROD_ID is not  null
+			<if test="finprodId != null and finprodId != ''">
+			and FINPROD_ID != #{finprodId}
+			</if>
+	 </select>
+	 <!-- 应用不同映射 -->
+	 <update id="applyMapForValDiffmapped" parameterType="Map">
+	 	update RSK_VALTBL_ASSET_SUB set
+			FINPROD_ID = #{finprodId, jdbcType=VARCHAR}
+		where
+			PTL_ID = #{ptlId}
+			and (SUB_CODE = #{subCode} OR SUB_NAME in (SELECT SUB_NAME FROM RSK_VALTBL_ASSET_SUB WHERE SUB_CODE = #{subCode} AND PTL_ID = #{ptlId}))
+			and FINPROD_ID is not null
+			<if test="finprodId != null and finprodId != ''">
+			and FINPROD_ID != #{finprodId}
+			</if>
+	 </update>
+
+	<!--取消映射-->
+	<update id="cancleValmapped" parameterType="Map">
+	 	update RSK_VALTBL_ASSET_SUB c set
+			FINPROD_ID = null
+		where
+			PTL_ID = #{ptlId}
+			and substring(SUB_CODE,9) = substring(#{subCode,jdbcType=VARCHAR},9)
+	 </update>
+	 
+	 <delete id="deletePrtBotassetMap" parameterType="Map">
+		delete from RSK_VALTBL_PRT_BOTASSET_MAP 
+		where PTL_ID = #{ptlId,jdbcType=VARCHAR}
+	 </delete>
+
+	<select id="queryAllAsset" resultType="com.joyintech.framework.select.SelectOptionDto">
+		SELECT
+		ASSET_CODE as id, /**行内资产负债编码 **/
+		ifnull(ASSET_NAME,ASSET_CODE) as text /**资产名称**/
+		FROM
+		chb_asset_info /**资产要素表**/
+		WHERE
+		status in ('E', 'M')
+		<if test="search != null and search != ''">
+			AND (ASSET_CODE LIKE concat(concat('%', #{search}),'%')
+			OR ASSET_NAME LIKE concat(concat('%', #{search}),'%'))
+		</if>
+		<if test="initValue != null and initValue != ''">
+			AND ASSET_CODE = #{initValue}
+		</if>
+	</select>
+</mapper>

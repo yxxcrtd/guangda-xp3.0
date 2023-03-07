@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.batch.report.report.chbfinanceproductssub.dao.SvrChbFinanceProductsSubExportTaskMapper" >
+    <!-- 分页查询   -->
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub001Dto">
+        SELECT
+        T1.STATUS_BATCH         AS statusBatch,
+        T1.PROD_ID              AS prodId,
+        T1.PROD_NAME            AS prodName,
+        T1.SURFACE_IN_OUT       AS surfaceInOut,
+        T1.PROD_BRAND           AS prodBrand,
+        T1.PROD_STAGE           AS prodStage,
+        T1.RAISE_CCY            AS raiseCcy,
+        T1.RAISE_AMT_PLAN       AS raiseAmtPlan,
+        T1.TOTAL_AMT            AS totalAmt,
+        T1.SALE_AMT_STR         AS saleAmtStr,
+        T1.RAISE_VDATE          AS raiseVdate,
+        T1.RAISE_ENDDATE        AS raiseEnddate,
+        T1.CASH_PRIN_CCY        AS cashPrinCcy,
+        T1.CASH_PROF_CCY        AS cashProfCcy,
+        T1.VDATE                AS vdate,
+        T1.MDATE                AS mdate,
+        T1.LOW_YIELD            AS lowYield,
+        T1.HIGH_YIELD           AS highYield,
+        T1.IS_CONSTRACTE        AS isConstracte,
+        T1.RISK_LEVEL           AS riskLevel,
+        T1.PROD_MANAGE_PATTERN  AS prodManagePattern,
+        T1.CONT_MODE            AS contMode,
+        T1.PROFIT_TYPE          AS profitType,
+        T1.PROD_SALEBANK_NAME   AS prodSalebankName,
+        T1.OPERATE_MODE         AS operateMode,
+        T1.CMMODE               AS cmmode,
+        T1.TERM_RIGHT_FLAG      AS termRightFlag,
+        T1.COOPERATION_NAME     AS cooperationName,
+        T1.INV_ASSET_TYPE       AS invAssetType,
+        T1.CUSTOMER_RISK_LEVEL  AS customerRiskLevel,
+        T1.CUSTOMER_TYPE        AS customerType,
+        T1.INVEST_ARAE          AS investArae ,
+        T1.REMARK               AS remark,
+        T1.BANK_MARK            AS bankMark ,
+        T1.DATE_STATUS          AS dateStatus,
+        T1.GROUP_ID             AS groupId
+        FROM
+        CHB_FINANCE_PRODUCTS_SUB T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+        ORDER BY T1.STATUS_BATCH DESC
+    </select>
+
+    <!-- 数据行   -->
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            CHB_FINANCE_PRODUCTS_SUB
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 批   -->
+    <select id="getBatchLog" parameterType="java.lang.String" resultType="com.joyintech.tams.report.system.subinfobatchlog.dto.ChbSubinfoBatchLog">
+		select *
+		from chb_subinfo_batch_log
+		where task_id=#{taskId} and deal_status = '04'
+	</select>
+</mapper>

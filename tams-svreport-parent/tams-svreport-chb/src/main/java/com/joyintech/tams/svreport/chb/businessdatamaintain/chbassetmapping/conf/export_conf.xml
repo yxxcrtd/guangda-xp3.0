@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ChbAssetMapping001.xlsx" name="资产代码匹配映射管理">
+	<Worksheet javaBean="com.joyintech.tams.svreport.chb.businessdatamaintain.chbassetmapping.dto.ChbAssetMappingDto">
+		<Row>
+			<Cell order="1" name="报送系统资产代码">svrAssetCode</Cell>
+			<Cell order="2" name="报送系统资产名称">assetName</Cell>
+			<Cell order="3" name="策略专户系统代码">sadasAssetCode</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

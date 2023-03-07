@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.interf.chb.prodinfo.dao.ChbPrdTargetInterfMapper" >
+  <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.interf.chb.prodinfo.dto.SvrChbTargetInfo001Dto" >
+	  <id column="UUID" property="uuid" jdbcType="CHAR" />
+	  <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+	  <result column="INDENTIFY_MARK" property="indentifyMark" jdbcType="VARCHAR" />
+	  <result column="HOLDER_NAME" property="holderName" jdbcType="VARCHAR" />
+	  <result column="HOLDER_TYPE" property="holderType" jdbcType="VARCHAR" />
+	  <result column="HOLD_DATE" property="holdDate" jdbcType="TIMESTAMP" />
+	  <result column="CCY" property="ccy" jdbcType="VARCHAR" />
+	  <result column="QTY" property="qty" jdbcType="DECIMAL" />
+	  <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+	  <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	  <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	  <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<sql id="Base_Column_List" >
+		UUID, ACCOUNT, INDENTIFY_MARK, HOLDER_NAME, HOLDER_TYPE, HOLD_DATE, CCY, QTY,
+    AMOUNT,STATUS,UPDATE_TIME,CREATE_TIME
+	</sql>
+
+	<insert id="mergeChbPrdTargetData"
+			parameterType="com.joyintech.tams.svreport.interf.chb.prodinfo.dto.SvrChbTargetInfo001Dto">
+		MERGE INTO PBC_TARGET_INFO CII
+		USING (
+		<foreach collection="list" item="item" open="select * from("
+				 close=")" separator="union all">
+			SELECT
+			#{item.uuid,jdbcType=CHAR} UUID,
+			#{item.account,jdbcType=VARCHAR} ACCOUNT,
+			#{item.pbcProdId,jdbcType=VARCHAR} PBC_PROD_ID,
+			#{item.indentifyMark,jdbcType=VARCHAR} INDENTIFY_MARK,
+			#{item.holderName,jdbcType=VARCHAR} HOLDER_NAME,
+			#{item.holderType,jdbcType=VARCHAR} HOLDER_TYPE,
+			#{item.holdDate,jdbcType=TIMESTAMP} HOLD_DATE,
+			#{item.ccy,jdbcType=VARCHAR} CCY,
+			#{item.qty,jdbcType=DECIMAL} QTY,
+			#{item.amount,jdbcType=DECIMAL} AMOUNT,
+			#{item.status,jdbcType=VARCHAR} STATUS,
+			sysdate UPDATE_TIME,
+			sysdate CREATE_TIME,
+			#{item.createUser,jdbcType=VARCHAR} CREATE_USER,
+			#{item.updateUser,jdbcType=VARCHAR} UPDATE_USER
+			FROM  DUAL
+		</foreach>
+		) TEMP
+		<!-- 业务主键匹配 -->
+		ON(CII.ACCOUNT = TEMP.ACCOUNT
+		AND CII.INDENTIFY_MARK = TEMP.INDENTIFY_MARK
+		and CII.HOLD_DATE = TEMP.HOLD_DATE
+		)
+		<!-- 匹配到则更新 -->
+		WHEN MATCHED THEN UPDATE SET
+		CII.HOLDER_NAME = TEMP.HOLDER_NAME,
+		CII.HOLDER_TYPE = TEMP.HOLDER_TYPE,
+		CII.CCY = TEMP.CCY,
+		CII.QTY = TEMP.QTY,
+		CII.AMOUNT = TEMP.AMOUNT,
+		CII.UPDATE_TIME = TEMP.UPDATE_TIME,
+		CII.UPDATE_USER = TEMP.UPDATE_USER,
+		CII.STATUS = TEMP.STATUS
+		<!-- 未匹配到这插入 -->
+		WHEN NOT MATCHED THEN INSERT (
+		UUID,ACCOUNT,PBC_PROD_ID, INDENTIFY_MARK, HOLDER_NAME, HOLDER_TYPE, HOLD_DATE, CCY, QTY,
+		AMOUNT,STATUS,UPDATE_TIME,CREATE_TIME, CREATE_USER, UPDATE_USER
+		)
+		VALUES(TEMP.UUID,TEMP.ACCOUNT, TEMP.PBC_PROD_ID, TEMP.INDENTIFY_MARK,
+		TEMP.HOLDER_NAME, TEMP.HOLDER_TYPE,
+		TEMP.HOLD_DATE,
+		TEMP.CCY, TEMP.QTY, TEMP.STATUS,
+		TEMP.REV_DATE, TEMP.DATA_SOURCE, TEMP.UPDATE_USER,
+		TEMP.UPDATE_TIME, TEMP.CREATE_TIME, TEMP.CREATE_USER, TEMP.UPDATE_USER
+		)
+	</insert>
+    <select id="queryProdId"
+            resultType="com.joyintech.tams.svreport.interf.chb.prodinfo.dto.SvrChbTargetInfo001Dto">
+		SELECT
+		DISTINCT
+		t1.INSIDE_PROD_ID account,
+		ifnull(t1.PBC_CODE,t2.PBC_PROD_ID) AS pbcProdId
+		FROM
+		PBC_PROD_ASSETPOOL_CODE t1
+		LEFT JOIN PBC_COL_PRD_BASEINFO_SUB t2 ON t1.INSIDE_PROD_ID = t2.PROD_ID
+	</select>
+
+</mapper>

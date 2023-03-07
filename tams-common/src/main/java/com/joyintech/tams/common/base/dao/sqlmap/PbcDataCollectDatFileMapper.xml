@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.PbcDataCollectDatFileMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.PbcDataCollectDatFile" >
+        <id column="UUID" property="uuid" jdbcType="VARCHAR" />
+        <result column="DAT_FILE_NAME" property="datFileName" jdbcType="VARCHAR" />
+        <result column="DAT_FILE_NAME_MD5" property="datFileNameMd5" jdbcType="VARCHAR" />
+        <result column="REPORT_NAME" property="reportName" jdbcType="VARCHAR" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="REPORT_DATE" property="reportDate" jdbcType="TIMESTAMP" />
+        <result column="REPORT_STATUS" property="reportStatus" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        UUID,DAT_FILE_NAME,DAT_FILE_NAME_MD5,REPORT_NAME,CREATE_DATE,REPORT_DATE,REPORT_STATUS,CREATE_TIME
+        ,UPDATE_TIME,CREATE_USER,CREATE_DEPT,UPDATE_USER,REMARK
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.PbcDataCollectDatFileMapper.Base_Column_List" />
+        from pbc_data_collect_dat_file
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.PbcDataCollectDatFileMapper.Base_Column_List" />
+        from pbc_data_collect_dat_file
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.PbcDataCollectDatFileMapper.Base_Column_List" />
+        from pbc_data_collect_dat_file
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from pbc_data_collect_dat_file
+        where uuid = #{uuid,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.PbcSendZipDatFile" >
+        insert into pbc_data_collect_dat_file (UUID,DAT_FILE_NAME,DAT_FILE_NAME_MD5,REPORT_NAME,CREATE_DATE,REPORT_DATE,REPORT_STATUS,CREATE_TIME
+        ,UPDATE_TIME,CREATE_USER,CREATE_DEPT,UPDATE_USER,REMARK)
+        values (#{uuid,jdbcType=VARCHAR}, #{datFileName,jdbcType=VARCHAR}, #{datFileNameMd5,jdbcType=VARCHAR},
+            #{reportName,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{reportDate,jdbcType=DATE},
+            #{reportStatus,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},
+             #{createUser,jdbcType=VARCHAR},#{createDept,jdbcType=VARCHAR},
+             #{updateUser,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.PbcSendZipDatFile" >
+         insert into pbc_data_collect_dat_file
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="datFileName != null" >
+                DAT_FILE_NAME,
+            </if>
+            <if test="datFileNameMd5 != null" >
+                DAT_FILE_NAME_MD5,
+            </if>
+            <if test="reportName != null" >
+                REPORT_NAME,
+            </if>
+            <if test="createDate != null" >
+                CREATE_DATE,
+            </if>
+            <if test="reportDate != null" >
+                REPORT_DATE,
+            </if>
+            <if test="reportStatus != null" >
+                REPORT_STATUS,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="remark != null" >
+                REMARK,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="datFileName != null" >
+                #{datFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="datFileNameMd5 != null" >
+                #{datFileNameMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null" >
+                #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=DATE},
+            </if>
+            <if test="reportDate != null" >
+                #{reportDate,jdbcType=DATE},
+            </if>
+            <if test="reportStatus != null" >
+                #{reportStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+  
+    
+
+
+    <select id="searchPage" parameterType="map" resultMap="BaseResultMap">
+        select * from (
+        select
+        <include refid="Base_Column_List" />
+        from pbc_data_collect_dat_file
+        where 1=1
+        <if test="createDateStart != null">
+            <![CDATA[  and to_char(create_date, 'yyyy-mm-dd')>=#{createDateStart,jdbcType=VARCHAR}  ]]>
+        </if>
+        <if test="createDateEnd != null">
+          <![CDATA[  and to_char(create_date, 'yyyy-mm-dd')<=#{createDateEnd,jdbcType=VARCHAR}  ]]>
+        </if>
+        <if test="datuuidList != null and datuuidList.size()&gt;0">
+            <foreach close=")" collection="datuuidList" item="item" open="and uuid in(" separator=",">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="reportNameList != null and reportNameList.size()&gt;0">
+            <foreach close=")" collection="reportNameList" item="item" open="and report_name in(" separator=",">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="reportStatus != null">
+            and REPORT_STATUS=#{reportStatus,jdbcType=VARCHAR}
+        </if>
+        ) ORDER BY create_date desc,report_name asc
+    </select>
+
+    <update id="updateDatStatus">
+        update pbc_data_collect_dat_file
+        set REPORT_STATUS = '03',REPORT_DATE = SYSDATE
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getProdIdList" parameterType="java.util.List" resultType="map">
+        SELECT nvl(C.PBC_CODE,S.PBC_PROD_ID) PBC_CODE,
+            S.PROD_ID PROD_ID
+        FROM pbc_col_prd_baseinfo_sub S
+        LEFT JOIN pbc_prod_assetpool_code C ON C.INSIDE_PROD_ID = S.PROD_ID
+        WHERE
+        <foreach collection="list" item="item" index="index" open=" nvl(C.PBC_CODE,S.PBC_PROD_ID) in(" separator="," close=")">
+            <if test="(index % 999) == 998">
+                null) OR nvl(C.PBC_CODE,S.PBC_PROD_ID) in(
+            </if>
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+</mapper>

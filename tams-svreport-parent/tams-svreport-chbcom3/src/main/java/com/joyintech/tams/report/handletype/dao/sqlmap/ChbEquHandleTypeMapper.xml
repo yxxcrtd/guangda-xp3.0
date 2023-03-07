@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.report.handletype.dao.ChbEquHandleTypeMapper" >
+	<select id="selectInvestHoldData" resultType="com.joyintech.tams.report.handletype.dto.EquityHolderTypeDto">
+		select  INDENTIFY_MARK as  indentifyMark,
+		CASE WHEN MAX(CNY_AMT)  &lt; 6000000
+		THEN '02'
+		ELSE '03'
+		END  holderType
+		from chb_investhold_info_sub
+		where HOLD_DATE=to_date(#{excuteDate},'yyyy-MM-dd')
+		AND  CNY_AMT>1000000
+		GROUP BY INDENTIFY_MARK
+	</select>
+
+	<delete id="truncateTmp">
+     TRUNCATE TABLE chb_equ_type_tmp
+	</delete>
+
+	<select id="selectChangeHoldType" resultType="com.joyintech.tams.report.submitmanagement.equityinforegist.dto.EquityInfoRegist001Dto">
+    SELECT
+        sub.INDENTIFY_MARK  AS indentifyMark,
+        tmp.HOLDER_TYPE AS holderType,
+        sub.SUBMIT_STATUS AS submitStatus,
+        sub.STATUS AS status
+    from  CHB_EQU_SUB  sub
+    inner join  chb_equ_type_tmp tmp
+    on sub.INDENTIFY_MARK=tmp.INDENTIFY_MARK
+    and  sub.HOLDER_TYPE != tmp.HOLDER_TYPE
+    where sub.STATUS in  ('01','02')
+	</select>
+
+	<update id="updateSubHandleType" parameterType="java.util.List">
+		begin
+		<foreach collection="list" item="item" index="index" separator=";" >
+			update CHB_EQU_SUB  sub
+			set
+			sub.HOLDER_TYPE = #{item.holderType,jdbcType=VARCHAR}
+			where
+			sub.INDENTIFY_MARK = #{item.indentifyMark}
+		</foreach>
+		;end;
+	</update>
+
+	<update id="updateSubHandleInfoType" parameterType="java.util.List">
+		begin
+		<foreach collection="list" item="item" index="index" separator=";" >
+			update CHB_EQU_HOLD  sub
+			set
+			sub.HOLDER_TYPE = #{item.holderType,jdbcType=VARCHAR}
+			where
+			sub.INDENTIFY_MARK = #{item.indentifyMark}
+		</foreach>
+		;end;
+	</update>
+</mapper>

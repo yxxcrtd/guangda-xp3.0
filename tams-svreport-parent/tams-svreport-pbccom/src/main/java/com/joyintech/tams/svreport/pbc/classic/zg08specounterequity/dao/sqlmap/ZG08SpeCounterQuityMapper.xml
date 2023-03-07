@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zg08specounterequity.dao.ZG08SpeCounterQuityMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.pbc.classic.zg08specounterequity.dto.ZG08SpeCounterQuityDto" >
+        <id column="DETAILUUID" property="detailuuid" jdbcType="CHAR" />
+        <result column="PBC_PROD_ID" property="pbcProdId" jdbcType="VARCHAR" />
+        <result column="TERMID" property="termid" jdbcType="VARCHAR" />
+        <result column="ASSET_TYPE" property="assetType" jdbcType="VARCHAR" />
+        <result column="PRRTY_PROD_TYPE" property="prrtyProdType" jdbcType="VARCHAR" />
+        <result column="PRRTY_ORG_CODE" property="prrtyOrgCode" jdbcType="VARCHAR" />
+        <result column="PRRTY_PROD_ID" property="prrtyProdId" jdbcType="VARCHAR" />
+        <result column="ccy" property="ccy" jdbcType="VARCHAR" />
+        <result column="AMT" property="amt" jdbcType="DECIMAL" />
+        <result column="AMT_CNY" property="amtCny" jdbcType="DECIMAL" />
+        <result column="SUBMIT_TIME" property="submitTime" jdbcType="TIMESTAMP" />
+        <result column="STATUS_DATE" property="statusDate" jdbcType="TIMESTAMP" />
+        <result column="PBC_SUBMIT_DEADLINE" property="pbcSubmitDeadline" jdbcType="TIMESTAMP" />
+        <result column="SUBMIT_DEADLINE" property="submitDeadline" jdbcType="TIMESTAMP" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="PROD_ID" property="prodId" jdbcType="VARCHAR" />
+        <result column="SEND_STATUS" property="sendStatus" jdbcType="VARCHAR" />
+        <result column="DATUUID" property="datuuid" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    DETAILUUID,PBC_PROD_ID,TERMID,ASSET_TYPE,PRRTY_PROD_TYPE,PRRTY_ORG_CODE,PRRTY_PROD_ID,CCY,
+    AMT,AMT_CNY,SUBMIT_TIME,PBC_SUBMIT_DEADLINE,SUBMIT_DEADLINE,STATUS,SEND_STATUS,STATUS_DATE,
+    CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,PROD_ID
+  </sql>
+    <!-- 根据条件查询 -->
+    <select id="searchPage" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="false">
+        select
+        a.DETAILUUID,
+        a.PBC_PROD_ID,
+        a.TERMID,
+        a.ASSET_TYPE,
+        a.PRRTY_PROD_TYPE,
+        a.PRRTY_ORG_CODE,
+        a.PRRTY_PROD_ID,
+        a.CCY,
+        a.AMT,
+        a.AMT_CNY,
+        a.SUBMIT_TIME,
+        a.PBC_SUBMIT_DEADLINE,
+        a.SUBMIT_DEADLINE,
+        a.STATUS,
+        a.SEND_STATUS,
+        a.STATUS_DATE,
+        a.CREATE_USER,
+        a.CREATE_TIME,
+        a.UPDATE_USER,
+        a.UPDATE_TIME,
+        a.ORG_CODE,
+        a.DEPT_CODE,
+        a.CREATE_DEPT,
+        a.PROD_ID,
+        a.DATUUID
+        from PBC_COL_SPE_COUNTER_PARTY_SUB a
+        <where>
+            <!--<if test="pbcProdIdList != null and pbcProdIdList.size > 0">
+                <foreach collection="pbcProdIdList" item="items" open="and a.PBC_PROD_ID in (" separator="," close =")">
+                #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>-->
+            <if test="sendStatusList != null and sendStatusList.size > 0">
+                and a.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="registList != null and registList.size > 0">
+                <foreach collection="registList" item="items" open="and DETAILUUID in (" separator="," close =")">
+                    <if test="(index % 999) == 998">
+                        null) OR DETAILUUID in (
+                    </if>
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="assetTypeList != null and assetTypeList.size > 0">
+                and a.ASSET_TYPE in
+                <foreach collection="assetTypeList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="pbcProdId != null and pbcProdId != ''">
+                and a.PBC_PROD_ID like concat('%',#{pbcProdId, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="prrtyProdId != null and prrtyProdId != ''">
+                and a.PRRTY_PROD_ID like concat('%',#{prrtyProdId, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and TO_CHAR(a.STATUS_DATE.'YYYY-MM-DD') &gt;= #{statusDateStart}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and TO_CHAR(a.STATUS_DATE.'YYYY-MM-DD') &lt;= #{statusDateEnd}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and TO_CHAR(a.SUBMIT_TIME.'YYYY-MM-DD') &gt;= #{submitTimeStart}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and TO_CHAR(a.SUBMIT_TIME.'YYYY-MM-DD') &lt;= #{submitTimeEnd}
+            </if>
+            <if test="pbcSubmitDeadlineDateStart != null and pbcSubmitDeadlineDateStart != ''">
+                and TO_CHAR(a.PBC_SUBMIT_DEADLINE.'YYYY-MM-DD') &gt;= #{pbcSubmitDeadlineDateStart}
+            </if>
+            <if test="pbcSubmitDeadlineDateEnd != null and pbcSubmitDeadlineDateEnd != ''">
+                and TO_CHAR(a.PBC_SUBMIT_DEADLINE.'YYYY-MM-DD') &lt;= #{pbcSubmitDeadlineDateEnd}
+            </if>
+            <if test="termId != null and termId != ''">
+                and a.TERMID = #{termId}
+            </if>
+            <if test="termIdList != null and termIdList.size > 0">
+                and a.TERMID in
+                <foreach collection="termIdList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY TERMID,a.PBC_SUBMIT_DEADLINE ASC, a.UPDATE_TIME DESC,a.PBC_PROD_ID,ASSET_TYPE,PRRTY_PROD_TYPE,PRRTY_PROD_ID
+    </select>
+    <select id="searchExport" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="false">
+        select
+        a.DETAILUUID,
+        a.PBC_PROD_ID,
+        a.TERMID,
+        a.ASSET_TYPE,
+        a.PRRTY_PROD_TYPE,
+        a.PRRTY_ORG_CODE,
+        a.PRRTY_PROD_ID,
+        a.CCY,
+        a.AMT,
+        a.AMT_CNY,
+        a.SUBMIT_TIME,
+        a.PBC_SUBMIT_DEADLINE,
+        a.SUBMIT_DEADLINE,
+        a.STATUS,
+        a.SEND_STATUS,
+        a.STATUS_DATE,
+        a.CREATE_USER,
+        a.CREATE_TIME,
+        a.UPDATE_USER,
+        a.UPDATE_TIME,
+        a.ORG_CODE,
+        a.DEPT_CODE,
+        a.CREATE_DEPT,
+        a.PROD_ID,
+        a.DATUUID
+        from PBC_COL_SPE_COUNTER_PARTY_SUB a
+        <where>
+            <!--<if test="pbcProdIdList != null and pbcProdIdList.size > 0">
+                <foreach collection="pbcProdIdList" item="items" open="and a.PBC_PROD_ID in (" separator="," close =")">
+                #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>-->
+            <if test="sendStatus==null">
+                and a.SEND_STATUS='01'
+            </if>
+            <if test="sendStatus !=null and sendStatusList != null and sendStatusList.size > 0">
+                and a.SEND_STATUS in
+                <foreach collection="sendStatusList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="assetTypeList != null and assetTypeList.size > 0">
+                and a.ASSET_TYPE in
+                <foreach collection="assetTypeList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="pbcProdId != null and pbcProdId != ''">
+                and a.PBC_PROD_ID like concat('%',#{pbcProdId, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="prrtyProdId != null and prrtyProdId != ''">
+                and a.PRRTY_PROD_ID like concat('%',#{prrtyProdId, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and TO_CHAR(a.STATUS_DATE.'YYYY-MM-DD') &gt;= #{statusDateStart}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and TO_CHAR(a.STATUS_DATE.'YYYY-MM-DD') &lt;= #{statusDateEnd}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and TO_CHAR(a.SUBMIT_TIME.'YYYY-MM-DD') &gt;= #{submitTimeStart}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and TO_CHAR(a.SUBMIT_TIME.'YYYY-MM-DD') &lt;= #{submitTimeEnd}
+            </if>
+            <if test="pbcSubmitDeadlineDateStart != null and pbcSubmitDeadlineDateStart != ''">
+                and TO_CHAR(a.PBC_SUBMIT_DEADLINE.'YYYY-MM-DD') &gt;= #{pbcSubmitDeadlineDateStart}
+            </if>
+            <if test="pbcSubmitDeadlineDateEnd != null and pbcSubmitDeadlineDateEnd != ''">
+                and TO_CHAR(a.PBC_SUBMIT_DEADLINE.'YYYY-MM-DD') &lt;= #{pbcSubmitDeadlineDateEnd}
+            </if>
+            <if test="termId != null and termId != ''">
+                and a.TERMID = #{termId}
+            </if>
+            <if test="termIdList != null and termIdList.size > 0">
+                and a.TERMID in
+                <foreach collection="termIdList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY TERMID,a.PBC_SUBMIT_DEADLINE ASC, a.UPDATE_TIME DESC,a.PBC_PROD_ID,ASSET_TYPE,PRRTY_PROD_TYPE,PRRTY_PROD_ID
+    </select>
+    <insert id="insertHisBatchBySendStatus" parameterType="java.util.List">
+        insert into PBC_COL_SPE_COUNTER_PARTY_SUB_HIS (<include refid="Base_Column_List" />)
+        select
+        a.DETAILUUID,
+        a.PBC_PROD_ID,
+        a.TERMID,
+        a.ASSET_TYPE,
+        a.PRRTY_PROD_TYPE,
+        a.PRRTY_ORG_CODE,
+        a.PRRTY_PROD_ID,
+        a.CCY,
+        a.AMT,
+        a.AMT_CNY,
+        a.SUBMIT_TIME,
+        a.PBC_SUBMIT_DEADLINE,
+        a.SUBMIT_DEADLINE,
+        a.STATUS,
+        a.SEND_STATUS,
+        a.STATUS_DATE,
+        a.CREATE_USER,
+        a.CREATE_TIME,
+        a.UPDATE_USER,
+        a.UPDATE_TIME,
+        a.ORG_CODE,
+        a.DEPT_CODE,
+        a.CREATE_DEPT,
+        a.PROD_ID
+        from PBC_COL_SPE_COUNTER_PARTY_SUB a
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            a.PBC_PROD_ID=#{item.pbcProdId,jdbcType=VARCHAR} and a.TERMID=#{item.termid,jdbcType=VARCHAR}
+            and a.ASSET_TYPE=#{item.assetType,jdbcType=VARCHAR} and a.PRRTY_PROD_TYPE=#{item.prrtyProdType,jdbcType=VARCHAR}
+            and a.PRRTY_ORG_CODE=#{item.prrtyOrgCode,jdbcType=VARCHAR} and a.PRRTY_PROD_ID=#{item.prrtyProdId,jdbcType=VARCHAR}
+            and a.CCY=#{item.ccy,jdbcType=VARCHAR}
+        </foreach>
+        and a.SEND_STATUS ='03'
+    </insert>
+
+    <delete id="deleteBatchBySendStatus" parameterType="java.util.List">
+        DELETE
+        from PBC_COL_SPE_COUNTER_PARTY_SUB a
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            a.PBC_PROD_ID=#{item.pbcProdId,jdbcType=VARCHAR} and a.TERMID=#{item.termid,jdbcType=VARCHAR}
+            and a.ASSET_TYPE=#{item.assetType,jdbcType=VARCHAR} and a.PRRTY_PROD_TYPE=#{item.prrtyProdType,jdbcType=VARCHAR}
+            and a.PRRTY_ORG_CODE=#{item.prrtyOrgCode,jdbcType=VARCHAR} and a.PRRTY_PROD_ID=#{item.prrtyProdId,jdbcType=VARCHAR}
+            and a.CCY=#{item.ccy,jdbcType=VARCHAR}
+        </foreach>
+        and a.SEND_STATUS ='03'
+    </delete>
+
+    <update id="doManul" parameterType="java.util.List">
+        update PBC_COL_SPE_COUNTER_PARTY_SUB a
+        set
+        a.SEND_STATUS = '03',
+        <if test="submitadd != null and submitadd != ''">
+            a.SUBMIT_TIME = NOW() + #{submitadd},
+        </if>
+        <if test="submitadd == null">
+            a.SUBMIT_TIME = NOW(),
+        </if>
+        a.UPDATE_TIME = NOW()
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            a.PBC_PROD_ID=#{item.pbcProdId,jdbcType=VARCHAR} and a.TERMID=#{item.termid,jdbcType=VARCHAR}
+            and a.ASSET_TYPE=#{item.assetType,jdbcType=VARCHAR} and a.PRRTY_PROD_TYPE=#{item.prrtyProdType,jdbcType=VARCHAR}
+            and a.PRRTY_ORG_CODE=#{item.prrtyOrgCode,jdbcType=VARCHAR} and a.PRRTY_PROD_ID=#{item.prrtyProdId,jdbcType=VARCHAR}
+            and a.CCY=#{item.ccy,jdbcType=VARCHAR}
+        </foreach>
+        and a.SEND_STATUS ='01'
+    </update>
+
+    <update id="cancelManul" parameterType="java.util.List">
+        update PBC_COL_SPE_COUNTER_PARTY_SUB a
+        set
+        a.SEND_STATUS = '01',
+        a.UPDATE_TIME = now(),
+        a.SUBMIT_TIME = null
+        where a.SEND_STATUS ='03' and
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            a.PBC_PROD_ID=#{item.pbcProdId,jdbcType=VARCHAR} and a.TERMID=#{item.termid,jdbcType=VARCHAR}
+            and a.ASSET_TYPE=#{item.assetType,jdbcType=VARCHAR} and a.PRRTY_PROD_TYPE=#{item.prrtyProdType,jdbcType=VARCHAR}
+            and a.PRRTY_ORG_CODE=#{item.prrtyOrgCode,jdbcType=VARCHAR} and a.PRRTY_PROD_ID=#{item.prrtyProdId,jdbcType=VARCHAR}
+            and a.CCY=#{item.ccy,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <insert id="insetBatchSubFromHisByUpdateTime" parameterType="java.util.List">
+        insert into PBC_COL_SPE_COUNTER_PARTY_SUB (<include refid="Base_Column_List" />)
+        select
+        a.DETAILUUID,
+        a.PBC_PROD_ID,
+        a.TERMID,
+        a.ASSET_TYPE,
+        a.PRRTY_PROD_TYPE,
+        a.PRRTY_ORG_CODE,
+        a.PRRTY_PROD_ID,
+        a.CCY,
+        a.AMT,
+        a.AMT_CNY,
+        a.SUBMIT_TIME,
+        a.PBC_SUBMIT_DEADLINE,
+        a.SUBMIT_DEADLINE,
+        a.STATUS,
+        a.SEND_STATUS,
+        a.STATUS_DATE,
+        a.CREATE_USER,
+        a.CREATE_TIME,
+        a.UPDATE_USER,
+        a.UPDATE_TIME,
+        a.ORG_CODE,
+        a.DEPT_CODE,
+        a.CREATE_DEPT,
+        a.PROD_ID
+        from PBC_COL_SPE_COUNTER_PARTY_SUB_HIS a
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            a.PBC_PROD_ID=#{item.pbcProdId,jdbcType=VARCHAR} and a.TERMID=#{item.termid,jdbcType=VARCHAR}
+            and a.ASSET_TYPE=#{item.assetType,jdbcType=VARCHAR} and a.PRRTY_PROD_TYPE=#{item.prrtyProdType,jdbcType=VARCHAR}
+            and a.PRRTY_ORG_CODE=#{item.prrtyOrgCode,jdbcType=VARCHAR} and a.PRRTY_PROD_ID=#{item.prrtyProdId,jdbcType=VARCHAR}
+            and a.CCY=#{item.ccy,jdbcType=VARCHAR}
+        </foreach>
+        and a.SEND_STATUS ='03'
+    </insert>
+
+    <delete id="deleteBatchSubFromHisByUpdateTime" parameterType="java.util.List">
+        DELETE
+        from PBC_COL_SPE_COUNTER_PARTY_SUB_HIS a
+        where
+        <foreach collection="list" open="( (" close=") )" separator=" ) or (" item="item">
+            a.PBC_PROD_ID=#{item.pbcProdId,jdbcType=VARCHAR} and a.TERMID=#{item.termid,jdbcType=VARCHAR}
+            and a.ASSET_TYPE=#{item.assetType,jdbcType=VARCHAR} and a.PRRTY_PROD_TYPE=#{item.prrtyProdType,jdbcType=VARCHAR}
+            and a.PRRTY_ORG_CODE=#{item.prrtyOrgCode,jdbcType=VARCHAR} and a.PRRTY_PROD_ID=#{item.prrtyProdId,jdbcType=VARCHAR}
+            and a.CCY=#{item.ccy,jdbcType=VARCHAR}
+        </foreach>
+        and a.SEND_STATUS ='03'
+    </delete>
+
+    <select id="searchByUuid" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="false">
+        select
+        a.DETAILUUID,
+        a.PBC_PROD_ID,
+        a.TERMID,
+        a.ASSET_TYPE,
+        a.PRRTY_PROD_TYPE,
+        a.PRRTY_ORG_CODE,
+        a.PRRTY_PROD_ID,
+        a.CCY,
+        a.AMT,
+        a.AMT_CNY,
+        a.SUBMIT_TIME,
+        a.PBC_SUBMIT_DEADLINE,
+        a.SUBMIT_DEADLINE,
+        a.STATUS,
+        a.SEND_STATUS,
+        a.STATUS_DATE,
+        a.CREATE_USER,
+        a.CREATE_TIME,
+        a.UPDATE_USER,
+        a.UPDATE_TIME,
+        a.ORG_CODE,
+        a.DEPT_CODE,
+        a.CREATE_DEPT,
+        a.PROD_ID
+        from PBC_COL_SPE_COUNTER_PARTY_SUB a
+        where a.TERMID =(select TERMID from PBC_COL_SPE_COUNTER_PARTY_SUB b where b.DETAILUUID=#{uuid,jdbcType=VARCHAR})
+         ORDER BY TERMID,a.PBC_SUBMIT_DEADLINE ASC, a.UPDATE_TIME DESC,a.PBC_PROD_ID,ASSET_TYPE,PRRTY_PROD_TYPE,PRRTY_PROD_ID
+
+    </select>
+
+    <select id="queryPrdNameList" resultType="com.joyintech.framework.select.SuggestDto">
+        select
+        aa.pbcProjectCodeExternal as code,
+        aa.prodName as name,
+        aa.prodName as shortName
+        from(
+        SELECT insideProdId,
+        ifnull(max(pbcProjectCodeExternal),max(pbcProjectCodeSystem)) pbcProjectCodeExternal,
+        s.prodName
+        FROM (select
+        t1.INSIDE_PROD_ID as insideProdId,
+        t1.PBC_CODE  as pbcProjectCodeExternal,
+        t2.PBC_PROD_ID as pbcProjectCodeSystem,
+        t2.prod_name as prodName
+        from
+        PBC_PROD_ASSETPOOL_CODE t1
+        left join PBC_PRD_BASEINFO_SUB t2 on t1.INSIDE_PROD_ID = t2.PROD_ID
+        where
+        t1.STATUS ='E'
+        ) s
+        group by insideProdId
+        )aa
+        <where>
+            aa.pbcProjectCodeExternal like concat('%',#{prodId, jdbcType=VARCHAR},'%')
+        </where>
+    </select>
+
+    <select id="selectAssetPositionInfoList" resultType="com.joyintech.tams.svreport.pbc.classic.zg08specounterequity.dto.ZG08SpeCounterQuityBatchDto">
+        select POS.PRODID as prodId,
+               pscp.PARTY_PROD_ID as prrtyProdId,
+	           pscp.PARTY_ORG_CODE as prrtyOrgCode,
+               pos.CCY as ccy,
+               SUM(ifnull(cabd.TDY_COST_AMT,0)+ifnull(cabd.TDY_FLOAT_INGPL,0)+ifnull(cabd.TDY_INTINCEXP,0)) as amt,
+               cai.ASSET_TYPE2 as chbAssetType2,
+               POS.ASSET_TYPE1 as pbcAssetType1,
+               POS.ASSET_TYPE2 as pbcAssetType2,
+               POS.ASSET_TYPE3 as pbcAssetType3,
+               PINFO.pbc_code as pbcProdId
+        from PBC_MONTH_ASSET_POSITION  POS
+        inner join  (select distinct ifnull(t2.pbc_code,a.PBC_PROD_ID) as pbc_code,inside_prod_id as prodid from pbc_col_prd_baseinfo_sub a
+	       LEFT JOIN(
+	       SELECT inside_prod_id, pbc_code
+	       FROM pbc_prod_assetpool_code
+	       WHERE status='E' AND code_type='01'
+	       )t2 ON t2.inside_prod_id=a.PROD_ID
+        ) PINFO  ON  PINFO.prodid = POS.prodid
+        left join PBC_SPE_COUNTER_PARTY pscp on pscp.ASSET_CODE =pos.ASSET_CODE and pscp.STATUS in('E','M')
+        left join chb_asset_info cai on cai.ASSET_CODE =pos.ASSET_CODE and cai.STATUS in('E','M')
+        left join chb_assets_basis_data cabd on cabd.ASSET_ID =pos.ASSET_CODE and cabd.STATUS in('E','M') and to_char(cabd.VALUE_DATE,'yyyy-MM-dd')= #{executeDate, jdbcType=VARCHAR}
+        where (pos.ASSET_TYPE1 ='P05' and pos.ASSET_TYPE2 ='R01' and pos.ASSET_TYPE3 in('L08','L09','L10','L11','L12','L13','L14','L15')
+        or pos.ASSET_TYPE1 ='P07' and pos.ASSET_TYPE2 ='T02' and pos.ASSET_TYPE3 in('M01','M02','M03','M04','M05','M06','M07','M08'))
+        /**add 3.2.8 ZG08 特定目的载体交易对手明细信息 需求变更 by dxy  20230206 start*/
+        and (cabd.POS_AMT+cabd.TDY_COST_AMT+cabd.TDY_FLOAT_INGPL+cabd.TDY_INTINCEXP) >0
+        /**add 3.2.8 ZG08 特定目的载体交易对手明细信息 需求变更 by dxy  20230206 end*/
+        and pscp.PARTY_PROD_ID is not null and pscp.PARTY_ORG_CODE is not null and PINFO.pbc_code is not null
+        and to_char(pos.ENDDATE,'yyyy-MM-dd')= #{executeDate, jdbcType=VARCHAR}
+        group by POS.PRODID,pscp.PARTY_PROD_ID,pscp.PARTY_ORG_CODE,pos.CCY,cai.ASSET_TYPE2,
+        POS.ASSET_TYPE1,POS.ASSET_TYPE2,POS.ASSET_TYPE3,PINFO.pbc_code
+    </select>
+
+    <select id="selectHoldInfoList" resultType="com.joyintech.tams.svreport.pbc.classic.zg08specounterequity.dto.ZG08SpeCounterQuityBatchDto">
+        select pti.account  as prodId,
+               pscp.PARTY_PROD_ID as prrtyProdId,
+	           pscp.PARTY_ORG_CODE as prrtyOrgCode,
+               pti.ccy as ccy,
+               sum(pti.qty) as amt,
+               pti.HOLDER_TYPE as chbHolderType,
+               PINFO.pbc_code as pbcProdId
+        from PBC_Target_INFO pti
+        left join PBC_SPE_COUNTER_PARTY pscp on pscp.ASSET_CODE =pti.INDENTIFY_MARK
+        inner join  (select distinct ifnull(t2.pbc_code,a.PBC_PROD_ID) as pbc_code,ifnull(inside_prod_id,a.PROD_ID) as prodid from pbc_col_prd_baseinfo_sub a
+	       LEFT JOIN(
+	       SELECT inside_prod_id, pbc_code
+	       FROM pbc_prod_assetpool_code
+	       WHERE status='E' AND code_type='01'
+	       )t2 ON t2.inside_prod_id=a.PROD_ID
+        ) PINFO  ON  PINFO.prodid = pti.account
+        where pti.STATUS in('E','M') and pti.HOLDER_TYPE in('17','18','19','20','21','22')
+        and pscp.PARTY_PROD_ID is not null and pscp.PARTY_ORG_CODE is not null and pti.ccy is not null and PINFO.pbc_code is not null
+        and to_char(pti.hold_date,'yyyy-MM-dd')= #{executeDate, jdbcType=VARCHAR}
+        group by pti.account ,pscp.PARTY_PROD_ID,pscp.PARTY_ORG_CODE,pti.ccy,pti.HOLDER_TYPE,PINFO.pbc_code
+    </select>
+
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.pbc.classic.zg08specounterequity.dto.ZG08SpeCounterQuityBatchDto">
+        INSERT INTO pbc_col_spe_counter_party_sub
+        (DETAILUUID, PBC_PROD_ID, TERMID, ASSET_TYPE, PRRTY_PROD_TYPE, PRRTY_ORG_CODE, PRRTY_PROD_ID, CCY, AMT, AMT_CNY,
+         SUBMIT_TIME, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, SEND_STATUS, STATUS_DATE, CREATE_USER, CREATE_TIME,
+          UPDATE_USER, UPDATE_TIME, ORG_CODE, DEPT_CODE, CREATE_DEPT, PROD_ID)
+        VALUES(#{detailuuid,jdbcType=CHAR}, #{pbcProdId,jdbcType=VARCHAR}, #{termid,jdbcType=VARCHAR}, #{assetType,jdbcType=VARCHAR},#{prrtyProdType,jdbcType=VARCHAR}, #{prrtyOrgCode,jdbcType=VARCHAR},
+         #{prrtyProdId,jdbcType=VARCHAR}, #{ccy,jdbcType=VARCHAR}, #{amt,jdbcType=DECIMAL}, #{amtCny,jdbcType=DECIMAL},NULL, #{pbcSubmitDeadline,jdbcType=TIMESTAMP}, #{submitDeadline,jdbcType=TIMESTAMP}
+         , #{status,jdbcType=VARCHAR}, #{sendStatus,jdbcType=VARCHAR}, #{statusDate,jdbcType=TIMESTAMP},#{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+          #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{orgCode,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, #{prodId,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="deleteByTermId" parameterType="java.lang.String">
+        delete from pbc_col_spe_counter_party_sub where send_status='01' and TERMID=#{termId}
+    </insert>
+
+    <select id="selectCountByTermId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from pbc_col_spe_counter_party_sub where send_status='03' and TERMID=#{termId}
+    </select>
+
+    <select id="getCounterProdList" resultType="com.joyintech.framework.select.SuggestDto">
+        select
+        aa.PARTY_PROD_ID as code,
+        aa.PARTY_PROD_NAME as name,
+        aa.PARTY_PROD_NAME as shortName
+        from PBC_SPE_COUNTER_PARTY aa
+        <where>
+            aa.PARTY_PROD_ID like concat('%',#{prodId, jdbcType=VARCHAR},'%') and aa.status in('E','M')
+        </where>
+    </select>
+
+    <!-- 手工处理 -->
+    <update id="doDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '03',
+        file.SUBMIT_TIME = sysdate,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 取消手工处理 -->
+    <update id="cancelDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '01',
+        file.SUBMIT_TIME = null,
+        file.UPDATE_TIME = sysdate
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

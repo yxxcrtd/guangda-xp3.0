@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG11DatReportMapper">
+
+	<delete id="deleteBySub">
+		delete from zg11_PBC_COL_REPORT
+		where SEND_STATUS != '03'
+		and (
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+		)
+	</delete>
+
+
+	<delete id="deleteByDat">
+		delete from zg11_PBC_COL_REPORT_dat
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into zg11_PBC_COL_REPORT (
+		REPORTUUID,TERMID,REPORTTYPE,STARTDATE,ENDDATE,REPORT_DATE,SUBMIT_TIME,PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE,SUBMIT_FEEDBACK_STATUS,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,CREATE_TIME,
+		UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,ISSUE_PARTY_ID,ISSUE_PARTY_NAME,PROD_VARIETY,
+		c00000,c01000,c02000,c03000,c04000,c10000,c11000,c12000,c13000,c14000,c20000,c21000,c22000,c23000,
+		c24000,c30000,c31000,c32000,c33000,c34000,c40000,c41000,c42000,c43000,c44000,c50000,c51000,c52000,
+		c53000,c54000,c60000,c61000,c62000,c63000,c64000,c70000,c71000,c72000,c73000,c74000,c80000,c81000,
+		c82000,c83000,c84000,c90000,c91000,c92000,c93000,c94000,ca0000,ca1000,ca2000,ca3000,ca4000,cb0000,
+		cb1000,cb2000,cb3000,cb4000,cc0000,cc1000,cc2000,cc3000,cc4000,cd0000,cd1000,cd2000,cd3000,cd4000,
+		ce0000,ce1000,ce2000,ce3000,ce4000,cf0000,cf1000,cf2000,cf3000,cf4000,cg0000,cg1000,cg2000,cg3000,
+		cg4000,ch0000,ch1000,ch2000,ch3000,ch4000,ci0000,ci1000,ci2000,ci3000,ci4000,cj0000,cj1000,cj2000,
+		cj3000,cj4000,datuuid)values
+		<foreach collection="list" item="item" separator=",">
+			( f_uuid(),#{item.termId,jdbcType=VARCHAR},'ZG11',#{item.startdate,jdbcType=DATE},
+			#{item.enddate,jdbcType=DATE},#{item.reportDate,jdbcType=DATE},#{item.submitTime,jdbcType=DATE},#{item.pbcSubmitDeadline,jdbcType=DATE},
+			#{item.submitDeadline,jdbcType=DATE},#{item.submitFeedbackStatus,jdbcType=VARCHAR},#{item.status,jdbcType=VARCHAR},#{item.sendStatus,jdbcType=VARCHAR},
+            sysdate,#{item.createUser,jdbcType=VARCHAR},sysdate,#{item.updateUser,jdbcType=VARCHAR},
+			sysdate,#{item.orgCode,jdbcType=VARCHAR},#{item.deptCode,jdbcType=VARCHAR},#{item.createDept,jdbcType=VARCHAR},
+			#{item.issuePartyId,jdbcType=VARCHAR},#{item.issuePartyName,jdbcType=VARCHAR},#{item.prodVariety,jdbcType=CHAR},
+			#{item.c00000,jdbcType=DECIMAL},#{item.c01000,jdbcType=DECIMAL},#{item.c02000,jdbcType=DECIMAL},#{item.c03000,jdbcType=DECIMAL},#{item.c04000,jdbcType=DECIMAL}
+			,#{item.c10000,jdbcType=DECIMAL},#{item.c11000,jdbcType=DECIMAL},#{item.c12000,jdbcType=DECIMAL},#{item.c13000,jdbcType=DECIMAL},#{item.c14000,jdbcType=DECIMAL}
+			,#{item.c20000,jdbcType=DECIMAL},#{item.c21000,jdbcType=DECIMAL},#{item.c22000,jdbcType=DECIMAL},#{item.c23000,jdbcType=DECIMAL},#{item.c24000,jdbcType=DECIMAL}
+			,#{item.c30000,jdbcType=DECIMAL},#{item.c31000,jdbcType=DECIMAL},#{item.c32000,jdbcType=DECIMAL},#{item.c33000,jdbcType=DECIMAL},#{item.c34000,jdbcType=DECIMAL}
+			,#{item.c40000,jdbcType=DECIMAL},#{item.c41000,jdbcType=DECIMAL},#{item.c42000,jdbcType=DECIMAL},#{item.c43000,jdbcType=DECIMAL},#{item.c44000,jdbcType=DECIMAL}
+			,#{item.c50000,jdbcType=DECIMAL},#{item.c51000,jdbcType=DECIMAL},#{item.c52000,jdbcType=DECIMAL},#{item.c53000,jdbcType=DECIMAL},#{item.c54000,jdbcType=DECIMAL}
+			,#{item.c60000,jdbcType=DECIMAL},#{item.c61000,jdbcType=DECIMAL},#{item.c62000,jdbcType=DECIMAL},#{item.c63000,jdbcType=DECIMAL},#{item.c64000,jdbcType=DECIMAL}
+			,#{item.c70000,jdbcType=DECIMAL},#{item.c71000,jdbcType=DECIMAL},#{item.c72000,jdbcType=DECIMAL},#{item.c73000,jdbcType=DECIMAL},#{item.c74000,jdbcType=DECIMAL}
+			,#{item.c80000,jdbcType=DECIMAL},#{item.c81000,jdbcType=DECIMAL},#{item.c82000,jdbcType=DECIMAL},#{item.c83000,jdbcType=DECIMAL},#{item.c84000,jdbcType=DECIMAL}
+			,#{item.c90000,jdbcType=DECIMAL},#{item.c91000,jdbcType=DECIMAL},#{item.c92000,jdbcType=DECIMAL},#{item.c93000,jdbcType=DECIMAL},#{item.c94000,jdbcType=DECIMAL}
+			,#{item.ca0000,jdbcType=DECIMAL},#{item.ca1000,jdbcType=DECIMAL},#{item.ca2000,jdbcType=DECIMAL},#{item.ca3000,jdbcType=DECIMAL},#{item.ca4000,jdbcType=DECIMAL}
+			,#{item.cb0000,jdbcType=DECIMAL},#{item.cb1000,jdbcType=DECIMAL},#{item.cb2000,jdbcType=DECIMAL},#{item.cb3000,jdbcType=DECIMAL},#{item.cb4000,jdbcType=DECIMAL}
+			,#{item.cc0000,jdbcType=DECIMAL},#{item.cc1000,jdbcType=DECIMAL},#{item.cc2000,jdbcType=DECIMAL},#{item.cc3000,jdbcType=DECIMAL},#{item.cc4000,jdbcType=DECIMAL}
+			,#{item.cd0000,jdbcType=DECIMAL},#{item.cd1000,jdbcType=DECIMAL},#{item.cd2000,jdbcType=DECIMAL},#{item.cd3000,jdbcType=DECIMAL},#{item.cd4000,jdbcType=DECIMAL}
+			,#{item.ce0000,jdbcType=DECIMAL},#{item.ce1000,jdbcType=DECIMAL},#{item.ce2000,jdbcType=DECIMAL},#{item.ce3000,jdbcType=DECIMAL},#{item.ce4000,jdbcType=DECIMAL}
+			,#{item.cf0000,jdbcType=DECIMAL},#{item.cf1000,jdbcType=DECIMAL},#{item.cf2000,jdbcType=DECIMAL},#{item.cf3000,jdbcType=DECIMAL},#{item.cf4000,jdbcType=DECIMAL}
+			,#{item.cg0000,jdbcType=DECIMAL},#{item.cg1000,jdbcType=DECIMAL},#{item.cg2000,jdbcType=DECIMAL},#{item.cg3000,jdbcType=DECIMAL},#{item.cg4000,jdbcType=DECIMAL}
+			,#{item.ch0000,jdbcType=DECIMAL},#{item.ch1000,jdbcType=DECIMAL},#{item.ch2000,jdbcType=DECIMAL},#{item.ch3000,jdbcType=DECIMAL},#{item.ch4000,jdbcType=DECIMAL}
+			,#{item.ci0000,jdbcType=DECIMAL},#{item.ci1000,jdbcType=DECIMAL},#{item.ci2000,jdbcType=DECIMAL},#{item.ci3000,jdbcType=DECIMAL},#{item.ci4000,jdbcType=DECIMAL}
+			,#{item.cj0000,jdbcType=DECIMAL},#{item.cj1000,jdbcType=DECIMAL},#{item.cj2000,jdbcType=DECIMAL},#{item.cg3000,jdbcType=DECIMAL},#{item.cj4000,jdbcType=DECIMAL}
+			,#{uuid,jdbcType=VARCHAR})
+
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into zg11_PBC_COL_REPORT_dat (
+		REPORTUUID,TERMID,REPORTTYPE,STARTDATE,ENDDATE,REPORT_DATE,SUBMIT_TIME,PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE,SUBMIT_FEEDBACK_STATUS,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,CREATE_TIME,
+		UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,ISSUE_PARTY_ID,ISSUE_PARTY_NAME,PROD_VARIETY,
+		c00000,c01000,c02000,c03000,c04000,c10000,c11000,c12000,c13000,c14000,c20000,c21000,c22000,c23000,
+		c24000,c30000,c31000,c32000,c33000,c34000,c40000,c41000,c42000,c43000,c44000,c50000,c51000,c52000,
+		c53000,c54000,c60000,c61000,c62000,c63000,c64000,c70000,c71000,c72000,c73000,c74000,c80000,c81000,
+		c82000,c83000,c84000,c90000,c91000,c92000,c93000,c94000,ca0000,ca1000,ca2000,ca3000,ca4000,cb0000,
+		cb1000,cb2000,cb3000,cb4000,cc0000,cc1000,cc2000,cc3000,cc4000,cd0000,cd1000,cd2000,cd3000,cd4000,
+		ce0000,ce1000,ce2000,ce3000,ce4000,cf0000,cf1000,cf2000,cf3000,cf4000,cg0000,cg1000,cg2000,cg3000,
+		cg4000,ch0000,ch1000,ch2000,ch3000,ch4000,ci0000,ci1000,ci2000,ci3000,ci4000,cj0000,cj1000,cj2000,
+		cj3000,cj4000,datuuid)
+		select
+		REPORTUUID,TERMID,REPORTTYPE,STARTDATE,ENDDATE,REPORT_DATE,SUBMIT_TIME,PBC_SUBMIT_DEADLINE,
+		SUBMIT_DEADLINE,SUBMIT_FEEDBACK_STATUS,STATUS,SEND_STATUS,STATUS_DATE,CREATE_USER,CREATE_TIME,
+		UPDATE_USER,UPDATE_TIME,ORG_CODE,DEPT_CODE,CREATE_DEPT,ISSUE_PARTY_ID,ISSUE_PARTY_NAME,PROD_VARIETY,
+		c00000,c01000,c02000,c03000,c04000,c10000,c11000,c12000,c13000,c14000,c20000,c21000,c22000,c23000,
+		c24000,c30000,c31000,c32000,c33000,c34000,c40000,c41000,c42000,c43000,c44000,c50000,c51000,c52000,
+		c53000,c54000,c60000,c61000,c62000,c63000,c64000,c70000,c71000,c72000,c73000,c74000,c80000,c81000,
+		c82000,c83000,c84000,c90000,c91000,c92000,c93000,c94000,ca0000,ca1000,ca2000,ca3000,ca4000,cb0000,
+		cb1000,cb2000,cb3000,cb4000,cc0000,cc1000,cc2000,cc3000,cc4000,cd0000,cd1000,cd2000,cd3000,cd4000,
+		ce0000,ce1000,ce2000,ce3000,ce4000,cf0000,cf1000,cf2000,cf3000,cf4000,cg0000,cg1000,cg2000,cg3000,
+		cg4000,ch0000,ch1000,ch2000,ch3000,ch4000,ci0000,ci1000,ci2000,ci3000,ci4000,cj0000,cj1000,cj2000,
+		cj3000,cj4000,#{uuid,jdbcType=VARCHAR}
+		from zg11_PBC_COL_REPORT
+		WHERE
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select termid
+		from zg11_PBC_COL_REPORT
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		and (
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+		)
+	</select>
+
+	<select id="getPListByUUid" resultType="map" >
+		select
+			REPORTUUID,TERMID,REPORTTYPE,
+			STARTDATE,ENDDATE,REPORT_DATE,
+			SUBMIT_FEEDBACK_STATUS,STATUS,SEND_STATUS,
+			CREATE_USER,
+			UPDATE_USER,ORG_CODE,
+			DEPT_CODE,CREATE_DEPT,ISSUE_PARTY_ID,
+			ISSUE_PARTY_NAME,PROD_VARIETY,c00000,
+			c01000,c02000,c03000,
+			c04000,c10000,c11000,
+			c12000,c13000,c14000,
+			c20000,c21000,c22000,
+			c23000,c24000,c30000,
+			c31000,c32000,c33000,
+			c34000,c40000,c41000,
+			c42000,c43000,c44000,
+			c50000,c51000,c52000,
+			c53000,c54000,c60000,
+			c61000,c62000,c63000,
+			c64000,c70000,c71000,
+			c72000,c73000,c74000,
+			c80000,c81000,c82000,
+			c83000,c84000,c90000,
+			c91000,c92000,c93000,
+			c94000,ca0000,ca1000,
+			ca2000,ca3000,ca4000,
+			cb0000,cb1000,cb2000,
+			cb3000,cb4000,cc0000,
+			cc1000,cc2000,cc3000,
+			cc4000,cd0000,cd1000,
+			cd2000,cd3000,cd4000,
+			ce0000,ce1000,ce2000,
+			ce3000,ce4000,cf0000,
+			cf1000,cf2000,cf3000,
+			cf4000,cg0000,cg1000,
+			cg2000,cg3000,cg4000,
+			ch0000,ch1000,ch2000,
+			ch3000,ch4000,ci0000,
+			ci1000,ci2000,ci3000,
+			ci4000,cj0000,cj1000,
+			cj2000,cj3000,cj4000,
+			   '发行机构代码:'||ISSUE_PARTY_ID||';统计年月:'||TERMID dataKey
+		from zg11_PBC_COL_REPORT
+		where 1=1
+		and datuuid = #{uuid,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updatePDatDataStatus">
+		update zg11_PBC_COL_REPORT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update zg11_PBC_COL_REPORT_dat
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<update id="updateUuidSub">
+        update zg11_PBC_COL_REPORT
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

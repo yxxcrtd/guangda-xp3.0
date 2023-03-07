@@ -1,0 +1,2 @@
+delete from sys_datadict_list where DICT_CODE='SVR_POS_TYPE' and ITEM_CODE = '03';
+INSERT INTO sys_datadict_list (DICT_CODE, ITEM_CODE, ITEM_VALUE, ORDER_NO, DEFAULT_VALUE, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE) VALUES ('SVR_POS_TYPE', '03', '登记系统负债', 3, '0', 'system', null, '2019-03-05 00:00:00', 'system', '2019-03-05 00:00:00', null);

@@ -1,0 +1,2 @@
+delete from chb_datacheck_rule where CHECKRULEID ='CHB_LOAN_DETAIL_INFO-20221106-1106-89';
+INSERT INTO chb_datacheck_rule (CHECKRULEID, DATATYPE, CHECKCLASS, CHECKMETHOD, SRCPROPERTY, COMPARETO, OBJVALUE, NULLABLE, REMARK, STATUS) VALUES ('CHB_LOAN_DETAIL_INFO-20221106-1106-89','CHB_LOAN_DETAIL_INFO_QY','com.joyintech.tams.common.svreport.datacheck.service.BaseCheckLib','compareProperty','TRANSFER_ESTI_MDATE','>=','TRANSFER_VDATE','Y','转让预计终止日期必须大于等于转让起始日期','E');

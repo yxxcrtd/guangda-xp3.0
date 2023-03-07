@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG05DatReportMapper_mysql">
+
+	<delete id="deleteBySub">
+		delete from ZG05_PBC_COL_REPORT
+		where SEND_STATUS != '03'
+		and (
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+		)
+	</delete>
+
+
+	<delete id="deleteByDat">
+		delete from ZG05_PBC_COL_REPORT_dat
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into ZG05_PBC_COL_REPORT (REPORTUUID, TERMID, REPORTTYPE,
+		STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+		ISSUE_PARTY_NAME, REPORT_DATE, SUBMIT_TIME,
+        PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, SUBMIT_FEEDBACK_STATUS,
+		STATUS, SEND_STATUS, STATUS_DATE,
+		CREATE_USER, CREATE_TIME, UPDATE_USER,
+		UPDATE_TIME, ORG_CODE, DEPT_CODE,
+		CREATE_DEPT, PBC_PROD_ID, PROD_ID,CCY,STATUS_TYPE,
+		A0000, A1000, A2000,
+		A2100, A2110, A2120,
+		A2200, A2210, A2220,
+		A3000, A3100, A3200,
+		A4000, A4100, A4200,
+		A4300, A4400, A4500,
+		A4600, A4700, A4800,
+		A5000, A5100, A5200,
+		A5210, A5220, A5230,
+		A5240, A5250, A5260,
+		A5261, A5270, A5271,
+		A5272, A5273, A5274,
+		A5275, A5276, A5277,
+		A5278, A5279, A527A,
+		A5280, A6000, A6100,
+		A6200, A6300, A6400,
+		A6500, A6600, A6700,
+		A7000, A7100, A7110, A7120,
+		A7200, A7210, A7220,
+		A7230, A7240, A7250,
+		A7260, A7270, A7280,
+		A7290, A72A0, A7300,
+		A7310, A7320, A7400,
+		A8000, A8100, A8200,
+		A9000, AA000, AB000,
+		AC000, D0000, B0000,
+		B1000, B1100, B1200,
+		B1210, B1220, B1230,
+		B1240, B1250, B1260,
+		B1261, B1270, B1271,
+		B1272, B1273, B1274,
+		B1275, B1276, B1277,
+		B1278, B1279, B127A,
+		B1280, B2000, B3000,
+		B3100, B3200, B4000,
+		B5000, C0000, C1000,
+		C1100, C1110, C1120,
+		C1130, C1140, C1150,
+		C1160, C1170, C1171,
+		C1172, C1173, C1174,
+		C1175, C1176, C1177,
+		C1178, C1179, C117A,
+		C1180, C1200, C1210,
+		C1220, C1230, C1240,
+		C1250, C1260, C1270,
+		C1271, C1272, C1273,
+		C1274, C1275, C1276,
+		C1277, C1278, C1279,
+		C127A, C1280, C3000,
+		C4000,datuuid)
+		<foreach collection="list" item="item" separator="union all">
+			select uuid(),
+			#{item.termId,jdbcType=VARCHAR},'ZG05',#{item.startdate,jdbcType=DATE},
+			#{item.enddate,jdbcType=DATE},#{item.issuePartyId,jdbcType=VARCHAR},#{item.issuePartyName,jdbcType=VARCHAR},
+			#{item.reportDate,jdbcType=DATE},#{item.submitTime,jdbcType=DATE},#{item.pbcSubmitDeadline,jdbcType=DATE},
+			#{item.submitDeadline,jdbcType=DATE},#{item.submitFeedbackStatus,jdbcType=VARCHAR},#{item.status,jdbcType=VARCHAR},
+			#{item.sendStatus,jdbcType=VARCHAR},now(),#{item.createUser,jdbcType=VARCHAR},
+			now(),#{item.updateUser,jdbcType=VARCHAR},now(),
+			#{item.orgCode,jdbcType=VARCHAR},#{item.deptCode,jdbcType=VARCHAR},#{item.createDept,jdbcType=VARCHAR},
+			#{item.pbcProdId,jdbcType=VARCHAR},#{item.prodId,jdbcType=VARCHAR},#{item.ccy,jdbcType=VARCHAR},#{item.statusType,jdbcType=VARCHAR},
+			#{item.a0000,jdbcType=DECIMAL},#{item.a1000,jdbcType=DECIMAL},#{item.a2000,jdbcType=DECIMAL},#{item.a2100,jdbcType=DECIMAL},
+			#{item.a2110,jdbcType=DECIMAL},#{item.a2120,jdbcType=DECIMAL},#{item.a2200,jdbcType=DECIMAL},#{item.a2210,jdbcType=DECIMAL},
+			#{item.a2220,jdbcType=DECIMAL},#{item.a3000,jdbcType=DECIMAL},#{item.a3100,jdbcType=DECIMAL},#{item.a3200,jdbcType=DECIMAL},
+			#{item.a4000,jdbcType=DECIMAL},#{item.a4100,jdbcType=DECIMAL},#{item.a4200,jdbcType=DECIMAL},#{item.a4300,jdbcType=DECIMAL},
+			#{item.a4400,jdbcType=DECIMAL},#{item.a4500,jdbcType=DECIMAL},#{item.a4600,jdbcType=DECIMAL},#{item.a4700,jdbcType=DECIMAL},
+			#{item.a4800,jdbcType=DECIMAL},#{item.a5000,jdbcType=DECIMAL},#{item.a5100,jdbcType=DECIMAL},#{item.a5200,jdbcType=DECIMAL},
+			#{item.a5210,jdbcType=DECIMAL},#{item.a5220,jdbcType=DECIMAL},#{item.a5230,jdbcType=DECIMAL},#{item.a5240,jdbcType=DECIMAL},
+			#{item.a5250,jdbcType=DECIMAL},#{item.a5260,jdbcType=DECIMAL},#{item.a5261,jdbcType=DECIMAL},#{item.a5270,jdbcType=DECIMAL},
+			#{item.a5271,jdbcType=DECIMAL},#{item.a5272,jdbcType=DECIMAL},#{item.a5273,jdbcType=DECIMAL},#{item.a5274,jdbcType=DECIMAL},
+			#{item.a5275,jdbcType=DECIMAL},#{item.a5276,jdbcType=DECIMAL},#{item.a5277,jdbcType=DECIMAL},#{item.a5278,jdbcType=DECIMAL},
+			#{item.a5279,jdbcType=DECIMAL},#{item.a527a,jdbcType=DECIMAL},#{item.a5280,jdbcType=DECIMAL},#{item.a6000,jdbcType=DECIMAL},
+			#{item.a6100,jdbcType=DECIMAL},#{item.a6200,jdbcType=DECIMAL},#{item.a6300,jdbcType=DECIMAL},#{item.a6400,jdbcType=DECIMAL},
+			#{item.a6500,jdbcType=DECIMAL},#{item.a6600,jdbcType=DECIMAL},#{item.a6700,jdbcType=DECIMAL},#{item.a7000,jdbcType=DECIMAL},
+			#{item.a7100,jdbcType=DECIMAL},#{item.a7110,jdbcType=DECIMAL},#{item.a7120,jdbcType=DECIMAL},#{item.a7200,jdbcType=DECIMAL},
+			#{item.a7210,jdbcType=DECIMAL},#{item.a7220,jdbcType=DECIMAL},#{item.a7230,jdbcType=DECIMAL},#{item.a7240,jdbcType=DECIMAL},
+			#{item.a7250,jdbcType=DECIMAL},#{item.a7260,jdbcType=DECIMAL},#{item.a7270,jdbcType=DECIMAL},#{item.a7280,jdbcType=DECIMAL},
+			#{item.a7290,jdbcType=DECIMAL},#{item.a72a0,jdbcType=DECIMAL},#{item.a7300,jdbcType=DECIMAL},#{item.a7310,jdbcType=DECIMAL},
+			#{item.a7320,jdbcType=DECIMAL},#{item.a7400,jdbcType=DECIMAL},#{item.a8000,jdbcType=DECIMAL},#{item.a8100,jdbcType=DECIMAL},
+			#{item.a8200,jdbcType=DECIMAL},#{item.a9000,jdbcType=DECIMAL},#{item.aa000,jdbcType=DECIMAL},#{item.ab000,jdbcType=DECIMAL},
+			#{item.ac000,jdbcType=DECIMAL},#{item.d0000,jdbcType=DECIMAL},#{item.b0000,jdbcType=DECIMAL},#{item.b1000,jdbcType=DECIMAL},
+			#{item.b1100,jdbcType=DECIMAL},#{item.b1200,jdbcType=DECIMAL},#{item.b1210,jdbcType=DECIMAL},#{item.b1220,jdbcType=DECIMAL},
+			#{item.b1230,jdbcType=DECIMAL},#{item.b1240,jdbcType=DECIMAL},#{item.b1250,jdbcType=DECIMAL},#{item.b1260,jdbcType=DECIMAL},
+			#{item.b1261,jdbcType=DECIMAL},#{item.b1270,jdbcType=DECIMAL},#{item.b1271,jdbcType=DECIMAL},#{item.b1272,jdbcType=DECIMAL},
+			#{item.b1273,jdbcType=DECIMAL},#{item.b1274,jdbcType=DECIMAL},#{item.b1275,jdbcType=DECIMAL},#{item.b1276,jdbcType=DECIMAL},
+			#{item.b1277,jdbcType=DECIMAL},#{item.b1278,jdbcType=DECIMAL},#{item.b1279,jdbcType=DECIMAL},#{item.b127a,jdbcType=DECIMAL},
+			#{item.b1280,jdbcType=DECIMAL},#{item.b2000,jdbcType=DECIMAL},#{item.b3000,jdbcType=DECIMAL},#{item.b3100,jdbcType=DECIMAL},
+			#{item.b3200,jdbcType=DECIMAL},#{item.b4000,jdbcType=DECIMAL},#{item.b5000,jdbcType=DECIMAL},#{item.c0000,jdbcType=DECIMAL},
+			#{item.c1000,jdbcType=DECIMAL},#{item.c1100,jdbcType=DECIMAL},#{item.c1110,jdbcType=DECIMAL},#{item.c1120,jdbcType=DECIMAL},
+			#{item.c1130,jdbcType=DECIMAL},#{item.c1140,jdbcType=DECIMAL},#{item.c1150,jdbcType=DECIMAL},#{item.c1160,jdbcType=DECIMAL},
+			#{item.c1170,jdbcType=DECIMAL},#{item.c1171,jdbcType=DECIMAL},#{item.c1172,jdbcType=DECIMAL},#{item.c1173,jdbcType=DECIMAL},
+			#{item.c1174,jdbcType=DECIMAL},#{item.c1175,jdbcType=DECIMAL},#{item.c1176,jdbcType=DECIMAL},#{item.c1177,jdbcType=DECIMAL},
+			#{item.c1178,jdbcType=DECIMAL},#{item.c1179,jdbcType=DECIMAL},#{item.c117a,jdbcType=DECIMAL},#{item.c1180,jdbcType=DECIMAL},
+			#{item.c1200,jdbcType=DECIMAL},#{item.c1210,jdbcType=DECIMAL},#{item.c1220,jdbcType=DECIMAL},#{item.c1230,jdbcType=DECIMAL},
+			#{item.c1240,jdbcType=DECIMAL},#{item.c1250,jdbcType=DECIMAL},#{item.c1260,jdbcType=DECIMAL},#{item.c1270,jdbcType=DECIMAL},
+			#{item.c1271,jdbcType=DECIMAL},#{item.c1272,jdbcType=DECIMAL},#{item.c1273,jdbcType=DECIMAL},#{item.c1274,jdbcType=DECIMAL},
+			#{item.c1275,jdbcType=DECIMAL},#{item.c1276,jdbcType=DECIMAL},#{item.c1277,jdbcType=DECIMAL},#{item.c1278,jdbcType=DECIMAL},
+			#{item.c1279,jdbcType=DECIMAL},#{item.c127a,jdbcType=DECIMAL},#{item.c1280,jdbcType=DECIMAL},#{item.c3000,jdbcType=DECIMAL},
+			#{item.c4000,jdbcType=DECIMAL},#{uuid,jdbcType=VARCHAR}
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into ZG05_PBC_COL_REPORT_dat (REPORTUUID, TERMID, REPORTTYPE,
+		STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+		ISSUE_PARTY_NAME, REPORT_DATE, SUBMIT_TIME,
+        PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, SUBMIT_FEEDBACK_STATUS,
+		STATUS, SEND_STATUS, STATUS_DATE,
+		CREATE_USER, CREATE_TIME, UPDATE_USER,
+		UPDATE_TIME, ORG_CODE, DEPT_CODE,
+		CREATE_DEPT, PBC_PROD_ID, PROD_ID,CCY,STATUS_TYPE,
+		A0000, A1000, A2000,
+		A2100, A2110, A2120,
+		A2200, A2210, A2220,
+		A3000, A3100, A3200,
+		A4000, A4100, A4200,
+		A4300, A4400, A4500,
+		A4600, A4700, A4800,
+		A5000, A5100, A5200,
+		A5210, A5220, A5230,
+		A5240, A5250, A5260,
+		A5261, A5270, A5271,
+		A5272, A5273, A5274,
+		A5275, A5276, A5277,
+		A5278, A5279, A527A,
+		A5280, A6000, A6100,
+		A6200, A6300, A6400,
+		A6500, A6600, A6700,
+		A7000, A7100, A7110, A7120,
+		A7200, A7210, A7220,
+		A7230, A7240, A7250,
+		A7260, A7270, A7280,
+		A7290, A72A0, A7300,
+		A7310, A7320, A7400,
+		A8000, A8100, A8200,
+		A9000, AA000, AB000,
+		AC000, D0000, B0000,
+		B1000, B1100, B1200,
+		B1210, B1220, B1230,
+		B1240, B1250, B1260,
+		B1261, B1270, B1271,
+		B1272, B1273, B1274,
+		B1275, B1276, B1277,
+		B1278, B1279, B127A,
+		B1280, B2000, B3000,
+		B3100, B3200, B4000,
+		B5000, C0000, C1000,
+		C1100, C1110, C1120,
+		C1130, C1140, C1150,
+		C1160, C1170, C1171,
+		C1172, C1173, C1174,
+		C1175, C1176, C1177,
+		C1178, C1179, C117A,
+		C1180, C1200, C1210,
+		C1220, C1230, C1240,
+		C1250, C1260, C1270,
+		C1271, C1272, C1273,
+		C1274, C1275, C1276,
+		C1277, C1278, C1279,
+		C127A, C1280, C3000,
+		C4000,datuuid)
+		select
+		REPORTUUID, TERMID, REPORTTYPE,
+		STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+		ISSUE_PARTY_NAME, REPORT_DATE, SUBMIT_TIME,
+        PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, SUBMIT_FEEDBACK_STATUS,
+		STATUS, SEND_STATUS, STATUS_DATE,
+		CREATE_USER, CREATE_TIME, UPDATE_USER,
+		UPDATE_TIME, ORG_CODE, DEPT_CODE,
+		CREATE_DEPT, PBC_PROD_ID, PROD_ID,CCY,STATUS_TYPE,
+		A0000, A1000, A2000,
+		A2100, A2110, A2120,
+		A2200, A2210, A2220,
+		A3000, A3100, A3200,
+		A4000, A4100, A4200,
+		A4300, A4400, A4500,
+		A4600, A4700, A4800,
+		A5000, A5100, A5200,
+		A5210, A5220, A5230,
+		A5240, A5250, A5260,
+		A5261, A5270, A5271,
+		A5272, A5273, A5274,
+		A5275, A5276, A5277,
+		A5278, A5279, A527A,
+		A5280, A6000, A6100,
+		A6200, A6300, A6400,
+		A6500, A6600, A6700,
+		A7000, A7100, A7110, A7120,
+		A7200, A7210, A7220,
+		A7230, A7240, A7250,
+		A7260, A7270, A7280,
+		A7290, A72A0, A7300,
+		A7310, A7320, A7400,
+		A8000, A8100, A8200,
+		A9000, AA000, AB000,
+		AC000, D0000, B0000,
+		B1000, B1100, B1200,
+		B1210, B1220, B1230,
+		B1240, B1250, B1260,
+		B1261, B1270, B1271,
+		B1272, B1273, B1274,
+		B1275, B1276, B1277,
+		B1278, B1279, B127A,
+		B1280, B2000, B3000,
+		B3100, B3200, B4000,
+		B5000, C0000, C1000,
+		C1100, C1110, C1120,
+		C1130, C1140, C1150,
+		C1160, C1170, C1171,
+		C1172, C1173, C1174,
+		C1175, C1176, C1177,
+		C1178, C1179, C117A,
+		C1180, C1200, C1210,
+		C1220, C1230, C1240,
+		C1250, C1260, C1270,
+		C1271, C1272, C1273,
+		C1274, C1275, C1276,
+		C1277, C1278, C1279,
+		C127A, C1280, C3000,
+		C4000,#{uuid,jdbcType=VARCHAR}
+		from ZG05_PBC_COL_REPORT
+		WHERE
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select termid
+		from ZG05_PBC_COL_REPORT
+		where (STATUS = '03' or  SEND_STATUS = '03')
+		<foreach collection="keys" item="item" index="index" open="and ( termid in(" separator="," close=") )">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+
+	</select>
+
+	<select id="getPListByUUid" resultType="map" >
+		select
+			REPORTUUID, TERMID, REPORTTYPE,
+			STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+			ISSUE_PARTY_NAME, REPORT_DATE,
+			SUBMIT_FEEDBACK_STATUS,
+			STATUS, SEND_STATUS,
+			CREATE_USER, UPDATE_USER,
+			ORG_CODE, DEPT_CODE,
+			CREATE_DEPT, PBC_PROD_ID, PROD_ID,CCY,STATUS_TYPE,
+			A0000, A1000, A2000,
+			A2100, A2110, A2120,
+			A2200, A2210, A2220,
+			A3000, A3100, A3200,
+			A4000, A4100, A4200,
+			A4300, A4400, A4500,
+			A4600, A4700, A4800,
+			A5000, A5100, A5200,
+			A5210, A5220, A5230,
+			A5240, A5250, A5260,
+			A5261, A5270, A5271,
+			A5272, A5273, A5274,
+			A5275, A5276, A5277,
+			A5278, A5279, A527A,
+			A5280, A6000, A6100,
+			A6200, A6300, A6400,
+			A6500, A6600, A6700,
+			A7000, A7100, A7110, A7120,
+			A7200, A7210, A7220,
+			A7230, A7240, A7250,
+			A7260, A7270, A7280,
+			A7290, A72A0, A7300,
+			A7310, A7320, A7400,
+			A8000, A8100, A8200,
+			A9000, AA000, AB000,
+			AC000, D0000, B0000,
+			B1000, B1100, B1200,
+			B1210, B1220, B1230,
+			B1240, B1250, B1260,
+			B1261, B1270, B1271,
+			B1272, B1273, B1274,
+			B1275, B1276, B1277,
+			B1278, B1279, B127A,
+			B1280, B2000, B3000,
+			B3100, B3200, B4000,
+			B5000, C0000, C1000,
+			C1100, C1110, C1120,
+			C1130, C1140, C1150,
+			C1160, C1170, C1171,
+			C1172, C1173, C1174,
+			C1175, C1176, C1177,
+			C1178, C1179, C117A,
+			C1180, C1200, C1210,
+			C1220, C1230, C1240,
+			C1250, C1260, C1270,
+			C1271, C1272, C1273,
+			C1274, C1275, C1276,
+			C1277, C1278, C1279,
+			C127A, C1280, C3000,
+			C4000, CONCAT('产品代码:',PBC_PROD_ID,';币种:',IFNULL(CCY,''),';数据类型:',IFNULL(STATUS_TYPE,''),';统计年月:',TERMID) dataKey
+		from ZG05_PBC_COL_REPORT A
+		where 1=1
+		and datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY   TERMID,PROD_ID,STATUS_TYPE
+	</select>
+
+	<update id="updatePDatDataStatus">
+		update ZG05_PBC_COL_REPORT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update ZG05_PBC_COL_REPORT_DAT
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = now(),
+		UPDATE_TIME = now()
+		where
+		<foreach collection="list" item="item" index="index" open="termid in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				null) OR termid in(
+			</if>
+			#{item.termId,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<select id="getProdIdPbcProdIdList" resultType="map">
+		select DISTINCT pbc_prod_id pbcprodid,prod_id prodid
+          from PBC_COL_PRD_BASEINFO_SUB
+	</select>
+
+	<update id="updateUuidSub">
+        update ZG05_PBC_COL_REPORT
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

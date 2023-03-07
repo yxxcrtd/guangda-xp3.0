@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.classic.zg11companybondinfosub.dao.ZG11CompanyBondInfoSubMapper_mysql" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.pbc.classic.zg11companybondinfosub.dto.ZG11CompanyBondInfoSubDto">
+        <id property="reportuuid" column="REPORTUUID" jdbcType="CHAR"/>
+        <result property="termid" column="TERMID" jdbcType="VARCHAR"/>
+        <result property="reporttype" column="REPORTTYPE" jdbcType="VARCHAR"/>
+        <result property="startdate" column="STARTDATE" jdbcType="DATE"/>
+        <result property="enddate" column="ENDDATE" jdbcType="DATE"/>
+        <result property="reportDate" column="REPORT_DATE" jdbcType="DATE"/>
+        <result property="submitTime" column="SUBMIT_TIME" jdbcType="DATE"/>
+        <result property="pbcSubmitDeadline" column="PBC_SUBMIT_DEADLINE" jdbcType="DATE"/>
+        <result property="submitDeadline" column="SUBMIT_DEADLINE" jdbcType="DATE"/>
+        <result property="submitFeedbackStatus" column="SUBMIT_FEEDBACK_STATUS" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="VARCHAR"/>
+        <result property="sendStatus" column="SEND_STATUS" jdbcType="VARCHAR"/>
+        <result property="statusDate" column="STATUS_DATE" jdbcType="DATE"/>
+        <result property="createUser" column="CREATE_USER" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="UPDATE_USER" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="orgCode" column="ORG_CODE" jdbcType="VARCHAR"/>
+        <result property="deptCode" column="DEPT_CODE" jdbcType="VARCHAR"/>
+        <result property="createDept" column="CREATE_DEPT" jdbcType="VARCHAR"/>
+        <result property="issuePartyId" column="ISSUE_PARTY_ID" jdbcType="VARCHAR"/>
+        <result property="issuePartyName" column="ISSUE_PARTY_NAME" jdbcType="VARCHAR"/>
+        <result property="prodVariety" column="PROD_VARIETY" jdbcType="CHAR"/>
+        <result property="c00000" column="c00000" jdbcType="DECIMAL"/>
+        <result property="c01000" column="c01000" jdbcType="DECIMAL"/>
+        <result property="c02000" column="c02000" jdbcType="DECIMAL"/>
+        <result property="c03000" column="c03000" jdbcType="DECIMAL"/>
+        <result property="c04000" column="c04000" jdbcType="DECIMAL"/>
+        <result property="c10000" column="c10000" jdbcType="DECIMAL"/>
+        <result property="c11000" column="c11000" jdbcType="DECIMAL"/>
+        <result property="c12000" column="c12000" jdbcType="DECIMAL"/>
+        <result property="c13000" column="c13000" jdbcType="DECIMAL"/>
+        <result property="c14000" column="c14000" jdbcType="DECIMAL"/>
+        <result property="c20000" column="c20000" jdbcType="DECIMAL"/>
+        <result property="c21000" column="c21000" jdbcType="DECIMAL"/>
+        <result property="c22000" column="c22000" jdbcType="DECIMAL"/>
+        <result property="c23000" column="c23000" jdbcType="DECIMAL"/>
+        <result property="c24000" column="c24000" jdbcType="DECIMAL"/>
+        <result property="c30000" column="c30000" jdbcType="DECIMAL"/>
+        <result property="c31000" column="c31000" jdbcType="DECIMAL"/>
+        <result property="c32000" column="c32000" jdbcType="DECIMAL"/>
+        <result property="c33000" column="c33000" jdbcType="DECIMAL"/>
+        <result property="c34000" column="c34000" jdbcType="DECIMAL"/>
+        <result property="c40000" column="c40000" jdbcType="DECIMAL"/>
+        <result property="c41000" column="c41000" jdbcType="DECIMAL"/>
+        <result property="c42000" column="c42000" jdbcType="DECIMAL"/>
+        <result property="c43000" column="c43000" jdbcType="DECIMAL"/>
+        <result property="c44000" column="c44000" jdbcType="DECIMAL"/>
+        <result property="c50000" column="c50000" jdbcType="DECIMAL"/>
+        <result property="c51000" column="c51000" jdbcType="DECIMAL"/>
+        <result property="c52000" column="c52000" jdbcType="DECIMAL"/>
+        <result property="c53000" column="c53000" jdbcType="DECIMAL"/>
+        <result property="c54000" column="c54000" jdbcType="DECIMAL"/>
+        <result property="c60000" column="c60000" jdbcType="DECIMAL"/>
+        <result property="c61000" column="c61000" jdbcType="DECIMAL"/>
+        <result property="c62000" column="c62000" jdbcType="DECIMAL"/>
+        <result property="c63000" column="c63000" jdbcType="DECIMAL"/>
+        <result property="c64000" column="c64000" jdbcType="DECIMAL"/>
+        <result property="c70000" column="c70000" jdbcType="DECIMAL"/>
+        <result property="c71000" column="c71000" jdbcType="DECIMAL"/>
+        <result property="c72000" column="c72000" jdbcType="DECIMAL"/>
+        <result property="c73000" column="c73000" jdbcType="DECIMAL"/>
+        <result property="c74000" column="c74000" jdbcType="DECIMAL"/>
+        <result property="c80000" column="c80000" jdbcType="DECIMAL"/>
+        <result property="c81000" column="c81000" jdbcType="DECIMAL"/>
+        <result property="c82000" column="c82000" jdbcType="DECIMAL"/>
+        <result property="c83000" column="c83000" jdbcType="DECIMAL"/>
+        <result property="c84000" column="c84000" jdbcType="DECIMAL"/>
+        <result property="c90000" column="c90000" jdbcType="DECIMAL"/>
+        <result property="c91000" column="c91000" jdbcType="DECIMAL"/>
+        <result property="c92000" column="c92000" jdbcType="DECIMAL"/>
+        <result property="c93000" column="c93000" jdbcType="DECIMAL"/>
+        <result property="c94000" column="c94000" jdbcType="DECIMAL"/>
+        <result property="ca0000" column="ca0000" jdbcType="DECIMAL"/>
+        <result property="ca1000" column="ca1000" jdbcType="DECIMAL"/>
+        <result property="ca2000" column="ca2000" jdbcType="DECIMAL"/>
+        <result property="ca3000" column="ca3000" jdbcType="DECIMAL"/>
+        <result property="ca4000" column="ca4000" jdbcType="DECIMAL"/>
+        <result property="cb0000" column="cb0000" jdbcType="DECIMAL"/>
+        <result property="cb1000" column="cb1000" jdbcType="DECIMAL"/>
+        <result property="cb2000" column="cb2000" jdbcType="DECIMAL"/>
+        <result property="cb3000" column="cb3000" jdbcType="DECIMAL"/>
+        <result property="cb4000" column="cb4000" jdbcType="DECIMAL"/>
+        <result property="cc0000" column="cc0000" jdbcType="DECIMAL"/>
+        <result property="cc1000" column="cc1000" jdbcType="DECIMAL"/>
+        <result property="cc2000" column="cc2000" jdbcType="DECIMAL"/>
+        <result property="cc3000" column="cc3000" jdbcType="DECIMAL"/>
+        <result property="cc4000" column="cc4000" jdbcType="DECIMAL"/>
+        <result property="cd0000" column="cd0000" jdbcType="DECIMAL"/>
+        <result property="cd1000" column="cd1000" jdbcType="DECIMAL"/>
+        <result property="cd2000" column="cd2000" jdbcType="DECIMAL"/>
+        <result property="cd3000" column="cd3000" jdbcType="DECIMAL"/>
+        <result property="cd4000" column="cd4000" jdbcType="DECIMAL"/>
+        <result property="ce0000" column="ce0000" jdbcType="DECIMAL"/>
+        <result property="ce1000" column="ce1000" jdbcType="DECIMAL"/>
+        <result property="ce2000" column="ce2000" jdbcType="DECIMAL"/>
+        <result property="ce3000" column="ce3000" jdbcType="DECIMAL"/>
+        <result property="ce4000" column="ce4000" jdbcType="DECIMAL"/>
+        <result property="cf0000" column="cf0000" jdbcType="DECIMAL"/>
+        <result property="cf1000" column="cf1000" jdbcType="DECIMAL"/>
+        <result property="cf2000" column="cf2000" jdbcType="DECIMAL"/>
+        <result property="cf3000" column="cf3000" jdbcType="DECIMAL"/>
+        <result property="cf4000" column="cf4000" jdbcType="DECIMAL"/>
+        <result property="cg0000" column="cg0000" jdbcType="DECIMAL"/>
+        <result property="cg1000" column="cg1000" jdbcType="DECIMAL"/>
+        <result property="cg2000" column="cg2000" jdbcType="DECIMAL"/>
+        <result property="cg3000" column="cg3000" jdbcType="DECIMAL"/>
+        <result property="cg4000" column="cg4000" jdbcType="DECIMAL"/>
+        <result property="ch0000" column="ch0000" jdbcType="DECIMAL"/>
+        <result property="ch1000" column="ch1000" jdbcType="DECIMAL"/>
+        <result property="ch2000" column="ch2000" jdbcType="DECIMAL"/>
+        <result property="ch3000" column="ch3000" jdbcType="DECIMAL"/>
+        <result property="ch4000" column="ch4000" jdbcType="DECIMAL"/>
+        <result property="ci0000" column="ci0000" jdbcType="DECIMAL"/>
+        <result property="ci1000" column="ci1000" jdbcType="DECIMAL"/>
+        <result property="ci2000" column="ci2000" jdbcType="DECIMAL"/>
+        <result property="ci3000" column="ci3000" jdbcType="DECIMAL"/>
+        <result property="ci4000" column="ci4000" jdbcType="DECIMAL"/>
+        <result property="cj0000" column="cj0000" jdbcType="DECIMAL"/>
+        <result property="cj1000" column="cj1000" jdbcType="DECIMAL"/>
+        <result property="cj2000" column="cj2000" jdbcType="DECIMAL"/>
+        <result property="cj3000" column="cj3000" jdbcType="DECIMAL"/>
+        <result property="cj4000" column="cj4000" jdbcType="DECIMAL"/>
+        <result property="datuuid" column="DATUUID" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.joyintech.tams.svreport.pbc.classic.zg11companybondinfosub.dto.ZG11PbcMonthAssetPositionDto" >
+        <id column="POSUUID" property="posuuid" jdbcType="CHAR" />
+        <result column="PRODID" property="prodid" jdbcType="VARCHAR" />
+        <!--<result column="PBC_PROD_ID" property="pbcProdId" jdbcType="VARCHAR" />-->
+        <result column="ORG_CODE" property="orgCode" jdbcType="VARCHAR" />
+        <result column="POSITION_TYPE" property="positionType" jdbcType="VARCHAR" />
+        <result column="CHL_ID" property="chlId" jdbcType="VARCHAR" />
+        <result column="ASSET_CODE" property="assetCode" jdbcType="VARCHAR" />
+        <result column="ASSET_TYPE1" property="assetType1" jdbcType="VARCHAR" />
+        <result column="ASSET_TYPE2" property="assetType2" jdbcType="VARCHAR" />
+        <result column="ASSET_TYPE3" property="assetType3" jdbcType="VARCHAR" />
+        <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+        <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+        <result column="BOOKDATE" property="bookdate" jdbcType="TIMESTAMP" />
+        <result column="CCY" property="ccy" jdbcType="VARCHAR" />
+        <result column="AMT" property="amt" jdbcType="DECIMAL" />
+        <result column="INT_AMT" property="intAmt" jdbcType="DECIMAL" />
+        <result column="REC_INT_AMT" property="recIntAmt" jdbcType="DECIMAL" />
+        <result column="END_DAYS" property="endDays" jdbcType="DECIMAL" />
+        <result column="BAL_FLAG" property="balFlag" jdbcType="VARCHAR" />
+        <result column="RATING" property="rating" jdbcType="VARCHAR" />
+        <result column="BANK_SEC_CAPITAL" property="bankSecCapital" jdbcType="VARCHAR" />
+        <result column="BANK_SEC_PERPETUAL" property="bankSecPerpetual" jdbcType="VARCHAR" />
+        <result column="BANK_SEC_PREFER" property="bankSecPrefer" jdbcType="VARCHAR" />
+        <result column="IS_PERPETUAL" property="isPerpetual" jdbcType="VARCHAR" />
+        <result column="ASSET_POOL_CODE" property="assetPoolCode" jdbcType="VARCHAR" />
+        <result column="INSTITUTION_CODE" property="institutionCode" jdbcType="VARCHAR" />
+        <result column="BANK_CAPITAL" property="bankCapital" jdbcType="VARCHAR" />
+        <result column="SHARES_TYPE" property="sharesType" jdbcType="VARCHAR" />
+        <result column="PARTY_TYPE1" property="partyType1" jdbcType="VARCHAR" />
+        <result column="END_DAYS_PBC" property="endDaysPbc" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        REPORTUUID,TERMID,REPORTTYPE,
+        STARTDATE,ENDDATE,REPORT_DATE,
+        SUBMIT_TIME,PBC_SUBMIT_DEADLINE,SUBMIT_DEADLINE,
+        SUBMIT_FEEDBACK_STATUS,STATUS,SEND_STATUS,
+        STATUS_DATE,CREATE_USER,CREATE_TIME,
+        UPDATE_USER,UPDATE_TIME,ORG_CODE,
+        DEPT_CODE,CREATE_DEPT,ISSUE_PARTY_ID,
+        ISSUE_PARTY_NAME,PROD_VARIETY,c00000,
+        c01000,c02000,c03000,
+        c04000,c10000,c11000,
+        c12000,c13000,c14000,
+        c20000,c21000,c22000,
+        c23000,c24000,c30000,
+        c31000,c32000,c33000,
+        c34000,c40000,c41000,
+        c42000,c43000,c44000,
+        c50000,c51000,c52000,
+        c53000,c54000,c60000,
+        c61000,c62000,c63000,
+        c64000,c70000,c71000,
+        c72000,c73000,c74000,
+        c80000,c81000,c82000,
+        c83000,c84000,c90000,
+        c91000,c92000,c93000,
+        c94000,ca0000,ca1000,
+        ca2000,ca3000,ca4000,
+        cb0000,cb1000,cb2000,
+        cb3000,cb4000,cc0000,
+        cc1000,cc2000,cc3000,
+        cc4000,cd0000,cd1000,
+        cd2000,cd3000,cd4000,
+        ce0000,ce1000,ce2000,
+        ce3000,ce4000,cf0000,
+        cf1000,cf2000,cf3000,
+        cf4000,cg0000,cg1000,
+        cg2000,cg3000,cg4000,
+        ch0000,ch1000,ch2000,
+        ch3000,ch4000,ci0000,
+        ci1000,ci2000,ci3000,
+        ci4000,cj0000,cj1000,
+        cj2000,cj3000,cj4000,
+        DATUUID datuuid
+    </sql>
+    <select id="searchPage" parameterType="map"  resultType="com.joyintech.tams.svreport.pbc.classic.zg11companybondinfosub.dto.ZG11CompanyBondInfoSubDto">
+        select
+        <include refid="Base_Column_List" />
+        from zg11_pbc_col_report report
+        <where>
+            <if test="statusTypeList != null and statusTypeList.size()&gt;0">
+                <foreach close=")" collection="statusTypeList" item="item" open="and report.STATUS_TYPE in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="registList != null and registList.size > 0">
+                <foreach collection="registList" item="items" open="and REPORTUUID in (" separator="," close =")">
+                    <if test="(index % 999) == 998">
+                        null) OR REPORTUUID in (
+                    </if>
+                    #{items,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+
+            <if test="sendStatusList != null and sendStatusList.size()&gt;0">
+                <foreach close=")" collection="sendStatusList" item="item" open="and report.SEND_STATUS in(" separator=",">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and DATE_FORMAT(report.STATUS_DATE,'%Y-%m-%d') &gt;= #{statusDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and DATE_FORMAT(report.STATUS_DATE,'%Y-%m-%d') &lt;= #{statusDateEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeStart != null and submitTimeStart != ''">
+                and DATE_FORMAT(report.SUBMIT_TIME,'%Y-%m-%d') &gt;= #{submitTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitTimeEnd != null and submitTimeEnd != ''">
+                and DATE_FORMAT(report.SUBMIT_TIME,'%Y-%m-%d') &lt;= #{submitTimeEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineStart != null and submitDeadLineStart != ''">
+                AND DATE_FORMAT(report.PBC_SUBMIT_DEADLINE,'%Y-%m-%d') &gt;= #{submitDeadLineStart,jdbcType=VARCHAR}
+            </if>
+            <if test="submitDeadLineEnd != null and submitDeadLineEnd != ''">
+                and DATE_FORMAT(report.PBC_SUBMIT_DEADLINE,'%Y-%m-%d') &lt;= #{submitDeadLineEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="termId != null and termId != ''">
+                and report.TERMID = #{termId}
+            </if>
+        </where>
+        ORDER BY report.PBC_SUBMIT_DEADLINE ASC, report.UPDATE_TIME DESC
+    </select>
+
+    <delete id="deleteByTermId" parameterType="java.lang.String">
+        delete from ZG11_PBC_COL_REPORT where send_status='01' and TERMID=#{termId}
+    </delete>
+
+    <select id="selectCountByTermId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from ZG11_PBC_COL_REPORT where send_status !='01' and TERMID=#{termId}
+    </select>
+
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.pbc.classic.zg05pbccolprdassetdebt.dto.PbcColReport">
+        insert into PBC_REPORT (REPORTUUID, TERMID, REPORTTYPE,
+                                STARTDATE, ENDDATE, ISSUE_PARTY_ID,
+                                ISSUE_PARTY_NAME, REPORTFREQU, REPORT_ORG_NAME,
+                                SOCIAL_CREDIT_CODE, FIN_INSTITUTION_CODE, PROD_VARIETY,
+                                PERSON_LIABLE, CONTACT, REPORT_DATE,
+                                SUBMIT_TIME, PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE,
+                                SUBMIT_FEEDBACK_STATUS, STATUS, SEND_STATUS,
+                                STATUS_DATE, CREATE_USER, CREATE_TIME,
+                                UPDATE_USER, UPDATE_TIME, ORG_CODE,
+                                DEPT_CODE, CREATE_DEPT,PBC_PROD_ID,PROD_ID)
+        values (#{reportuuid,jdbcType=CHAR}, #{termid,jdbcType=VARCHAR}, #{reporttype,jdbcType=VARCHAR},
+                #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, #{issuePartyId,jdbcType=VARCHAR},
+                #{issuePartyName,jdbcType=VARCHAR}, #{reportfrequ,jdbcType=VARCHAR}, #{reportOrgName,jdbcType=VARCHAR},
+                #{socialCreditCode,jdbcType=VARCHAR}, #{finInstitutionCode,jdbcType=VARCHAR},
+                #{prodVariety,jdbcType=VARCHAR},
+                #{personLiable,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{reportDate,jdbcType=TIMESTAMP},
+                #{submitTime,jdbcType=TIMESTAMP}, #{pbcSubmitDeadline,jdbcType=TIMESTAMP},
+                #{submitDeadline,jdbcType=TIMESTAMP},
+                #{submitFeedbackStatus,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{sendStatus,jdbcType=VARCHAR},
+                #{statusDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, sysdate,
+                #{updateUser,jdbcType=VARCHAR}, sysdate, #{orgCode,jdbcType=VARCHAR},
+                #{deptCode,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR},#{pbcProdId,jdbcType=VARCHAR},
+                #{prodid,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertColBalance" parameterType="com.joyintech.tams.svreport.pbc.assetdebt.dto.PbcReportAssetDebtDetailDto" >
+        insert into PBC_COL_REPORT_BALANCE (DETAILUUID,
+                                            PROPERTYCODE, CNY, USD_TO_CNY,
+                                            EUR_TO_CNY, GBP_TO_CNY, JPY_TO_CNY,
+                                            OTH_TO_CNY, TOTAL, REPORTUUID
+        )
+        values (#{detailuuid,jdbcType=CHAR},
+                #{propertycode,jdbcType=VARCHAR}, #{cny,jdbcType=DECIMAL}, #{usdToCny,jdbcType=DECIMAL},
+                #{eurToCny,jdbcType=DECIMAL}, #{gbpToCny,jdbcType=DECIMAL}, #{jpyToCny,jdbcType=DECIMAL},
+                #{othToCny,jdbcType=DECIMAL}, #{total,jdbcType=DECIMAL}, #{reportuuid,jdbcType=CHAR}
+               )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="REPORTUUID" keyProperty="reportuuid" parameterType="com.joyintech.tams.svreport.pbc.classic.zg11companybondinfosub.dto.ZG11CompanyBondInfoSubDto" useGeneratedKeys="true">
+        insert into zg11_pbc_col_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reportuuid != null">REPORTUUID,</if>
+            <if test="termid != null">TERMID,</if>
+            <if test="reporttype != null">REPORTTYPE,</if>
+            <if test="startdate != null">STARTDATE,</if>
+            <if test="enddate != null">ENDDATE,</if>
+            <if test="reportDate != null">REPORT_DATE,</if>
+            <if test="submitTime != null">SUBMIT_TIME,</if>
+            <if test="pbcSubmitDeadline != null">PBC_SUBMIT_DEADLINE,</if>
+            <if test="submitDeadline != null">SUBMIT_DEADLINE,</if>
+            <if test="submitFeedbackStatus != null">SUBMIT_FEEDBACK_STATUS,</if>
+            <if test="status != null">STATUS,</if>
+            <if test="sendStatus != null">SEND_STATUS,</if>
+            <if test="statusDate != null">STATUS_DATE,</if>
+            <if test="createUser != null">CREATE_USER,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateUser != null">UPDATE_USER,</if>
+            <if test="updateTime != null">UPDATE_TIME,</if>
+            <if test="orgCode != null">ORG_CODE,</if>
+            <if test="deptCode != null">DEPT_CODE,</if>
+            <if test="createDept != null">CREATE_DEPT,</if>
+            <if test="issuePartyId != null">ISSUE_PARTY_ID,</if>
+            <if test="issuePartyName != null">ISSUE_PARTY_NAME,</if>
+            <if test="prodVariety != null">PROD_VARIETY,</if>
+            <if test="c00000 != null">c00000,</if>
+            <if test="c01000 != null">c01000,</if>
+            <if test="c02000 != null">c02000,</if>
+            <if test="c03000 != null">c03000,</if>
+            <if test="c04000 != null">c04000,</if>
+            <if test="c10000 != null">c10000,</if>
+            <if test="c11000 != null">c11000,</if>
+            <if test="c12000 != null">c12000,</if>
+            <if test="c13000 != null">c13000,</if>
+            <if test="c14000 != null">c14000,</if>
+            <if test="c20000 != null">c20000,</if>
+            <if test="c21000 != null">c21000,</if>
+            <if test="c22000 != null">c22000,</if>
+            <if test="c23000 != null">c23000,</if>
+            <if test="c24000 != null">c24000,</if>
+            <if test="c30000 != null">c30000,</if>
+            <if test="c31000 != null">c31000,</if>
+            <if test="c32000 != null">c32000,</if>
+            <if test="c33000 != null">c33000,</if>
+            <if test="c34000 != null">c34000,</if>
+            <if test="c40000 != null">c40000,</if>
+            <if test="c41000 != null">c41000,</if>
+            <if test="c42000 != null">c42000,</if>
+            <if test="c43000 != null">c43000,</if>
+            <if test="c44000 != null">c44000,</if>
+            <if test="c50000 != null">c50000,</if>
+            <if test="c51000 != null">c51000,</if>
+            <if test="c52000 != null">c52000,</if>
+            <if test="c53000 != null">c53000,</if>
+            <if test="c54000 != null">c54000,</if>
+            <if test="c60000 != null">c60000,</if>
+            <if test="c61000 != null">c61000,</if>
+            <if test="c62000 != null">c62000,</if>
+            <if test="c63000 != null">c63000,</if>
+            <if test="c64000 != null">c64000,</if>
+            <if test="c70000 != null">c70000,</if>
+            <if test="c71000 != null">c71000,</if>
+            <if test="c72000 != null">c72000,</if>
+            <if test="c73000 != null">c73000,</if>
+            <if test="c74000 != null">c74000,</if>
+            <if test="c80000 != null">c80000,</if>
+            <if test="c81000 != null">c81000,</if>
+            <if test="c82000 != null">c82000,</if>
+            <if test="c83000 != null">c83000,</if>
+            <if test="c84000 != null">c84000,</if>
+            <if test="c90000 != null">c90000,</if>
+            <if test="c91000 != null">c91000,</if>
+            <if test="c92000 != null">c92000,</if>
+            <if test="c93000 != null">c93000,</if>
+            <if test="c94000 != null">c94000,</if>
+            <if test="ca0000 != null">ca0000,</if>
+            <if test="ca1000 != null">ca1000,</if>
+            <if test="ca2000 != null">ca2000,</if>
+            <if test="ca3000 != null">ca3000,</if>
+            <if test="ca4000 != null">ca4000,</if>
+            <if test="cb0000 != null">cb0000,</if>
+            <if test="cb1000 != null">cb1000,</if>
+            <if test="cb2000 != null">cb2000,</if>
+            <if test="cb3000 != null">cb3000,</if>
+            <if test="cb4000 != null">cb4000,</if>
+            <if test="cc0000 != null">cc0000,</if>
+            <if test="cc1000 != null">cc1000,</if>
+            <if test="cc2000 != null">cc2000,</if>
+            <if test="cc3000 != null">cc3000,</if>
+            <if test="cc4000 != null">cc4000,</if>
+            <if test="cd0000 != null">cd0000,</if>
+            <if test="cd1000 != null">cd1000,</if>
+            <if test="cd2000 != null">cd2000,</if>
+            <if test="cd3000 != null">cd3000,</if>
+            <if test="cd4000 != null">cd4000,</if>
+            <if test="ce0000 != null">ce0000,</if>
+            <if test="ce1000 != null">ce1000,</if>
+            <if test="ce2000 != null">ce2000,</if>
+            <if test="ce3000 != null">ce3000,</if>
+            <if test="ce4000 != null">ce4000,</if>
+            <if test="cf0000 != null">cf0000,</if>
+            <if test="cf1000 != null">cf1000,</if>
+            <if test="cf2000 != null">cf2000,</if>
+            <if test="cf3000 != null">cf3000,</if>
+            <if test="cf4000 != null">cf4000,</if>
+            <if test="cg0000 != null">cg0000,</if>
+            <if test="cg1000 != null">cg1000,</if>
+            <if test="cg2000 != null">cg2000,</if>
+            <if test="cg3000 != null">cg3000,</if>
+            <if test="cg4000 != null">cg4000,</if>
+            <if test="ch0000 != null">ch0000,</if>
+            <if test="ch1000 != null">ch1000,</if>
+            <if test="ch2000 != null">ch2000,</if>
+            <if test="ch3000 != null">ch3000,</if>
+            <if test="ch4000 != null">ch4000,</if>
+            <if test="ci0000 != null">ci0000,</if>
+            <if test="ci1000 != null">ci1000,</if>
+            <if test="ci2000 != null">ci2000,</if>
+            <if test="ci3000 != null">ci3000,</if>
+            <if test="ci4000 != null">ci4000,</if>
+            <if test="cj0000 != null">cj0000,</if>
+            <if test="cj1000 != null">cj1000,</if>
+            <if test="cj2000 != null">cj2000,</if>
+            <if test="cj3000 != null">cj3000,</if>
+            <if test="cj4000 != null">cj4000,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reportuuid != null">#{reportuuid,jdbcType=CHAR},</if>
+            <if test="termid != null">#{termid,jdbcType=VARCHAR},</if>
+            <if test="reporttype != null">#{reporttype,jdbcType=VARCHAR},</if>
+            <if test="startdate != null">#{startdate,jdbcType=DATE},</if>
+            <if test="enddate != null">#{enddate,jdbcType=DATE},</if>
+            <if test="reportDate != null">#{reportDate,jdbcType=DATE},</if>
+            <if test="submitTime != null">#{submitTime,jdbcType=DATE},</if>
+            <if test="pbcSubmitDeadline != null">#{pbcSubmitDeadline,jdbcType=DATE},</if>
+            <if test="submitDeadline != null">#{submitDeadline,jdbcType=DATE},</if>
+            <if test="submitFeedbackStatus != null">#{submitFeedbackStatus,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=VARCHAR},</if>
+            <if test="sendStatus != null">#{sendStatus,jdbcType=VARCHAR},</if>
+            <if test="statusDate != null">#{statusDate,jdbcType=DATE},</if>
+            <if test="createUser != null">#{createUser,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateUser != null">#{updateUser,jdbcType=VARCHAR},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="orgCode != null">#{orgCode,jdbcType=VARCHAR},</if>
+            <if test="deptCode != null">#{deptCode,jdbcType=VARCHAR},</if>
+            <if test="createDept != null">#{createDept,jdbcType=VARCHAR},</if>
+            <if test="issuePartyId != null">#{issuePartyId,jdbcType=VARCHAR},</if>
+            <if test="issuePartyName != null">#{issuePartyName,jdbcType=VARCHAR},</if>
+            <if test="prodVariety != null">#{prodVariety,jdbcType=CHAR},</if>
+            <if test="c00000 != null">#{c00000,jdbcType=DECIMAL},</if>
+            <if test="c01000 != null">#{c01000,jdbcType=DECIMAL},</if>
+            <if test="c02000 != null">#{c02000,jdbcType=DECIMAL},</if>
+            <if test="c03000 != null">#{c03000,jdbcType=DECIMAL},</if>
+            <if test="c04000 != null">#{c04000,jdbcType=DECIMAL},</if>
+            <if test="c10000 != null">#{c10000,jdbcType=DECIMAL},</if>
+            <if test="c11000 != null">#{c11000,jdbcType=DECIMAL},</if>
+            <if test="c12000 != null">#{c12000,jdbcType=DECIMAL},</if>
+            <if test="c13000 != null">#{c13000,jdbcType=DECIMAL},</if>
+            <if test="c14000 != null">#{c14000,jdbcType=DECIMAL},</if>
+            <if test="c20000 != null">#{c20000,jdbcType=DECIMAL},</if>
+            <if test="c21000 != null">#{c21000,jdbcType=DECIMAL},</if>
+            <if test="c22000 != null">#{c22000,jdbcType=DECIMAL},</if>
+            <if test="c23000 != null">#{c23000,jdbcType=DECIMAL},</if>
+            <if test="c24000 != null">#{c24000,jdbcType=DECIMAL},</if>
+            <if test="c30000 != null">#{c30000,jdbcType=DECIMAL},</if>
+            <if test="c31000 != null">#{c31000,jdbcType=DECIMAL},</if>
+            <if test="c32000 != null">#{c32000,jdbcType=DECIMAL},</if>
+            <if test="c33000 != null">#{c33000,jdbcType=DECIMAL},</if>
+            <if test="c34000 != null">#{c34000,jdbcType=DECIMAL},</if>
+            <if test="c40000 != null">#{c40000,jdbcType=DECIMAL},</if>
+            <if test="c41000 != null">#{c41000,jdbcType=DECIMAL},</if>
+            <if test="c42000 != null">#{c42000,jdbcType=DECIMAL},</if>
+            <if test="c43000 != null">#{c43000,jdbcType=DECIMAL},</if>
+            <if test="c44000 != null">#{c44000,jdbcType=DECIMAL},</if>
+            <if test="c50000 != null">#{c50000,jdbcType=DECIMAL},</if>
+            <if test="c51000 != null">#{c51000,jdbcType=DECIMAL},</if>
+            <if test="c52000 != null">#{c52000,jdbcType=DECIMAL},</if>
+            <if test="c53000 != null">#{c53000,jdbcType=DECIMAL},</if>
+            <if test="c54000 != null">#{c54000,jdbcType=DECIMAL},</if>
+            <if test="c60000 != null">#{c60000,jdbcType=DECIMAL},</if>
+            <if test="c61000 != null">#{c61000,jdbcType=DECIMAL},</if>
+            <if test="c62000 != null">#{c62000,jdbcType=DECIMAL},</if>
+            <if test="c63000 != null">#{c63000,jdbcType=DECIMAL},</if>
+            <if test="c64000 != null">#{c64000,jdbcType=DECIMAL},</if>
+            <if test="c70000 != null">#{c70000,jdbcType=DECIMAL},</if>
+            <if test="c71000 != null">#{c71000,jdbcType=DECIMAL},</if>
+            <if test="c72000 != null">#{c72000,jdbcType=DECIMAL},</if>
+            <if test="c73000 != null">#{c73000,jdbcType=DECIMAL},</if>
+            <if test="c74000 != null">#{c74000,jdbcType=DECIMAL},</if>
+            <if test="c80000 != null">#{c80000,jdbcType=DECIMAL},</if>
+            <if test="c81000 != null">#{c81000,jdbcType=DECIMAL},</if>
+            <if test="c82000 != null">#{c82000,jdbcType=DECIMAL},</if>
+            <if test="c83000 != null">#{c83000,jdbcType=DECIMAL},</if>
+            <if test="c84000 != null">#{c84000,jdbcType=DECIMAL},</if>
+            <if test="c90000 != null">#{c90000,jdbcType=DECIMAL},</if>
+            <if test="c91000 != null">#{c91000,jdbcType=DECIMAL},</if>
+            <if test="c92000 != null">#{c92000,jdbcType=DECIMAL},</if>
+            <if test="c93000 != null">#{c93000,jdbcType=DECIMAL},</if>
+            <if test="c94000 != null">#{c94000,jdbcType=DECIMAL},</if>
+            <if test="ca0000 != null">#{ca0000,jdbcType=DECIMAL},</if>
+            <if test="ca1000 != null">#{ca1000,jdbcType=DECIMAL},</if>
+            <if test="ca2000 != null">#{ca2000,jdbcType=DECIMAL},</if>
+            <if test="ca3000 != null">#{ca3000,jdbcType=DECIMAL},</if>
+            <if test="ca4000 != null">#{ca4000,jdbcType=DECIMAL},</if>
+            <if test="cb0000 != null">#{cb0000,jdbcType=DECIMAL},</if>
+            <if test="cb1000 != null">#{cb1000,jdbcType=DECIMAL},</if>
+            <if test="cb2000 != null">#{cb2000,jdbcType=DECIMAL},</if>
+            <if test="cb3000 != null">#{cb3000,jdbcType=DECIMAL},</if>
+            <if test="cb4000 != null">#{cb4000,jdbcType=DECIMAL},</if>
+            <if test="cc0000 != null">#{cc0000,jdbcType=DECIMAL},</if>
+            <if test="cc1000 != null">#{cc1000,jdbcType=DECIMAL},</if>
+            <if test="cc2000 != null">#{cc2000,jdbcType=DECIMAL},</if>
+            <if test="cc3000 != null">#{cc3000,jdbcType=DECIMAL},</if>
+            <if test="cc4000 != null">#{cc4000,jdbcType=DECIMAL},</if>
+            <if test="cd0000 != null">#{cd0000,jdbcType=DECIMAL},</if>
+            <if test="cd1000 != null">#{cd1000,jdbcType=DECIMAL},</if>
+            <if test="cd2000 != null">#{cd2000,jdbcType=DECIMAL},</if>
+            <if test="cd3000 != null">#{cd3000,jdbcType=DECIMAL},</if>
+            <if test="cd4000 != null">#{cd4000,jdbcType=DECIMAL},</if>
+            <if test="ce0000 != null">#{ce0000,jdbcType=DECIMAL},</if>
+            <if test="ce1000 != null">#{ce1000,jdbcType=DECIMAL},</if>
+            <if test="ce2000 != null">#{ce2000,jdbcType=DECIMAL},</if>
+            <if test="ce3000 != null">#{ce3000,jdbcType=DECIMAL},</if>
+            <if test="ce4000 != null">#{ce4000,jdbcType=DECIMAL},</if>
+            <if test="cf0000 != null">#{cf0000,jdbcType=DECIMAL},</if>
+            <if test="cf1000 != null">#{cf1000,jdbcType=DECIMAL},</if>
+            <if test="cf2000 != null">#{cf2000,jdbcType=DECIMAL},</if>
+            <if test="cf3000 != null">#{cf3000,jdbcType=DECIMAL},</if>
+            <if test="cf4000 != null">#{cf4000,jdbcType=DECIMAL},</if>
+            <if test="cg0000 != null">#{cg0000,jdbcType=DECIMAL},</if>
+            <if test="cg1000 != null">#{cg1000,jdbcType=DECIMAL},</if>
+            <if test="cg2000 != null">#{cg2000,jdbcType=DECIMAL},</if>
+            <if test="cg3000 != null">#{cg3000,jdbcType=DECIMAL},</if>
+            <if test="cg4000 != null">#{cg4000,jdbcType=DECIMAL},</if>
+            <if test="ch0000 != null">#{ch0000,jdbcType=DECIMAL},</if>
+            <if test="ch1000 != null">#{ch1000,jdbcType=DECIMAL},</if>
+            <if test="ch2000 != null">#{ch2000,jdbcType=DECIMAL},</if>
+            <if test="ch3000 != null">#{ch3000,jdbcType=DECIMAL},</if>
+            <if test="ch4000 != null">#{ch4000,jdbcType=DECIMAL},</if>
+            <if test="ci0000 != null">#{ci0000,jdbcType=DECIMAL},</if>
+            <if test="ci1000 != null">#{ci1000,jdbcType=DECIMAL},</if>
+            <if test="ci2000 != null">#{ci2000,jdbcType=DECIMAL},</if>
+            <if test="ci3000 != null">#{ci3000,jdbcType=DECIMAL},</if>
+            <if test="ci4000 != null">#{ci4000,jdbcType=DECIMAL},</if>
+            <if test="cj0000 != null">#{cj0000,jdbcType=DECIMAL},</if>
+            <if test="cj1000 != null">#{cj1000,jdbcType=DECIMAL},</if>
+            <if test="cj2000 != null">#{cj2000,jdbcType=DECIMAL},</if>
+            <if test="cj3000 != null">#{cj3000,jdbcType=DECIMAL},</if>
+            <if test="cj4000 != null">#{cj4000,jdbcType=DECIMAL},</if>
+        </trim>
+    </insert>
+
+    <update id="doManul" parameterType="java.util.List">
+        update ZG11_PBC_COL_REPORT sub
+        set
+        sub.SEND_STATUS = '03',
+        sub.submit_time = NOW(),
+        sub.UPDATE_TIME = NOW()
+        where sub.TERMID in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+        and sub.SEND_STATUS ='01'
+    </update>
+
+    <update id="cancelManul" parameterType="java.util.List">
+        update ZG11_PBC_COL_REPORT sub
+        set
+        sub.SEND_STATUS = '01',
+        sub.submit_time = null,
+        sub.UPDATE_TIME = NOW()
+        where sub.TERMID in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+        and sub.SEND_STATUS ='03'
+    </update>
+
+    <select id="searchByUuid" parameterType="java.lang.String" resultMap="BaseResultMap" flushCache="true" useCache="false">
+        SELECT
+        <include refid="Base_Column_List" />
+        from ZG11_PBC_COL_REPORT  a
+        where a.TERMID =(select TERMID from ZG11_PBC_COL_REPORT b where b.REPORTUUID=#{uuid,jdbcType=VARCHAR})
+    </select>
+
+    <select id="selectByDateAndProdid" resultMap="BaseResultMap1" parameterType="java.util.Map">
+        select
+
+        PMAP.POSUUID, PMAP.PRODID, PMAP.ORG_CODE, PMAP.POSITION_TYPE, PMAP.CHL_ID, PMAP.ASSET_CODE, PMAP.ASSET_TYPE1,
+        case when ASSETINFO.ASSET_TYPE2='1108'
+        THEN 'R03'
+        ELSE PMAP.ASSET_TYPE2
+        END ASSET_TYPE2,
+        PMAP.ASSET_TYPE3, PMAP.STARTDATE, PMAP.ENDDATE, PMAP.BOOKDATE, PMAP.CCY, PMAP.AMT, PMAP.INT_AMT, PMAP.END_DAYS, PMAP.BAL_FLAG,PMAP.RATING,
+        ASSETINFO.BANK_SEC_CAPITAL,
+        ASSETINFO.BANK_SEC_PERPETUAL,
+        ASSETINFO.BANK_SEC_PREFER,
+        ASSETINFO.IS_PERPETUAL,
+        ASSETINFO.ORG_ASSET_TYPE3,
+        ASSETINFO.BANK_CAPITAL,
+        minfo.PARTY_TYPE1,
+        PMAP.END_DAYS_PBC,
+        <!--SUB.PBC_PROD_ID,-->
+        PMAP.REC_INT_AMT
+        from PBC_MONTH_ASSET_POSITION PMAP
+        <!--INNER JOIN PBC_COL_PRD_BASEINFO_SUB SUB  ON  SUB.PROD_ID = PMAP.PROD_ID-->
+        left join CHB_ASSET_INFO ASSETINFO
+        ON ASSETINFO.ASSET_CODE = PMAP.ASSET_CODE  and  ASSETINFO.status in('E','M')
+        left join MST_CUSTOMER_INFO_ADD minfo on minfo.CUSTOMER_ID =ASSETINFO.CHB_ISSUER_ID
+        where DATE_FORMAT(ENDDATE,'%Y-%m-%d') = #{bookDate,jdbcType=VARCHAR}
+        <if test="prodList !=null">
+            <foreach collection="prodList" item="prodid" open="and PRODID in ("
+                     separator="," close=")">
+                #{prodid,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+    </select>
+
+    <resultMap id="BaseResultMapAsset" type="com.joyintech.tams.common.base.entity.ChbAssetInfo">
+        <id column="ASSET_UUID" jdbcType="CHAR" property="assetUuid" />
+        <result column="ASSET_CODE" jdbcType="VARCHAR" property="assetCode" />
+        <result column="ASSET_TYPE" jdbcType="VARCHAR" property="assetType" />
+        <result column="ASSET_TYPE2" jdbcType="VARCHAR" property="assetType2" />
+        <result column="CCY" jdbcType="VARCHAR" property="ccy" />
+        <result column="TRADE_MARKET" jdbcType="VARCHAR" property="tradeMarket" />
+        <result column="VDATE" jdbcType="TIMESTAMP" property="vdate" />
+        <result column="MDATE" jdbcType="TIMESTAMP" property="mdate" />
+        <result column="DISCOUNT_YIELD" jdbcType="DECIMAL" property="discountYield" />
+        <result column="ASSET_YIELD" jdbcType="DECIMAL" property="assetYield" />
+        <result column="BASIS" jdbcType="VARCHAR" property="basis" />
+        <result column="AMT" jdbcType="DECIMAL" property="amt" />
+        <result column="BANK_NAME" jdbcType="VARCHAR" property="bankName" />
+        <result column="IS_STRUCT" jdbcType="VARCHAR" property="isStruct" />
+        <result column="TARGET_TYPE" jdbcType="VARCHAR" property="targetType" />
+        <result column="TARGET" jdbcType="VARCHAR" property="target" />
+        <result column="ASSET_ID" jdbcType="VARCHAR" property="assetId" />
+        <result column="ASSET_NAME" jdbcType="VARCHAR" property="assetName" />
+        <result column="CHB_SECTYPE" jdbcType="VARCHAR" property="chbSectype" />
+        <result column="ISSUE_MODE" jdbcType="VARCHAR" property="issueMode" />
+        <result column="PARTY_GRADE" jdbcType="VARCHAR" property="partyGrade" />
+        <result column="PARTY_TYPE1" jdbcType="VARCHAR" property="partyType1" />
+        <result column="PARTY_TYPE3" jdbcType="VARCHAR" property="partyType3" />
+        <result column="PARTY_TYPE2" jdbcType="VARCHAR" property="partyType2" />
+        <result column="INDUSTRY" jdbcType="VARCHAR" property="industry" />
+        <result column="INDUSTRY_LEVEL2" jdbcType="VARCHAR" property="industryLevel2" />
+        <result column="REGIST_ORG" jdbcType="VARCHAR" property="registOrg" />
+        <result column="REGISTORG_COMMENT" jdbcType="VARCHAR" property="registorgComment" />
+        <result column="RIVAL_PARTY" jdbcType="VARCHAR" property="rivalParty" />
+        <result column="TARGET_TYPE1" jdbcType="VARCHAR" property="targetType1" />
+        <result column="TARGET_AMT" jdbcType="DECIMAL" property="targetAmt" />
+        <result column="COUNTRY_AREA" jdbcType="VARCHAR" property="countryArea" />
+        <result column="PROFIT_TYPE" jdbcType="VARCHAR" property="profitType" />
+        <result column="IS_RESALE" jdbcType="VARCHAR" property="isResale" />
+        <result column="TERM_DATE" jdbcType="DECIMAL" property="termDate" />
+        <result column="RATE_FLAG" jdbcType="VARCHAR" property="rateFlag" />
+        <result column="INTPAY_CYCLE" jdbcType="DECIMAL" property="intpayCycle" />
+        <result column="REPAY_CMT" jdbcType="VARCHAR" property="repayCmt" />
+        <result column="BASIS_TYPE" jdbcType="VARCHAR" property="basisType" />
+        <result column="FLOAT_FACTOR" jdbcType="DECIMAL" property="floatFactor" />
+        <result column="SPREAD_RATE" jdbcType="DECIMAL" property="spreadRate" />
+        <result column="FINANCIE" jdbcType="VARCHAR" property="financie" />
+        <result column="FIN_ORG_CODE" jdbcType="VARCHAR" property="finOrgCode" />
+        <result column="FCR_GRADE_IN" jdbcType="VARCHAR" property="fcrGradeIn" />
+        <result column="FCR_GRADE_OUT" jdbcType="VARCHAR" property="fcrGradeOut" />
+        <result column="FINANCIER_TYPE1" jdbcType="VARCHAR" property="financierType1" />
+        <result column="FINANCIER_TYPE2" jdbcType="VARCHAR" property="financierType2" />
+        <result column="FINANCIER_TYPE3" jdbcType="VARCHAR" property="financierType3" />
+        <result column="FINANCE_PROJ" jdbcType="VARCHAR" property="financeProj" />
+        <result column="INDUSTRY1" jdbcType="VARCHAR" property="industry1" />
+        <result column="INDUSTRY_LEVEL2_TYPE" jdbcType="VARCHAR" property="industryLevel2Type" />
+        <result column="PRO_INDUSTRY" jdbcType="VARCHAR" property="proIndustry" />
+        <result column="PRO_INDUSTRY_LEVEL2" jdbcType="VARCHAR" property="proIndustryLevel2" />
+        <result column="INDUSTRY_FLAG" jdbcType="VARCHAR" property="industryFlag" />
+        <result column="MONIT_TYPE" jdbcType="VARCHAR" property="monitType" />
+        <result column="MON_TYPE_COMM" jdbcType="VARCHAR" property="monTypeComm" />
+        <result column="GUA_TYPE" jdbcType="VARCHAR" property="guaType" />
+        <result column="GUA_TYPE_REMARK" jdbcType="VARCHAR" property="guaTypeRemark" />
+        <result column="FINANCIER_GRADE" jdbcType="VARCHAR" property="financierGrade" />
+        <result column="IN_GRADE" jdbcType="VARCHAR" property="inGrade" />
+        <result column="OUT_GRADE" jdbcType="VARCHAR" property="outGrade" />
+        <result column="CHOSE" jdbcType="VARCHAR" property="chose" />
+        <result column="CONDITION_CMM" jdbcType="VARCHAR" property="conditionCmm" />
+        <result column="FIN_AREA" jdbcType="VARCHAR" property="finArea" />
+        <result column="TOTAL_FEE_RATE" jdbcType="DECIMAL" property="totalFeeRate" />
+        <result column="IS_RIGHT" jdbcType="VARCHAR" property="isRight" />
+        <result column="NOTSTAND_SEC_TYPE" jdbcType="VARCHAR" property="notstandSecType" />
+        <result column="NOTSTAND_SEC_NUM" jdbcType="DECIMAL" property="notstandSecNum" />
+        <result column="REMAIN_TERM" jdbcType="DECIMAL" property="remainTerm" />
+        <result column="MAX_REMAIN_TERM" jdbcType="DECIMAL" property="maxRemainTerm" />
+        <result column="MIN_REMAIN_TERM" jdbcType="DECIMAL" property="minRemainTerm" />
+        <result column="SHARES_TYPE" jdbcType="VARCHAR" property="sharesType" />
+        <result column="INDUSTRY_SHARES" jdbcType="VARCHAR" property="industryShares" />
+        <result column="INDUSTRY_SHARES2" jdbcType="VARCHAR" property="industryShares2" />
+        <result column="INVEST_STAGE" jdbcType="VARCHAR" property="investStage" />
+        <result column="SHARES_TYPE1" jdbcType="VARCHAR" property="sharesType1" />
+        <result column="SHARES_TYPE2" jdbcType="VARCHAR" property="sharesType2" />
+        <result column="SHARES_TYPE3" jdbcType="VARCHAR" property="sharesType3" />
+        <result column="IS_PLEDGE" jdbcType="VARCHAR" property="isPledge" />
+        <result column="NOM_CAPI" jdbcType="DECIMAL" property="nomCapi" />
+        <result column="TARGET_TYPE3" jdbcType="VARCHAR" property="targetType3" />
+        <result column="ISSUE_PARTY_ID" jdbcType="VARCHAR" property="issuePartyId" />
+        <result column="TERM_MONTH" jdbcType="DECIMAL" property="termMonth" />
+        <result column="GUARANTEE_CMT" jdbcType="VARCHAR" property="guaranteeCmt" />
+        <result column="SPECIAL_CMT" jdbcType="VARCHAR" property="specialCmt" />
+        <result column="CONTRACT_NAME" jdbcType="VARCHAR" property="contractName" />
+        <result column="INCOME_RATIO" jdbcType="DECIMAL" property="incomeRatio" />
+        <result column="DER_INSTR_RATIO" jdbcType="DECIMAL" property="derInstrRatio" />
+        <result column="DER_INSTR_INV_TYPE" jdbcType="VARCHAR" property="derInstrInvType" />
+        <result column="DER_INSTR_TARGET" jdbcType="VARCHAR" property="derInstrTarget" />
+        <result column="ACCT_MODE" jdbcType="VARCHAR" property="acctMode" />
+        <result column="SPECIAL_CMT1" jdbcType="VARCHAR" property="specialCmt1" />
+        <result column="MAX_YIELD" jdbcType="DECIMAL" property="maxYield" />
+        <result column="MIN_YIELD" jdbcType="DECIMAL" property="minYield" />
+        <result column="BASIC_PRICE" jdbcType="DECIMAL" property="basicPrice" />
+        <result column="REG_DATE_PRICE" jdbcType="DECIMAL" property="regDatePrice" />
+        <result column="TRADE_FEE" jdbcType="VARCHAR" property="tradeFee" />
+        <result column="PARTY_CODE" jdbcType="VARCHAR" property="partyCode" />
+        <result column="CHECK_CODE" jdbcType="VARCHAR" property="checkCode" />
+        <result column="MANAGER_ID" jdbcType="VARCHAR" property="managerId" />
+        <result column="TRUSTEE_ID" jdbcType="VARCHAR" property="trusteeId" />
+        <result column="TRU_ACT_TYPE" jdbcType="VARCHAR" property="truActType" />
+        <result column="INVEST_TYPE" jdbcType="VARCHAR" property="investType" />
+        <result column="CAP_USE_INDU" jdbcType="VARCHAR" property="capUseIndu" />
+        <result column="PLAN_SDATE" jdbcType="TIMESTAMP" property="planSdate" />
+        <result column="PLAN_EDATE" jdbcType="TIMESTAMP" property="planEdate" />
+        <result column="PRO_PROPERTY" jdbcType="VARCHAR" property="proProperty" />
+        <result column="MAX_RATE" jdbcType="DECIMAL" property="maxRate" />
+        <result column="MIN_RATE" jdbcType="DECIMAL" property="minRate" />
+        <result column="DEBT_SCALE" jdbcType="DECIMAL" property="debtScale" />
+        <result column="BUY_STRUCT" jdbcType="VARCHAR" property="buyStruct" />
+        <result column="MANAGE_TYPE" jdbcType="VARCHAR" property="manageType" />
+        <result column="IS_CTRL_BOTTOM" jdbcType="VARCHAR" property="isCtrlBottom" />
+        <result column="MGR_FEE_RATE" jdbcType="DECIMAL" property="mgrFeeRate" />
+        <result column="TRU_FEE_RATE" jdbcType="DECIMAL" property="truFeeRate" />
+        <result column="TRADE_FEE_RATE" jdbcType="DECIMAL" property="tradeFeeRate" />
+        <result column="AGENCY_FEE_RATE" jdbcType="DECIMAL" property="agencyFeeRate" />
+        <result column="OTHER_FEE_RATE" jdbcType="DECIMAL" property="otherFeeRate" />
+        <result column="ASSET_VALUE" jdbcType="DECIMAL" property="assetValue" />
+        <result column="REGIST_ORG1" jdbcType="VARCHAR" property="registOrg1" />
+        <result column="MNG_ORG_NAME" jdbcType="VARCHAR" property="mngOrgName" />
+        <result column="TRU_ORG_NAME" jdbcType="VARCHAR" property="truOrgName" />
+        <result column="FUND_INVEST_ASSET" jdbcType="VARCHAR" property="fundInvestAsset" />
+        <result column="IN_ASSET_TYPE" jdbcType="VARCHAR" property="inAssetType" />
+        <result column="IN_ASSET_TYPE_CMM" jdbcType="VARCHAR" property="inAssetTypeCmm" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="IS_UNDER_ASSET" jdbcType="VARCHAR" property="isUnderAsset" />
+        <result column="IS_GOVERN_FUND" jdbcType="VARCHAR" property="isGovernFund" />
+        <result column="GOVERN_INVEST_FUND" jdbcType="VARCHAR" property="governInvestFund" />
+        <result column="FUND_ENPE_NAME" jdbcType="VARCHAR" property="fundEnpeName" />
+        <result column="TRUSTEE" jdbcType="VARCHAR" property="trustee" />
+        <result column="STATUS" jdbcType="VARCHAR" property="status" />
+        <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode" />
+        <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+        <result column="DATA_SOURCE" jdbcType="VARCHAR" property="dataSource" />
+        <result column="PRIVATEFUND_FLAG" jdbcType="VARCHAR" property="privatefundFlag" />
+        <result column="PRIVATEPRD_FLAG" jdbcType="VARCHAR" property="privateprdFlag" />
+        <result column="BONDTOSTOCK_FLAG" jdbcType="VARCHAR" property="bondtostockFlag" />
+        <result column="PPPFLAG" jdbcType="VARCHAR" property="pppflag" />
+        <result column="STATUS_DATE" jdbcType="TIMESTAMP" property="statusDate" />
+        <result column="CAP_USE_INDU_LEVEL2" jdbcType="VARCHAR" property="capUseInduLevel2" />
+        <result column="ISSUE_PARTY_NAME" jdbcType="VARCHAR" property="issuePartyName" />
+        <result column="SEC_CREDIT_GRADE_TYPE" jdbcType="VARCHAR" property="secCreditGradeType" />
+        <result column="SEC_MAIN_GRADE" jdbcType="VARCHAR" property="secMainGrade" />
+        <result column="BLN_AREA" jdbcType="VARCHAR" property="blnArea" />
+        <result column="INDUSTRY_PBC" jdbcType="VARCHAR" property="industryPbc" />
+        <result column="CUSTOMER_OBJ_TYPE" jdbcType="VARCHAR" property="customerObjType" />
+        <result column="ORG_ASSET_TYPE1" jdbcType="VARCHAR" property="orgAssetType1" />
+        <result column="INSTIT_SIZE" jdbcType="VARCHAR" property="institSize" />
+    </resultMap>
+
+    <select id="selectAssetByStatus" parameterType="java.util.Map" resultMap="BaseResultMapAsset">
+        select
+        ASSET_UUID, ASSET_CODE, ASSET_TYPE, ASSET_TYPE2, CCY, TRADE_MARKET, VDATE, MDATE,
+        DISCOUNT_YIELD, ASSET_YIELD, BASIS, AMT, BANK_NAME, IS_STRUCT, TARGET_TYPE, TARGET,
+        ASSET_ID, ASSET_NAME, CHB_SECTYPE, ISSUE_MODE, PARTY_GRADE, PARTY_TYPE1, PARTY_TYPE3,
+        PARTY_TYPE2, INDUSTRY, INDUSTRY_LEVEL2, REGIST_ORG, REGISTORG_COMMENT, RIVAL_PARTY,
+        TARGET_TYPE1, TARGET_AMT, COUNTRY_AREA, PROFIT_TYPE, IS_RESALE, TERM_DATE, RATE_FLAG,
+        INTPAY_CYCLE, REPAY_CMT, BASIS_TYPE, FLOAT_FACTOR, SPREAD_RATE, FINANCIE, FIN_ORG_CODE,
+        FCR_GRADE_IN, FCR_GRADE_OUT, FINANCIER_TYPE1, FINANCIER_TYPE2, FINANCIER_TYPE3, FINANCE_PROJ,
+        INDUSTRY1, INDUSTRY_LEVEL2_TYPE, PRO_INDUSTRY, PRO_INDUSTRY_LEVEL2, INDUSTRY_FLAG,
+        MONIT_TYPE, MON_TYPE_COMM, GUA_TYPE, GUA_TYPE_REMARK, FINANCIER_GRADE, IN_GRADE,
+        OUT_GRADE, CHOSE, CONDITION_CMM, FIN_AREA, TOTAL_FEE_RATE, IS_RIGHT, NOTSTAND_SEC_TYPE,
+        NOTSTAND_SEC_NUM, REMAIN_TERM, MAX_REMAIN_TERM, MIN_REMAIN_TERM, SHARES_TYPE, INDUSTRY_SHARES,
+        INDUSTRY_SHARES2, INVEST_STAGE, SHARES_TYPE1, SHARES_TYPE2, SHARES_TYPE3, IS_PLEDGE,
+        NOM_CAPI, TARGET_TYPE3, ISSUE_PARTY_ID, TERM_MONTH, GUARANTEE_CMT, SPECIAL_CMT, CONTRACT_NAME,
+        INCOME_RATIO, DER_INSTR_RATIO, DER_INSTR_INV_TYPE, DER_INSTR_TARGET, ACCT_MODE, SPECIAL_CMT1,
+        MAX_YIELD, MIN_YIELD, BASIC_PRICE, REG_DATE_PRICE, TRADE_FEE, PARTY_CODE, CHECK_CODE,
+        MANAGER_ID, TRUSTEE_ID, TRU_ACT_TYPE, INVEST_TYPE, CAP_USE_INDU, PLAN_SDATE, PLAN_EDATE,
+        PRO_PROPERTY, MAX_RATE, MIN_RATE, DEBT_SCALE, BUY_STRUCT, MANAGE_TYPE, IS_CTRL_BOTTOM,
+        MGR_FEE_RATE, TRU_FEE_RATE, TRADE_FEE_RATE, AGENCY_FEE_RATE, OTHER_FEE_RATE, ASSET_VALUE,
+        REGIST_ORG1, MNG_ORG_NAME, TRU_ORG_NAME, FUND_INVEST_ASSET, IN_ASSET_TYPE, IN_ASSET_TYPE_CMM,
+        REMARK, IS_UNDER_ASSET, IS_GOVERN_FUND, GOVERN_INVEST_FUND, FUND_ENPE_NAME, TRUSTEE,
+        STATUS, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME, DEPT_CODE, ORG_CODE,
+        DATA_SOURCE, PRIVATEFUND_FLAG, PRIVATEPRD_FLAG, BONDTOSTOCK_FLAG, PPPFLAG, STATUS_DATE,
+        CAP_USE_INDU_LEVEL2, ISSUE_PARTY_NAME, SEC_CREDIT_GRADE_TYPE, SEC_MAIN_GRADE, BLN_AREA,
+        INDUSTRY_PBC, CUSTOMER_OBJ_TYPE, BUY_PLACE,ORG_ASSET_TYPE1,INSTIT_SIZE
+        from CHB_ASSET_INFO
+        where 1 =1
+        <if test="statusList != null and statusList.size() > 0">
+            <foreach collection="statusList" item="status" open="and status in (" separator=","
+                     close=")">
+                #{status,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- 手工处理 -->
+    <update id="doDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '03',
+        file.REPORT_DATE = NOW(),
+        file.UPDATE_TIME = NOW()
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 取消手工处理 -->
+    <update id="cancelDatReportStatus" parameterType="list">
+        update PBC_DATA_COLLECT_DAT_FILE file
+        set
+        file.REPORT_STATUS = '01',
+        file.REPORT_DATE = null,
+        file.UPDATE_TIME = NOW()
+        where
+        file.UUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

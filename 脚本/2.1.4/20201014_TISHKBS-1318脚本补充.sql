@@ -1,0 +1,1 @@
+delete from sys_datadict_list_link where dict_code ='SVR_OPERATEMODE_DECLARE' and LINKED_DICT_CODE='SVR_PROD_PROFIT_TYPE' and ITEM_CODE in ('02','04') and LINKED_ITEM_CODE='03';

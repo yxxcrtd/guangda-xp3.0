@@ -1,0 +1,2 @@
+ALTER TABLE pbc_spe_counter_party DROP PRIMARY KEY;
+ALTER TABLE pbc_spe_counter_party ADD PRIMARY KEY(ASSET_CODE, STATUS);

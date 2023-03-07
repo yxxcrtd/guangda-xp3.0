@@ -1,0 +1,1 @@
+delete from chb_datacheck_rule where CHECKRULEID='CHB_ASSET_INFO-DJBB-20220721-0003';

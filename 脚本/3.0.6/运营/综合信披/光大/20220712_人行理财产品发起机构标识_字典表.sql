@@ -1,0 +1,4 @@
+
+
+UPDATE sys_datadict_list SET ITEM_VALUE = '理财子公司发行' WHERE DICT_CODE = 'SVR_PBC_ISSUE_ORG_TYPE' AND ITEM_CODE = '2';
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dao.ChbProductsAssetCompareInterfMapper" >
+
+	<select id="selectProducts" resultType="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare">
+		select
+			T1.statusBatch,T1.account,T1.assetId,T1.holdShares,T1.holdQtyAmount,T1.bankMark,T1.dateStatus,T1.groupId
+			FROM
+			(select
+				'1'						AS statusBatch,
+        		PROD_ID              	AS account,
+        		ASSET_ID            	AS assetId,
+        		POS_AMT					AS holdShares,
+        		TDY_COST_AMT			AS holdQtyAmount,
+        		'91110000100011743X'    	AS bankMark ,
+        		ROW_NUMBER() over( partition by PROD_ID,ASSET_ID order by VALUE_DATE desc ) monthMarkNo,
+        		STR_TO_DATE(#{batchDateEnd,jdbcType=VARCHAR},'%Y-%m-%d')	AS dateStatus,
+		        DATA_SOURCE			AS groupId
+        		From CHB_ASSETS_BASIS_DATA
+				where VALUE_DATE &lt;= STR_TO_DATE(#{batchDateEnd,jdbcType=VARCHAR},'%Y-%m-%d')AND STATUS !='D')T1
+        where monthMarkNo = 1
+	</select>
+
+	<!--删除表-->
+	<delete id="deleteProducts" parameterType="java.lang.String">
+		DELETE FROM
+		  CHB_PRODUCTS_ASSET_COMPARE
+		WHERE
+		  DATE_STATUS =STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+	</delete>
+
+	<insert id="insertIntoReport"
+			parameterType="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare">
+		insert into CHB_PRODUCTS_ASSET_COMPARE (
+		REGIST_SEQNO, STATUS_BATCH, ACCOUNT, ASSET_ID,
+		HOLD_QTY_AMOUNT, HOLD_SHARES, BANK_MARK, DATE_STATUS, GROUP_ID, STATUS, CREATE_USER,
+		ORG_CODE, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+		select A.*
+		from (
+		<foreach collection="List" index="index" item = "item" separator=" UNION ALL ">
+			select
+			#{item.registSeqno,jdbcType=VARCHAR} AS REGIST_SEQNO,
+			#{item.statusBatch,jdbcType=VARCHAR} AS STATUS_BATCH,
+			#{item.account,jdbcType=VARCHAR} AS ACCOUNT,
+			#{item.assetId,jdbcType=VARCHAR} AS ASSET_ID,
+			#{item.holdQtyAmount,jdbcType=DECIMAL} AS HOLD_QTY_AMOUNT,
+			#{item.holdShares,jdbcType=DECIMAL} AS HOLD_SHARES,
+			#{item.bankMark,jdbcType=VARCHAR} AS BANK_MARK,
+			#{item.dateStatus,jdbcType=DATE} AS DATE_STATUS,
+			#{item.groupId,jdbcType=VARCHAR} AS GROUP_ID,
+			#{item.status,jdbcType=VARCHAR} AS STATUS,
+			#{item.createUser,jdbcType=VARCHAR} AS CREATE_USER,
+			#{item.orgCode,jdbcType=VARCHAR} AS ORG_CODE,
+			#{item.createDept,jdbcType=VARCHAR} AS CREATE_DEPT,
+			#{item.createTime,jdbcType=TIMESTAMP} AS CREATE_TIME,
+			#{item.updateUser,jdbcType=VARCHAR} AS UPDATE_USER,
+			#{item.updateTime,jdbcType=TIMESTAMP} AS UPDATE_TIME
+			from dual
+		</foreach>
+		) A
+	</insert>
+
+
+
+</mapper>

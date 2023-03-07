@@ -1,0 +1,5 @@
+
+-- 地区字典值添加
+delete from sys_datadict_list where DICT_CODE='ADMINISTRATIVE_TYPE1' and ITEM_CODE='000000';
+
+INSERT INTO sys_datadict_list(DICT_CODE, ITEM_CODE, ITEM_VALUE, ORDER_NO, DEFAULT_VALUE, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE) VALUES ('ADMINISTRATIVE_TYPE1', '000000', '', 35, '0', 'system', null, sysdate, 'system',sysdate, null);

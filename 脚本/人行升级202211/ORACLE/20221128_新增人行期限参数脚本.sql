@@ -1,0 +1,3 @@
+delete  from sys_para where PARA_CODE  ='People_Bank_Deadline_FLAG';
+INSERT INTO sys_para (SYSTEM_CODE, PARA_CODE, PARAM_VALUE, DATA_TYPE, DATA_SCOPE, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE, UPDATE_FLG)
+VALUES ('SVR', 'People_Bank_Deadline_FLAG', '02', '  ', null, '人行期限统计逻辑(01：一个月30天-结转前，02：一个月31天-结转后)', 'SYSTEM', null, sysdate, 'SYSTEM', sysdate, null, '01');

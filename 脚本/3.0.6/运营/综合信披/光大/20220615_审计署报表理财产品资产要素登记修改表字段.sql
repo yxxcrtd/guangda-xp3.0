@@ -1,0 +1,1 @@
+alter table chb_assets_elements_sub MODIFY ASSET_NAME varchar(600) COMMENT '投资标的名称';

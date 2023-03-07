@@ -1,0 +1,34 @@
+package com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@Repository
+public interface ZG06DatReportMapper {
+
+	int deleteBySub(@Param("list")List<Map> record);
+
+	int deleteByDat(@Param("list")List<Map> record);
+
+	int insertSub(@Param("list")List<Map> record,@Param("uuid") String uuid);
+
+	int insertDat(@Param("list")List<Map> record,@Param("uuid") String uuid);
+
+	List<Map<String,String>> getSameKeyList(@Param("keys") Set<Object> dataMap);
+
+	List<Map<String, Object>> getPListByUUid(@Param("uuid")String uuid);
+
+	Boolean updatePDatDataStatus(@Param("uuid")String uuid);
+
+	Boolean updatePDataStatus(List<Map<String,Object>> dataList);
+
+	List<Map<String, Object>>  selectAssetCode();
+
+	Boolean  updateUuidSub(String uuid);
+
+
+}

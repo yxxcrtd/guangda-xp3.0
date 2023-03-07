@@ -1,0 +1,11 @@
+-- 修改sys_page
+update sys_page set PAGE_URL='/common/loaninfomanagement/OperationalLoanInfo001' where PAGE_ID ='loanplan';
+
+-- 按钮配置
+delete from sys_page_element where PAGE_ID='loanplan';
+INSERT INTO sys_page_element (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID) VALUES ('loanplan', 'OperationalLoanInfo001_btn_add', '01', '01', null, '新建', 'system', null, '2022-07-14 14:46:55', 'system', '2022-07-14 14:46:55', 'C', null);
+INSERT INTO sys_page_element (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID) VALUES ('loanplan', 'OperationalLoanInfo001_btn_delete', '01', '01', null, '删除', 'system', null, '2022-07-14 14:46:55', 'system', '2022-07-14 14:46:55', 'C', null);
+INSERT INTO sys_page_element (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID) VALUES ('loanplan', 'loanplan_btn_export', '01', '01', null, '导出', 'system', null, '2022-07-14 14:46:55', 'system', '2022-07-14 14:46:55', 'C', null);
+INSERT INTO sys_page_element (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID) VALUES ('loanplan', 'OperationalLoanInfo001_btn_import', '01', '01', null, '导入', 'system', null, '2022-07-14 14:46:55', 'system', '2022-07-14 14:46:55', 'C', null);
+INSERT INTO sys_page_element (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID) VALUES ('loanplan', 'loanplan_btn_reset', '01', '01', null, '重置', 'system', null, '2022-07-14 14:46:55', 'system', '2022-07-14 14:46:55', 'C', null);
+INSERT INTO sys_page_element (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG, PARENT_ELEMENT_ID) VALUES ('loanplan', 'loanplan_btn_search', '01', '01', null, '查询', 'system', null, '2022-07-14 14:46:55', 'system', '2022-07-14 14:46:55', 'C', null);

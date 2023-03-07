@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="OpertionLoanInfo002.xlsx" name="除回购和拆借外贷款明细信息(ZG07)">
+	<Worksheet javaBean="com.joyintech.tams.svreport.loaninfomanagement.dto.OperationalLoanInfo001Dto">
+		<Row>
+			<Cell order="1" name="资产代码">assetCode</Cell>
+			<Cell order="2" name="贷款种类">loansTypeStr</Cell>
+			<Cell order="3" name="贷款转让方机构代码">loanTransferorId</Cell>
+			<Cell order="4" name="贷款转让方机构名称">loanTransferorName</Cell>
+			<Cell order="5" name="贷款合同原始发放机构代码">loanContractOrgId</Cell>
+			<Cell order="6" name="贷款合同原始发放机构名称">loanContractOrgName</Cell>
+			<Cell order="7" name="贷款合同原始发放机构所在地(省)">loanContractOrgProvinceStr</Cell>
+			<Cell order="8" name="贷款合同原始发放机构所在地(市)">loanContractOrgCityStr</Cell>
+			<Cell order="9" name="贷款合同原始发放机构所在地(县)">loanContractOrgCountyStr</Cell>
+			<Cell order="10" name="借款人类型">borrowerTypeStr</Cell>
+			<Cell order="11" name="行业信息">industryInfoStr</Cell>
+			<Cell order="12" name="借款人国别">borrowerNationalityStr</Cell>
+			<Cell order="13" name="借款人地区(省)">borrowerProvinceStr</Cell>
+			<Cell order="14" name="借款人地区(市)">borrowerCityStr</Cell>
+			<Cell order="15" name="借款人地区(县)">borrowerCountyStr</Cell>
+			<Cell order="16" name="借款人代码">borrowerId</Cell>
+			<Cell order="17" name="企业出资人经济成分（一级）">enterpriseInvestorTypeFirstStr</Cell>
+			<Cell order="18" name="企业出资人经济成分（二级）">enterpriseInvestorTypeSecStr</Cell>
+			<Cell order="19" name="企业出资人经济成分（三级）">enterpriseInvestorTypeThirdStr</Cell>
+			<Cell order="20" name="企业规模">enterpriseScaleStr</Cell>
+			<Cell order="21" name="贷款借据编码">loanBasisId</Cell>
+			<Cell order="22" name="贷款产品类别">loanPrdTypeStr</Cell>
+			<Cell order="23" name="贷款实际投向">loanActualInvestStr</Cell>
+			<Cell order="24" name="贷款发放日期">loanVdateStr</Cell>
+			<Cell order="25" name="贷款到期日期">loanMdateStr</Cell>
+			<Cell order="26" name="贷款展期到期日期">loanExtensionDueDateStr</Cell>
+			<Cell order="27" name="利率是否固定">rateFixedStr</Cell>
+			<Cell order="28" name="利率水平(%)">rateLevel</Cell>
+			<Cell order="29" name="贷款担保方式">loanGuaranteeModeStr</Cell>
+			<Cell order="30" name="贷款质量">loanQualityStr</Cell>
+			<Cell order="31" name="贷款状态">loanStateStr</Cell>
+			<Cell order="32" name="贷款转让折扣率(%)">loanTransferorRate</Cell>
+			<Cell order="33" name="原始合同币种代码">origCcyStr</Cell>
+			<Cell order="34" name="原始合同金额">origContractAmount</Cell>
+			<Cell order="35" name="原始合同金额折人民币">origContractAmountCny</Cell>
+			<Cell order="36" name="贷款余额币种">loanBalanceCcyStr</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

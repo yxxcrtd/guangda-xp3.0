@@ -1,0 +1,27 @@
+
+-- add by yanya on 20221111 人行202211月份升级新加资管产品11张表dat文件生成批处理 start
+delete from sys_batch_task where TASK_ID in ('3401','3402','3403','3404','3405',
+	'3406','3407','3408','3409','3410','3411');
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3401', 'SVR', '采集平台资管产品基本信息（ZG01）dat生成批处理', NULL, 'svrPbcZG01DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3402', 'SVR', '采集平台资管产品初始募集信息（ZG02）dat生成批处理', NULL, 'svrPbcZG02DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3403', 'SVR', '采集平台资管产品终止信息（ZG03）dat生成批处理', NULL, 'svrPbcZG03DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3404', 'SVR', '采集平台资管产品存续期募集信息（ZG04）dat生成批处理', NULL, 'svrPbcZG04DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3405', 'SVR', '采集平台资管产品资产负债信息（ZG05）dat生成批处理', NULL, 'svrPbcZG05DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3406', 'SVR', '采集平台资产收益权明细信息（ZG06）dat生成批处理', NULL, 'svrPbcZG06DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3407', 'SVR', '采集平台除回购和拆借外贷款明细信息（ZG07）dat生成批处理', NULL, 'svrPbcZG07DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3408', 'SVR', '采集平台特定目的载体交易对手明细信息（ZG08）dat生成批处理', NULL, 'svrPbcZG08DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3409', 'SVR', '采集平台资产负债剩余期限信息（ZG09）dat生成批处理', NULL, 'svrPbcZG09DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3410', 'SVR', '采集平台债券等资产配置情况信息（ZG10）dat生成批处理', NULL, 'svrPbcZG10DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+INSERT INTO sys_batch_task (TASK_ID, SYSTEM_CODE, TASK_NAME, FTASK_ID, BEAN_NAME, TASK_PRI, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, IS_BATCH_START_TARGET)
+ VALUES ('3411', 'SVR', '采集平台企业债券分行业、企业规模情况信息（ZG11）dat生成批处理', NULL, 'svrPbcZG11DatFileTask', 3270, 'system', NULL, sysDate, 'system', sysDate, NULL);
+-- add by yanya on 20221111 人行202211月份升级新加资管产品11张表dat文件生成批处理 end

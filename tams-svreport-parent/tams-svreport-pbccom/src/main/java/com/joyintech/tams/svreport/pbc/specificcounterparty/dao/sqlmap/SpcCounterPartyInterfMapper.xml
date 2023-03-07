@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.specificcounterparty.dao.SpcCounterPartyInterfMapper">
+
+    <!-- 资产端取数 -->
+    <select id="selectAssetData" resultType="com.joyintech.tams.svreport.pbc.specificcounterparty.dto.SpcCounterPartyInterfDto">
+        SELECT
+            case PBC_ASSET_TYPE2 when 'T02' then (CASE ASSET_TYPE WHEN '15' THEN MNG_ORG_NAME WHEN '12' THEN MANAGER_ID WHEN '16' THEN MANAGER_ID WHEN '04' THEN FINANCIE ELSE '' END) else '' end as partyOrgName,
+             ASSET_CODE       AS assetCode,
+             PBC_ASSET_TYPE1  AS pbcAssetType1,
+             PBC_ASSET_TYPE2  AS pbcAssetType2,
+             PBC_ASSET_TYPE3  AS pbcAssetType3,
+             ASSET_TYPE2      AS assetType2,
+            case PBC_ASSET_TYPE2 when 'R01' then RIVAL_PARTY when 'T02' then ASSET_NAME else '' end AS partyProdName
+        FROM
+            CHB_ASSET_INFO
+        WHERE
+            STATUS = 'E'
+          AND TO_CHAR(NVL(UPDATE_TIME,CREATE_TIME),'yyyy-MM-dd') = #{batchDate,jdbcType=VARCHAR}
+          AND (
+                (PBC_ASSET_TYPE2 = 'R01' AND PBC_ASSET_TYPE3 IN ('L08','L09','L10','L11','L12','L13','L14','L15'))
+                OR
+                (PBC_ASSET_TYPE2 = 'T02' AND PBC_ASSET_TYPE3 IN ('M01','M02','M03','M04','M05','M06','M07','M08'))
+            )
+
+    </select>
+
+    <!-- 产品端取数 -->
+    <select id="selectProdData" resultType="com.joyintech.tams.svreport.pbc.specificcounterparty.dto.SpcCounterPartyInterfDto">
+        SELECT
+            INDENTIFY_MARK      AS assetCode,
+            HOLDER_NAME         AS partyProdName,
+            HOLDER_TYPE         AS partyProdType
+        FROM
+            PBC_TARGET_INFO
+        WHERE
+                TO_CHAR(NVL(UPDATE_TIME,CREATE_TIME),'yyyy-MM-dd') = #{batchDate,jdbcType=VARCHAR}
+            AND STATUS = 'E'
+            AND QTY > 0
+        GROUP BY INDENTIFY_MARK
+    </select>
+
+    <!-- 获取对手方方 已有数据 -->
+    <select id="getCounterPartyList" resultType="com.joyintech.tams.svreport.pbc.specificcounterparty.dto.SpcCounterPartyInterfDto">
+        SELECT
+            ASSET_CODE     AS assetCode
+        FROM
+            PBC_SPE_COUNTER_PARTY
+        WHERE
+            STATUS = 'E'
+            <foreach collection="list" item="item" open="AND ASSET_CODE IN (" separator="," close=")">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+    </select>
+
+    <!-- 批量插入 -->
+    <insert id="insert">
+        MERGE INTO PBC_SPE_COUNTER_PARTY P
+        USING (
+        <foreach collection="dataList" item="item" open="select * from( " separator="union all" close=")" >
+            select
+            #{item.pbcUuid, jdbcType=VARCHAR } PBC_UUID,
+            #{item.partyOrgCode, jdbcType=VARCHAR } PARTY_ORG_CODE,
+            #{item.partyOrgName, jdbcType=VARCHAR } PARTY_ORG_NAME,
+            #{item.partyProdId, jdbcType=VARCHAR } PARTY_PROD_ID,
+            #{item.partyProdName, jdbcType=VARCHAR } PARTY_PROD_NAME,
+            #{item.partyProdType, jdbcType=VARCHAR } PARTY_PROD_TYPE,
+            #{item.assetCode, jdbcType=VARCHAR } ASSET_CODE,
+            #{item.assetType, jdbcType=VARCHAR } ASSET_TYPE,
+            #{item.status, jdbcType=VARCHAR } STATUS,
+            #{item.createUser ,jdbcType=VARCHAR } CREATE_USER,
+            #{item.createDept ,jdbcType=VARCHAR } CREATE_DEPT,
+            sysdate CREATE_TIME,
+            #{item.updateUser ,jdbcType=VARCHAR } UPDATE_USER,
+            sysdate UPDATE_TIME
+            from dual
+        </foreach>
+        ) TEMP
+        ON (P.ASSET_CODE = TEMP.ASSET_CODE AND P.STATUS = 'A')
+        WHEN MATCHED THEN
+        UPDATE
+        SET
+            P.PBC_UUID = TEMP.PBC_UUID
+            P.PARTY_ORG_CODE = TEMP.PARTY_ORG_CODE
+            P.PARTY_ORG_NAME = TEMP.PARTY_ORG_NAME
+            P.PARTY_PROD_ID = TEMP.PARTY_PROD_ID
+            P.PARTY_PROD_NAME = TEMP.PARTY_PROD_NAME
+            P.PARTY_PROD_TYPE = TEMP.PARTY_PROD_TYPE
+            P.ASSET_TYPE = TEMP.ASSET_TYPE
+            P.CREATE_USER = TEMP.CREATE_USER
+            P.CREATE_DEPT = TEMP.CREATE_DEPT
+            P.CREATE_TIME = TEMP.CREATE_TIME
+            P.UPDATE_USER = TEMP.UPDATE_USER
+            P.UPDATE_TIME = TEMP.UPDATE_TIME
+        WHEN NOT MATCHED THEN
+        INSERT (
+            PBC_UUID,
+            PARTY_ORG_CODE,
+            PARTY_ORG_NAME,
+            PARTY_PROD_ID,
+            PARTY_PROD_NAME,
+            PARTY_PROD_TYPE,
+            ASSET_CODE,
+            ASSET_TYPE,
+            STATUS,
+            CREATE_USER,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME,
+        )
+        VALUES(
+            TEMP.PBC_UUID,
+            TEMP.PARTY_ORG_CODE,
+            TEMP.PARTY_ORG_NAME,
+            TEMP.PARTY_PROD_ID,
+            TEMP.PARTY_PROD_NAME,
+            TEMP.PARTY_PROD_TYPE,
+            TEMP.ASSET_CODE,
+            TEMP.ASSET_TYPE,
+            TEMP.STATUS,
+            TEMP.CREATE_USER,
+            TEMP.CREATE_DEPT,
+            TEMP.CREATE_TIME,
+            TEMP.UPDATE_USER,
+            TEMP.UPDATE_TIME
+        )
+    </insert>
+
+</mapper>

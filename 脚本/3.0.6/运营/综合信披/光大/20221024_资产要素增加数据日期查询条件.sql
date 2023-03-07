@@ -1,0 +1,2 @@
+ALTER TABLE `chb_asset_info_errodata`
+	ADD COLUMN `STATUS_DATE` DATE NULL COMMENT '数据日期' AFTER `CREATE_DEPT`;

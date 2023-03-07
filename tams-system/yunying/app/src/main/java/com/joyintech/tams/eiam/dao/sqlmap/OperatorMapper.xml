@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.tams.eiam.dao.OperatorMapper">
+
+    <update id="updateSysParaValue">
+        update sys_para
+        <set>
+            <if test="paramValue != null">
+                PARAM_VALUE = #{paramValue}
+            </if>
+        </set>
+        where SYSTEM_CODE = #{systemCode} and PARA_CODE = #{paraCode}
+    </update>
+
+    <select id="getSysParaValue" resultType="java.lang.String">
+        select PARAM_VALUE
+        from sys_para
+        where SYSTEM_CODE = #{systemCode} and PARA_CODE = #{paraCode}
+    </select>
+
+</mapper>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper_mysql" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        <id column="UUID" property="uuid" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="INDENTIFY_MARK" property="indentifyMark" jdbcType="VARCHAR" />
+        <result column="PBC_PROD_ID" property="pbcProdId" jdbcType="VARCHAR" />
+        <result column="HOLDER_NAME" property="holderName" jdbcType="VARCHAR" />
+        <result column="HOLDER_TYPE" property="holderType" jdbcType="VARCHAR" />
+        <result column="HOLD_DATE" property="holdDate" jdbcType="DATE" />
+        <result column="CCY" property="ccy" jdbcType="VARCHAR" />
+        <result column="QTY" property="qty" jdbcType="DECIMAL" />
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ACCOUNT ACCOUNT, INDENTIFY_MARK INDENTIFY_MARK, UUID UUID, PBC_PROD_ID PBC_PROD_ID, HOLDER_NAME HOLDER_NAME,
+        HOLDER_TYPE HOLDER_TYPE, HOLD_DATE HOLD_DATE, CCY CCY, QTY QTY, AMOUNT AMOUNT, CREATE_TIME CREATE_TIME,
+        UPDATE_TIME UPDATE_TIME, CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT, UPDATE_USER UPDATE_USER,
+        STATUS STATUS
+    </sql>
+
+    <sql id="Sql_All_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List" />
+        from PBC_TARGET_INFO
+    </sql>
+
+    <sql id="Sql_All_Effective_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List" />
+        from pbc_target_info
+        where STATUS = 'E'
+    </sql>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        delete from PBC_TARGET_INFO
+        where ACCOUNT = #{account,jdbcType=VARCHAR}
+          and INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        insert into PBC_TARGET_INFO (ACCOUNT, INDENTIFY_MARK, UUID, PBC_PROD_ID
+            HOLDER_NAME, HOLDER_TYPE, HOLD_DATE,
+                                     CCY, QTY, AMOUNT,
+                                     CREATE_TIME, UPDATE_TIME, CREATE_USER,
+                                     CREATE_DEPT, UPDATE_USER, STATUS
+        )
+        values (#{account,jdbcType=VARCHAR}, #{indentifyMark,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{pbcProdId,jdbcType=VARCHAR}
+            #{holderName,jdbcType=VARCHAR}, #{holderType,jdbcType=VARCHAR}, #{holdDate,jdbcType=DATE},
+                #{ccy,jdbcType=VARCHAR}, #{qty,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+                #{createDept,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+               )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        insert into PBC_TARGET_INFO
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="account != null" >
+                ACCOUNT,
+            </if>
+            <if test="indentifyMark != null" >
+                INDENTIFY_MARK,
+            </if>
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="pbcProdId != null" >
+                PBC_PROD_ID,
+            </if>
+            <if test="holderName != null" >
+                HOLDER_NAME,
+            </if>
+            <if test="holderType != null" >
+                HOLDER_TYPE,
+            </if>
+            <if test="holdDate != null" >
+                HOLD_DATE,
+            </if>
+            <if test="ccy != null" >
+                CCY,
+            </if>
+            <if test="qty != null" >
+                QTY,
+            </if>
+            <if test="amount != null" >
+                AMOUNT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="account != null" >
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="indentifyMark != null" >
+                #{indentifyMark,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcProdId != null" >
+                #{pbcProdId,jdbcType=VARCHAR},
+            </if>
+            <if test="holderName != null" >
+                #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderType != null" >
+                #{holderType,jdbcType=VARCHAR},
+            </if>
+            <if test="holdDate != null" >
+                #{holdDate,jdbcType=DATE},
+            </if>
+            <if test="ccy != null" >
+                #{ccy,jdbcType=VARCHAR},
+            </if>
+            <if test="qty != null" >
+                #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null" >
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        insert into PBC_TARGET_INFO(ACCOUNT, INDENTIFY_MARK, UUID, PBC_PROD_ID, HOLDER_NAME, HOLDER_TYPE,
+                                    HOLD_DATE, CCY, QTY, AMOUNT, CREATE_TIME, UPDATE_TIME, CREATE_USER, CREATE_DEPT,
+                                    UPDATE_USER, STATUS)
+        select ACCOUNT, INDENTIFY_MARK, UUID, PBC_PROD_ID, HOLDER_NAME, HOLDER_TYPE,
+               HOLD_DATE, CCY, QTY, AMOUNT, CREATE_TIME, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, CREATE_USER, CREATE_DEPT,
+               #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{status,jdbcType=VARCHAR} STATUS
+        from pbc_target_info
+        where STATUS = 'E' and ACCOUNT = #{account,jdbcType=VARCHAR} and INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR}
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        update PBC_TARGET_INFO
+        <set >
+            <if test="account != null" >
+                ACCOUNT = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="indentifyMark != null" >
+                INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcProdId != null" >
+                PBC_PROD_ID = #{pbcProdId,jdbcType=VARCHAR},
+            </if>
+            <if test="holderName != null" >
+                HOLDER_NAME = #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderType != null" >
+                HOLDER_TYPE = #{holderType,jdbcType=VARCHAR},
+            </if>
+            <if test="holdDate != null" >
+                HOLD_DATE = #{holdDate,jdbcType=DATE},
+            </if>
+            <if test="ccy != null" >
+                CCY = #{ccy,jdbcType=VARCHAR},
+            </if>
+            <if test="qty != null" >
+                QTY = #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null" >
+                AMOUNT = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 删除 -->
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        update PBC_TARGET_INFO
+        set
+            UPDATE_TIME = #{dto.updateTime,jdbcType=TIMESTAMP},
+            UPDATE_USER = #{dto.updateUser,jdbcType=VARCHAR},
+            STATUS = #{dto.status,jdbcType=VARCHAR}
+        where
+        <foreach collection="list" item="item" open="UUID IN (" separator="," close=")">
+            #{item.uuid,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <!-- 详情 -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto" >
+        select
+        <include refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List" />
+        from PBC_TARGET_INFO
+        where UUID =  #{uuid,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="selectForPage" parameterType="map" resultType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto">
+        SELECT TEMP.* FROM (
+        SELECT
+        info.UUID AS uuid,
+        info.ACCOUNT AS account,
+        info.INDENTIFY_MARK AS indentifyMark,
+        info.PBC_PROD_ID AS pbcProdId,
+        info.HOLDER_NAME AS holdername,
+        info.HOLDER_TYPE AS holderType,
+        info.HOLD_DATE AS holdDate,
+        info.CCY AS ccy,
+        info.QTY As qty,
+        info.AMOUNT AS amount,
+        info.STATUS AS status,
+        info.UPDATE_TIME AS updateTime
+        FROM
+        PBC_TARGET_INFO info
+        <where>
+            info.QTY > 0
+            <if test="account != null and !('').equals(account)">
+                AND info.ACCOUNT LIKE CONCAT('%',#{account,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="pbcProdId != null and !('').equals(pbcProdId)">
+                AND info.PBC_PROD_ID = #{pbcProdId,jdbcType=VARCHAR}
+            </if>
+            <if test="indentifyMark != null and !('').equals(indentifyMark)">
+                AND info.INDENTIFY_MARK LIKE CONCAT('%',#{indentifyMark,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="holderName != null and !('').equals(holderName)">
+                AND info.HOLDER_NAME = #{holderName,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and !('').equals(status)">
+                AND info.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="holdDateStart != null and !('').equals(holdDateStart)">
+                AND DATE_FORMAT(info.HOLD_DATE, '%Y-%m-%d') <![CDATA[>=]]> #{holdDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="holdDateEnd != null and !('').equals(holdDateEnd)">
+                AND DATE_FORMAT(info.HOLD_DATE, '%Y-%m-%d') <![CDATA[<=]]> #{holdDateEnd,jdbcType=VARCHAR}
+            </if>
+        </where>
+        UNION ALL
+        SELECT
+            err.UUID AS uuid,
+            err.ACCOUNT AS account,
+            err.INDENTIFY_MARK AS indentifyMark,
+            err.PBC_PROD_ID AS pbcProdId,
+            err.HOLDER_NAME AS holdername,
+            err.HOLDER_TYPE AS holderType,
+            err.HOLD_DATE AS holdDate,
+            err.CCY AS ccy,
+            err.QTY AS qty,
+            err.AMOUNT AS amount,
+            err.STATUS AS status,
+            err.UPDATE_TIME AS updateTime
+        FROM
+        PBC_TARGET_INFO_ERRORDATA err
+        <where>
+            <if test="account != null and !('').equals(account)">
+                err.ACCOUNT LIKE CONCAT('%',#{account,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="pbcProdId != null and !('').equals(pbcProdId)">
+                AND err.PBC_PROD_ID = #{pbcProdId,jdbcType=VARCHAR}
+            </if>
+            <if test="indentifyMark != null and !('').equals(indentifyMark)">
+                AND err.INDENTIFY_MARK LIKE CONCAT('%',#{indentifyMark,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="holderName != null and !('').equals(holderName)">
+                AND err.HOLDER_NAME = #{holderName,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and !('').equals(status)">
+                AND err.STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="holdDateStart != null and !('').equals(holdDateStart)">
+                AND DATE_FORMAT(err.HOLD_DATE, '%Y-%m-%d') <![CDATA[>=]]> #{holdDateStart,jdbcType=VARCHAR}
+            </if>
+            <if test="holdDateEnd != null and !('').equals(holdDateEnd)">
+                AND DATE_FORMAT(err.HOLD_DATE, '%Y-%m-%d') <![CDATA[<=]]> #{holdDateEnd,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) TEMP
+        ORDER BY TEMP.updateTime DESC
+    </select>
+
+    <!-- 获取 内部产品代码 -->
+    <select id="getProdInsId" resultType="com.joyintech.framework.select.SelectOptionDto">
+        SELECT
+            DISTINCT
+            t1.PROD_ID AS id,
+            t1.PROD_ID AS text
+        FROM
+            CHB_PRD_BASEINFO t1
+        <where>
+            <if test="search != null and !('').equals(search)">
+                t1.PROD_ID LIKE  CONCAT('%', CONCAT(#{search}, '%'))
+            </if>
+            <if test="initValue != null and !('').equals(initValue)">
+                AND t1.PROD_ID LIKE  CONCAT('%', CONCAT(#{initValue}, '%'))
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取人行产品代码 -->
+    <select id="getPbcProdIdByAccount" resultType="java.util.Map">
+        SELECT
+            DISTINCT
+            IFNULL(t1.PBC_CODE,t2.PBC_PROD_ID) AS pbcProdId
+        FROM
+            PBC_PROD_ASSETPOOL_CODE t1
+        LEFT JOIN PBC_COL_PRD_BASEINFO_SUB t2 ON t1.INSIDE_PROD_ID = t2.PROD_ID
+        <where>
+            <if test="search != null and !('').equals(search)">
+                t1.INSIDE_PROD_ID LIKE  CONCAT('%', CONCAT(#{search}, '%'))
+            </if>
+        </where>
+        LIMIT 1
+    </select>
+
+    <!-- 校验数据已存在 -->
+    <select id="checkExist" resultType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto">
+        SELECT TEMP.* FROM(
+        SELECT
+        <include
+                refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List"/>
+        FROM PBC_TARGET_INFO
+        WHERE
+        ACCOUNT = #{account,jdbcType=VARCHAR}
+        AND INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR}
+        AND DATE_FORMAT(HOLD_DATE, '%Y-%m-%d') = DATE_FORMAT(#{holdDate,jdbcType=DATE}, '%Y-%m-%d')
+        AND STATUS != 'D'
+        UNION ALL
+        SELECT
+        <include
+                refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List"/>
+        FROM PBC_TARGET_INFO_ERRORDATA
+        WHERE
+        ACCOUNT = #{account,jdbcType=VARCHAR}
+        AND INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR}
+        AND DATE_FORMAT(HOLD_DATE, '%Y-%m-%d') = DATE_FORMAT(#{holdDate,jdbcType=DATE}, '%Y-%m-%d')
+        ) TEMP
+    </select>
+
+    <!-- 导入校验 重复数据 -->
+    <select id="countDuplicatedData" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            PBC_TARGET_INFO
+        WHERE
+            (ACCOUNT,INDENTIFY_MARK) IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            (
+            #{item.ACCOUNT, jdbcType=VARCHAR },
+            #{item.INDENTIFY_MARK, jdbcType=VARCHAR }
+            )
+        </foreach>
+    </select>
+
+    <!-- 校验 识别标识 与 投资者名称 -->
+    <select id="getIndentifyMarkAndHoldName" resultType="java.lang.Integer">
+        SELECT
+            COUNT(INDENTIFY_MARK)
+        FROM
+            PBC_TARGET_INFO
+        WHERE
+            INDENTIFY_MARK = #{indentifyMark,jdbcType=VARCHAR}
+          AND HOLDER_NAME = #{holderName,jdbcType=VARCHAR}
+          AND ACCOUNT = #{account,jdbcType=VARCHAR}
+          AND DATE_FORMAT(HOLD_DATE, '%Y-%m-%d') = #{holdDate,jdbcType=VARCHAR}
+          AND STATUS != 'D'
+    </select>
+
+    <!-- 获取 身份登记识别标识 -->
+    <select id="getIndentifyMark" resultType="com.joyintech.framework.select.SuggestDto">
+        SELECT
+            INDENTIFY_MARK  AS code,
+            HOLDER_NAME     AS shortName
+        FROM
+            CHB_EQU_SUB
+        <where>
+            HOLDER_TYPE IN ('17','18','19','20','21','22')
+            <if test="param != null and !('').equals(param)">
+                AND INDENTIFY_MARK LIKE CONCAT('%', #{param,jdbcType=VARCHAR}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取 投资者 类别 -->
+    <select id="getHolderTypeByIndentifyMark" resultType="map">
+        SELECT
+            DISTINCT
+            INDENTIFY_MARK  AS indentifyMark,
+            HOLDER_TYPE     AS holderType,
+            HOLDER_NAME     AS holderName
+        FROM
+            CHB_EQU_SUB
+        <where>
+            HOLDER_TYPE IN ('17','18','19','20','21','22')
+            <if test="search != null and !('').equals(search)">
+                AND INDENTIFY_MARK = #{search,jdbcType=VARCHAR}
+            </if>
+            <if test="initValue != null and !('').equals(initValue)">
+                AND INDENTIFY_MARK = #{initValue,jdbcType=VARCHAR}
+            </if>
+        </where>
+        LIMIT 1
+    </select>
+
+    <!-- 导入 查询已存在数据 -->
+    <select id="selectDataForAccountAndIndentifyMarkAndHoldDate" resultType="com.joyintech.tams.svreport.specificinvestorshold.dto.PbcSpecificInvestorsHold001Dto">
+        SELECT TEMP.* FROM (
+        SELECT
+        <include refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List" />
+        FROM
+        PBC_TARGET_INFO
+        <where>
+            STATUS = 'E' AND
+            (ACCOUNT, INDENTIFY_MARK, DATE_FORMAT(HOLD_DATE, '%Y-%m-%d')) IN
+            <foreach collection="dataList" item="item" open="(" separator="," close=")">
+                (
+                #{item.ACCOUNT,jdbcType=VARCHAR},
+                #{item.INDENTIFY_MARK,jdbcType=VARCHAR},
+                #{item.HOLD_DATE,jdbcType=VARCHAR}
+                )
+            </foreach>
+        </where>
+        UNION ALL
+        SELECT
+        <include refid="com.joyintech.tams.svreport.specificinvestorshold.dao.PbcSpecificInvestorsHold001Mapper.Base_Column_List" />
+        FROM
+        PBC_TARGET_INFO_ERRORDATA
+        <where>
+            STATUS = 'A' AND
+            (ACCOUNT,INDENTIFY_MARK,DATE_FORMAT(HOLD_DATE, '%Y-%m-%d')) IN
+            <foreach collection="dataList" item="item" open="(" separator="," close=")">
+                (
+                #{item.ACCOUNT, jdbcType=VARCHAR},
+                #{item.INDENTIFY_MARK,jdbcType=VARCHAR},
+                #{item.HOLD_DATE,jdbcType=VARCHAR}
+                )
+            </foreach>
+        </where>
+        ) TEMP
+    </select>
+
+    <delete id="deleteErrorData">
+        delete from PBC_TARGET_INFO_ERRORDATA
+        where
+        <foreach collection="list" item="item" open="UUID IN ("  separator="," close=")">
+            #{item.uuid,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+
+    <!-- 删除 -->
+    <delete id="delete">
+        delete from PBC_TARGET_INFO
+        where
+        STATUS = 'D' AND
+        (ACCOUNT,INDENTIFY_MARK,DATE_FORMAT(HOLD_DATE, '%Y-%m-%d')) IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            (
+            #{item.account, jdbcType=VARCHAR},
+            #{item.indentifyMark,jdbcType=VARCHAR},
+            DATE_FORMAT(#{item.holdDate,jdbcType=DATE}, '%Y-%m-%d')
+            )
+        </foreach>
+    </delete>
+
+</mapper>

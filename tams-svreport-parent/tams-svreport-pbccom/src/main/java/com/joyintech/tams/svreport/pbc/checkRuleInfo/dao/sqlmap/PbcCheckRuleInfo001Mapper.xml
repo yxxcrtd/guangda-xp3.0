@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.pbc.checkRuleInfo.dao.PbcCheckRuleInfo001Mapper">
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.pbc.checkRuleInfo.dto.PbcCheckRuleInfo001" >
+        <result column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+        <result column="rule_classify" property="ruleClassify" jdbcType="VARCHAR" />
+        <result column="rule_type" property="ruleType" jdbcType="VARCHAR" />
+        <result column="rule_param" property="ruleParam" jdbcType="VARCHAR" />
+        <result column="table_data_name" property="tableDataName" jdbcType="VARCHAR" />
+        <result column="checked_field_name" property="checkedFieldName" jdbcType="VARCHAR" />
+        <result column="checked_filed_value" property="checkedFiledValue" jdbcType="VARCHAR" />
+        <result column="rule_method" property="ruleMethod" jdbcType="VARCHAR" />
+        <result column="rule_content" property="ruleContent" jdbcType="VARCHAR" />
+        <result column="related_table" property="relatedTable" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateDataTime" jdbcType="VARCHAR" />
+        <result column="rule_prompt" property="rulePrompt" jdbcType="VARCHAR" />
+        <result column="isStart" property="isstart" jdbcType="VARCHAR" />
+        <result column="pbc_asset_code" property="pbcAssetCode" jdbcType="VARCHAR" />
+        <result column="rule_identify" property="ruleIdentify" jdbcType="VARCHAR" />
+        <result column="DATA_ID" property="dataId" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.pbc.checkRuleInfo.dto.PbcCheckRuleInfo001" >
+        insert into pbc_check_rule_info (rule_id, rule_classify, rule_type,
+            rule_param, table_data_name, checked_field_name,
+            checked_filed_value, rule_method, rule_content,
+            rule_prompt, isStart, pbc_asset_code,rule_identify,PARAMS01,PARAMS02,PARAMS03,PARAMS04
+            )
+        values (#{ruleId,jdbcType=VARCHAR}, #{ruleClassify,jdbcType=VARCHAR}, #{ruleType,jdbcType=VARCHAR},
+            #{ruleParam,jdbcType=VARCHAR}, #{tableDataName,jdbcType=VARCHAR}, #{checkedFieldName,jdbcType=VARCHAR},
+            #{checkedFiledValue,jdbcType=VARCHAR}, #{ruleMethod,jdbcType=VARCHAR}, #{ruleContent,jdbcType=VARCHAR},
+            #{rulePrompt,jdbcType=VARCHAR}, #{isstart,jdbcType=VARCHAR}, #{pbcAssetCode,jdbcType=VARCHAR},
+            #{ruleIdentify,jdbcType=VARCHAR},#{PARAMS01,jdbcType=VARCHAR},#{PARAMS02,jdbcType=VARCHAR},#{PARAMS03,jdbcType=VARCHAR},#{PARAMS04,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.pbc.checkRuleInfo.dto.PbcCheckRuleInfo001" >
+        insert into pbc_check_rule_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="ruleId != null" >
+                rule_id,
+            </if>
+            <if test="ruleClassify != null" >
+                rule_classify,
+            </if>
+            <if test="ruleType != null" >
+                rule_type,
+            </if>
+            <if test="ruleParam != null" >
+                rule_param,
+            </if>
+            <if test="tableDataName != null" >
+                table_data_name,
+            </if>
+            <if test="checkedFieldName != null" >
+                checked_field_name,
+            </if>
+            <if test="checkedFiledValue != null" >
+                checked_filed_value,
+            </if>
+            <if test="ruleMethod != null" >
+                rule_method,
+            </if>
+            <if test="ruleContent != null" >
+                rule_content,
+            </if>
+            <if test="rulePrompt != null" >
+                rule_prompt,
+            </if>
+            <if test="isstart != null" >
+                isStart,
+            </if>
+            <if test="pbcAssetCode != null" >
+                pbc_asset_code,
+            </if>
+            <if test="ruleIdentify != null" >
+                rule_identify,
+            </if>
+            <if test="PARAMS01 != null" >
+                PARAMS01,
+            </if>
+            <if test="PARAMS02 != null" >
+                PARAMS02,
+            </if>
+            <if test="PARAMS03 != null" >
+                PARAMS03,
+            </if>
+            <if test="PARAMS04 != null" >
+                PARAMS04,
+            </if>
+            <if test="relatedTable != null" >
+                related_table,
+            </if>
+            <if test="updateDataTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="ruleId != null" >
+                #{ruleId,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleClassify != null" >
+                #{ruleClassify,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleType != null" >
+                #{ruleType,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleParam != null" >
+                #{ruleParam,jdbcType=VARCHAR},
+            </if>
+            <if test="tableDataName != null" >
+                #{tableDataName,jdbcType=VARCHAR},
+            </if>
+            <if test="checkedFieldName != null" >
+                #{checkedFieldName,jdbcType=VARCHAR},
+            </if>
+            <if test="checkedFiledValue != null" >
+                #{checkedFiledValue,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleMethod != null" >
+                #{ruleMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleContent != null" >
+                #{ruleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="rulePrompt != null" >
+                #{rulePrompt,jdbcType=VARCHAR},
+            </if>
+            <if test="isstart != null" >
+                #{isstart,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcAssetCode != null" >
+                #{pbcAssetCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleIdentify != null" >
+                #{ruleIdentify,jdbcType=VARCHAR},
+            </if>
+            <if test="PARAMS01 != null" >
+                #{PARAMS01,jdbcType=VARCHAR},
+            </if>
+            <if test="PARAMS02 != null" >
+                #{PARAMS02,jdbcType=VARCHAR},
+            </if>
+            <if test="PARAMS03 != null" >
+                #{PARAMS03,jdbcType=VARCHAR},
+            </if>
+            <if test="PARAMS04 != null" >
+                #{PARAMS04,jdbcType=VARCHAR},
+            </if>
+            <if test="relatedTable != null" >
+                #{relatedTable,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDataTime != null" >
+                #{updateDataTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.svreport.pbc.checkRuleInfo.dto.PbcCheckRuleInfo001" >
+        insert into pbc_check_rule_info(rule_id, rule_classify, rule_type, rule_param, table_data_name,
+        checked_field_name, checked_filed_value, rule_method, rule_content, rule_prompt,
+        isStart, pbc_asset_code,rule_identify,PARAMS01,PARAMS02,PARAMS03,PARAMS04)
+        select rule_id, rule_classify, rule_type, rule_param, table_data_name,
+            checked_field_name, checked_filed_value, rule_method, rule_content, rule_prompt,
+            isStart, pbc_asset_code,rule_identify,PARAMS01,PARAMS02,PARAMS03,PARAMS04
+             from pbc_check_rule_info
+             where 1 = 1
+    </insert>
+    <select id="searchPage" resultType="com.joyintech.tams.svreport.pbc.checkRuleInfo.dto.PbcCheckRuleInfo001">
+        select
+               rule_id as ruleId,
+               rule_classify as ruleClassify,
+               rule_type as ruleType,
+               rule_param as ruleParam,
+               table_data_name as tableDataName,
+               checked_field_name as checkedFieldName,
+               checked_filed_value as checkedFiledValue ,
+               rule_method as ruleMethod,
+               rule_content as ruleContent,
+               rule_prompt as rulePrompt,
+               isStart as isstart,
+               pbc_asset_code as pbcAssetCode ,
+               rule_identify as ruleIdentify ,
+               PARAMS01,
+               PARAMS02,
+               PARAMS03,
+               PARAMS04,
+               related_table as relatedTable,
+               update_time as updateDataTime,
+               DATA_ID as dataId
+        from pbc_check_rule_info
+        <where>
+            <if test="pbcAssetCode!=null and pbcAssetCode!=''">
+                and pbc_asset_code like concat('%',#{pbcAssetCode},'%')
+            </if>
+            <if test="ruleClassify!=null and ruleClassify!=''">
+                and rule_classify = #{ruleClassify}
+            </if>
+            <if test="tableDataName!=null and tableDataName!=''">
+                and table_data_name like concat('%',#{tableDataName},'%')
+            </if>
+            <if test="tableDataNameList != null and tableDataNameList.size()>0">
+                <foreach collection="tableDataNameList" item="item" open="AND table_data_name IN (" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="checkedFieldName!=null and checkedFieldName!=''">
+                and checked_field_name like  concat('%',#{checkedFieldName},'%')
+            </if>
+            <if test="ruleType!=null and ruleType!=''">
+                and rule_type = #{ruleType}
+            </if>
+            <if test="ruleTypeList != null and ruleTypeList.size()>0">
+                <foreach collection="ruleTypeList" item="item" open="AND rule_type IN (" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="isstart!=null and isstart!=''">
+                and isStart = #{isstart}
+            </if>
+            <if test="ruleContent!=null and ruleContent!=''">
+                and rule_content like concat('%',concat(#{ruleContent}),'%')
+            </if>
+            <if test="rulePrompt!=null and rulePrompt!=''">
+                and rule_prompt like concat('%',concat(#{rulePrompt}),'%')
+            </if>
+            <if test="ruleId!=null and ruleId!=''">
+                and rule_id like  concat('%',concat(#{ruleId}),'%')
+            </if>
+            <if test="ruleIdentify!=null and ruleIdentify!=''">
+                and rule_identify =  #{ruleIdentify}
+            </if>
+        </where>
+    </select>
+    <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+        select rule_id ,rule_classify ,rule_type ,rule_param , table_data_name ,
+               checked_field_name , checked_filed_value  ,rule_method ,rule_content ,
+               rule_prompt ,isStart ,pbc_asset_code  ,rule_identify ,PARAMS01,PARAMS02,PARAMS03,PARAMS04,related_table,update_time from PBC_CHECK_RULE_INFO where rule_id = #{ruleId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByRuleId">
+        delete from PBC_CHECK_RULE_INFO where rule_id = #{ruleId,jdbcType=VARCHAR}
+    </delete>
+
+    <update id="updateByRuleId">
+        update PBC_CHECK_RULE_INFO
+        set rule_classify = #{ruleClassify,jdbcType=VARCHAR},
+            rule_type = #{ruleType,jdbcType=VARCHAR},
+            table_data_name = #{tableDataName,jdbcType=VARCHAR},
+            checked_field_name = #{checkedFieldName,jdbcType=VARCHAR},
+            checked_filed_value = #{checkedFiledValue,jdbcType=VARCHAR},
+            pbc_asset_code = #{pbcAssetCode,jdbcType=VARCHAR},
+            rule_identify = #{ruleIdentify,jdbcType=VARCHAR},
+            rule_param = #{ruleParam,jdbcType=VARCHAR},
+            rule_method = #{ruleMethod,jdbcType=VARCHAR},
+            rule_content = #{ruleContent,jdbcType=VARCHAR},
+            rule_prompt = #{rulePrompt,jdbcType=VARCHAR},
+            isStart = #{isstart,jdbcType=VARCHAR},
+            PARAMS01 = #{PARAMS01,jdbcType=VARCHAR},
+            PARAMS02 = #{PARAMS02,jdbcType=VARCHAR},
+            PARAMS03 = #{PARAMS03,jdbcType=VARCHAR},
+            PARAMS04 = #{PARAMS04,jdbcType=VARCHAR},
+            related_table = #{relatedTable,jdbcType=VARCHAR},
+            update_time =#{updateDataTime,jdbcType=VARCHAR}
+        where rule_id = #{ruleId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectAll">
+        select rule_id as ruleId,rule_classify as ruleClassify,rule_type as ruleType,rule_param as ruleParam, table_data_name as tableDataName,
+               checked_field_name as checkedFieldName, checked_filed_value as checkedFieldValue ,rule_method as ruleMethod,rule_content as ruleContent,
+               rule_prompt as rulePrompt,isStart as isstart,pbc_asset_code as pbcAssetCode ,rule_identify as ruleIdentify ,PARAMS01,PARAMS02,PARAMS03,PARAMS04,
+               related_table as relatedTime
+        from pbc_check_rule_info
+    </select>
+</mapper>

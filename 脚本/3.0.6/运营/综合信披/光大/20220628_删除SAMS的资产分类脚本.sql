@@ -1,0 +1,8 @@
+delete  FROM sys_datadict_list WHERE DICT_CODE='SVR_ORG_ASSET_TYPE2' AND ITEM_CODE='S_Q';
+delete  FROM sys_datadict_list WHERE DICT_CODE='SVR_ORG_ASSET_TYPE3' AND ITEM_CODE='S_QA';
+delete  FROM sys_datadict_list WHERE DICT_CODE='SVR_ORG_ASSET_TYPE4' AND ITEM_CODE='S_QAA';
+
+delete FROM sys_datadict_list_link WHERE DICT_CODE='SVR_ORG_ASSET_TYPE2' AND ITEM_CODE='S_Q';
+delete FROM sys_datadict_list_link WHERE DICT_CODE='SVR_ORG_ASSET_TYPE3' AND ITEM_CODE='S_QA';
+delete FROM sys_datadict_list_link WHERE DICT_CODE='SVR_ORG_ASSET_TYPE4' AND ITEM_CODE='S_QAA';
+

@@ -1,0 +1,1 @@
+ALTER TABLE  ZG09_PBC_COL_REPORT_dat  change   CHB_SUBMIT_DEADLINE  PBC_SUBMIT_DEADLINE date     comment '人行报送截止日';

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ChbConsignorDetailSub001.xls" name="委托人明细数据">
+    <Worksheet javaBean="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto">
+        <Row>
+            <Cell order="1" name="数据日期">statusDateStr</Cell>
+            <Cell order="2" name="最后持仓日期">lastHoldDayStr</Cell>
+            <Cell order="3" name="产品代码">prodId</Cell>
+            <Cell order="4" name="产品名称">prodName</Cell>
+            <Cell order="5" name="管理人">manager</Cell>
+            <Cell order="6" name="产品类型">prodType</Cell>
+            <Cell order="7" name="产品投资性质">prodInvestType</Cell>
+            <Cell order="8" name="募集方式">raiseType</Cell>
+            <Cell order="9" name="期限（年）">termid</Cell>
+            <Cell order="10" name="银行间债券市场持仓面额">inbankBondmarkHoldDenomina</Cell>
+            <Cell order="11" name="银行间债券市场持仓占比">inbankBondmarkHoldRatio</Cell>
+            <Cell order="12" name="投资人名称">holderName</Cell>
+            <Cell order="13" name="投资人类型">holderType</Cell>
+            <Cell order="14" name="投资金额">investAmount</Cell>
+            <Cell order="15" name="投资比例">investRatio</Cell>
+            <Cell order="16" name="二级投资人名称">twoHolderName</Cell>
+            <Cell order="17" name="二级投资人类型">twoHolderType</Cell>
+            <Cell order="18" name="二级投资人投资金额（元）">twoInvestAmount</Cell>
+            <Cell order="19" name="二级投资人投资比例">twoInvestRatio</Cell>
+            <Cell order="20" name="产品份额">prodShare</Cell>
+            <Cell order="21" name="投资人份额">holderShare</Cell>
+            <Cell order="22" name="备注">remark</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

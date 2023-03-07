@@ -1,0 +1,1 @@
+delete from chb_infomgr_config where BASETABLEID="CHB_PRD_FEE_DEAL" and BASECOLUMNID="PROD_NAME";

@@ -1,0 +1,2 @@
+ALTER TABLE chb_loan_detail_info MODIFY COLUMN  RATE_LEVEL decimal(10,5) null comment '利率水平(%)';
+ALTER TABLE chb_loan_detail_info MODIFY COLUMN  LOAN_TRANSFEROR_RATE decimal(10,5) null comment '贷款转让折扣率(%)';

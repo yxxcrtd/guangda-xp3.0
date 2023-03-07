@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        <id column="COUNTER_ID" property="counterId" jdbcType="VARCHAR" />
+        <result column="COUNTER_TYPE" property="counterType" jdbcType="VARCHAR" />
+        <result column="COUNTER_NAME" property="counterName" jdbcType="VARCHAR" />
+        <result column="LINK_ID" property="linkId" jdbcType="VARCHAR" />
+        <result column="MANAGER_ID" property="managerId" jdbcType="VARCHAR" />
+        <result column="HEAD_BANK" property="headBank" jdbcType="VARCHAR" />
+        <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+        <result column="CONTACT_WAY" property="contactWay" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="COUNTER_TYPE1" property="counterType1" jdbcType="VARCHAR" />
+        <result column="COUNTER_TYPE2" property="counterType2" jdbcType="VARCHAR" />
+        <result column="IS_CENTRAL_COUNTER" property="isCentralCounter" jdbcType="VARCHAR" />
+        <result column="UUID" property="uuid" jdbcType="CHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="DATA_SOURCE" property="dataSource" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.joyintech.tams.common.base.entity.ChbMstCounterParty" extends="BaseResultMap" >
+        <result column="ERR_MSG" property="errMsg" jdbcType="CLOB" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        COUNTER_ID COUNTER_ID, COUNTER_TYPE COUNTER_TYPE, COUNTER_NAME COUNTER_NAME, LINK_ID LINK_ID, 
+        MANAGER_ID MANAGER_ID, HEAD_BANK HEAD_BANK, CONTACT CONTACT, CONTACT_WAY CONTACT_WAY, 
+        REMARK REMARK, CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, 
+        UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME, COUNTER_TYPE1 COUNTER_TYPE1, COUNTER_TYPE2 COUNTER_TYPE2, 
+        IS_CENTRAL_COUNTER IS_CENTRAL_COUNTER, UUID UUID, STATUS STATUS, DATA_SOURCE DATA_SOURCE
+    </sql>
+    <sql id="Blob_Column_List" >
+        ERR_MSG
+    </sql>
+    <sql id="Sql_All_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper.Blob_Column_List" />
+        from CHB_MST_COUNTER_PARTY
+    </sql>
+    <sql id="Sql_All_Effective_Data" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper.Blob_Column_List" />
+        from CHB_MST_COUNTER_PARTY
+        where STATUS = 'E'
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select 
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper.Base_Column_List" />
+        ,
+        <include refid="com.joyintech.tams.common.base.dao.ChbMstCounterPartyMapper.Blob_Column_List" />
+        from CHB_MST_COUNTER_PARTY
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from CHB_MST_COUNTER_PARTY
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        insert into CHB_MST_COUNTER_PARTY (COUNTER_ID, COUNTER_TYPE, COUNTER_NAME, 
+            LINK_ID, MANAGER_ID, HEAD_BANK, 
+            CONTACT, CONTACT_WAY, REMARK, 
+            CREATE_USER, CREATE_DEPT, CREATE_TIME, 
+            UPDATE_USER, UPDATE_TIME, COUNTER_TYPE1, 
+            COUNTER_TYPE2, IS_CENTRAL_COUNTER, UUID, 
+            STATUS, DATA_SOURCE, ERR_MSG
+            )
+        values (#{counterId,jdbcType=VARCHAR}, #{counterType,jdbcType=VARCHAR}, #{counterName,jdbcType=VARCHAR}, 
+            #{linkId,jdbcType=VARCHAR}, #{managerId,jdbcType=VARCHAR}, #{headBank,jdbcType=VARCHAR}, 
+            #{contact,jdbcType=VARCHAR}, #{contactWay,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+            #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{counterType1,jdbcType=VARCHAR}, 
+            #{counterType2,jdbcType=VARCHAR}, #{isCentralCounter,jdbcType=VARCHAR}, #{uuid,jdbcType=CHAR}, 
+            #{status,jdbcType=VARCHAR}, #{dataSource,jdbcType=VARCHAR}, #{errMsg,jdbcType=CLOB}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        insert into CHB_MST_COUNTER_PARTY
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="counterId != null" >
+                COUNTER_ID,
+            </if>
+            <if test="counterType != null" >
+                COUNTER_TYPE,
+            </if>
+            <if test="counterName != null" >
+                COUNTER_NAME,
+            </if>
+            <if test="linkId != null" >
+                LINK_ID,
+            </if>
+            <if test="managerId != null" >
+                MANAGER_ID,
+            </if>
+            <if test="headBank != null" >
+                HEAD_BANK,
+            </if>
+            <if test="contact != null" >
+                CONTACT,
+            </if>
+            <if test="contactWay != null" >
+                CONTACT_WAY,
+            </if>
+            <if test="remark != null" >
+                REMARK,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="counterType1 != null" >
+                COUNTER_TYPE1,
+            </if>
+            <if test="counterType2 != null" >
+                COUNTER_TYPE2,
+            </if>
+            <if test="isCentralCounter != null" >
+                IS_CENTRAL_COUNTER,
+            </if>
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="dataSource != null" >
+                DATA_SOURCE,
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="counterId != null" >
+                #{counterId,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType != null" >
+                #{counterType,jdbcType=VARCHAR},
+            </if>
+            <if test="counterName != null" >
+                #{counterName,jdbcType=VARCHAR},
+            </if>
+            <if test="linkId != null" >
+                #{linkId,jdbcType=VARCHAR},
+            </if>
+            <if test="managerId != null" >
+                #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="headBank != null" >
+                #{headBank,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null" >
+                #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="contactWay != null" >
+                #{contactWay,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="counterType1 != null" >
+                #{counterType1,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType2 != null" >
+                #{counterType2,jdbcType=VARCHAR},
+            </if>
+            <if test="isCentralCounter != null" >
+                #{isCentralCounter,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null" >
+                #{uuid,jdbcType=CHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="dataSource != null" >
+                #{dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="errMsg != null" >
+                #{errMsg,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        insert into CHB_MST_COUNTER_PARTY(COUNTER_ID, COUNTER_TYPE, COUNTER_NAME, LINK_ID, 
+        MANAGER_ID, HEAD_BANK, CONTACT, CONTACT_WAY, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, 
+        UPDATE_USER, UPDATE_TIME, COUNTER_TYPE1, COUNTER_TYPE2, IS_CENTRAL_COUNTER, UUID, 
+        STATUS, DATA_SOURCE, ERR_MSG)
+        select COUNTER_ID, COUNTER_TYPE, COUNTER_NAME, LINK_ID, 
+            MANAGER_ID, HEAD_BANK, CONTACT, CONTACT_WAY, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, 
+            #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, COUNTER_TYPE1, COUNTER_TYPE2, IS_CENTRAL_COUNTER, UUID, 
+            #{status,jdbcType=VARCHAR} STATUS, DATA_SOURCE, ERR_MSG
+             from CHB_MST_COUNTER_PARTY
+             where STATUS = 'E' and COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        update CHB_MST_COUNTER_PARTY
+        <set >
+            <if test="counterType != null" >
+                COUNTER_TYPE = #{counterType,jdbcType=VARCHAR},
+            </if>
+            <if test="counterName != null" >
+                COUNTER_NAME = #{counterName,jdbcType=VARCHAR},
+            </if>
+            <if test="linkId != null" >
+                LINK_ID = #{linkId,jdbcType=VARCHAR},
+            </if>
+            <if test="managerId != null" >
+                MANAGER_ID = #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="headBank != null" >
+                HEAD_BANK = #{headBank,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null" >
+                CONTACT = #{contact,jdbcType=VARCHAR},
+            </if>
+            <if test="contactWay != null" >
+                CONTACT_WAY = #{contactWay,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="counterType1 != null" >
+                COUNTER_TYPE1 = #{counterType1,jdbcType=VARCHAR},
+            </if>
+            <if test="counterType2 != null" >
+                COUNTER_TYPE2 = #{counterType2,jdbcType=VARCHAR},
+            </if>
+            <if test="isCentralCounter != null" >
+                IS_CENTRAL_COUNTER = #{isCentralCounter,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null" >
+                UUID = #{uuid,jdbcType=CHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="dataSource != null" >
+                DATA_SOURCE = #{dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG = #{errMsg,jdbcType=CLOB},
+            </if>
+        </set>
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        update CHB_MST_COUNTER_PARTY
+        set COUNTER_TYPE = #{counterType,jdbcType=VARCHAR},
+            COUNTER_NAME = #{counterName,jdbcType=VARCHAR},
+            LINK_ID = #{linkId,jdbcType=VARCHAR},
+            MANAGER_ID = #{managerId,jdbcType=VARCHAR},
+            HEAD_BANK = #{headBank,jdbcType=VARCHAR},
+            CONTACT = #{contact,jdbcType=VARCHAR},
+            CONTACT_WAY = #{contactWay,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            COUNTER_TYPE1 = #{counterType1,jdbcType=VARCHAR},
+            COUNTER_TYPE2 = #{counterType2,jdbcType=VARCHAR},
+            IS_CENTRAL_COUNTER = #{isCentralCounter,jdbcType=VARCHAR},
+            UUID = #{uuid,jdbcType=CHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            DATA_SOURCE = #{dataSource,jdbcType=VARCHAR},
+            ERR_MSG = #{errMsg,jdbcType=CLOB}
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.joyintech.tams.common.base.entity.ChbMstCounterParty" >
+        update CHB_MST_COUNTER_PARTY
+        set COUNTER_TYPE = #{counterType,jdbcType=VARCHAR},
+            COUNTER_NAME = #{counterName,jdbcType=VARCHAR},
+            LINK_ID = #{linkId,jdbcType=VARCHAR},
+            MANAGER_ID = #{managerId,jdbcType=VARCHAR},
+            HEAD_BANK = #{headBank,jdbcType=VARCHAR},
+            CONTACT = #{contact,jdbcType=VARCHAR},
+            CONTACT_WAY = #{contactWay,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            COUNTER_TYPE1 = #{counterType1,jdbcType=VARCHAR},
+            COUNTER_TYPE2 = #{counterType2,jdbcType=VARCHAR},
+            IS_CENTRAL_COUNTER = #{isCentralCounter,jdbcType=VARCHAR},
+            UUID = #{uuid,jdbcType=CHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            DATA_SOURCE = #{dataSource,jdbcType=VARCHAR}
+        where COUNTER_ID = #{counterId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,1543 @@
+package com.joyintech.tams.common.base.entity;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.joyintech.framework.base.BaseEntity;
+import com.joyintech.framework.json.BigDecimalSerializer;
+import com.joyintech.framework.json.CustomDateDeserialize;
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class ChbLoanDetailInfo extends BaseEntity {
+    /**
+     * 主键
+     */
+    private String assetUuid;
+
+    /**
+     * 资产代码
+     */
+    private String assetCode;
+
+    /**
+     * 基础资产投向分类
+     */
+    private String assetsInvest;
+
+    /**
+     * 各比例
+     */
+    private String eachProportion;
+
+    /**
+     * 贷款种类
+     */
+    private String loansType;
+
+    /**
+     * 原始合同币种代码
+     */
+    private String origCcy;
+
+    /**
+     * 原始合同金额
+     */
+    @JsonSerialize(using=BigDecimalSerializer.class)
+    private BigDecimal origContractAmount;
+
+    /**
+     * 原始合同金额折人民币
+     */
+    @JsonSerialize(using=BigDecimalSerializer.class)
+    private BigDecimal origContractAmountCny;
+
+    /**
+     * 借款人类型
+     */
+    private String borrowerType;
+
+    /**
+     * 借款人代码
+     */
+    private String borrowerId;
+
+    /**
+     * 行业信息
+     */
+    private String industryInfo;
+
+    /**
+     * 借款人国别
+     */
+    private String borrowerNationality;
+
+    /**
+     * 借款人地区(省)
+     */
+    private String borrowerProvince;
+
+    /**
+     * null
+     */
+    private String borrowerCity;
+
+    /**
+     * null
+     */
+    private String borrowerCounty;
+
+    /**
+     * 贷款转让方机构代码
+     */
+    private String loanTransferorId;
+
+    /**
+     * 贷款转让方机构名称
+     */
+    private String loanTransferorName;
+
+    /**
+     * 贷款合同原始发放机构代码
+     */
+    private String loanContractOrgId;
+
+    /**
+     * 贷款合同原始发放机构名称
+     */
+    private String loanContractOrgName;
+
+    /**
+     * 贷款合同原始发放机构所在地(省)
+     */
+    private String loanContractOrgProvince;
+
+    /**
+     * 贷款合同原始发放机构所在地(市)
+     */
+    private String loanContractOrgCity;
+
+    /**
+     * 贷款合同原始发放机构所在地(县)
+     */
+    private String loanContractOrgCounty;
+
+    /**
+     * 企业出资人经济成分（一级）
+     */
+    private String enterpriseInvestorTypeFirst;
+
+    /**
+     * 企业出资人经济成分（二级）
+     */
+    private String enterpriseInvestorTypeSec;
+
+    /**
+     * 企业出资人经济成分（三级）
+     */
+    private String enterpriseInvestorTypeThird;
+
+    /**
+     * 企业规模
+     */
+    private String enterpriseScale;
+
+    /**
+     * 贷款借据编码
+     */
+    private String loanBasisId;
+
+    /**
+     * 贷款产品类别
+     */
+    private String loanPrdType;
+
+    /**
+     * 贷款实际投向
+     */
+    private String loanActualInvest;
+
+    /**
+     * 贷款发放日期
+     */
+    private Date loanVdate;
+
+    /**
+     * 贷款到期日期
+     */
+    private Date loanMdate;
+
+    /**
+     * 贷款展期到期日期
+     */
+    private Date loanExtensionDueDate;
+
+    /**
+     * 利率是否固定
+     */
+    private String rateFixed;
+
+    /**
+     * 利率水平(%)
+     */
+    @JsonSerialize(using=BigDecimalSerializer.class)
+    private BigDecimal rateLevel;
+
+    /**
+     * 贷款担保方式
+     */
+    private String loanGuaranteeMode;
+
+    /**
+     * 贷款质量
+     */
+    private String loanQuality;
+
+    /**
+     * 贷款状态
+     */
+    private String loanState;
+
+    /**
+     * 贷款转让折扣率(%)
+     */
+    @JsonSerialize(using=BigDecimalSerializer.class)
+    private BigDecimal loanTransferorRate;
+
+    /**
+     * 部门代码
+     */
+    private String orgCode;
+
+    /**
+     * 部门代码
+     */
+    private String deptCode;
+
+    /**
+     * 数据来源
+     */
+    private String dataSource;
+
+    /**
+     * 金融产品代码
+     */
+    private String finprodId;
+
+    /**
+     * 贷款分类 - 01收益权,02贷款
+     */
+    private String assetType;
+
+    /**
+     *资产负债项目
+     */
+    private String assetsLiabilities;
+
+    /**
+     * 资产收益权内部编码
+     */
+    private String assetUsufructCode;
+
+    /**
+     * 基础资产出让机构名称
+     */
+    private String assetsTransferName;
+
+    /**
+     * 基础资产出让机构代码
+     */
+    private String assetsTransferId;
+
+    /**
+     * 基础资产出让机构行业
+     */
+    private String assetsTransferIindu;
+
+    /**
+     * 基础资产出让机构国别
+     */
+    private String assetsTransferCountry;
+
+    /**
+     * 基础资产出让机构注册地区（省）
+     */
+    private String assetsTransferProv;
+
+    /**
+     * 基础资产出让机构注册地区（市）
+     */
+    private String assetsTransferCity;
+
+    /**
+     * 基础资产出让机构注册地区（县）
+     */
+    private String assetsTransferCounty;
+
+    /**
+     * 基础资产出让机构经济成分
+     */
+    private String economicComposition;
+
+    /**
+     * 基础资产出让机构规模
+     */
+    private String assetsTransferScale;
+
+    /**
+     * 转让起始日期
+     */
+    private Date transferVdate;
+
+    /**
+     * 转让预计终止日期
+     */
+    private Date transferEstiMdate;
+
+    /**
+     * 转让展期到期日期
+     */
+    private Date transferExtdueMdate;
+
+    /**
+     * 转让实际终止日期
+     */
+    private Date transferActmdate;
+
+    /**
+     * 基础资产类型
+     */
+    private String basicassetType;
+
+    /**
+     * 基础资产原始协议币种
+     */
+    private String assetsOrigccy;
+
+    /**
+     * 基础资产原始协议金额
+     */
+    private BigDecimal assetsOrigamt;
+
+    /**
+     * 基础资产原始协议金额折人民币
+     */
+    private BigDecimal assetsOrigamtCny;
+
+    /**
+     * 基础资产转让币种
+     */
+    private String currencyTransferccy;
+
+    /**
+     * 基础资产转让金额
+     */
+    private BigDecimal currencyTransferamt;
+
+    /**
+     * 基础资产转让金额折人民币
+     */
+    private BigDecimal currencyTransferamtcny;
+
+    /**
+     * 出让机构出表标识
+     */
+    private String labelTransferorMark;
+
+    /**
+     * 出让机构回购标识
+     */
+    private String repurchaseMark;
+
+    /**
+     * 利率是否固定
+     */
+    private String rateFixedFlag;
+
+    /**
+     * 利率水平
+     */
+    private BigDecimal assetRateLevel;
+
+    /**
+     * 担保方式
+     */
+    private String guaranteeMethod;
+
+    /**
+     * 基础资产投向部门
+     */
+    private String assetsInvDepa;
+
+    /**
+     * 基础资产期末币种
+     */
+    private String currencyEperiodccy;
+
+    /**
+     * 贷款余额币种
+     */
+    private String loanBalanceCcy;
+
+    /**
+     * 取得 主键
+     * @return 主键
+     */
+    public String getAssetUuid() {
+        return assetUuid;
+    }
+
+    /**
+     * 设置 主键
+     * @param assetUuid 主键
+     */
+    public void setAssetUuid(String assetUuid) {
+        this.assetUuid = assetUuid == null ? null : assetUuid.trim();
+    }
+
+    /**
+     * 取得 资产代码
+     * @return 资产代码
+     */
+    public String getAssetCode() {
+        return assetCode;
+    }
+
+    /**
+     * 设置 资产代码
+     * @param assetCode 资产代码
+     */
+    public void setAssetCode(String assetCode) {
+        this.assetCode = assetCode == null ? null : assetCode.trim();
+    }
+
+    /**
+     * 取得 基础资产投向分类
+     * @return 基础资产投向分类
+     */
+    public String getAssetsInvest() {
+        return assetsInvest;
+    }
+
+    /**
+     * 设置 基础资产投向分类
+     * @param assetsInvest 基础资产投向分类
+     */
+    public void setAssetsInvest(String assetsInvest) {
+        this.assetsInvest = assetsInvest == null ? null : assetsInvest.trim();
+    }
+
+    /**
+     * 取得 各比例
+     * @return 各比例
+     */
+    public String getEachProportion() {
+        return eachProportion;
+    }
+
+    /**
+     * 设置 各比例
+     * @param eachProportion 各比例
+     */
+    public void setEachProportion(String eachProportion) {
+        this.eachProportion = eachProportion == null ? null : eachProportion.trim();
+    }
+
+    /**
+     * 取得 贷款种类
+     * @return 贷款种类
+     */
+    public String getLoansType() {
+        return loansType;
+    }
+
+    /**
+     * 设置 贷款种类
+     * @param loansType 贷款种类
+     */
+    public void setLoansType(String loansType) {
+        this.loansType = loansType == null ? null : loansType.trim();
+    }
+
+    /**
+     * 取得 原始合同币种代码
+     * @return 原始合同币种代码
+     */
+    public String getOrigCcy() {
+        return origCcy;
+    }
+
+    /**
+     * 设置 原始合同币种代码
+     * @param origCcy 原始合同币种代码
+     */
+    public void setOrigCcy(String origCcy) {
+        this.origCcy = origCcy == null ? null : origCcy.trim();
+    }
+
+    /**
+     * 取得 原始合同金额
+     * @return 原始合同金额
+     */
+    public BigDecimal getOrigContractAmount() {
+        return origContractAmount;
+    }
+
+    /**
+     * 设置 原始合同金额
+     * @param origContractAmount 原始合同金额
+     */
+    public void setOrigContractAmount(BigDecimal origContractAmount) {
+        this.origContractAmount = origContractAmount;
+    }
+
+    /**
+     * 取得 原始合同金额折人民币
+     * @return 原始合同金额折人民币
+     */
+    public BigDecimal getOrigContractAmountCny() {
+        return origContractAmountCny;
+    }
+
+    /**
+     * 设置 原始合同金额折人民币
+     * @param origContractAmountCny 原始合同金额折人民币
+     */
+    public void setOrigContractAmountCny(BigDecimal origContractAmountCny) {
+        this.origContractAmountCny = origContractAmountCny;
+    }
+
+    /**
+     * 取得 借款人类型
+     * @return 借款人类型
+     */
+    public String getBorrowerType() {
+        return borrowerType;
+    }
+
+    /**
+     * 设置 借款人类型
+     * @param borrowerType 借款人类型
+     */
+    public void setBorrowerType(String borrowerType) {
+        this.borrowerType = borrowerType == null ? null : borrowerType.trim();
+    }
+
+    /**
+     * 取得 借款人代码
+     * @return 借款人代码
+     */
+    public String getBorrowerId() {
+        return borrowerId;
+    }
+
+    /**
+     * 设置 借款人代码
+     * @param borrowerId 借款人代码
+     */
+    public void setBorrowerId(String borrowerId) {
+        this.borrowerId = borrowerId == null ? null : borrowerId.trim();
+    }
+
+    /**
+     * 取得 行业信息
+     * @return 行业信息
+     */
+    public String getIndustryInfo() {
+        return industryInfo;
+    }
+
+    /**
+     * 设置 行业信息
+     * @param industryInfo 行业信息
+     */
+    public void setIndustryInfo(String industryInfo) {
+        this.industryInfo = industryInfo == null ? null : industryInfo.trim();
+    }
+
+    /**
+     * 取得 借款人国别
+     * @return 借款人国别
+     */
+    public String getBorrowerNationality() {
+        return borrowerNationality;
+    }
+
+    /**
+     * 设置 借款人国别
+     * @param borrowerNationality 借款人国别
+     */
+    public void setBorrowerNationality(String borrowerNationality) {
+        this.borrowerNationality = borrowerNationality == null ? null : borrowerNationality.trim();
+    }
+
+    /**
+     * 取得 借款人地区(省)
+     * @return 借款人地区(省)
+     */
+    public String getBorrowerProvince() {
+        return borrowerProvince;
+    }
+
+    /**
+     * 设置 借款人地区(省)
+     * @param borrowerProvince 借款人地区(省)
+     */
+    public void setBorrowerProvince(String borrowerProvince) {
+        this.borrowerProvince = borrowerProvince == null ? null : borrowerProvince.trim();
+    }
+
+    /**
+     * 取得 null
+     * @return null
+     */
+    public String getBorrowerCity() {
+        return borrowerCity;
+    }
+
+    /**
+     * 设置 null
+     * @param borrowerCity null
+     */
+    public void setBorrowerCity(String borrowerCity) {
+        this.borrowerCity = borrowerCity == null ? null : borrowerCity.trim();
+    }
+
+    /**
+     * 取得 null
+     * @return null
+     */
+    public String getBorrowerCounty() {
+        return borrowerCounty;
+    }
+
+    /**
+     * 设置 null
+     * @param borrowerCounty null
+     */
+    public void setBorrowerCounty(String borrowerCounty) {
+        this.borrowerCounty = borrowerCounty == null ? null : borrowerCounty.trim();
+    }
+
+    /**
+     * 取得 贷款转让方机构代码
+     * @return 贷款转让方机构代码
+     */
+    public String getLoanTransferorId() {
+        return loanTransferorId;
+    }
+
+    /**
+     * 设置 贷款转让方机构代码
+     * @param loanTransferorId 贷款转让方机构代码
+     */
+    public void setLoanTransferorId(String loanTransferorId) {
+        this.loanTransferorId = loanTransferorId == null ? null : loanTransferorId.trim();
+    }
+
+    /**
+     * 取得 贷款转让方机构名称
+     * @return 贷款转让方机构名称
+     */
+    public String getLoanTransferorName() {
+        return loanTransferorName;
+    }
+
+    /**
+     * 设置 贷款转让方机构名称
+     * @param loanTransferorName 贷款转让方机构名称
+     */
+    public void setLoanTransferorName(String loanTransferorName) {
+        this.loanTransferorName = loanTransferorName == null ? null : loanTransferorName.trim();
+    }
+
+    /**
+     * 取得 贷款合同原始发放机构代码
+     * @return 贷款合同原始发放机构代码
+     */
+    public String getLoanContractOrgId() {
+        return loanContractOrgId;
+    }
+
+    /**
+     * 设置 贷款合同原始发放机构代码
+     * @param loanContractOrgId 贷款合同原始发放机构代码
+     */
+    public void setLoanContractOrgId(String loanContractOrgId) {
+        this.loanContractOrgId = loanContractOrgId == null ? null : loanContractOrgId.trim();
+    }
+
+    /**
+     * 取得 贷款合同原始发放机构名称
+     * @return 贷款合同原始发放机构名称
+     */
+    public String getLoanContractOrgName() {
+        return loanContractOrgName;
+    }
+
+    /**
+     * 设置 贷款合同原始发放机构名称
+     * @param loanContractOrgName 贷款合同原始发放机构名称
+     */
+    public void setLoanContractOrgName(String loanContractOrgName) {
+        this.loanContractOrgName = loanContractOrgName == null ? null : loanContractOrgName.trim();
+    }
+
+    /**
+     * 取得 贷款合同原始发放机构所在地(省)
+     * @return 贷款合同原始发放机构所在地(省)
+     */
+    public String getLoanContractOrgProvince() {
+        return loanContractOrgProvince;
+    }
+
+    /**
+     * 设置 贷款合同原始发放机构所在地(省)
+     * @param loanContractOrgProvince 贷款合同原始发放机构所在地(省)
+     */
+    public void setLoanContractOrgProvince(String loanContractOrgProvince) {
+        this.loanContractOrgProvince = loanContractOrgProvince == null ? null : loanContractOrgProvince.trim();
+    }
+
+    /**
+     * 取得 贷款合同原始发放机构所在地(市)
+     * @return 贷款合同原始发放机构所在地(市)
+     */
+    public String getLoanContractOrgCity() {
+        return loanContractOrgCity;
+    }
+
+    /**
+     * 设置 贷款合同原始发放机构所在地(市)
+     * @param loanContractOrgCity 贷款合同原始发放机构所在地(市)
+     */
+    public void setLoanContractOrgCity(String loanContractOrgCity) {
+        this.loanContractOrgCity = loanContractOrgCity == null ? null : loanContractOrgCity.trim();
+    }
+
+    /**
+     * 取得 贷款合同原始发放机构所在地(县)
+     * @return 贷款合同原始发放机构所在地(县)
+     */
+    public String getLoanContractOrgCounty() {
+        return loanContractOrgCounty;
+    }
+
+    /**
+     * 设置 贷款合同原始发放机构所在地(县)
+     * @param loanContractOrgCounty 贷款合同原始发放机构所在地(县)
+     */
+    public void setLoanContractOrgCounty(String loanContractOrgCounty) {
+        this.loanContractOrgCounty = loanContractOrgCounty == null ? null : loanContractOrgCounty.trim();
+    }
+
+    /**
+     * 取得 企业出资人经济成分（一级）
+     * @return 企业出资人经济成分（一级）
+     */
+    public String getEnterpriseInvestorTypeFirst() {
+        return enterpriseInvestorTypeFirst;
+    }
+
+    /**
+     * 设置 企业出资人经济成分（一级）
+     * @param enterpriseInvestorTypeFirst 企业出资人经济成分（一级）
+     */
+    public void setEnterpriseInvestorTypeFirst(String enterpriseInvestorTypeFirst) {
+        this.enterpriseInvestorTypeFirst = enterpriseInvestorTypeFirst == null ? null : enterpriseInvestorTypeFirst.trim();
+    }
+
+    /**
+     * 取得 企业出资人经济成分（二级）
+     * @return 企业出资人经济成分（二级）
+     */
+    public String getEnterpriseInvestorTypeSec() {
+        return enterpriseInvestorTypeSec;
+    }
+
+    /**
+     * 设置 企业出资人经济成分（二级）
+     * @param enterpriseInvestorTypeSec 企业出资人经济成分（二级）
+     */
+    public void setEnterpriseInvestorTypeSec(String enterpriseInvestorTypeSec) {
+        this.enterpriseInvestorTypeSec = enterpriseInvestorTypeSec == null ? null : enterpriseInvestorTypeSec.trim();
+    }
+
+    /**
+     * 取得 企业出资人经济成分（三级）
+     * @return 企业出资人经济成分（三级）
+     */
+    public String getEnterpriseInvestorTypeThird() {
+        return enterpriseInvestorTypeThird;
+    }
+
+    /**
+     * 设置 企业出资人经济成分（三级）
+     * @param enterpriseInvestorTypeThird 企业出资人经济成分（三级）
+     */
+    public void setEnterpriseInvestorTypeThird(String enterpriseInvestorTypeThird) {
+        this.enterpriseInvestorTypeThird = enterpriseInvestorTypeThird == null ? null : enterpriseInvestorTypeThird.trim();
+    }
+
+    /**
+     * 取得 企业规模
+     * @return 企业规模
+     */
+    public String getEnterpriseScale() {
+        return enterpriseScale;
+    }
+
+    /**
+     * 设置 企业规模
+     * @param enterpriseScale 企业规模
+     */
+    public void setEnterpriseScale(String enterpriseScale) {
+        this.enterpriseScale = enterpriseScale == null ? null : enterpriseScale.trim();
+    }
+
+    /**
+     * 取得 贷款借据编码
+     * @return 贷款借据编码
+     */
+    public String getLoanBasisId() {
+        return loanBasisId;
+    }
+
+    /**
+     * 设置 贷款借据编码
+     * @param loanBasisId 贷款借据编码
+     */
+    public void setLoanBasisId(String loanBasisId) {
+        this.loanBasisId = loanBasisId == null ? null : loanBasisId.trim();
+    }
+
+    /**
+     * 取得 贷款产品类别
+     * @return 贷款产品类别
+     */
+    public String getLoanPrdType() {
+        return loanPrdType;
+    }
+
+    /**
+     * 设置 贷款产品类别
+     * @param loanPrdType 贷款产品类别
+     */
+    public void setLoanPrdType(String loanPrdType) {
+        this.loanPrdType = loanPrdType == null ? null : loanPrdType.trim();
+    }
+
+    /**
+     * 取得 贷款实际投向
+     * @return 贷款实际投向
+     */
+    public String getLoanActualInvest() {
+        return loanActualInvest;
+    }
+
+    /**
+     * 设置 贷款实际投向
+     * @param loanActualInvest 贷款实际投向
+     */
+    public void setLoanActualInvest(String loanActualInvest) {
+        this.loanActualInvest = loanActualInvest == null ? null : loanActualInvest.trim();
+    }
+
+    /**
+     * 取得 贷款发放日期
+     * @return 贷款发放日期
+     */
+    public Date getLoanVdate() {
+        return loanVdate;
+    }
+
+    /**
+     * 设置 贷款发放日期
+     * @param loanVdate 贷款发放日期
+     */
+    @JsonDeserialize(using = CustomDateDeserialize.class)
+    public void setLoanVdate(Date loanVdate) {
+        this.loanVdate = loanVdate;
+    }
+
+    /**
+     * 取得 贷款到期日期
+     * @return 贷款到期日期
+     */
+    public Date getLoanMdate() {
+        return loanMdate;
+    }
+
+    /**
+     * 设置 贷款到期日期
+     * @param loanMdate 贷款到期日期
+     */
+    @JsonDeserialize(using = CustomDateDeserialize.class)
+    public void setLoanMdate(Date loanMdate) {
+        this.loanMdate = loanMdate;
+    }
+
+    /**
+     * 取得 贷款展期到期日期
+     * @return 贷款展期到期日期
+     */
+    public Date getLoanExtensionDueDate() {
+        return loanExtensionDueDate;
+    }
+
+    /**
+     * 设置 贷款展期到期日期
+     * @param loanExtensionDueDate 贷款展期到期日期
+     */
+    @JsonDeserialize(using = CustomDateDeserialize.class)
+    public void setLoanExtensionDueDate(Date loanExtensionDueDate) {
+        this.loanExtensionDueDate = loanExtensionDueDate;
+    }
+
+    /**
+     * 取得 利率是否固定
+     * @return 利率是否固定
+     */
+    public String getRateFixed() {
+        return rateFixed;
+    }
+
+    /**
+     * 设置 利率是否固定
+     * @param rateFixed 利率是否固定
+     */
+    public void setRateFixed(String rateFixed) {
+        this.rateFixed = rateFixed == null ? null : rateFixed.trim();
+    }
+
+    /**
+     * 取得 利率水平(%)
+     * @return 利率水平(%)
+     */
+    public BigDecimal getRateLevel() {
+        return rateLevel;
+    }
+
+    /**
+     * 设置 利率水平(%)
+     * @param rateLevel 利率水平(%)
+     */
+    public void setRateLevel(BigDecimal rateLevel) {
+        this.rateLevel = rateLevel;
+    }
+
+    /**
+     * 取得 贷款担保方式
+     * @return 贷款担保方式
+     */
+    public String getLoanGuaranteeMode() {
+        return loanGuaranteeMode;
+    }
+
+    /**
+     * 设置 贷款担保方式
+     * @param loanGuaranteeMode 贷款担保方式
+     */
+    public void setLoanGuaranteeMode(String loanGuaranteeMode) {
+        this.loanGuaranteeMode = loanGuaranteeMode == null ? null : loanGuaranteeMode.trim();
+    }
+
+    /**
+     * 取得 贷款质量
+     * @return 贷款质量
+     */
+    public String getLoanQuality() {
+        return loanQuality;
+    }
+
+    /**
+     * 设置 贷款质量
+     * @param loanQuality 贷款质量
+     */
+    public void setLoanQuality(String loanQuality) {
+        this.loanQuality = loanQuality == null ? null : loanQuality.trim();
+    }
+
+    /**
+     * 取得 贷款状态
+     * @return 贷款状态
+     */
+    public String getLoanState() {
+        return loanState;
+    }
+
+    /**
+     * 设置 贷款状态
+     * @param loanState 贷款状态
+     */
+    public void setLoanState(String loanState) {
+        this.loanState = loanState == null ? null : loanState.trim();
+    }
+
+    /**
+     * 取得 贷款转让折扣率(%)
+     * @return 贷款转让折扣率(%)
+     */
+    public BigDecimal getLoanTransferorRate() {
+        return loanTransferorRate;
+    }
+
+    /**
+     * 设置 贷款转让折扣率(%)
+     * @param loanTransferorRate 贷款转让折扣率(%)
+     */
+    public void setLoanTransferorRate(BigDecimal loanTransferorRate) {
+        this.loanTransferorRate = loanTransferorRate;
+    }
+
+    /**
+     * 取得 部门代码
+     * @return 部门代码
+     */
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    /**
+     * 设置 部门代码
+     * @param orgCode 部门代码
+     */
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode == null ? null : orgCode.trim();
+    }
+
+    /**
+     * 取得 部门代码
+     * @return 部门代码
+     */
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    /**
+     * 设置 部门代码
+     * @param deptCode 部门代码
+     */
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode == null ? null : deptCode.trim();
+    }
+
+    /**
+     * 取得 数据来源
+     * @return 数据来源
+     */
+    public String getDataSource() {
+        return dataSource;
+    }
+
+    /**
+     * 设置 数据来源
+     * @param dataSource 数据来源
+     */
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource == null ? null : dataSource.trim();
+    }
+
+    /**
+     * 取得 金融产品代码
+     * @return 金融产品代码
+     */
+    public String getFinprodId() {
+        return finprodId;
+    }
+
+    /**
+     * 设置 金融产品代码
+     * @param finprodId 金融产品代码
+     */
+    public void setFinprodId(String finprodId) {
+        this.finprodId = finprodId == null ? null : finprodId.trim();
+    }
+
+    /**
+     * 取得 贷款分类 - 01收益权,02贷款
+     * @return 贷款分类 - 01收益权,02贷款
+     */
+    public String getAssetType() {
+        return assetType;
+    }
+
+    /**
+     * 设置 贷款分类 - 01收益权,02贷款
+     * @param assetType 贷款分类 - 01收益权,02贷款
+     */
+    public void setAssetType(String assetType) {
+        this.assetType = assetType == null ? null : assetType.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_LIABILITIES null
+     */
+    public String getAssetsLiabilities() {
+        return assetsLiabilities;
+    }
+
+    /**
+     * null
+     * @param assetsLiabilities null
+     */
+    public void setAssetsLiabilities(String assetsLiabilities) {
+        this.assetsLiabilities = assetsLiabilities == null ? null : assetsLiabilities.trim();
+    }
+
+    /**
+     * null
+     * @return ASSET_USUFRUCT_CODE null
+     */
+    public String getAssetUsufructCode() {
+        return assetUsufructCode;
+    }
+
+    /**
+     * null
+     * @param assetUsufructCode null
+     */
+    public void setAssetUsufructCode(String assetUsufructCode) {
+        this.assetUsufructCode = assetUsufructCode == null ? null : assetUsufructCode.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_NAME null
+     */
+    public String getAssetsTransferName() {
+        return assetsTransferName;
+    }
+
+    /**
+     * null
+     * @param assetsTransferName null
+     */
+    public void setAssetsTransferName(String assetsTransferName) {
+        this.assetsTransferName = assetsTransferName == null ? null : assetsTransferName.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_ID null
+     */
+    public String getAssetsTransferId() {
+        return assetsTransferId;
+    }
+
+    /**
+     * null
+     * @param assetsTransferId null
+     */
+    public void setAssetsTransferId(String assetsTransferId) {
+        this.assetsTransferId = assetsTransferId == null ? null : assetsTransferId.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_IINDU null
+     */
+    public String getAssetsTransferIindu() {
+        return assetsTransferIindu;
+    }
+
+    /**
+     * null
+     * @param assetsTransferIindu null
+     */
+    public void setAssetsTransferIindu(String assetsTransferIindu) {
+        this.assetsTransferIindu = assetsTransferIindu == null ? null : assetsTransferIindu.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_COUNTRY null
+     */
+    public String getAssetsTransferCountry() {
+        return assetsTransferCountry;
+    }
+
+    /**
+     * null
+     * @param assetsTransferCountry null
+     */
+    public void setAssetsTransferCountry(String assetsTransferCountry) {
+        this.assetsTransferCountry = assetsTransferCountry == null ? null : assetsTransferCountry.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_PROV null
+     */
+    public String getAssetsTransferProv() {
+        return assetsTransferProv;
+    }
+
+    /**
+     * null
+     * @param assetsTransferProv null
+     */
+    public void setAssetsTransferProv(String assetsTransferProv) {
+        this.assetsTransferProv = assetsTransferProv == null ? null : assetsTransferProv.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_CITY null
+     */
+    public String getAssetsTransferCity() {
+        return assetsTransferCity;
+    }
+
+    /**
+     * null
+     * @param assetsTransferCity null
+     */
+    public void setAssetsTransferCity(String assetsTransferCity) {
+        this.assetsTransferCity = assetsTransferCity == null ? null : assetsTransferCity.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_COUNTY null
+     */
+    public String getAssetsTransferCounty() {
+        return assetsTransferCounty;
+    }
+
+    /**
+     * null
+     * @param assetsTransferCounty null
+     */
+    public void setAssetsTransferCounty(String assetsTransferCounty) {
+        this.assetsTransferCounty = assetsTransferCounty == null ? null : assetsTransferCounty.trim();
+    }
+
+    /**
+     * null
+     * @return ECONOMIC_COMPOSITION null
+     */
+    public String getEconomicComposition() {
+        return economicComposition;
+    }
+
+    /**
+     * null
+     * @param economicComposition null
+     */
+    public void setEconomicComposition(String economicComposition) {
+        this.economicComposition = economicComposition == null ? null : economicComposition.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_TRANSFER_SCALE null
+     */
+    public String getAssetsTransferScale() {
+        return assetsTransferScale;
+    }
+
+    /**
+     * null
+     * @param assetsTransferScale null
+     */
+    public void setAssetsTransferScale(String assetsTransferScale) {
+        this.assetsTransferScale = assetsTransferScale == null ? null : assetsTransferScale.trim();
+    }
+
+    /**
+     * null
+     * @return TRANSFER_VDATE null
+     */
+    public Date getTransferVdate() {
+        return transferVdate;
+    }
+
+    /**
+     * null
+     * @param transferVdate null
+     */
+    public void setTransferVdate(Date transferVdate) {
+        this.transferVdate = transferVdate;
+    }
+
+    /**
+     * null
+     * @return TRANSFER_ESTI_MDATE null
+     */
+    public Date getTransferEstiMdate() {
+        return transferEstiMdate;
+    }
+
+    /**
+     * null
+     * @param transferEstiMdate null
+     */
+    public void setTransferEstiMdate(Date transferEstiMdate) {
+        this.transferEstiMdate = transferEstiMdate;
+    }
+
+    /**
+     * null
+     * @return TRANSFER_EXTDUE_MDATE null
+     */
+    public Date getTransferExtdueMdate() {
+        return transferExtdueMdate;
+    }
+
+    /**
+     * null
+     * @param transferExtdueMdate null
+     */
+    public void setTransferExtdueMdate(Date transferExtdueMdate) {
+        this.transferExtdueMdate = transferExtdueMdate;
+    }
+
+    /**
+     * null
+     * @return TRANSFER_ACTMDATE null
+     */
+    public Date getTransferActmdate() {
+        return transferActmdate;
+    }
+
+    /**
+     * null
+     * @param transferActmdate null
+     */
+    public void setTransferActmdate(Date transferActmdate) {
+        this.transferActmdate = transferActmdate;
+    }
+
+    /**
+     * null
+     * @return BASICASSET_TYPE null
+     */
+    public String getBasicassetType() {
+        return basicassetType;
+    }
+
+    /**
+     * null
+     * @param basicassetType null
+     */
+    public void setBasicassetType(String basicassetType) {
+        this.basicassetType = basicassetType == null ? null : basicassetType.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_ORIGCCY null
+     */
+    public String getAssetsOrigccy() {
+        return assetsOrigccy;
+    }
+
+    /**
+     * null
+     * @param assetsOrigccy null
+     */
+    public void setAssetsOrigccy(String assetsOrigccy) {
+        this.assetsOrigccy = assetsOrigccy == null ? null : assetsOrigccy.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_ORIGAMT null
+     */
+    public BigDecimal getAssetsOrigamt() {
+        return assetsOrigamt;
+    }
+
+    /**
+     * null
+     * @param assetsOrigamt null
+     */
+    public void setAssetsOrigamt(BigDecimal assetsOrigamt) {
+        this.assetsOrigamt = assetsOrigamt;
+    }
+
+    /**
+     * null
+     * @return ASSETS_ORIGAMT_CNY null
+     */
+    public BigDecimal getAssetsOrigamtCny() {
+        return assetsOrigamtCny;
+    }
+
+    /**
+     * null
+     * @param assetsOrigamtCny null
+     */
+    public void setAssetsOrigamtCny(BigDecimal assetsOrigamtCny) {
+        this.assetsOrigamtCny = assetsOrigamtCny;
+    }
+
+    /**
+     * null
+     * @return CURRENCY_TRANSFERCCY null
+     */
+    public String getCurrencyTransferccy() {
+        return currencyTransferccy;
+    }
+
+    /**
+     * null
+     * @param currencyTransferccy null
+     */
+    public void setCurrencyTransferccy(String currencyTransferccy) {
+        this.currencyTransferccy = currencyTransferccy == null ? null : currencyTransferccy.trim();
+    }
+
+    /**
+     * null
+     * @return CURRENCY_TRANSFERAMT null
+     */
+    public BigDecimal getCurrencyTransferamt() {
+        return currencyTransferamt;
+    }
+
+    /**
+     * null
+     * @param currencyTransferamt null
+     */
+    public void setCurrencyTransferamt(BigDecimal currencyTransferamt) {
+        this.currencyTransferamt = currencyTransferamt;
+    }
+
+    /**
+     * null
+     * @return CURRENCY_TRANSFERAMTCNY null
+     */
+    public BigDecimal getCurrencyTransferamtcny() {
+        return currencyTransferamtcny;
+    }
+
+    /**
+     * null
+     * @param currencyTransferamtcny null
+     */
+    public void setCurrencyTransferamtcny(BigDecimal currencyTransferamtcny) {
+        this.currencyTransferamtcny = currencyTransferamtcny;
+    }
+
+    /**
+     * null
+     * @return LABEL_TRANSFEROR_MARK null
+     */
+    public String getLabelTransferorMark() {
+        return labelTransferorMark;
+    }
+
+    /**
+     * null
+     * @param labelTransferorMark null
+     */
+    public void setLabelTransferorMark(String labelTransferorMark) {
+        this.labelTransferorMark = labelTransferorMark == null ? null : labelTransferorMark.trim();
+    }
+
+    /**
+     * null
+     * @return REPURCHASE_MARK null
+     */
+    public String getRepurchaseMark() {
+        return repurchaseMark;
+    }
+
+    /**
+     * null
+     * @param repurchaseMark null
+     */
+    public void setRepurchaseMark(String repurchaseMark) {
+        this.repurchaseMark = repurchaseMark == null ? null : repurchaseMark.trim();
+    }
+
+    /**
+     * null
+     * @return RATE_FIXED_FLAG null
+     */
+    public String getRateFixedFlag() {
+        return rateFixedFlag;
+    }
+
+    /**
+     * null
+     * @param rateFixedFlag null
+     */
+    public void setRateFixedFlag(String rateFixedFlag) {
+        this.rateFixedFlag = rateFixedFlag == null ? null : rateFixedFlag.trim();
+    }
+
+    /**
+     * null
+     * @return ASSET_RATE_LEVEL null
+     */
+    public BigDecimal getAssetRateLevel() {
+        return assetRateLevel;
+    }
+
+    /**
+     * null
+     * @param assetRateLevel null
+     */
+    public void setAssetRateLevel(BigDecimal assetRateLevel) {
+        this.assetRateLevel = assetRateLevel;
+    }
+
+    /**
+     * null
+     * @return GUARANTEE_METHOD null
+     */
+    public String getGuaranteeMethod() {
+        return guaranteeMethod;
+    }
+
+    /**
+     * null
+     * @param guaranteeMethod null
+     */
+    public void setGuaranteeMethod(String guaranteeMethod) {
+        this.guaranteeMethod = guaranteeMethod == null ? null : guaranteeMethod.trim();
+    }
+
+    /**
+     * null
+     * @return ASSETS_INV_DEPA null
+     */
+    public String getAssetsInvDepa() {
+        return assetsInvDepa;
+    }
+
+    /**
+     * null
+     * @param assetsInvDepa null
+     */
+    public void setAssetsInvDepa(String assetsInvDepa) {
+        this.assetsInvDepa = assetsInvDepa == null ? null : assetsInvDepa.trim();
+    }
+
+    /**
+     * null
+     * @return CURRENCY_EPERIODCCY null
+     */
+    public String getCurrencyEperiodccy() {
+        return currencyEperiodccy;
+    }
+
+    /**
+     * null
+     * @param currencyEperiodccy null
+     */
+    public void setCurrencyEperiodccy(String currencyEperiodccy) {
+        this.currencyEperiodccy = currencyEperiodccy == null ? null : currencyEperiodccy.trim();
+    }
+
+    public String getLoanBalanceCcy() {
+        return loanBalanceCcy;
+    }
+
+    public void setLoanBalanceCcy(String loanBalanceCcy) {
+        this.loanBalanceCcy = loanBalanceCcy;
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joyintech.tams.common.base.dao.BaseMapper_mysql">
+    <select id="getSequenceIndexData" parameterType="java.util.Map"
+            resultType="java.lang.Long" useCache="false" flushCache="true">
+        SELECT _nextIndex(#{sequenceName})
+    </select>
+
+    <select id="selectBankCode" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+        corb.REGIST_BANK_CODE
+        from CHB_ORG_REGIST_BANK_CODE corb
+        where 1=1
+        <if test="orgCode != null or orgCode != ''">
+            corb.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="selectBank" parameterType="java.lang.String" resultType="com.joyintech.tams.common.base.entity.ChbOrgRegistBankCode">
+        select
+        *
+        from CHB_ORG_REGIST_BANK_CODE corb
+        where 1=1
+        <if test="orgCode != null AND orgCode != ''">
+            and corb.ORG_CODE = #{orgCode,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="getTableColumnList" resultType="string">
+        select DISTINCT COLUMN_NAME
+        from  information_schema.`COLUMNS`
+        where Table_Name = #{tableName,jdbcType=VARCHAR}
+        and  table_schema=database()
+    </select>
+</mapper>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.report.xbrlsend.base.dao.XbrlSendBaseMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.ChbInfoReportXbrl" >
+        <id column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+        <result column="REP_MES_NO" property="repMesNo" jdbcType="VARCHAR" />
+        <result column="UPLOAD_RESULT" property="uploadResult" jdbcType="VARCHAR" />
+        <result column="UPLOAD_RESULT_MSG" property="uploadResultMsg" jdbcType="VARCHAR" />
+        <result column="UPLOAD_FILE_ID" property="uploadFileId" jdbcType="VARCHAR" />
+        <result column="CHECK_FILE_ID" property="checkFileId" jdbcType="VARCHAR" />
+        <result column="CHECK_RESULT" property="checkResult" jdbcType="VARCHAR" />
+        <result column="CHECK_RESULT_MSG" property="checkResultMsg" jdbcType="VARCHAR" />
+        <result column="CHECK_FILE_NAME" property="checkFileName" jdbcType="VARCHAR" />
+        <result column="CHECK_TOTAL_COUNT" property="checkTotalCount" jdbcType="DECIMAL" />
+        <result column="CHECK_SUCCESS_COUNT" property="checkSuccessCount" jdbcType="DECIMAL" />
+        <result column="CHECK_FAILED_COUNT" property="checkFailedCount" jdbcType="DECIMAL" />
+        <result column="INSIDE_FILE_ID" property="insideFileId" jdbcType="VARCHAR" />
+        <result column="SEND_TIME" property="sendTime" jdbcType="DATE" />
+        <result column="REPLY_TIME" property="replyTime" jdbcType="TIMESTAMP" />
+        <result column="WORKFLOW_ID" property="workflowId" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="SUBMIT_COUNT" property="submitCount" jdbcType="DECIMAL" />
+        <result column="SUBMIT_TYPE" property="submitType" jdbcType="VARCHAR" />
+        <result column="CHB_INT_CODE" property="chbIntCode" jdbcType="VARCHAR" />
+        <result column="XBRL_INT_CODE" property="xbrlIntCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+            REPORT_NO REPORT_NO, REP_MES_NO REP_MES_NO, UPLOAD_RESULT UPLOAD_RESULT, UPLOAD_RESULT_MSG UPLOAD_RESULT_MSG,
+            UPLOAD_FILE_ID UPLOAD_FILE_ID, CHECK_FILE_ID CHECK_FILE_ID, CHECK_RESULT CHECK_RESULT,
+            CHECK_RESULT_MSG CHECK_RESULT_MSG, CHECK_FILE_NAME CHECK_FILE_NAME, CHECK_TOTAL_COUNT CHECK_TOTAL_COUNT,
+            CHECK_SUCCESS_COUNT CHECK_SUCCESS_COUNT, CHECK_FAILED_COUNT CHECK_FAILED_COUNT, INSIDE_FILE_ID INSIDE_FILE_ID,
+            SEND_TIME SEND_TIME, REPLY_TIME REPLY_TIME, WORKFLOW_ID WORKFLOW_ID, CREATE_USER CREATE_USER,
+            CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER, UPDATE_TIME UPDATE_TIME,
+            SUBMIT_COUNT SUBMIT_COUNT, SUBMIT_TYPE SUBMIT_TYPE, CHB_INT_CODE CHB_INT_CODE, XBRL_INT_CODE XBRL_INT_CODE
+
+        from CHB_INFO_REPORT_XBRL
+        where REPORT_NO = #{reportNo,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getMaxXbrlDataByValueDate" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+        * FROM (
+            SELECT
+            REPORT_NO, REP_MES_NO, UPLOAD_RESULT, UPLOAD_RESULT_MSG,
+            UPLOAD_FILE_ID, CHECK_FILE_ID, CHECK_RESULT, CHECK_RESULT_MSG, CHECK_FILE_NAME, CHECK_TOTAL_COUNT,
+            CHECK_SUCCESS_COUNT, CHECK_FAILED_COUNT, INSIDE_FILE_ID, SEND_TIME, REPLY_TIME, WORKFLOW_ID,
+            CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, SUBMIT_COUNT, SUBMIT_TYPE,
+            CHB_INT_CODE, XBRL_INT_CODE,
+            ROW_NUMBER() OVER (PARTITION BY SUBMIT_TYPE ORDER BY CHB_INT_CODE DESC,XBRL_INT_CODE DESC) rowNum
+            from CHB_INFO_REPORT_XBRL
+            where SUBMIT_TYPE = #{submitType,jdbcType=VARCHAR}
+            <foreach collection="sendTime" item="time" open=" and SEND_TIME in("
+                     separator="," close=")">
+                #{time,jdbcType=DATE}
+            </foreach>
+            <if test="checkResult != null" >
+                AND CHECK_RESULT = #{checkResult,jdbcType=VARCHAR}
+                AND UPLOAD_RESULT = '00'
+            </if>
+        ) A
+        WHERE A.rowNum = 1
+    </select>
+
+    <select id="getErrorData" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT group_concat(A.UNIQUE_IDENTI_1) CHECK_RESULT,count(1) CHECK_TOTAL_COUNT
+        FROM chb_xbrlback_errordata A
+        WHERE EXISTS(SELECT 1 FROM chb_info_report_XBRL X WHERE X.REPORT_NO = A.REPORT_NO AND X.UPLOAD_RESULT = '00' AND SUBMIT_TYPE = #{submitType,jdbcType=VARCHAR})
+        <foreach collection="dataList" item="data" open=" AND A.UNIQUE_IDENTI_1 IN ("
+                 separator="," close=")" index="index">
+            <if test="(index % 999) == 998">
+                null) OR AND A.UNIQUE_IDENTI_1 IN (
+            </if>
+            #{data.indentifyMark}
+        </foreach>
+    </select>
+
+
+
+    <select id="getChbInfoReportXbrlByFileId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+            * FROM (
+                SELECT
+                REPORT_NO, REP_MES_NO, UPLOAD_RESULT, UPLOAD_RESULT_MSG,
+                UPLOAD_FILE_ID, CHECK_FILE_ID, CHECK_RESULT, CHECK_RESULT_MSG, CHECK_FILE_NAME, CHECK_TOTAL_COUNT,
+                CHECK_SUCCESS_COUNT, CHECK_FAILED_COUNT, INSIDE_FILE_ID, SEND_TIME, REPLY_TIME, WORKFLOW_ID,
+                CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, SUBMIT_COUNT, SUBMIT_TYPE,
+                CHB_INT_CODE, XBRL_INT_CODE,
+                ROW_NUMBER() OVER (PARTITION BY SUBMIT_TYPE ORDER BY CHB_INT_CODE DESC,XBRL_INT_CODE DESC) rowNum
+                from CHB_INFO_REPORT_XBRL
+                where UPLOAD_FILE_ID = #{fileId,jdbcType=VARCHAR}
+                AND UPLOAD_RESULT = '00'
+            ) A
+        WHERE A.rowNum = 1
+    </select>
+
+
+    <insert id="batchInsertData" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata" >
+        insert into CHB_XBRLBACK_ERRORDATA (SEQNO, REP_MES_NO, SUBMIT_TYPE,
+            SUBMIT_FEEDBACK_STATUS, UPDATE_USER, UPDATE_TIME,
+            CREATE_USER, CREATE_TIME, REPORT_NO,
+            SUBMIT_FEEDBACK_MSG, UNIQUE_IDENTI_1, UNIQUE_IDENTI_2,
+            UNIQUE_IDENTI_3)
+        values
+        <foreach collection="list" item="item" separator="," >
+            (#{item.seqno,jdbcType=VARCHAR}, #{item.repMesNo,jdbcType=VARCHAR}, #{item.submitType,jdbcType=VARCHAR},
+            #{item.submitFeedbackStatus,jdbcType=VARCHAR}, #{item.updateUser,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=TIMESTAMP},
+            #{item.createUser,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.reportNo,jdbcType=VARCHAR},
+            #{item.submitFeedbackMsg,jdbcType=VARCHAR}, #{item.uniqueIdenti1,jdbcType=VARCHAR}, #{item.uniqueIdenti2,jdbcType=VARCHAR},
+            #{item.uniqueIdenti3,jdbcType=VARCHAR})
+        </foreach>
+
+
+    </insert>
+
+    <update id="updateChbXbrlBackBatch" parameterType="com.joyintech.tams.common.base.entity.ChbXbrlbackErrordata">
+
+        <if test="updateType != null and updateType.equals('201')" >
+            <foreach collection="list" item="item" index="index" separator=";" >
+                UPDATE CHB_XBRLBACK_ERRORDATA p,
+                       CHB_EQU_SUB pp
+                SET p.UNIQUE_IDENTI_1 = pp.INDENTIFY_MARK,
+                    p.UNIQUE_IDENTI_2 = pp.IDENTIFY_NUMBER,
+                    P.SUBMIT_FEEDBACK_MSG = #{item.submitFeedbackMsg}
+                WHERE p.seqno = pp.SUMIT_SEQ
+                and pp.SUMIT_SEQ = #{item.seqno}
+            </foreach>
+        </if>
+        <if test="updateType != null and updateType.equals('202')" >
+            <foreach collection="list" item="item" index="index" separator=";" >
+                UPDATE CHB_XBRLBACK_ERRORDATA p,
+                    chb_investhold_info_sub pp
+                SET p.UNIQUE_IDENTI_1 = pp.INDENTIFY_MARK,
+                    p.UNIQUE_IDENTI_2 = pp.PRD_REGIST_CODE,
+                    p.UNIQUE_IDENTI_3 = pp.HOLD_DATE,
+                    P.SUBMIT_FEEDBACK_MSG = #{item.submitFeedbackMsg}
+                WHERE p.seqno = pp.SUMIT_SEQ
+                and pp.SUMIT_SEQ = #{item.seqno}
+            </foreach>
+        </if>
+
+        <if test="updateType != null and updateType.equals('203')" >
+            <foreach collection="list" item="item" index="index" separator=";" >
+                UPDATE CHB_XBRLBACK_ERRORDATA p,
+                        CHB_EQUDET_SUB pp
+                SET p.UNIQUE_IDENTI_1 = pp.BUSI_SEQNO,
+                    P.UNIQUE_IDENTI_2 = PP.REG_CODE,
+                    P.SUBMIT_FEEDBACK_MSG = #{item.submitFeedbackMsg}
+                WHERE p.seqno = pp.SUMIT_SEQ
+                and pp.SUMIT_SEQ = #{item.seqno}
+            </foreach>
+        </if>
+
+        ;
+    </update>
+
+    <update id="updateChbInfoReportXbrlByFileId" parameterType="com.joyintech.tams.common.base.entity.ChbInfoReportXbrl">
+
+
+    </update>
+
+
+
+
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.ChbInfoReportXbrl" >
+        insert into CHB_INFO_REPORT_XBRL (REPORT_NO, REP_MES_NO, UPLOAD_RESULT, 
+            UPLOAD_RESULT_MSG, UPLOAD_FILE_ID, CHECK_FILE_ID, 
+            CHECK_RESULT, CHECK_RESULT_MSG, CHECK_FILE_NAME, 
+            CHECK_TOTAL_COUNT, CHECK_SUCCESS_COUNT, CHECK_FAILED_COUNT, 
+            INSIDE_FILE_ID, SEND_TIME, REPLY_TIME, 
+            WORKFLOW_ID, CREATE_USER, CREATE_DEPT, 
+            CREATE_TIME, UPDATE_USER, UPDATE_TIME, 
+            SUBMIT_COUNT, SUBMIT_TYPE, CHB_INT_CODE, 
+            XBRL_INT_CODE)
+        values (#{reportNo,jdbcType=VARCHAR}, #{repMesNo,jdbcType=VARCHAR}, #{uploadResult,jdbcType=VARCHAR}, 
+            #{uploadResultMsg,jdbcType=VARCHAR}, #{uploadFileId,jdbcType=VARCHAR}, #{checkFileId,jdbcType=VARCHAR}, 
+            #{checkResult,jdbcType=VARCHAR}, #{checkResultMsg,jdbcType=VARCHAR}, #{checkFileName,jdbcType=VARCHAR}, 
+            #{checkTotalCount,jdbcType=DECIMAL}, #{checkSuccessCount,jdbcType=DECIMAL}, #{checkFailedCount,jdbcType=DECIMAL}, 
+            #{insideFileId,jdbcType=VARCHAR}, #{sendTime,jdbcType=DATE}, #{replyTime,jdbcType=TIMESTAMP}, 
+            #{workflowId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, 
+            #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+            #{submitCount,jdbcType=DECIMAL}, #{submitType,jdbcType=VARCHAR}, #{chbIntCode,jdbcType=VARCHAR}, 
+            #{xbrlIntCode,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.common.base.entity.ChbInfoReportXbrl" >
+        update CHB_INFO_REPORT_XBRL
+        <set >
+            <if test="repMesNo != null" >
+                REP_MES_NO = #{repMesNo,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadResult != null" >
+                UPLOAD_RESULT = #{uploadResult,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadResultMsg != null" >
+                UPLOAD_RESULT_MSG = #{uploadResultMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadFileId != null" >
+                UPLOAD_FILE_ID = #{uploadFileId,jdbcType=VARCHAR},
+            </if>
+            <if test="checkFileId != null" >
+                CHECK_FILE_ID = #{checkFileId,jdbcType=VARCHAR},
+            </if>
+            <if test="checkResult != null" >
+                CHECK_RESULT = #{checkResult,jdbcType=VARCHAR},
+            </if>
+            <if test="checkResultMsg != null" >
+                CHECK_RESULT_MSG = #{checkResultMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="checkFileName != null" >
+                CHECK_FILE_NAME = #{checkFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="checkTotalCount != null" >
+                CHECK_TOTAL_COUNT = #{checkTotalCount,jdbcType=DECIMAL},
+            </if>
+            <if test="checkSuccessCount != null" >
+                CHECK_SUCCESS_COUNT = #{checkSuccessCount,jdbcType=DECIMAL},
+            </if>
+            <if test="checkFailedCount != null" >
+                CHECK_FAILED_COUNT = #{checkFailedCount,jdbcType=DECIMAL},
+            </if>
+            <if test="insideFileId != null" >
+                INSIDE_FILE_ID = #{insideFileId,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTime != null" >
+                SEND_TIME = #{sendTime,jdbcType=DATE},
+            </if>
+            <if test="replyTime != null" >
+                REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="workflowId != null" >
+                WORKFLOW_ID = #{workflowId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="submitCount != null" >
+                SUBMIT_COUNT = #{submitCount,jdbcType=DECIMAL},
+            </if>
+            <if test="submitType != null" >
+                SUBMIT_TYPE = #{submitType,jdbcType=VARCHAR},
+            </if>
+            <if test="chbIntCode != null" >
+                CHB_INT_CODE = #{chbIntCode,jdbcType=VARCHAR},
+            </if>
+            <if test="xbrlIntCode != null" >
+                XBRL_INT_CODE = #{xbrlIntCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where REPORT_NO = #{reportNo,jdbcType=VARCHAR}
+    </update>
+
+
+    <insert id="insertChbEquDetSubmitStatusList">
+        insert into CHB_EQUDET_SUBMIT_STATUS (SEQNO, SUBMIT_NUM, SUBMIT_TYPE,
+        SUBMIT_FEEDBACK_STATUS,EQUITY_CONF_DATE, UPDATE_USER, UPDATE_TIME,
+        CREATE_USER, CREATE_TIME, REPORT_NO,UNIQUE_IDENTI)
+        SELECT sub.SUMIT_SEQ,sub.SUMIT_SEQ,
+        #{xbrl.submitType,jdbcType=VARCHAR},#{submitStatus,jdbcType=VARCHAR},
+        sub.EQUITY_CONF_DATE,'system',now(),'system',now(),
+        #{xbrl.reportNo,jdbcType=VARCHAR},CONCAT(sub.BUSI_SEQNO,',',sub.REG_CODE,',',sub.REGIST_BANK_CODE,',',sub.INDENTIFY_MARK)
+        FROM CHB_EQUDET_SUB sub
+        inner join CHB_EQUDET_SEND_TEMP tp on sub.SUMIT_SEQ = tp.SUMIT_SEQ
+        where sub.SUBMIT_STATUS = '02'
+    </insert>
+
+    <update id="insertChbSubmitStatusList">
+        update CHB_INVESTHOLD_INFO_SUB sub
+        set
+        sub.SUBMIT_FEEDBACK_STATUS = #{submitStatus,jdbcType=VARCHAR} ,
+        sub.REPORT_NO = #{xbrl.reportNo,jdbcType=VARCHAR},
+        sub.UPDATE_USER = 'system',
+        sub.UPDATE_TIME=now()
+        where
+        sub.SEND_STATUS = '02'
+        and exists(SELECT 1 FROM CHB_SEND_CB_TEMP tp WHERE sub.REGIST_SEQNO = tp.REGIST_SEQNO)
+    </update>
+
+</mapper>

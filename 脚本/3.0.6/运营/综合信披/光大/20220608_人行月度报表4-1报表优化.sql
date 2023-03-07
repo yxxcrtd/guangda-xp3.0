@@ -1,0 +1,1 @@
+alter table bok_balance add index bok_balance_index4(balance_date);

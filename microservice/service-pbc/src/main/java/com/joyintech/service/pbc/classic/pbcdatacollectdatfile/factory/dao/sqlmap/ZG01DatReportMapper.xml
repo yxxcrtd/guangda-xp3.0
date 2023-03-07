@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+		namespace="com.joyintech.service.pbc.classic.pbcdatacollectdatfile.factory.dao.ZG01DatReportMapper">
+
+	<delete id="deleteBySub">
+		delete FROM pbc_col_prd_baseinfo_sub
+		where SEND_STATUS != '03'
+		<foreach collection="list" item="item" index="index" open=" AND (PROD_ID,INFO_TYPE) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PROD_ID,INFO_TYPE) in(
+			</if>
+			(#{item.prodId,jdbcType=VARCHAR} ,
+			#{item.infoType,jdbcType=VARCHAR} )
+		</foreach>
+	</delete>
+	<delete id="deleteBySub1">
+		delete FROM pbc_col_prd_baseinfo_sub
+		where SEND_STATUS != '03' and
+			PROD_ID = #{prodId,jdbcType=VARCHAR} and
+			INFO_TYPE = #{infoType,jdbcType=VARCHAR}
+	</delete>
+
+	<delete id="deleteBySub2">
+		delete FROM pbc_col_prd_baseinfo_sub
+		where SEND_STATUS != '03' and
+			PROD_ID = #{prodId,jdbcType=VARCHAR} and
+			INFO_TYPE = #{infoType,jdbcType=VARCHAR} and to_char(CDATE,'yyyy-MM-dd') = to_char(#{cdate,jdbcType=DATE},'yyyy-MM-dd')
+	</delete>
+
+
+
+	<delete id="deleteByDat">
+		delete FROM pbc_col_prd_baseinfo_dat s
+		where
+		<foreach collection="list" item="item" index="index" open="(s.PROD_ID,s.INFO_TYPE) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (s.PROD_ID,s.INFO_TYPE) in(
+			</if>
+			(#{item.prodId,jdbcType=VARCHAR} ,
+			#{item.infoType,jdbcType=VARCHAR} )
+		</foreach>
+	</delete>
+
+	<insert id="insertSub"
+			parameterType="List">
+		insert into pbc_col_prd_baseinfo_sub (
+		REGIST_SEQNO, PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+		PROD_BRAND,PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+		RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE,TERM_RIGHT_FLAG,
+		CUS_REDEEM_FLAG,CREDIT_FLAG,CREDIT_TYPE,CREDIT_MODE,IN_DEP_NAME,IN_DEP_CODE,OUT_DEP_CTRY,
+		OUT_DEP_NAME, CDATE,VDATE, MDATE, IS_CONSTRACTE,TRANSFER_TYPE,CASH_MANA_CATE,
+		CROSS_BORDER_FLAG,IS_PROPERTY_FLAG,BASE_INFO_SIGN,CHANGE_REASON,BACKUP1,BACKUP2,BACKUP3,
+		BACKUP4,BACKUP5,SEND_STATUS,SUBMIT_TIME,SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ,STATUS_DATE,
+		PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE,CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME,datuuid
+		)values
+		<foreach collection="list" item="item" separator=",">
+			( f_guid(),
+			nvl(
+			(select pbc_code  from pbc_prod_assetpool_code
+			where status='E'
+			AND code_type='01'
+			and inside_prod_id=#{item.prodId,jdbcType=VARCHAR}),
+			#{item.pbcProdId,jdbcType=VARCHAR}
+			),
+			#{item.issuePartyId,jdbcType=VARCHAR},
+			#{item.issuePartyName,jdbcType=VARCHAR}, #{item.pbcProdType,jdbcType=VARCHAR}, #{item.prodName,jdbcType=VARCHAR},
+			#{item.ivstorientation,jdbcType=VARCHAR},#{item.prodBrand,jdbcType=VARCHAR},#{item.prodStage,jdbcType=DECIMAL},
+			#{item.prodId,jdbcType=VARCHAR},#{item.infoType,jdbcType=VARCHAR},#{item.raiseCcy,jdbcType=VARCHAR},
+			#{item.cashPrinCcy,jdbcType=VARCHAR}, #{item.cashProfCcy,jdbcType=VARCHAR},#{item.raiseType,jdbcType=CHAR},
+			#{item.manageType,jdbcType=CHAR},#{item.fiduciaryDuty,jdbcType=VARCHAR},#{item.operateMode,jdbcType=VARCHAR},
+			#{item.raiseVdate,jdbcType=TIMESTAMP},#{item.raiseEnddate,jdbcType=TIMESTAMP},#{item.termRightFlag,jdbcType=CHAR},
+			#{item.cusRedeemFlag,jdbcType=CHAR},#{item.creditFlag,jdbcType=CHAR}, #{item.creditType,jdbcType=VARCHAR},
+			#{item.creditMode,jdbcType=VARCHAR},#{item.inDepName,jdbcType=VARCHAR}, #{item.inDepCode,jdbcType=VARCHAR},
+			#{item.outDepCtry,jdbcType=VARCHAR},#{item.outDepName,jdbcType=VARCHAR},#{item.cdate,jdbcType=TIMESTAMP},
+			#{item.vdate,jdbcType=TIMESTAMP}, #{item.mdate,jdbcType=TIMESTAMP},#{item.isConstracte,jdbcType=CHAR},
+			#{item.transferType,jdbcType=CHAR},#{item.cashManaCate,jdbcType=CHAR},#{item.crossBorderFlag,jdbcType=CHAR},
+			#{item.isPropertyFlag,jdbcType=CHAR},#{item.baseInfoSign,jdbcType=VARCHAR},#{item.changeReason,jdbcType=VARCHAR},
+			#{item.backup1,jdbcType=CHAR},#{item.backup2,jdbcType=VARCHAR},#{item.backup3,jdbcType=VARCHAR},
+			#{item.backup4,jdbcType=VARCHAR},#{item.backup5,jdbcType=VARCHAR},
+			#{item.sendStatus,jdbcType=VARCHAR}, #{item.submitTime,jdbcType=TIMESTAMP},#{item.submitFeedbackStatus,jdbcType=VARCHAR},
+			#{item.sumitSeq,jdbcType=VARCHAR}, #{item.statusDate,jdbcType=TIMESTAMP},#{item.pbcSubmitDeadline,jdbcType=TIMESTAMP},
+			#{item.submitDeadline,jdbcType=TIMESTAMP},
+			case when #{item.infoType,jdbcType=VARCHAR}='1'
+			then '01'
+			else '02'
+			end,
+			 #{item.createUser,jdbcType=VARCHAR},
+			#{item.orgCode,jdbcType=VARCHAR},#{item.createDept,jdbcType=VARCHAR}, sysdate,
+			#{item.updateUser,jdbcType=VARCHAR},sysdate ,#{uuid,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<insert id="insertDat"
+			parameterType="List">
+		insert into pbc_col_prd_baseinfo_dat (
+		REGIST_SEQNO, PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+		PROD_BRAND,PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+		RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE,TERM_RIGHT_FLAG,
+		CUS_REDEEM_FLAG,CREDIT_FLAG,CREDIT_TYPE,CREDIT_MODE,IN_DEP_NAME,IN_DEP_CODE,OUT_DEP_CTRY,
+		OUT_DEP_NAME, CDATE,VDATE, MDATE, IS_CONSTRACTE,TRANSFER_TYPE,CASH_MANA_CATE,
+		CROSS_BORDER_FLAG,IS_PROPERTY_FLAG,BASE_INFO_SIGN,CHANGE_REASON,BACKUP1,BACKUP2,BACKUP3,
+		BACKUP4,BACKUP5,SEND_STATUS,SUBMIT_TIME,SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ,STATUS_DATE,
+		PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE,CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME,datuuid
+		)
+		SELECT
+		REGIST_SEQNO, PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+		PROD_BRAND,PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+		RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE,TERM_RIGHT_FLAG,
+		CUS_REDEEM_FLAG,CREDIT_FLAG,CREDIT_TYPE,CREDIT_MODE,IN_DEP_NAME,IN_DEP_CODE,OUT_DEP_CTRY,
+		OUT_DEP_NAME, CDATE,VDATE, MDATE, IS_CONSTRACTE,TRANSFER_TYPE,CASH_MANA_CATE,
+		CROSS_BORDER_FLAG,IS_PROPERTY_FLAG,BASE_INFO_SIGN,CHANGE_REASON,BACKUP1,BACKUP2,BACKUP3,
+		BACKUP4,BACKUP5,SEND_STATUS,SUBMIT_TIME,SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ,STATUS_DATE,
+		PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE,CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME,#{uuid,jdbcType=VARCHAR}
+		FROM pbc_col_prd_baseinfo_sub
+		WHERE
+		<foreach collection="list" item="item" index="index" open="(PROD_ID,INFO_TYPE) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PROD_ID,INFO_TYPE) in(
+			</if>
+			(#{item.prodId,jdbcType=VARCHAR} ,
+			#{item.infoType,jdbcType=VARCHAR} )
+		</foreach>
+	</insert>
+
+
+	<select id="getSameKeyList" resultType="map" parameterType="java.util.List">
+		select PROD_ID,INFO_TYPE
+		from pbc_col_prd_baseinfo_sub
+		where SEND_STATUS = '03'
+		<foreach collection="list" item="item" index="index" open=" AND PROD_ID in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null)) OR (PROD_ID) in(
+			</if>
+			(#{item.prodId,jdbcType=VARCHAR})
+		</foreach>
+	</select>
+
+	<select id="getPListByUUid" resultType="map" >
+		select
+			REGIST_SEQNO, IFNULL(C.pbc_code,s.PBC_PROD_ID) PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+			PROD_BRAND,PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+			RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE,TERM_RIGHT_FLAG,
+			CUS_REDEEM_FLAG,CREDIT_FLAG,CREDIT_TYPE,CREDIT_MODE,IN_DEP_NAME,IN_DEP_CODE,OUT_DEP_CTRY,
+			OUT_DEP_NAME, CDATE,VDATE, MDATE, IS_CONSTRACTE,TRANSFER_TYPE,CASH_MANA_CATE,
+			CROSS_BORDER_FLAG,IS_PROPERTY_FLAG,BASE_INFO_SIGN,CHANGE_REASON,BACKUP1,BACKUP2,BACKUP3,
+			BACKUP4,BACKUP5,SEND_STATUS,SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ,
+			'产品代码:'||NVL(C.pbc_code,s.PBC_PROD_ID)||';信息类型:'||INFO_TYPE||';发行机构代码:'||ISSUE_PARTY_ID||';起息日:'
+											||TO_CHAR(VDATE, 'yyyy-MM-dd')||';数据状态:'||s.STATUS dataKey,
+											TO_CHAR(VDATE,'yyyy-MM-dd')  VDATESTR,
+											TO_CHAR(CDATE,'yyyy-MM-dd')  CDATESTR
+		from pbc_col_prd_baseinfo_sub s
+		left join PBC_PROD_ASSETPOOL_CODE C ON C.INSIDE_PROD_ID = s.PROD_ID
+		where 1=1
+		and datuuid = #{uuid,jdbcType=VARCHAR}
+		ORDER BY s.PROD_ID DESC
+	</select>
+
+	<update id="updatePDatDataStatus">
+		update pbc_col_prd_baseinfo_sub
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updatePDataStatus" parameterType="java.util.List">
+		update pbc_col_prd_baseinfo_dat
+		set
+		SEND_STATUS = '03',
+		SUBMIT_TIME = sysdate,
+		UPDATE_TIME = sysdate
+		where
+		<foreach collection="list" item="item" index="index" open="(PROD_ID,INFO_TYPE) in(" separator="," close=")">
+			<if test="(index % 999) == 998">
+				(null,null)) OR (PROD_ID,INFO_TYPE) in(
+			</if>
+			(#{item.PROD_ID,jdbcType=VARCHAR} ,
+			#{item.INFO_TYPE,jdbcType=VARCHAR} )
+		</foreach>
+	</update>
+
+	<insert id="insertHis"
+			parameterType="List">
+		insert into pbc_col_prd_baseinfo_sub_his (
+		REGIST_SEQNO, PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+		PROD_BRAND,PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+		RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE,TERM_RIGHT_FLAG,
+		CUS_REDEEM_FLAG,CREDIT_FLAG,CREDIT_TYPE,CREDIT_MODE,IN_DEP_NAME,IN_DEP_CODE,OUT_DEP_CTRY,
+		OUT_DEP_NAME, CDATE,VDATE, MDATE, IS_CONSTRACTE,TRANSFER_TYPE,CASH_MANA_CATE,
+		CROSS_BORDER_FLAG,IS_PROPERTY_FLAG,BASE_INFO_SIGN,CHANGE_REASON,BACKUP1,BACKUP2,BACKUP3,
+		BACKUP4,BACKUP5,SEND_STATUS,SUBMIT_TIME,SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ,STATUS_DATE,
+		PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE,CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+		)
+		SELECT
+		REGIST_SEQNO, PBC_PROD_ID, ISSUE_PARTY_ID, ISSUE_PARTY_NAME,PBC_PROD_TYPE, PROD_NAME, IVSTORIENTATION,
+		PROD_BRAND,PROD_STAGE, PROD_ID,INFO_TYPE, RAISE_CCY, CASH_PRIN_CCY, CASH_PROF_CCY,
+		RAISE_TYPE,MANAGE_TYPE, FIDUCIARY_DUTY, OPERATE_MODE, RAISE_VDATE, RAISE_ENDDATE,TERM_RIGHT_FLAG,
+		CUS_REDEEM_FLAG,CREDIT_FLAG,CREDIT_TYPE,CREDIT_MODE,IN_DEP_NAME,IN_DEP_CODE,OUT_DEP_CTRY,
+		OUT_DEP_NAME, CDATE,VDATE, MDATE, IS_CONSTRACTE,TRANSFER_TYPE,CASH_MANA_CATE,
+		CROSS_BORDER_FLAG,IS_PROPERTY_FLAG,BASE_INFO_SIGN,CHANGE_REASON,BACKUP1,BACKUP2,BACKUP3,
+		BACKUP4,BACKUP5,SEND_STATUS,SUBMIT_TIME,SUBMIT_FEEDBACK_STATUS,SUMIT_SEQ,STATUS_DATE,
+		PBC_SUBMIT_DEADLINE, SUBMIT_DEADLINE, STATUS, CREATE_USER, ORG_CODE,CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+		FROM pbc_col_prd_baseinfo_dat
+		WHERE datuuid = #{uuid,jdbcType=VARCHAR}
+
+	</insert>
+
+	<update id="updateUuidSub">
+        update pbc_col_prd_baseinfo_sub
+		set
+		datuuid=null
+		where  datuuid = #{uuid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getListByUUid" resultType="com.joyintech.tams.svreport.pbc.classic.zg01prdbaseinfosub.dto.ZG01PbcPrdBaseinfoSub">
+select
+		t1.REGIST_SEQNO registSeqno,
+		t1.PBC_PROD_ID pbcProdId,
+		t1.ISSUE_PARTY_ID issuePartyId,
+		t1.ISSUE_PARTY_NAME issuePartyName,
+		t1.PBC_PROD_TYPE pbcProdType,
+		t1.PROD_NAME prodName,
+		t1.IVSTORIENTATION ivstorientation,
+		t1.PROD_BRAND prodBrand,
+		t1.PROD_STAGE prodStage,
+		t1.PROD_ID prodId,
+		t1.INFO_TYPE infoType,
+		t1.RAISE_CCY raiseCcy,
+		t1.CASH_PRIN_CCY cashPrinCcy,
+		t1.CASH_PROF_CCY cashProfCcy,
+		t1.RAISE_TYPE raiseType,
+		t1.MANAGE_TYPE manageType,
+		t1.FIDUCIARY_DUTY fiduciaryDuty,
+		t1.OPERATE_MODE operateMode,
+		t1.RAISE_VDATE raiseVdate,
+		t1.RAISE_ENDDATE raiseEnddate,
+		t1.TERM_RIGHT_FLAG termRightFlag,
+		t1.CUS_REDEEM_FLAG cusRedeemFlag,
+		t1.CREDIT_FLAG creditFlag,
+		t1.CREDIT_TYPE creditType,
+		t1.CREDIT_MODE creditMode,
+		t1.IN_DEP_NAME inDepName,
+		t1.IN_DEP_CODE inDepCode,
+		t1.OUT_DEP_CTRY outDepCtry,
+		t1.OUT_DEP_NAME outDepName,
+		t1.CDATE cdate,
+		t1.VDATE vdate,
+		t1.MDATE mdate,
+		t1.IS_CONSTRACTE isConstracte,
+		t1.TRANSFER_TYPE transferType,
+		t1.CASH_MANA_CATE cashManaCate,
+		t1.CROSS_BORDER_FLAG crossBorderFlag,
+		t1.IS_PROPERTY_FLAG isPropertyFlag,
+		t1.BASE_INFO_SIGN baseInfoSign,
+		t1.CHANGE_REASON changeReason,
+		t1.BACKUP1 backup1,
+		t1.BACKUP2 backup2,
+		t1.BACKUP3 backup3,
+		t1.BACKUP4 backup4,
+		t1.BACKUP5 backup5,
+		t1.SEND_STATUS sendStatus,
+		t1.SUBMIT_TIME submitTime,
+		t1.SUBMIT_FEEDBACK_STATUS submitFeedbackStatus,
+		t1.SUMIT_SEQ sumitSeq,
+		t1.STATUS_DATE statusDate,
+		t1.PBC_SUBMIT_DEADLINE pbcSubmitDeadline,
+		t1.SUBMIT_DEADLINE submitDeadline,
+		t1.STATUS status ,
+		t1.CREATE_USER createUser,
+		t1.ORG_CODE orgCode,
+		t1.CREATE_DEPT createDept,
+		t1.CREATE_TIME createTime,
+		t1.UPDATE_USER updateUser,
+		t1.UPDATE_TIME updateTime,
+		t1.DATUUID	datuuid
+		from PBC_COL_PRD_BASEINFO_SUB t1
+        where t1.DATUUID= #{uuid,jdbcType=VARCHAR}
+	</select>
+</mapper>

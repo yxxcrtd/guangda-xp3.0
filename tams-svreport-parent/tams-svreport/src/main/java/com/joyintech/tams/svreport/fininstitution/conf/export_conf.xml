@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="PbcFinInstitutionAssetInfo001.xlsx" name="表内资产数据维护">
+    <Worksheet javaBean="com.joyintech.tams.svreport.fininstitution.dto.PbcFinInstitutionAssetInfo001Dto">
+        <Row>
+            <Cell order="1" name="统计年月">termId</Cell>
+            <Cell order="2" name="金融机构表内资产余额（本外币）">finAssetBalance</Cell>
+            <Cell order="3" name="金融机构表内金融资产余额（本外币）">finInsAssetBalance</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

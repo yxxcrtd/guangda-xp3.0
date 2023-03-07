@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.specificcounterparty.dao.PbcSpecificCounterParty001Mapper_mysql" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto" >
+        <id column="PBC_UUID" property="pbcUuid" jdbcType="VARCHAR" />
+        <result column="ASSET_CODE" property="assetCode" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="PARTY_ORG_CODE" property="partyOrgCode" jdbcType="VARCHAR" />
+        <result column="PARTY_ORG_NAME" property="partyOrgName" jdbcType="VARCHAR" />
+        <result column="PARTY_PROD_ID" property="partyProdId" jdbcType="VARCHAR" />
+        <result column="PARTY_PROD_NAME" property="partyProdName" jdbcType="VARCHAR" />
+        <result column="PARTY_PROD_TYPE" property="partyProdType" jdbcType="VARCHAR" />
+        <result column="ASSET_TYPE" property="assetType" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        PBC_UUID PBC_UUID, PARTY_ORG_CODE PARTY_ORG_CODE, PARTY_ORG_NAME PARTY_ORG_NAME, PARTY_PROD_ID PARTY_PROD_ID, PARTY_PROD_NAME PARTY_PROD_NAME,
+        PARTY_PROD_TYPE PARTY_PROD_TYPE, ASSET_CODE ASSET_CODE, ASSET_TYPE ASSET_TYPE, STATUS STATUS,
+        CREATE_USER CREATE_USER, CREATE_DEPT CREATE_DEPT, CREATE_TIME CREATE_TIME, UPDATE_USER UPDATE_USER,
+        UPDATE_TIME UPDATE_TIME
+    </sql>
+
+    <sql id="Sql_All_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.specificcounterparty.dao.PbcSpecificCounterParty001Mapper.Base_Column_List" />
+        from pbc_spe_counter_party
+    </sql>
+
+    <sql id="Sql_All_Effective_Data" >
+        select
+        <include refid="com.joyintech.tams.svreport.specificcounterparty.dao.PbcSpecificCounterParty001Mapper.Base_Column_List" />
+        from pbc_spe_counter_party
+        where STATUS = 'E'
+    </sql>
+
+    <insert id="insertSelective" parameterType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto" >
+        insert into pbc_spe_counter_party
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="pbcUuid != null" >
+                PBC_UUID,
+            </if>
+            <if test="partyOrgCode != null" >
+                PARTY_ORG_CODE,
+            </if>
+            <if test="partyOrgName != null" >
+                PARTY_ORG_NAME,
+            </if>
+            <if test="partyProdId != null" >
+                PARTY_PROD_ID,
+            </if>
+            <if test="partyProdName != null" >
+                PARTY_PROD_NAME,
+            </if>
+            <if test="partyProdType != null" >
+                PARTY_PROD_TYPE,
+            </if>
+            <if test="assetCode != null" >
+                ASSET_CODE,
+            </if>
+            <if test="assetType != null" >
+                ASSET_TYPE,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="pbcUuid != null" >
+                #{pbcUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="partyOrgCode != null" >
+                #{partyOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="partyOrgName != null" >
+                #{partyOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="partyProdId != null" >
+                #{partyProdId,jdbcType=VARCHAR},
+            </if>
+            <if test="partyProdName != null" >
+                #{partyProdName,jdbcType=VARCHAR},
+            </if>
+            <if test="partyProdType != null" >
+                #{partyProdType,jdbcType=VARCHAR},
+            </if>
+            <if test="assetCode != null" >
+                #{assetCode,jdbcType=VARCHAR},
+            </if>
+            <if test="assetType != null" >
+                #{assetType,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto" >
+        insert into pbc_spe_counter_party(PBC_UUID, PARTY_ORG_CODE, PARTY_ORG_NAME, PARTY_PROD_ID, PARTY_PROD_NAME,
+                                          PARTY_PROD_TYPE, ASSET_CODE, ASSET_TYPE, STATUS, CREATE_USER, CREATE_DEPT, CREATE_TIME,
+                                          UPDATE_USER, UPDATE_TIME)
+        select PBC_UUID, PARTY_ORG_CODE, PARTY_ORG_NAME, PARTY_PROD_ID, PARTY_PROD_NAME,
+               PARTY_PROD_TYPE, ASSET_CODE, ASSET_TYPE, #{status,jdbcType=VARCHAR} STATUS, CREATE_USER, CREATE_DEPT, CREATE_TIME,
+               #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME
+        from pbc_spe_counter_party
+        where STATUS = 'E' and PBC_UUID = #{pbcUuid,jdbcType=VARCHAR}
+    </insert>
+
+    <insert id="insert" parameterType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto" >
+        insert into pbc_spe_counter_party (PBC_UUID, PARTY_ORG_CODE, PARTY_ORG_NAME,
+                                           PARTY_PROD_ID, PARTY_PROD_NAME, PARTY_PROD_TYPE,
+                                           ASSET_CODE, ASSET_TYPE, STATUS,
+                                           CREATE_USER, CREATE_DEPT, CREATE_TIME,
+                                           UPDATE_USER, UPDATE_TIME)
+        values (#{pbcUuid,jdbcType=VARCHAR}, #{partyOrgCode,jdbcType=VARCHAR}, #{partyOrgName,jdbcType=VARCHAR},
+                #{partyProdId,jdbcType=VARCHAR}, #{partyProdName,jdbcType=VARCHAR}, #{partyProdType,jdbcType=VARCHAR},
+                #{assetCode,jdbcType=VARCHAR}, #{assetType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+                #{createUser,jdbcType=VARCHAR}, #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!-- 删除 待处理 -->
+    <delete id="deleteByPrimaryKey">
+        delete from pbc_spe_counter_party
+        where
+            STATUS = 'A'
+        <foreach collection="list" item="item" open="AND PBC_UUID IN ("  separator="," close=")">
+            #{item.pbcUuid,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+
+    <!-- 删除 -->
+    <delete id="delete">
+        delete from pbc_spe_counter_party
+        where
+            STATUS = #{dto.status,jdbcType=VARCHAR}
+        <foreach collection="list" item="item" open="AND ASSET_CODE IN ("  separator="," close=")">
+            #{item.assetCode,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+
+    <!-- 详情 -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="com.joyintech.tams.svreport.specificcounterparty.dao.PbcSpecificCounterParty001Mapper.Base_Column_List" />
+        from pbc_spe_counter_party
+        where PBC_UUID = #{pbcUuid,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 修改 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto" >
+        update pbc_spe_counter_party
+        <set >
+            <if test="partyOrgCode != null" >
+                PARTY_ORG_CODE = #{partyOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="partyOrgName != null" >
+                PARTY_ORG_NAME = #{partyOrgName,jdbcType=VARCHAR},
+            </if>
+            <if test="partyProdId != null" >
+                PARTY_PROD_ID = #{partyProdId,jdbcType=VARCHAR},
+            </if>
+            <if test="partyProdName != null" >
+                PARTY_PROD_NAME = #{partyProdName,jdbcType=VARCHAR},
+            </if>
+            <if test="partyProdType != null" >
+                PARTY_PROD_TYPE = #{partyProdType,jdbcType=VARCHAR},
+            </if>
+            <if test="assetType != null" >
+                ASSET_TYPE = #{assetType,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where PBC_UUID = #{pbcUuid,jdbcType=VARCHAR} AND ASSET_CODE = #{assetCode,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 删除 -->
+    <update id="updateByPrimaryKey">
+        update PBC_SPE_COUNTER_PARTY
+        set
+            STATUS = #{dto.status,jdbcType=VARCHAR},
+            UPDATE_USER = #{dto.updateUser,jdbcType=VARCHAR},
+            UPDATE_TIME = #{dto.updateTime,jdbcType=TIMESTAMP}
+        where
+        <foreach collection="list" item="item" open="PBC_UUID IN ("  separator="," close=")">
+            #{item.pbcUuid,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <!-- 分页查询 -->
+    <select id="selectForPage" parameterType="map" resultType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto">
+        SELECT
+            PBC_UUID          AS pbcUuid,
+            PARTY_ORG_CODE    AS partyOrgCode,
+            PARTY_ORG_NAME    AS partyOrgName,
+            PARTY_PROD_ID     AS partyProdId,
+            PARTY_PROD_NAME   AS partyProdName,
+            PARTY_PROD_TYPE         AS partyProdType,
+            ASSET_CODE        AS assetCode,
+            ASSET_TYPE        AS assetType,
+            STATUS            AS status,
+            CREATE_USER       AS createUser,
+            CREATE_DEPT       AS createDept,
+            CREATE_TIME       AS createTime,
+            UPDATE_USER       AS updateUser,
+            UPDATE_TIME       AS updateTime
+        FROM
+            PBC_SPE_COUNTER_PARTY
+        <where>
+            <if test="partyOrgName != null and !('').equals(partyOrgName)" >
+                AND PARTY_ORG_NAME LIKE CONCAT('%',#{partyOrgName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="partyProdName != null and !('').equals(partyProdName)" >
+                AND PARTY_PROD_NAME LIKE CONCAT('%',#{partyProdName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="assetCode != null and !('').equals(assetCode)" >
+                AND ASSET_CODE LIKE CONCAT('%',#{assetCode,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="assetType != null and !('').equals(assetType)" >
+                AND ASSET_TYPE = #{assetType,jdbcType=VARCHAR}
+            </if>
+            <if test="partyProdType != null and !('').equals(partyProdType)" >
+                AND PARTY_PROD_TYPE = #{partyProdType,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and !('').equals(status)" >
+                AND STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ORDER BY UPDATE_TIME DESC
+    </select>
+
+    <!-- 校验重复 -->
+    <select id="checkExist" resultMap="BaseResultMap">
+        SELECT
+        <include refid="com.joyintech.tams.svreport.specificcounterparty.dao.PbcSpecificCounterParty001Mapper.Base_Column_List" />
+        FROM PBC_SPE_COUNTER_PARTY
+        WHERE ASSET_CODE = #{assetCode,jdbcType=VARCHAR} AND STATUS != 'D'
+    </select>
+
+    <!-- 获取资产代码  -->
+    <select id="queryAssetCode" resultType="com.joyintech.framework.select.SuggestDto">
+        SELECT
+            DISTINCT
+            A.ASSET_CODE    AS code,
+            A.ASSET_CODE    AS name,
+            A.ASSET_NAME    AS shortName
+        FROM
+            CHB_ASSET_INFO A
+        <where>
+            A.STATUS = 'E'
+            AND PBC_ASSET_TYPE3 IN ('L08','L09','L10','L11','L12','L13','L14','L15',
+            'M01','M02','M03','M04','M05','M06','M07','M08')
+            <if test="param != null and !('').equals(param)">
+                AND A.ASSET_CODE LIKE CONCAT('%',#{param,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取识别标识 -->
+    <select id="queryIndentifyMark" resultType="com.joyintech.framework.select.SuggestDto">
+        SELECT
+            DISTINCT
+            B.INDENTIFY_MARK    AS code,
+            B.INDENTIFY_MARK    AS name,
+            B.HOLDER_NAME       AS shortName
+        FROM
+            PBC_TARGET_INFO B
+        <where>
+            B.STATUS = 'E'
+            <if test="param != null and !('').equals(param)">
+                AND B.INDENTIFY_MARK LIKE CONCAT('%',#{param,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 校验重复 -->
+    <select id="countDuplicatedData" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            PBC_SPE_COUNTER_PARTY
+        WHERE
+        STATUS != 'D'
+        AND ASSET_CODE IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item.assetCode, jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="mergeInfoList" parameterType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto">
+        INSERT INTO PBC_SPE_COUNTER_PARTY (
+            PBC_UUID,
+            PARTY_ORG_CODE,
+            PARTY_ORG_NAME,
+            PARTY_PROD_ID,
+            PARTY_PROD_NAME,
+            PARTY_PROD_TYPE,
+            ASSET_CODE,
+            ASSET_TYPE,
+            STATUS,
+            CREATE_USER,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME
+        )
+        SELECT
+            PBC_UUID,
+            PARTY_ORG_CODE,
+            PARTY_ORG_NAME,
+            PARTY_PROD_ID,
+            PARTY_PROD_NAME,
+            PARTY_PROD_TYPE,
+            ASSET_CODE,
+            ASSET_TYPE,
+            STATUS,
+            CREATE_USER,
+            CREATE_DEPT,
+            CREATE_TIME,
+            UPDATE_USER,
+            UPDATE_TIME
+        FROM
+        (
+            select TEMP.* from
+            (
+                <foreach collection="list" item="item"  separator="union all">
+                    select
+                    #{item.pbcUuid, jdbcType=VARCHAR } PBC_UUID,
+                    #{item.partyOrgCode, jdbcType=VARCHAR } PARTY_ORG_CODE,
+                    #{item.partyOrgName, jdbcType=VARCHAR } PARTY_ORG_NAME,
+                    #{item.partyProdId, jdbcType=VARCHAR } PARTY_PROD_ID,
+                    #{item.partyProdName, jdbcType=VARCHAR } PARTY_PROD_NAME,
+                    #{item.partyProdType, jdbcType=VARCHAR } PARTY_PROD_TYPE,
+                    #{item.assetCode, jdbcType=VARCHAR } ASSET_CODE,
+                    #{item.assetType, jdbcType=VARCHAR } ASSET_TYPE,
+                    #{item.status, jdbcType=VARCHAR } STATUS,
+                    #{item.createUser ,jdbcType=VARCHAR } CREATE_USER,
+                    #{item.createDept ,jdbcType=VARCHAR } CREATE_DEPT,
+                    #{item.createTime ,jdbcType=TIMESTAMP } CREATE_TIME,
+                    #{item.updateUser ,jdbcType=VARCHAR } UPDATE_USER,
+                    #{item.updateTime ,jdbcType=TIMESTAMP } UPDATE_TIME
+                    from dual
+                </foreach>
+            ) TEMP WHERE NOT EXISTS (
+                SELECT
+                       1
+                FROM
+                     PBC_SPE_COUNTER_PARTY PSCP
+                WHERE
+                      PSCP.ASSET_CODE = TEMP.ASSET_CODE
+                )
+        ) de;
+
+        UPDATE PBC_SPE_COUNTER_PARTY AS P,
+        (
+            select T.* from
+            (
+                <foreach collection="list" item="item"  separator="union all">
+                    select
+                    #{item.pbcUuid, jdbcType=VARCHAR } PBC_UUID,
+                    #{item.partyOrgCode, jdbcType=VARCHAR } PARTY_ORG_CODE,
+                    #{item.partyOrgName, jdbcType=VARCHAR } PARTY_ORG_NAME,
+                    #{item.partyProdId, jdbcType=VARCHAR } PARTY_PROD_ID,
+                    #{item.partyProdName, jdbcType=VARCHAR } PARTY_PROD_NAME,
+                    #{item.partyProdType, jdbcType=VARCHAR } PARTY_PROD_TYPE,
+                    #{item.assetCode, jdbcType=VARCHAR } ASSET_CODE,
+                    #{item.assetType, jdbcType=VARCHAR } ASSET_TYPE,
+                    #{item.status, jdbcType=VARCHAR } STATUS,
+                    #{item.createUser ,jdbcType=VARCHAR } CREATE_USER,
+                    #{item.createDept ,jdbcType=VARCHAR } CREATE_DEPT,
+                    #{item.createTime ,jdbcType=TIMESTAMP } CREATE_TIME,
+                    #{item.updateUser ,jdbcType=VARCHAR } UPDATE_USER,
+                    #{item.updateTime ,jdbcType=TIMESTAMP } UPDATE_TIME
+                    from dual
+                </foreach>
+            ) T
+        ) AS TEMP
+        SET
+            P.PBC_UUID = TEMP.PBC_UUID,
+            P.PARTY_ORG_CODE = TEMP.PARTY_ORG_CODE,
+            P.PARTY_ORG_NAME = TEMP.PARTY_ORG_NAME,
+            P.PARTY_PROD_ID = TEMP.PARTY_PROD_ID,
+            P.PARTY_PROD_NAME = TEMP.PARTY_PROD_NAME,
+            P.PARTY_PROD_TYPE = TEMP.PARTY_PROD_TYPE,
+            P.ASSET_TYPE = TEMP.ASSET_TYPE,
+            P.STATUS = TEMP.STATUS,
+            P.CREATE_USER = TEMP.CREATE_USER,
+            P.CREATE_DEPT = TEMP.CREATE_DEPT,
+            P.CREATE_TIME = TEMP.CREATE_TIME,
+            P.UPDATE_USER = TEMP.UPDATE_USER,
+            P.UPDATE_TIME = TEMP.UPDATE_TIME
+        WHERE
+            P.ASSET_CODE = TEMP.ASSET_CODE
+    </insert>
+
+    <!-- 获取交易对手机构名称 -->
+    <select id="getPartyOrgNameByAssetCode" resultType="java.util.Map">
+        SELECT
+            ASSET_TYPE AS assetType,
+            case PBC_ASSET_TYPE2 when 'T02' then (CASE ASSET_TYPE WHEN '15' THEN MANAGER_ID WHEN '12' THEN MANAGER_ID WHEN '16' THEN MANAGER_ID WHEN '04' THEN FINANCIE ELSE '' END) else '' end as partyOrgName
+        FROM
+            CHB_ASSET_INFO
+        <where>
+            <if test="search != null and !('').equals(search)">
+                ASSET_CODE = #{search,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取 资产代码 / 获取 投资者名称 -->
+    <select id="getPartyProdNameByAssetCode" resultType="java.util.Map">
+        SELECT distinct
+            <if test="flag != null and ('asset').equals(flag)">
+               case PBC_ASSET_TYPE2 when 'R01' then RIVAL_PARTY when 'T02' then ASSET_NAME else '' end AS partyProdName
+            </if>
+            <if test="flag != null and ('mark').equals(flag)">
+                HOLDER_NAME AS partyProdName
+            </if>
+        FROM
+            <if test="flag != null and ('asset').equals(flag)">
+                CHB_ASSET_INFO
+            </if>
+            <if test="flag != null and ('mark').equals(flag)">
+                PBC_TARGET_INFO
+            </if>
+        WHERE
+            <if test="flag != null and ('asset').equals(flag)">
+                <if test="search != null and !('').equals(search)">
+                    ASSET_CODE = #{search,jdbcType=VARCHAR}
+                </if>
+            </if>
+            <if test="flag != null and ('mark').equals(flag)">
+                <if test="search != null and !('').equals(search)">
+                    INDENTIFY_MARK = #{search,jdbcType=VARCHAR}
+                </if>
+            </if>
+    </select>
+
+    <!--资产 获取 交易对手产品种类-->
+    <select id="getPartyProdTypeByAssetCode" resultType="java.util.Map">
+        SELECT
+        ASSET_TYPE2 as chbAssetType2,
+        PBC_ASSET_TYPE1 as pbcAssetType1,
+        PBC_ASSET_TYPE2 as pbcAssetType2,
+        PBC_ASSET_TYPE3 as pbcAssetType3
+        FROM
+        CHB_ASSET_INFO
+        <where>
+            status = 'E'
+            <if test="search != null and !('').equals(search)">
+                and ASSET_CODE = #{search,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取所有 资产代码 及人行三级分类 -->
+    <select id="selectAllAssetCode" resultType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto">
+        select
+            distinct
+            ASSET_CODE       AS assetCode,
+            ASSET_TYPE2      AS assetType2,
+            PBC_ASSET_TYPE1  AS pbcAssettype1,
+            PBC_ASSET_TYPE2  AS pbcAssettype2,
+            PBC_ASSET_TYPE3  AS pbcAssetType3
+        from chb_asset_info
+        where STATUS = 'E'
+          AND (
+            (PBC_ASSET_TYPE2 = 'R01' AND PBC_ASSET_TYPE3 IN ('L08','L09','L10','L11','L12','L13','L14','L15'))
+           OR
+            (PBC_ASSET_TYPE2 = 'T02' AND PBC_ASSET_TYPE3 IN ('M01','M02','M03','M04','M05','M06','M07','M08'))
+          )
+    </select>
+
+    <!-- 获取所有 投资端资产代码 -->
+    <select id="selectAllInvestCode" resultType="com.joyintech.tams.svreport.specificcounterparty.dto.PbcSpecificCounterParty001Dto">
+        select
+            distinct
+            INDENTIFY_MARK      AS assetCode,
+            HOLDER_NAME         AS partyProdName,
+            HOLDER_TYPE         AS partyProdType
+        from pbc_target_info
+        where STATUS = 'E' AND QTY > 0
+    </select>
+    
+</mapper>

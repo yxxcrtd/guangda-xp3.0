@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ZG09PbcAssetDebtTermSub.xlsx" name="资产负债剩余期限信息(ZG09)">
+	<Worksheet javaBean="com.joyintech.tams.svreport.pbc.classic.zg09assetdebtterm.dto.ZG09PbcColReport">
+		<Row>
+			<Cell order="1" name="发行机构代码">issuePartyId</Cell>
+			<Cell order="2" name="产品品种">pbcProdType</Cell>
+			<Cell order="3" name="G000A_资产方-债务工具-总计">g000a</Cell>
+			<Cell order="4" name="G000B_资产方-股权-总计">g000b</Cell>
+			<Cell order="5" name="G000C_资产方-特定目的载体份额-总计">g000c</Cell>
+			<Cell order="6" name="G000D_负债及权益方-债务工具-总计">g000d</Cell>
+			<Cell order="7" name="G000E_负债及权益方-实收本金-总计">g000e</Cell>
+			<Cell order="8" name="G100A_资产方-债务工具-1个月（含）以下">g100a</Cell>
+			<Cell order="9" name="G100B_资产方-股权-1个月（含）以下">g100b</Cell>
+			<Cell order="10" name="G100C_资产方-特定目的载体份额-1个月（含）以下">g100c</Cell>
+			<Cell order="11" name="G100D_负债及权益方-债务工具-1个月（含）以下">g100d</Cell>
+			<Cell order="12" name="G100E_负债及权益方-实收本金-1个月（含）以下">g100e</Cell>
+			<Cell order="13" name="G200A_资产方-债务工具-1-3个月（含）">g200a</Cell>
+			<Cell order="14" name="G200B_资产方-股权-1-3个月（含）">g200b</Cell>
+			<Cell order="15" name="G200C_资产方-特定目的载体份额-1-3个月（含）">g200c</Cell>
+			<Cell order="16" name="G200D_负债及权益方-债务工具-1-3个月（含）">g200d</Cell>
+			<Cell order="17" name="G200E_负债及权益方-实收本金-1-3个月（含）">g200e</Cell>
+			<Cell order="18" name="G300A_资产方-债务工具-3-6个月（含）">g300a</Cell>
+			<Cell order="19" name="G300B_资产方-股权-3-6个月（含）">g300b</Cell>
+			<Cell order="20" name="G300C_资产方-特定目的载体份额-3-6个月（含）">g300c</Cell>
+			<Cell order="21" name="G300D_负债及权益方-债务工具-3-6个月（含）">g300d</Cell>
+			<Cell order="22" name="G300E_负债及权益方-实收本金-3-6个月（含）">g300e</Cell>
+			<Cell order="23" name="G400A_资产方-债务工具-6-12个月（含）">g400a</Cell>
+			<Cell order="24" name="G400B_资产方-股权-6-12个月（含）">g400b</Cell>
+			<Cell order="25" name="G400C_资产方-特定目的载体份额-6-12个月（含）">g400c</Cell>
+			<Cell order="26" name="G400D_负债及权益方-债务工具-6-12个月（含）">g400d</Cell>
+			<Cell order="27" name="G400E_负债及权益方-实收本金-6-12个月（含）">g400e</Cell>
+			<Cell order="28" name="G500A_资产方-债务工具-1-2年（含）">g500a</Cell>
+			<Cell order="29" name="G500B_资产方-股权-1-2年（含）">g500b</Cell>
+			<Cell order="30" name="G500C_资产方-特定目的载体份额-1-2年（含）">g500c</Cell>
+			<Cell order="31" name="G500D_负债及权益方-债务工具-1-2年（含）">g500d</Cell>
+			<Cell order="32" name="G500E_负债及权益方-实收本金-1-2年（含）">g500e</Cell>
+			<Cell order="33" name="G600A_资产方-债务工具-2-3年（含）">g600a</Cell>
+			<Cell order="34" name="G600B_资产方-股权-2-3年（含）">g600b</Cell>
+			<Cell order="35" name="G600C_资产方-特定目的载体份额-2-3年（含）">g600c</Cell>
+			<Cell order="36" name="G600D_负债及权益方-债务工具-2-3年（含）">g600d</Cell>
+			<Cell order="37" name="G600E_负债及权益方-实收本金-2-3年（含）">g600e</Cell>
+			<Cell order="38" name="G700A_资产方-债务工具-3年以上">g700a</Cell>
+			<Cell order="39" name="G700B_资产方-股权-3年以上">g700b</Cell>
+			<Cell order="40" name="G700C_资产方-特定目的载体份额-3年以上">g700c</Cell>
+			<Cell order="41" name="G700D_负债及权益方-债务工具-3年以上">g700d</Cell>
+			<Cell order="42" name="G700E_负债及权益方-实收本金-3年以上">g700e</Cell>
+			<Cell order="43" name="G800A_资产方-债务工具-无固定期限">g800a</Cell>
+			<Cell order="44" name="G800B_资产方-股权-无固定期限">g800b</Cell>
+			<Cell order="45" name="G800C_资产方-特定目的载体份额-无固定期限">g800c</Cell>
+			<Cell order="46" name="G800D_负债及权益方-债务工具-无固定期限">g800d</Cell>
+			<Cell order="47" name="G800E_负债及权益方-实收本金-无固定期限">g800e</Cell>
+			<Cell order="48" name="00001_附报-金融机构表内资产余额（本外币）">g00001</Cell>
+			<Cell order="49" name="00002_附报-金融机构表内金融资产余额（本外币）">g00002</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

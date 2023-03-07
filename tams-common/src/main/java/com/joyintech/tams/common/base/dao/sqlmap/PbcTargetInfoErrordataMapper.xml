@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.common.base.dao.PbcTargetInfoErrordataMapper" >
+    <resultMap id="BaseResultMap" type="com.joyintech.tams.common.base.entity.PbcTargetInfoErrordata" >
+        <result column="UUID" property="uuid" jdbcType="VARCHAR" />
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+        <result column="INDENTIFY_MARK" property="indentifyMark" jdbcType="VARCHAR" />
+        <result column="PBC_PROD_ID" property="pbcProdId" jdbcType="VARCHAR" />
+        <result column="HOLDER_NAME" property="holderName" jdbcType="VARCHAR" />
+        <result column="HOLDER_TYPE" property="holderType" jdbcType="VARCHAR" />
+        <result column="HOLD_DATE" property="holdDate" jdbcType="DATE" />
+        <result column="CCY" property="ccy" jdbcType="VARCHAR" />
+        <result column="QTY" property="qty" jdbcType="DECIMAL" />
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+        <result column="CREATE_DEPT" property="createDept" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.joyintech.tams.common.base.entity.PbcTargetInfoErrordataWithBLOBs" extends="BaseResultMap" >
+        <result column="ERR_MSG" property="errMsg" jdbcType="LONGVARCHAR" />
+        <result column="ORG_DATA" property="orgData" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Blob_Column_List" >
+        ERR_MSG, ORG_DATA
+    </sql>
+    <insert id="insert" parameterType="com.joyintech.tams.common.base.entity.PbcTargetInfoErrordataWithBLOBs" >
+        insert into pbc_target_info_errordata (UUID, ACCOUNT, INDENTIFY_MARK, 
+            PBC_PROD_ID, HOLDER_NAME, HOLDER_TYPE, 
+            HOLD_DATE, CCY, QTY, 
+            AMOUNT, STATUS, CREATE_USER, 
+            CREATE_DEPT, CREATE_TIME, UPDATE_USER, 
+            UPDATE_TIME, ERR_MSG, ORG_DATA
+            )
+        values (#{uuid,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{indentifyMark,jdbcType=VARCHAR}, 
+            #{pbcProdId,jdbcType=VARCHAR}, #{holderName,jdbcType=VARCHAR}, #{holderType,jdbcType=VARCHAR}, 
+            #{holdDate,jdbcType=DATE}, #{ccy,jdbcType=VARCHAR}, #{qty,jdbcType=DECIMAL}, 
+            #{amount,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+            #{createDept,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+            #{updateTime,jdbcType=TIMESTAMP}, #{errMsg,jdbcType=LONGVARCHAR}, #{orgData,jdbcType=LONGVARCHAR}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.joyintech.tams.common.base.entity.PbcTargetInfoErrordataWithBLOBs" >
+        insert into pbc_target_info_errordata
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                UUID,
+            </if>
+            <if test="account != null" >
+                ACCOUNT,
+            </if>
+            <if test="indentifyMark != null" >
+                INDENTIFY_MARK,
+            </if>
+            <if test="pbcProdId != null" >
+                PBC_PROD_ID,
+            </if>
+            <if test="holderName != null" >
+                HOLDER_NAME,
+            </if>
+            <if test="holderType != null" >
+                HOLDER_TYPE,
+            </if>
+            <if test="holdDate != null" >
+                HOLD_DATE,
+            </if>
+            <if test="ccy != null" >
+                CCY,
+            </if>
+            <if test="qty != null" >
+                QTY,
+            </if>
+            <if test="amount != null" >
+                AMOUNT,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="createUser != null" >
+                CREATE_USER,
+            </if>
+            <if test="createDept != null" >
+                CREATE_DEPT,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updateUser != null" >
+                UPDATE_USER,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+            <if test="errMsg != null" >
+                ERR_MSG,
+            </if>
+            <if test="orgData != null" >
+                ORG_DATA,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null" >
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="indentifyMark != null" >
+                #{indentifyMark,jdbcType=VARCHAR},
+            </if>
+            <if test="pbcProdId != null" >
+                #{pbcProdId,jdbcType=VARCHAR},
+            </if>
+            <if test="holderName != null" >
+                #{holderName,jdbcType=VARCHAR},
+            </if>
+            <if test="holderType != null" >
+                #{holderType,jdbcType=VARCHAR},
+            </if>
+            <if test="holdDate != null" >
+                #{holdDate,jdbcType=DATE},
+            </if>
+            <if test="ccy != null" >
+                #{ccy,jdbcType=VARCHAR},
+            </if>
+            <if test="qty != null" >
+                #{qty,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null" >
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null" >
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDept != null" >
+                #{createDept,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null" >
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errMsg != null" >
+                #{errMsg,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="orgData != null" >
+                #{orgData,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBasicByBasicInfo" parameterType="com.joyintech.tams.common.base.entity.PbcTargetInfoErrordataWithBLOBs" >
+        insert into pbc_target_info_errordata(UUID, ACCOUNT, INDENTIFY_MARK, PBC_PROD_ID, 
+        HOLDER_NAME, HOLDER_TYPE, HOLD_DATE, CCY, QTY, AMOUNT, STATUS, CREATE_USER, CREATE_DEPT, 
+        CREATE_TIME, UPDATE_USER, UPDATE_TIME, ERR_MSG, ORG_DATA)
+        select UUID, ACCOUNT, INDENTIFY_MARK, PBC_PROD_ID, 
+            HOLDER_NAME, HOLDER_TYPE, HOLD_DATE, CCY, QTY, AMOUNT, #{status,jdbcType=VARCHAR} STATUS, CREATE_USER, CREATE_DEPT, 
+            CREATE_TIME, #{updateUser,jdbcType=VARCHAR} UPDATE_USER, #{updateTime,jdbcType=TIMESTAMP} UPDATE_TIME, ERR_MSG, ORG_DATA
+             from pbc_target_info_errordata
+             where STATUS = 'E'
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs">
+        select
+            UUID, ACCOUNT, INDENTIFY_MARK,
+            PBC_PROD_ID, HOLDER_NAME, HOLDER_TYPE,
+            HOLD_DATE, CCY, QTY,
+            AMOUNT, STATUS, CREATE_USER,
+            CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+            UPDATE_TIME, ERR_MSG, ORG_DATA
+        from pbc_target_info_errordata
+        where UUID = #{uuid,jdbcType=VARCHAR}
+    </select>
+
+
+    <delete id="deleteByKey">
+        delete from pbc_target_info_errordata where UUID = #{uuid,jdbcType=VARCHAR}
+    </delete>
+</mapper>

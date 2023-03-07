@@ -1,0 +1,120 @@
+package com.joyintech.service.svrcom.loaninfomanagement.controller;
+
+import com.joyintech.framework.grid.Page;
+import com.joyintech.framework.select.SelectOptionDto;
+import com.joyintech.tams.svreport.infomanagement.service.OperationalInfo001Service;
+import com.joyintech.tams.svreport.loaninfomanagement.dto.OperationalLoanInfo001Dto;
+import com.joyintech.tams.svreport.loaninfomanagement.service.OperationalLoanInfo001Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+/**
+ * 贷款明细信息维护 服务Controller
+ * @author hpp
+ *
+ */
+@RestController("backOperationalLoanInfoController")
+@RequestMapping("/OperationalLoanInfo")
+public class OperationalLoanInfoController {
+
+	/**
+	 * 资产要素service
+	 */
+    @Autowired
+    private OperationalInfo001Service operationalInfo001Service;
+    
+	@Autowired
+	private OperationalLoanInfo001Service operationalLoanInfo001Service;
+
+    /**
+     * 查询列表
+     *
+     * @return Page
+     */
+    @PostMapping("/queryData")
+    public String queryData(@RequestBody Map<String, Object> param){
+        return operationalInfo001Service.queryData(param);
+    }
+	
+	/**
+     * 查询列表
+     * 
+     * @return Page
+     */
+    @RequestMapping("findPage/{page}/{length}")
+    public Page<OperationalLoanInfo001Dto> findPage(@RequestBody Map<String, Object> param,
+                                                    @PathVariable("page") int page, @PathVariable("length") int length){
+        return operationalLoanInfo001Service.findPage(param,page, length);
+    }
+    
+    /**
+	 * 根据主键删除数据
+	 * @param param
+	 */
+	@PostMapping("/doDelete")
+	public void doDelete(@RequestBody Map<String, Object> param){
+		operationalLoanInfo001Service.doDelete(param);
+	}
+	
+    /**
+     * 根据主键查询资产收益权贷款明细基本信息表数据
+     * @param param
+     * @return
+     */
+    @PostMapping("/selectByPrimaryKey")
+    public OperationalLoanInfo001Dto selectByPrimaryKey(@RequestBody Map<String, Object> param){
+    	return operationalLoanInfo001Service.selectByPrimaryKey(param);
+    }
+    
+    /**
+     * 查询产品资产代码
+     * @param param
+     * @return
+     */
+    @PostMapping("/queryPbcAssetCode/{page}/{length}")
+	public Page<SelectOptionDto> queryPbcAssetCode(@RequestBody Map<String, Object> param, @PathVariable("page") int page,
+                                                   @PathVariable("length") int length){
+		return operationalLoanInfo001Service.queryPbcAssetCode(param,page,length);
+	}
+    @PostMapping("/queryPbcAssetType")
+	public String queryPbcAssetType(@RequestBody Map<String, Object> param){
+		return operationalLoanInfo001Service.queryPbcAssetType(param);
+	}
+    
+    /**
+     * 保存提交
+     * @param dto
+     */
+    @PostMapping("/doSave")
+    public void doSave(@RequestBody OperationalLoanInfo001Dto dto){
+    	operationalLoanInfo001Service.doSave(dto);
+    }
+    
+    @PostMapping("/checkAssetCodeExist")
+    public int checkAssetCodeExist(@RequestBody String assetCode){
+    	return operationalLoanInfo001Service.checkAssetCodeExist(assetCode);
+    }
+    
+    /**
+     * 根据计划名称查询计划id以及待维护表ID
+     */
+    @PostMapping("/queryPlanInfo")
+    public OperationalLoanInfo001Dto queryPlanInfo(@RequestBody String pid){
+    	return operationalLoanInfo001Service.queryPlanInfo(pid);
+    }
+    
+    /**
+     * 
+     * 省市县联动
+     * <功能详细描述>
+     * @param param
+     * @return
+     */
+    @PostMapping("/getAddressSelectOption/{page}/{length}")
+    public Page<SelectOptionDto> getAddressSelectOption(@RequestBody Map<String, Object> param, @PathVariable("page") int page,
+                                                        @PathVariable("length") int length){
+        return operationalLoanInfo001Service.getAddressSelectOption(param,page,length);
+    }
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.batch.report.report.chbconsignordetailsub.dao.SvrChbConsignorDetailSubExportTaskMapper" >
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbconsignordetailsub.dto.ChbConsignorDetailSub001Dto">
+        SELECT
+        T1.REGIST_SEQNO                  AS registSeqno,
+        ifnull(T1.UPDATE_TIME,T1.CREATE_TIME)                  AS statusDate,
+        T1.LAST_HOLD_DAY                 AS lastHoldDay,
+        T1.PRD_REGIST_CODE               AS prodId,
+        T1.PROD_NAME                     AS prodName,
+        T1.MANAGER                       AS manager,
+        T1.PROD_TYPE                     AS prodType,
+        T1.PROD_INVEST_TYPE              AS prodInvestType,
+        T1.RAISE_TYPE                    AS raiseType,
+        T1.TERMID                        AS termid,
+        T1.PROD_SCALE                    AS prodScale,
+        T1.INBANK_BONDMARK_HOLD_DENOMINA AS inbankBondmarkHoldDenomina,
+        T1.INBANK_BONDMARK_HOLD_RATIO    AS inbankBondmarkHoldRatio,
+        T1.HOLDER_NAME                   AS holderName,
+        T1.HOLDER_TYPE                   AS holderType,
+        T1.INVEST_AMOUNT                 AS investAmount,
+        T1.INVEST_RATIO                  AS investRatio,
+        T1.TWO_HOLDER_NAME               AS twoHolderName,
+        T1.TWO_HOLDER_TYPE               AS twoHolderType,
+        T1.TWO_INVEST_AMOUNT             AS twoInvestAmount,
+        T1.TWO_INVEST_RATIO              AS twoInvestRatio,
+        T1.PROD_SHARE                    AS prodShare,
+        T1.HOLDER_SHARE                  AS holderShare,
+        T1.REMARK                        AS remark
+        FROM
+        CHB_CONSIGNOR_DETAIL_SUB T1
+        <where>
+            1=1
+            <if test="prodId != null and prodId != '' ">
+                AND (
+                T1.PROD_ID LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                OR
+                T1.PRD_REGIST_CODE LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                )
+            </if>
+            <if test="raiseType != null and raiseType != ''">
+                AND T1.RAISE_TYPE = #{raiseType,jdbcType=VARCHAR}
+            </if>
+            <if test="holderType != null and holderType != ''">
+                AND T1.HOLDER_TYPE = #{holderType,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and DATE_FORMAT(ifnull(T1.UPDATE_TIME,T1.CREATE_TIME),'%Y-%m-%d') &gt;= #{statusDateStart}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and DATE_FORMAT(ifnull(T1.UPDATE_TIME,T1.CREATE_TIME),'%Y-%m-%d') &lt;= #{statusDateEnd}
+            </if>
+            <if test="lastDayHold != null and lastDayHold != ''">
+                and DATE_FORMAT(T1.LAST_HOLD_DAY,'%Y-%m-%d') = #{lastDayHold}
+            </if>
+        </where>
+    </select>
+
+    <!-- 数据行   -->
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            CHB_CONSIGNOR_DETAIL_SUB T1
+        <where>
+            1=1
+            <if test="prodId != null and prodId != '' ">
+                AND (
+                T1.PROD_ID LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                OR
+                T1.PRD_REGIST_CODE LIKE concat(concat('%',#{prodId,jdbcType=VARCHAR}),'%')
+                )
+            </if>
+            <if test="raiseType != null and raiseType != ''">
+                AND T1.RAISE_TYPE = #{raiseType,jdbcType=VARCHAR}
+            </if>
+            <if test="holderType != null and holderType != ''">
+                AND T1.HOLDER_TYPE = #{holderType,jdbcType=VARCHAR}
+            </if>
+            <if test="statusDateStart != null and statusDateStart != ''">
+                and DATE_FORMAT(ifnull(T1.UPDATE_TIME,T1.CREATE_TIME),'%Y-%m-%d') &gt;= #{statusDateStart}
+            </if>
+            <if test="statusDateEnd != null and statusDateEnd != ''">
+                and DATE_FORMAT(ifnull(T1.UPDATE_TIME,T1.CREATE_TIME),'%Y-%m-%d') &lt;= #{statusDateEnd}
+            </if>
+            <if test="lastDayHold != null and lastDayHold != ''">
+                and DATE_FORMAT(T1.LAST_HOLD_DAY,'%Y-%m-%d') = #{lastDayHold}
+            </if>
+        </where>
+    </select>
+
+    <!-- 批   -->
+    <select id="getBatchLog" parameterType="java.lang.String" resultType="com.joyintech.tams.report.system.subinfobatchlog.dto.ChbSubinfoBatchLog">
+		select *
+		from chb_subinfo_batch_log
+		where task_id=#{taskId} and deal_status = '04'
+	</select>
+</mapper>

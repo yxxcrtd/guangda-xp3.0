@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="report/chb/businessdatamaintain/chbmstcounterparty/ChbMstCounterParty001.xlsx" name="交易对手信息">
+    <Worksheet javaBean="com.joyintech.tams.svreport.chb.businessdatamaintain.chbmstcounterparty.dto.ChbMstCounterPartyDto">
+        <Row>
+            <Cell order="1" name="交易对手代码">counterId</Cell>
+            <Cell order="2" name="交易对手名称">counterName</Cell>
+            <Cell order="3" name="交易对手类型">counterType2Str</Cell>
+            <Cell order="4" name="关联交易情况">relatedTradeStatusStr</Cell>
+            <Cell order="5" name="备注">remark</Cell>
+            <Cell order="6" name="错误消息">errMsg</Cell>
+            <Cell order="7" name="更新时间">updateTimeStr</Cell>
+            <Cell order="8" name="更新人">updateUser</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

@@ -1,0 +1,1 @@
+update  chb_datacheck_rule set remark = '产品登记编码要素格式不对。正确的格式：6 位金融机构代码；2 位年度码；1 位标识码(可为空); 6 位顺序码。' WHERE SRCPROPERTY = 'PROD_REGIST_CODE' AND CHECKMETHOD = 'isCustomizedString'

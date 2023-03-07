@@ -1,0 +1,11 @@
+
+
+-- 增加99其它
+
+-- 客户一级类型
+DELETE FROM `sys_datadict_list` WHERE `DICT_CODE` = 'SVR_CUSTOMER_TYPE1' AND `ITEM_CODE` IN ('99', 'C99');
+INSERT INTO `sys_datadict_list` (`DICT_CODE`, `ITEM_CODE`, `ITEM_VALUE`, `ORDER_NO`, `DEFAULT_VALUE`, `CREATE_DEPT`, `CREATE_USER`, `CREATE_TIME`, `UPDATE_USER`, `UPDATE_TIME`, `INSTITUTION_CODE`) VALUES ('SVR_CUSTOMER_TYPE1', 'C99', '其它', 99, '0', NULL, 'system', now(), 'system', now(), NULL);
+
+-- 客户二级类型
+DELETE FROM `sys_datadict_list` WHERE `DICT_CODE` = 'SVR_CUSTOMER_TYPE2' AND `ITEM_CODE` IN ('99', 'C9999');
+INSERT INTO `sys_datadict_list` (`DICT_CODE`, `ITEM_CODE`, `ITEM_VALUE`, `ORDER_NO`, `DEFAULT_VALUE`, `CREATE_DEPT`, `CREATE_USER`, `CREATE_TIME`, `UPDATE_USER`, `UPDATE_TIME`, `INSTITUTION_CODE`) VALUES ('SVR_CUSTOMER_TYPE2', 'C9999', '其它', 99, '0', NULL, 'system', now(), 'system', now(), NULL);

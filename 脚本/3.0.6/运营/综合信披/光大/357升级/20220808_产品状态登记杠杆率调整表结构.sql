@@ -1,0 +1,1 @@
+ALTER  table chb_prd_status_sub  modify   COLUMN  PRD_LEVERAGE  DECIMAL(15,7)  COMMENT   '理财产品杠杆率（%）';

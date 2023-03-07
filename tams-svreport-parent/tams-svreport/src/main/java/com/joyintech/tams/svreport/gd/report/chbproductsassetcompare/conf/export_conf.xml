@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ChbProductsAssetCompare001.xlsx" name="理财产品资产对照表">
+    <Worksheet javaBean="com.joyintech.tams.svreport.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto">
+        <Row>
+            <Cell order="1" name="数据批次">statusBatch</Cell>
+            <Cell order="2" name="理财产品编号">account</Cell>
+            <Cell order="3" name="投资标的编号">assetId</Cell>
+            <Cell order="4" name="折人民币持仓金额">holdQtyAmount</Cell>
+            <Cell order="5" name="持仓份额">holdShares</Cell>
+            <Cell order="6" name="银行标识号">bankMark</Cell>
+            <Cell order="7" name="数据时点">dateStatusStr</Cell>
+            <Cell order="8" name="组别">groupId</Cell>
+        </Row>
+    </Worksheet>
+</Workbook>

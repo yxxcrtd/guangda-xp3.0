@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.batch.report.report.chbproductsassetcompare.dao.SvrChbProductsAssetCompareExportTaskMapper" >
+    <!-- 分页查询   -->
+    <select id="selectForPage" resultType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        SELECT
+        T1.STATUS_BATCH         AS statusBatch,
+        T1.ACCOUNT              AS account,
+        T1.ASSET_ID             AS assetId,
+        T1.HOLD_QTY_AMOUNT      AS holdQtyAmount,
+        T1.HOLD_SHARES          AS holdShares,
+        T1.BANK_MARK            AS bankMark,
+        T1.DATE_STATUS          AS dateStatus,
+        T1.GROUP_ID             AS groupId
+        FROM
+        CHB_PRODUCTS_ASSET_COMPARE T1
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and T1.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAllList1" resultType="com.joyintech.tams.report.gd.report.chbproductsassetcompare.dto.ChbProductsAssetCompare001Dto" >
+        select
+        T1.ACCOUNT AS account,
+        T1.TOTALSHARES AS totalShares,
+        T2.TOTAL_AMT AS totalAmt
+        FROM
+        (select
+        ACCOUNT,
+        sum(HOLD_QTY_AMOUNT) TOTALSHARES
+        from
+        CHB_PRODUCTS_ASSET_COMPARE
+        where
+        1=1
+        <if test="dateStatus != null and dateStatus != ''">
+            and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+        </if>
+        group by ACCOUNT)T1
+        left join
+        CHB_FINANCE_PRODUCTS_SUB T2
+        on
+        T1.ACCOUNT=T2.PROD_ID
+        where
+        1=1
+        <if test="dateStatus != null and dateStatus != ''">
+            and T2.DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+        </if>
+    </select>
+
+    <!-- 数据行   -->
+    <select id="countExportNum" parameterType="map" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            CHB_PRODUCTS_ASSET_COMPARE
+        <where>
+            1=1
+            <if test="dateStatus != null and dateStatus != ''">
+                and DATE_STATUS = STR_TO_DATE(#{dateStatus}, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <!-- 批   -->
+    <select id="getBatchLog" parameterType="java.lang.String" resultType="com.joyintech.tams.report.system.subinfobatchlog.dto.ChbSubinfoBatchLog">
+		select *
+		from chb_subinfo_batch_log
+		where task_id=#{taskId} and deal_status = '04'
+	</select>
+</mapper>

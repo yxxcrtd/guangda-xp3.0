@@ -1,0 +1,66 @@
+--交易对手管理功能
+
+DELETE FROM SYS_MENU where PAGE_ID = 'ComTradeOpponent001';
+insert into SYS_MENU (MENU_ID, SYSTEM_CODE, ICON, PARENT_MENU_ID, PAGE_ID, ORDER_NO, IS_SPREAD, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+values ('ASSET_MANAGEMENT_001_004_008', 'COM', null, 'ASSET_MANAGEMENT_001_004', 'ComTradeOpponent001', 8, '2', '交易对手管理', 'system', null, sysdate, 'system', sysdate);
+
+DELETE FROM SYS_PAGE where PAGE_ID = 'ComTradeOpponent001';
+DELETE FROM SYS_PAGE where PAGE_ID = 'ComTradeOpponent002';
+insert into SYS_PAGE (PAGE_ID, SYSTEM_CODE, PAGE_URL, PAGE_FILE, MENU_ID, HEIGHT, WIDTH, IS_HP_SELECT, IS_NEED_WORKFLOW, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+values ('ComTradeOpponent001', 'COM', '/valuation/basicdata/comtradeopponent/ComTradeOpponent001', 'valuation/basicdata/comtradeopponent/ComTradeOpponent001', 'ASSET_MANAGEMENT_001_004_008', null, null, '02', '02', '交易对手管理', 'system', null, sysdate, 'system', sysdate);
+insert into SYS_PAGE (PAGE_ID, SYSTEM_CODE, PAGE_URL, PAGE_FILE, MENU_ID, HEIGHT, WIDTH, IS_HP_SELECT, IS_NEED_WORKFLOW, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME)
+values ('ComTradeOpponent002', 'COM', '/valuation/basicdata/comtradeopponent/ComTradeOpponent002', 'valuation/basicdata/comtradeopponent/ComTradeOpponent002', null, null, null, '02', '01', '交易对手管理', 'system', null, sysdate, 'system', sysdate);
+
+DELETE FROM SYS_PAGE_DICTLIST where PAGE_ID = 'ComTradeOpponent001';
+DELETE FROM SYS_PAGE_DICTLIST where PAGE_ID = 'ComTradeOpponent002';
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent001', '999999', 'COUNTER_TYPE', '01', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent001', '999999', 'COUNTER_TYPE', '02', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent001', '999999', 'COUNTER_TYPE', '04', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent001', '999999', 'COUNTER_TYPE', '05', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent001', '999999', 'COUNTER_TYPE', '06', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'BASIS', 'A/360', null, null, 'system', null, sysdate, 'system',sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'BASIS', 'A/365', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'COUNTER_TYPE', '01', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'COUNTER_TYPE', '02', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'COUNTER_TYPE', '04', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'COUNTER_TYPE', '05', null, null, 'system', null, sysdate, 'system', sysdate, null);
+insert into SYS_PAGE_DICTLIST (PAGE_ID, SUB_PAGE_ID, DICT_ID, DICT_ITEM_VAL, DICT_ITEM_VAL_CNNAME, DICT_ITEM_VAL_DEFAULT, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE)
+values ('ComTradeOpponent002', '999999', 'COUNTER_TYPE', '06', null, null, 'system', null, sysdate, 'system', sysdate, null);
+
+DELETE FROM SYS_PAGE_ELEMENT where PAGE_ID = 'ComTradeOpponent001';
+DELETE FROM SYS_PAGE_ELEMENT where PAGE_ID = 'ComTradeOpponent002';
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent001', 'ComTradeOpponent001_TBLROW_edit', '01', '01', null, '编辑', 'system', null, sysdate, 'system', sysdate, 'C');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent001', 'ComTradeOpponent001_btn_add', '01', '01', null, '新建', 'system', null, sysdate, 'system', sysdate, 'C');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent001', 'ComTradeOpponent001_btn_delete', '01', '01', null, '删除', 'system', null, sysdate, 'system', sysdate, 'C');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent001', 'ComTradeOpponent001_btn_export', '01', '01', null, '导出', 'system', null, sysdate, 'system', sysdate, 'COM');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent001', 'ComTradeOpponent001_btn_reset', '01', '02', null, '重置', 'system', null, sysdate, 'system', sysdate, 'C');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent001', 'ComTradeOpponent001_btn_search', '01', '01', null, '查询', 'system', null, sysdate, 'system', sysdate, 'COM');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent002', 'ComTradeOpponent002_btn_save', '01', '02', null, '保存', 'system', null, sysdate, 'system', sysdate, 'C');
+insert into SYS_PAGE_ELEMENT (PAGE_ID, ELEMENT_ID, ELEMENT_TYPE, IS_CONTROL, TRANSFER_PAGE_ID, REMARK, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, ADMIN_FLAG)
+values ('ComTradeOpponent002', 'ComTradeOpponent002_btn_submit', '01', '02', null, '提交', 'system', null, sysdate, 'system', sysdate, 'C');
+
+DELETE FROM SYS_WFL_BUSINESS_MODULE where PAGE_ID = 'ComTradeOpponent002';
+insert into SYS_WFL_BUSINESS_MODULE (PAGE_ID, ELEMENT_ID, MODULE_ID, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE, IS_SEND_UORG)
+values ('ComTradeOpponent002', 'ComTradeOpponent001_btn_delete', 'noneApproval', 'system', null, sysdate, 'system', sysdate, 'ALL', '02');
+insert into SYS_WFL_BUSINESS_MODULE (PAGE_ID, ELEMENT_ID, MODULE_ID, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE, IS_SEND_UORG)
+values ('ComTradeOpponent002', 'ComTradeOpponent002_btn_save', 'noneApproval', 'system', null, sysdate, 'system', sysdate, 'ALL', '02');
+insert into SYS_WFL_BUSINESS_MODULE (PAGE_ID, ELEMENT_ID, MODULE_ID, CREATE_USER, CREATE_DEPT, CREATE_TIME, UPDATE_USER, UPDATE_TIME, INSTITUTION_CODE, IS_SEND_UORG)
+values ('ComTradeOpponent002', 'ComTradeOpponent002_btn_submit', 'noneApproval', 'system', null, sysdate, 'system', sysdate, 'ALL', '02');

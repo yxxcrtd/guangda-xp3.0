@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook filePath="ZG07PbcColLoanDetailSub001.xls" name="除回购和拆借外贷款明细信息(ZG07)">
+	<Worksheet javaBean="com.joyintech.tams.svreport.pbc.classic.zg07pbccolloandetailsub.dto.ZG07PbcColLoanDetailSubDto">
+		<Row>
+			<Cell order="1" name="产品代码">pbcProdId</Cell>
+			<Cell order="2" name="贷款种类">loansType</Cell>
+			<Cell order="3" name="贷款转让方机构代码">loanTransferorId</Cell>
+			<Cell order="4" name="贷款合同原始发放机构代码">loanContractOrgId</Cell>
+			<Cell order="5" name="贷款合同原始发放机构所在地代码">loanContractOrgCode</Cell>
+			<Cell order="6" name="借款人类型">borrowerType</Cell>
+			<Cell order="7" name="地区代码">borrowerCounty</Cell>
+			<Cell order="8" name="借款人代码">borrowerId</Cell>
+			<Cell order="9" name="行业信息">industryInfo</Cell>
+			<Cell order="10" name="企业出资人经济成分">enterpriseInvestorType</Cell>
+			<Cell order="11" name="企业规模">enterpriseScale</Cell>
+			<Cell order="12" name="贷款借据编码">loanBasisId</Cell>
+			<Cell order="13" name="贷款产品类别">loanPrdType</Cell>
+			<Cell order="14" name="贷款实际投向">loanActualInvest</Cell>
+			<Cell order="15" name="贷款发放日期">loanVdateStr</Cell>
+			<Cell order="16" name="贷款到期日期">loanMdateStr</Cell>
+			<Cell order="17" name="贷款展期到期日期">loanExtensionDueDateStr</Cell>
+			<Cell order="18" name="利率是否固定">rateFixed</Cell>
+			<Cell order="19" name="利率水平">rateLevelStr</Cell>
+			<Cell order="20" name="贷款担保方式">loanGuaranteeMode</Cell>
+			<Cell order="21" name="贷款质量">loanQuality</Cell>
+			<Cell order="22" name="贷款状态">loanState</Cell>
+			<Cell order="23" name="贷款转让折扣率">loanTransferorRateStr</Cell>
+			<Cell order="24" name="原始合同币种">origCcy</Cell>
+			<Cell order="25" name="原始合同金额">origContractAmountStr</Cell>
+			<Cell order="26" name="原始合同金额折人民币">origContractAmountCnyStr</Cell>
+			<Cell order="27" name="贷款余额币种">amtCcy</Cell>
+			<Cell order="28" name="贷款余额">contractAmountStr</Cell>
+			<Cell order="29" name="贷款余额折人民币">contractAmountCnyStr</Cell>
+		</Row>
+	</Worksheet>
+</Workbook>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dao.ChbFinanceProductsSubInterfMapper" >
+
+
+
+
+	<select id="selectProducts" resultType="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub">
+		SELECT
+			'1'						AS statusBatch,
+        	T1.PROD_ID              AS prodId,
+        	T1.PROD_NAME            AS prodName,
+        	'表外'					AS surfaceInOut,
+        	'阳光理财'				AS prodBrand,
+        	ifnull(T1.PROD_STAGE,0)    AS prodStage,
+        	T1.RAISE_CCY            AS raiseCcy,
+		    T1.COOPERATION_NAME     AS cooperationName,
+       		T1.RAISE_AMT_PLAN       AS raiseAmtPlan,
+        	T1.SALE_AMT_STR         AS saleAmtStr,
+        	T1.RAISE_VDATE          AS raiseVdate,
+        	T1.RAISE_ENDDATE        AS raiseEnddate,
+        	T1.CASH_PRIN_CCY        AS cashPrinCcy,
+        	T1.CASH_PROF_CCY        AS cashProfCcy,
+       		T1.VDATE                AS vdate,
+        	T1.MDATE                AS mdate,
+        	T1.LOW_YIELD            AS lowYield,
+        	T1.HIGH_YIELD           AS highYield,
+        	T1.IS_CONSTRACTE        AS isConstracte,
+        	T1.RISK_LEVEL         	AS riskLevel,
+        	'银行'					AS prodManagePattern,
+			T1.CONT_MODE            AS contMode,
+        	T1.PROFIT_TYPE          AS profitType,
+        	'全国'					AS prodSalebankName,
+        	T1.OPERATE_MODE         AS operateMode,
+        	T1.CMMODE               AS cmmode,
+       		T1.TERM_RIGHT_FLAG      AS termRightFlag,
+        	T1.SALE_TYPE     		AS invAssetType,
+        	T1.CUSTOMER_TYPE        AS customerType,
+        	T1.INVEST_ARAE          AS investArae,
+        	'91110000100011743X'    AS bankMark ,
+        	STR_TO_DATE(#{batchDateEnd,jdbcType=VARCHAR},'%Y-%m-%d')	AS dateStatus,
+		    DATA_SOURCE				AS groupId
+        FROM
+        	CHB_PRD_BASEINFO T1
+        WHERE
+        	T1.STATUS != 'D'
+	</select>
+
+	<!--实际募集金额汇总-->
+	<select id="selectAmountTotal"  resultType="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub">
+		select
+			T1.PROD_ID AS prodId,
+			T1.CCY As ccy,
+	    	sum(T1.TRADE_PRINCE)   totalAmt
+		FROM
+	        CHB_PRD_DEAL T1
+		join
+	        CHB_PRD_BASEINFO T2
+	    on
+	    	T1.PROD_ID=T2.PROD_ID
+		where
+	        T1.TRADE_TYPE='01'
+	    GROUP BY T1.PROD_ID,T1.CCY
+	</select>
+
+
+	<select id="checkIsCounted" parameterType="java.lang.String" resultType="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub">
+        SELECT
+            REGIST_SEQNO AS registSeqno
+        FROM
+            CHB_FINANCE_PRODUCTS_SUB
+        WHERE
+            DATE_STATUS = STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+    </select>
+
+	<!--删除表-->
+	<delete id="deleteProducts" parameterType="java.lang.String">
+		DELETE
+		FROM
+		   CHB_FINANCE_PRODUCTS_SUB
+		WHERE
+		   DATE_STATUS =STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+	</delete>
+
+
+	<insert id="insertIntoReport"
+			parameterType="com.joyintech.tams.svreport.gd.report.chbfinanceproductssub.dto.ChbFinanceProductsSub">
+		insert into CHB_FINANCE_PRODUCTS_SUB (
+		REGIST_SEQNO,STATUS_BATCH,PROD_ID,
+		PROD_NAME,
+		SURFACE_IN_OUT,
+		PROD_BRAND,
+		PROD_STAGE,
+		RAISE_CCY,
+		RAISE_AMT_PLAN,
+		TOTAL_AMT,
+		SALE_AMT_STR,
+		RAISE_VDATE,
+		RAISE_ENDDATE,
+		CASH_PRIN_CCY,
+		CASH_PROF_CCY,
+		VDATE,
+		MDATE,
+		LOW_YIELD,
+		HIGH_YIELD,
+		IS_CONSTRACTE,
+		RISK_LEVEL,
+		PROD_MANAGE_PATTERN,
+		CONT_MODE,
+		PROFIT_TYPE,
+		PROD_SALEBANK_NAME,
+		OPERATE_MODE,
+		CMMODE,
+		TERM_RIGHT_FLAG,
+		COOPERATION_NAME,
+		INV_ASSET_TYPE,
+		CUSTOMER_RISK_LEVEL,
+		CUSTOMER_TYPE,
+		INVEST_ARAE,
+		REMARK,
+		BANK_MARK,
+		DATE_STATUS,
+		GROUP_ID,
+		STATUS,
+		CREATE_USER,
+		ORG_CODE,
+		CREATE_DEPT,
+		CREATE_TIME,
+		UPDATE_USER,
+		UPDATE_TIME
+		)
+		select A.*
+		from (
+		<foreach collection="List" index="index" item = "item" separator=" UNION ALL ">
+			select
+			#{item.registSeqno,jdbcType=VARCHAR} AS REGIST_SEQNO,
+			#{item.statusBatch,jdbcType=VARCHAR} AS STATUS_BATCH,
+			#{item.prodId,jdbcType=VARCHAR} AS PROD_ID,
+			#{item.prodName,jdbcType=VARCHAR} AS PROD_NAME,
+			#{item.surfaceInOut,jdbcType=VARCHAR} AS SURFACE_IN_OUT,
+			#{item.prodBrand,jdbcType=VARCHAR} AS PROD_BRAND,
+			#{item.prodStage,jdbcType=VARCHAR} AS PROD_STAGE,
+			#{item.raiseCcy,jdbcType=VARCHAR} AS RAISE_CCY,
+			#{item.raiseAmtPlan,jdbcType=DECIMAL} AS RAISE_AMT_PLAN,
+			#{item.totalAmt,jdbcType=DECIMAL} AS TOTAL_AMT,
+			#{item.saleAmtStr,jdbcType=DECIMAL} AS SALE_AMT_STR,
+			#{item.raiseVdate,jdbcType=DATE} AS RAISE_VDATE,
+			#{item.raiseEnddate,jdbcType=DATE} AS RAISE_ENDDATE,
+			#{item.cashPrinCcy,jdbcType=VARCHAR} AS CASH_PRIN_CCY,
+			#{item.cashProfCcy,jdbcType=VARCHAR} AS CASH_PROF_CCY,
+			#{item.vdate,jdbcType=DATE} AS VDATE,
+			#{item.mdate,jdbcType=DATE} AS MDATE,
+			#{item.lowYield,jdbcType=DECIMAL} AS LOW_YIELD,
+			#{item.highYield,jdbcType=DECIMAL} AS HIGH_YIELD,
+			#{item.isConstracte,jdbcType=VARCHAR} AS IS_CONSTRACTE,
+			#{item.riskLevel,jdbcType=VARCHAR} AS RISK_LEVEL,
+			#{item.prodManagePattern,jdbcType=VARCHAR} AS PROD_MANAGE_PATTERN,
+			#{item.contMode,jdbcType=VARCHAR} AS CONT_MODE,
+			#{item.profitType,jdbcType=VARCHAR} AS PROFIT_TYPE,
+			#{item.prodSalebankName,jdbcType=VARCHAR} AS PROD_SALEBANK_NAME,
+			#{item.operateMode,jdbcType=VARCHAR} AS OPERATE_MODE,
+			#{item.cmmode,jdbcType=VARCHAR} AS CMMODE,
+			#{item.termRightFlag,jdbcType=VARCHAR} AS TERM_RIGHT_FLAG,
+			#{item.cooperationName,jdbcType=VARCHAR} AS COOPERATION_NAME,
+			#{item.invAssetType,jdbcType=VARCHAR} AS INV_ASSET_TYPE,
+			#{item.customerRiskLevel,jdbcType=VARCHAR} AS CUSTOMER_RISK_LEVEL,
+			#{item.customerType,jdbcType=VARCHAR} AS CUSTOMER_TYPE,
+			#{item.investArae,jdbcType=VARCHAR} AS INVEST_ARAE,
+			#{item.remark,jdbcType=VARCHAR} AS REMARK,
+			#{item.bankMark,jdbcType=VARCHAR} AS BANK_MARK,
+			#{item.dateStatus,jdbcType=DATE} AS DATE_STATUS,
+			#{item.groupId,jdbcType=VARCHAR} AS GROUP_ID,
+			#{item.status,jdbcType=VARCHAR} AS STATUS,
+			#{item.createUser,jdbcType=VARCHAR} AS CREATE_USER,
+			#{item.orgCode,jdbcType=VARCHAR} AS ORG_CODE,
+			#{item.createDept,jdbcType=VARCHAR} AS CREATE_DEPT,
+			#{item.createTime,jdbcType=TIMESTAMP} AS CREATE_TIME,
+			#{item.updateUser,jdbcType=VARCHAR} AS UPDATE_USER,
+			#{item.updateTime,jdbcType=TIMESTAMP} AS UPDATE_TIME
+			from dual
+		</foreach>
+		) A
+	</insert>
+
+
+
+</mapper>

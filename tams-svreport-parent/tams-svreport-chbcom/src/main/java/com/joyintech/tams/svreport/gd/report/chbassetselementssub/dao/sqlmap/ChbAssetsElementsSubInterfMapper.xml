@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.joyintech.tams.svreport.gd.report.chbassetselementssub.dao.ChbAssetsElementsSubInterfMapper" >
+
+
+    <select id="selectProducts" resultType="com.joyintech.tams.svreport.gd.report.chbassetselementssub.dto.ChbAssetsElementsSub">
+        SELECT
+    A.ASSET_CODE         AS assetId,
+    A.ASSET_NAME         AS assetName,
+	A.VDATE              AS vDate,
+	A.MDATE              AS mDate,
+    A.ORG_ASSET_TYPE1    AS orgAssetType1,
+    A.CHB_ISSUER_ID      AS chbIssuerId,
+    A.CHB_FINANCIER_ID   AS chbFinancierId,
+	A.ASSET_TYPE2	     AS informationAssetsId,
+    A.CHB_MANAGER_ID     AS chbManagerId,
+    A.ASSET_TYPE2        AS assetType2,
+    B.TDY_COST_AMT       AS holdQtyAmount,
+    B.TDY_COST_AMT       AS holdAmount,
+    A.CCY                AS ccy,
+    0                    AS onPassageAmt,
+    '1018'               AS orgId,
+    '91110000100011743X' AS bankMark,
+    STR_TO_DATE(#{batchDateEnd,jdbcType=VARCHAR},'%Y-%m-%d')			AS	dateStatus,
+    A.DATA_SOURCE        AS groupId
+FROM
+    CHB_ASSET_INFO A
+LEFT JOIN
+    (
+        SELECT
+            basis.ASSET_ID,
+            SUM(basis.POS_AMT),
+            SUM(basis.TDY_COST_AMT) AS TDY_COST_AMT
+        FROM
+            (
+                SELECT
+                    temp.ASSET_ID     AS ASSET_ID,
+                    temp.POS_AMT      AS POS_AMT ,
+                    temp.TDY_COST_AMT AS TDY_COST_AMT
+                FROM
+                    (
+                        SELECT
+                            PROD_ID,
+                            ASSET_ID,
+                            POS_AMT,
+                            TDY_COST_AMT,
+                            ROW_NUMBER() over( partition BY PROD_ID,ASSET_ID ORDER BY VALUE_DATE
+                            DESC ) monthMarkNo
+                        FROM
+                            CHB_ASSETS_BASIS_DATA
+                        WHERE
+                            STATUS !='D') temp
+                WHERE
+                    temp.monthMarkNo=1) basis
+        GROUP BY
+            basis.ASSET_ID) B
+ON
+    A.ASSET_CODE=B.ASSET_ID
+WHERE
+    A.STATUS != 'D'
+	</select>
+
+	<select id="selectTrade" resultType="com.joyintech.tams.svreport.gd.report.chbassetselementssub.dto.ChbAssetsElementsSub">
+		SELECT
+			distinct ASSET_CODE AS assetCode,
+			TRADE_COUNTER	As tradeCounter
+		FROM
+			CHB_INVEST_TRADE
+	</select>
+
+	<select id="selectMarket" resultType="com.joyintech.tams.svreport.gd.report.chbassetselementssub.dto.ChbAssetsElementsSub">
+		SELECT
+			CUSTOMER_ID  AS customerId,
+			INDUSTRY2	AS industry2
+		FROM
+			MST_CUSTOMER_INFO_ADD
+	</select>
+
+	<!--删除表-->
+	<delete id="deleteProducts" parameterType="java.lang.String">
+		DELETE FROM
+		CHB_ASSETS_ELEMENTS_SUB
+		WHERE
+		DATE_STATUS =STR_TO_DATE(#{batchDateEnd},'%Y-%m-%d')
+	</delete>
+
+	<insert id="insertIntoReport"
+			parameterType="com.joyintech.tams.svreport.gd.report.chbassetselementssub.dto.ChbAssetsElementsSub">
+		insert into CHB_ASSETS_ELEMENTS_SUB (REGIST_SEQNO, STATUS_BATCH, ASSET_ID,
+		ASSET_NAME, INFORMATION_ASSETS_ID, ASSET_FLAG,
+		FINANCIER_NAME, INDUSTRY_ID, CCY,
+		HOLD_AMOUNT, ON_PASSAGE_AMT, HOLD_QTY_AMOUNT,
+		BONDSMAN, FUNDS_USE_REMARK, PAYMENT_REMARK,
+		ORG_ID, BANK_MARK, DATE_STATUS,
+		GROUP_ID, CREATE_USER, ORG_CODE,
+		CREATE_DEPT, CREATE_TIME, UPDATE_USER,
+		UPDATE_TIME)
+		select A.*
+		from (
+		<foreach collection="List" index="index" item = "item" separator=" UNION ALL ">
+			select
+			#{item.registSeqno,jdbcType=VARCHAR} AS REGIST_SEQNO, #{item.statusBatch,jdbcType=VARCHAR} AS STATUS_BATCH, #{item.assetId,jdbcType=VARCHAR} AS ASSET_ID,
+			#{item.assetName,jdbcType=VARCHAR} AS ASSET_NAME, #{item.informationAssetsId,jdbcType=VARCHAR} AS INFORMATION_ASSETS_ID, #{item.assetFlag,jdbcType=VARCHAR} AS ASSET_FLAG,
+			#{item.financierName,jdbcType=VARCHAR} AS FINANCIER_NAME, #{item.industryId,jdbcType=VARCHAR} AS INDUSTRY_ID, #{item.ccy,jdbcType=VARCHAR} AS CCY,
+			#{item.holdAmount,jdbcType=DECIMAL} AS HOLD_AMOUNT, #{item.onPassageAmt,jdbcType=DECIMAL} AS ON_PASSAGE_AMT, #{item.holdQtyAmount,jdbcType=DECIMAL} AS HOLD_QTY_AMOUNT,
+			#{item.bondsman,jdbcType=VARCHAR} AS BONDSMAN, #{item.fundsUseRemark,jdbcType=VARCHAR} AS FUNDS_USE_REMARK, #{item.paymentRemark,jdbcType=VARCHAR} AS PAYMENT_REMARK,
+			#{item.orgId,jdbcType=VARCHAR} AS ORG_ID, #{item.bankMark,jdbcType=VARCHAR} AS BANK_MARK, #{item.dateStatus,jdbcType=DATE} AS DATE_STATUS,
+			#{item.groupId,jdbcType=VARCHAR} AS GROUP_ID, #{item.createUser,jdbcType=VARCHAR} AS CREATE_USER, #{item.orgCode,jdbcType=VARCHAR} AS ORG_CODE,
+			#{item.createDept,jdbcType=VARCHAR} AS CREATE_DEPT, now() AS CREATE_TIME, #{item.updateUser,jdbcType=VARCHAR} AS UPDATE_USER,
+			now() AS UPDATE_TIME
+			from dual
+		</foreach>
+		) A
+	</insert>
+
+
+
+</mapper>
